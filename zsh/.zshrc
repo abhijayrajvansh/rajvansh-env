@@ -11,7 +11,7 @@ alias lkk='clear'
 alias la='ls -l'
 alias app='python app.py'
 alias oo='open .'
-alias dk='cd /Users/abhijayrajvansh/Desktop'
+
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
@@ -29,25 +29,25 @@ alias launch='npm i && npm start'
 
 
 
+#direcotry
+alias dk='cd /Users/abhijayrajvansh/Desktop'
+alias my-env='cd /Users/abhijayrajvansh/Desktop/Programming-Environment-2024'
+
+
 # Zsh configfunctions and Commandline:-
 alias zshrc='code /Users/abhijayrajvansh/.zshrc'
 
-
-update-zsh () {
-    cp -r /Users/abhijayrajvansh/.config/.zshrc/ /Users/abhijayrajvansh/Desktop/Programming-Environment-2024/zsh/
-    /Users/abhijayrajvansh/Desktop/Programming-Environment-2024
-    git add zsh
-    git commit -m "udpating .zshrc"
-    git push
-}
-
-push-zsh () {
-    root
-    cp -r /User
-}
 
 gitpush () {
     git add .
     git commit -m "updating and debugging repository"
     git push
 }
+
+push-zsh () {
+    #copying local zsh into remote repo
+    cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Desktop/Programming-Environment-2024/zsh 
+    my-env
+    gitpush
+}
+
