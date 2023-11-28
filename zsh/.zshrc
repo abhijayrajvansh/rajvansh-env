@@ -30,7 +30,7 @@ alias launch='npm i && npm start'
 
 
 # Zsh configfunctions and Commandline:-
-alias zshrc='code /Users/abhijayrajvansh/.config/.zshrc'
+alias zshrc='code /Users/abhijayrajvansh/.zshrc'
 
 
 update-zsh () {
@@ -38,5 +38,16 @@ update-zsh () {
     /Users/abhijayrajvansh/Desktop/Programming-Environment-2024
     git add zsh
     git commit -m "udpating .zshrc"
+    git push
+}
+
+push-zsh () {
+    root
+    cp -r /User
+}
+
+gitpush () {
+    git add .
+    git commit -m "updating and debugging repository"
     git push
 }
