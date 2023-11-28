@@ -3,8 +3,6 @@ set fish_greeting
 if status is-interactive
     #   here goes startup message
     alias getcontrol='fish /Users/abhijayrajvansh/.config/fish/greetme.fish'
-
-    
     
     # Custom Functions:- version update and shortcuts:-
     alias root='cd /Users/abhijayrajvansh'
@@ -35,24 +33,22 @@ if status is-interactive
     # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-    # Fish functions and Commandline:-
-    alias fish-c='code /Users/abhijayrajvansh/.config/fish/config.fish'
 
+
+    
+    # Fish functions and Commandline:-
     function fish_prompt
         set -l prompt_symbol '$: '
         echo (set_color --bold green)'abhijay@macbook'(set_color --italic green)(prompt_pwd) \
         (set_color --bold white)$prompt_symbol(set_color normal)
     end
+
+    alias fish-c='code /Users/abhijayrajvansh/.config/fish/config.fish'
     
     function push-fish
         cp -r /Users/abhijayrajvansh/.config/fish/ /Users/abhijayrajvansh/Desktop/Programming-Environment-2024//fish/
-        /Users/abhijayrajvansh/Desktop/Programming-Environment-2024
-        git add fish
-        git commit -m "udpating fish"
-        git push
-    end
-    
+        
+
     # Startup commands
     #write 'dk' for jumping to desktop
-    
 end
