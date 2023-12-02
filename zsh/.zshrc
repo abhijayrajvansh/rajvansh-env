@@ -40,7 +40,7 @@ alias zshrc='code /Users/abhijayrajvansh/.zshrc'
 
 gitpush () {
     git add .
-    git commit -m "updating and debugging repository"
+    git commit -m "$1"
     git push
 }
 
