@@ -26,6 +26,7 @@ alias hidedesktop='defaults write com.apple.finder CreateDesktop false;killall F
 
 #Development
 alias launch='npm i && npm start'
+alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/week_0-warm-up'
 
 
 
@@ -48,6 +49,6 @@ push-zsh () {
     #copying local zsh into remote repo
     cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Desktop/Programming-Environment-2024/zsh 
     my-env
-    gitpush
+    gitpush 'updating zsh config'
 }
 
