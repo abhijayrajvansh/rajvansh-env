@@ -26,7 +26,7 @@ alias hidedesktop='defaults write com.apple.finder CreateDesktop false;killall F
 
 #Development
 alias launch='npm i && npm start'
-alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/week_0-warm-up'
+alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
 
 
 
