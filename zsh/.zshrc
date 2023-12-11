@@ -30,8 +30,9 @@ alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
 
 
 
-#direcotry
+#directory
 alias dk='cd /Users/abhijayrajvansh/Desktop'
+alias doc='cd /Users/abhijayrajvansh/Documents'
 alias my-env='cd /Users/abhijayrajvansh/Desktop/Programming-Environment-2024'
 
 
