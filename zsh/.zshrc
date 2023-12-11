@@ -12,6 +12,9 @@ alias la='ls -l'
 alias app='python app.py'
 alias oo='open .'
 
+# Author's Local Custom
+alias download-cohort-assignment='dk && git clone https://github.com/100xdevs-cohort-2/assignments.git'
+
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
@@ -20,14 +23,13 @@ alias showdesktop='defaults write com.apple.finder CreateDesktop true;killall Fi
 alias hidedesktop='defaults write com.apple.finder CreateDesktop false;killall Finder'  
 
 # Node Version Manager
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
 
 #Development
 alias launch='npm i && npm start'
 alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
-
 
 
 #directory
