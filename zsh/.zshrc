@@ -32,7 +32,8 @@ alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
 
 #directory
 alias dk='cd /Users/abhijayrajvansh/Desktop'
-alias doc='cd /Users/abhijayrajvansh/Documents'
+alias documents='cd /Users/abhijayrajvansh/Documents'
+alias development='cd /Users/abhijayrajvansh/Development'
 alias movies='cd /Users/abhijayrajvansh/Movies'
 alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
 alias my-env='cd /Users/abhijayrajvansh/Desktop/Programming-Environment-2024'
@@ -54,4 +55,3 @@ push-zsh () {
     my-env
     gitpush 'updating zsh config'
 }
-
