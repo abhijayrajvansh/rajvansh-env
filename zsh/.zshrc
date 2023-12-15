@@ -26,17 +26,16 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
 
 #Development
-alias launch='npm i && npm start'
 alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
 
 
-#directory
-alias dk='cd /Users/abhijayrajvansh/Desktop'
+#directories
+alias desktop='cd /Users/abhijayrajvansh/Desktop'
 alias documents='cd /Users/abhijayrajvansh/Documents'
 alias development='cd /Users/abhijayrajvansh/Development'
 alias movies='cd /Users/abhijayrajvansh/Movies'
 alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
-alias my-env='cd /Users/abhijayrajvansh/Desktop/Programming-Environment-2024'
+alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
 
 # Zsh configfunctions and Commandline:-
@@ -51,7 +50,7 @@ gitpush () {
 
 push-zsh () {
     #copying local zsh into remote repo
-    cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Desktop/Programming-Environment-2024/zsh 
+    cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh 
     my-env
     gitpush 'updating zsh config'
 }
