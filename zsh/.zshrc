@@ -43,7 +43,7 @@ alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
 alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
 
-# Functions:-
+# functions:-
 gitpush () {
     git add .
     git commit -m "$1"
