@@ -9,6 +9,7 @@ alias kk='clear'
 alias la='ls -l'
 alias app='python app.py'
 alias oo='open .'
+alias reload='kk && zsh'
 
 # Author's Local Custom
 alias download-cohort-assignment='dk && git clone https://github.com/100xdevs-cohort-2/assignments.git'
