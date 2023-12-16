@@ -44,6 +44,8 @@ alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
 
 # functions:-
+
+# git version control
 gpush () {
     git add .
     git commit -m "$1"
@@ -54,5 +56,5 @@ push-zsh () {
     #copying local zsh into remote repo
     cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh 
     my-env
-    gitpush 'updating zsh config'
+    gpush 'updating zsh config'
 }
