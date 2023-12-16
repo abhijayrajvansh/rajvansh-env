@@ -44,7 +44,7 @@ alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
 
 # functions:-
-gitpush () {
+gpush () {
     git add .
     git commit -m "$1"
     git push
