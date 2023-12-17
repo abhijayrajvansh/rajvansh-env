@@ -38,8 +38,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
 
-# development:-
+# developer:-
 alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
+
+# to create vite + react app
+
+react-init () {
+    npm create vite@latest ./
+}
 
 prg () {
     touch $1
