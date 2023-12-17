@@ -32,6 +32,11 @@ export NVM_DIR="$HOME/.nvm"
 # development:-
 alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
 
+prg () {
+    touch $1
+    code $1
+}
+
 
 #directories
 alias desktop='cd /Users/abhijayrajvansh/Desktop'
