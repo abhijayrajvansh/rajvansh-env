@@ -41,7 +41,7 @@ prg () {
 #directories
 alias desktop='cd /Users/abhijayrajvansh/Desktop'
 alias documents='cd /Users/abhijayrajvansh/Documents'
-alias development='cd /Users/abhijayrajvansh/Development'
+alias developer='cd /Users/abhijayrajvansh/Developer'
 alias projects='cd /Users/abhijayrajvansh/Projects'
 alias movies='cd /Users/abhijayrajvansh/Movies'
 alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
