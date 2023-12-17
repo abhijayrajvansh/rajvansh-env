@@ -14,9 +14,18 @@ alias reload='kk && zsh'
 # zsh configfunctions and Commandline:-
 alias zshrc='code /Users/abhijayrajvansh/.zshrc'
 
+push-zsh () {
+    #copying local zsh into remote repo
+    cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh 
+    my-env
+    gpush 'updating zsh config'
+}
+
 # author's Local Custom:-
 alias download-cohort-assignment='dk && git clone https://github.com/100xdevs-cohort-2/assignments.git'
 
+
+# launching applications
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
@@ -55,11 +64,4 @@ gpush () {
     git add .
     git commit -m "$1"
     git push
-}
-
-push-zsh () {
-    #copying local zsh into remote repo
-    cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh 
-    my-env
-    gpush 'updating zsh config'
 }
