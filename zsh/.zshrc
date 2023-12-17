@@ -21,12 +21,12 @@ gpush () {
     git push
 }
 
-push-zsh () {
-    #copying local zsh into remote repo
-    cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh 
-    my-env
-    gpush 'updating zsh config'
-}
+alias push-zsh="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
+
+# push-zsh () {
+#     #copying local zsh into remote repo
+    
+# }
 
 # author's Local Custom:-
 alias download-cohort-assignment='dk && git clone https://github.com/100xdevs-cohort-2/assignments.git'
@@ -66,3 +66,5 @@ prg () {
 react-init () {
     npm create vite@latest ./
 }
+
+desktop
