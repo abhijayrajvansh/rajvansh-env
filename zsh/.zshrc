@@ -14,6 +14,13 @@ alias reload='kk && zsh'
 # zsh configfunctions and Commandline:-
 alias zshrc='code /Users/abhijayrajvansh/.zshrc'
 
+# git version control
+gpush () {
+    git add .
+    git commit -m "$1"
+    git push
+}
+
 push-zsh () {
     #copying local zsh into remote repo
     cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh 
@@ -28,6 +35,15 @@ alias download-cohort-assignment='dk && git clone https://github.com/100xdevs-co
 # launching applications
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+#directories
+alias desktop='cd /Users/abhijayrajvansh/Desktop'
+alias documents='cd /Users/abhijayrajvansh/Documents'
+alias developer='cd /Users/abhijayrajvansh/Developer'
+alias projects='cd /Users/abhijayrajvansh/Projects'
+alias movies='cd /Users/abhijayrajvansh/Movies'
+alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
+alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
@@ -49,22 +65,4 @@ prg () {
 # to create vite + react app
 react-init () {
     npm create vite@latest ./
-}
-
-
-#directories
-alias desktop='cd /Users/abhijayrajvansh/Desktop'
-alias documents='cd /Users/abhijayrajvansh/Documents'
-alias developer='cd /Users/abhijayrajvansh/Developer'
-alias projects='cd /Users/abhijayrajvansh/Projects'
-alias movies='cd /Users/abhijayrajvansh/Movies'
-alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
-alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
-
-
-# git version control
-gpush () {
-    git add .
-    git commit -m "$1"
-    git push
 }
