@@ -10,6 +10,7 @@ alias la='ls -l'
 alias app='python app.py'
 alias oo='open .'
 alias reload='kk && zsh'
+alias ff='fzf'
 
 # zsh configfunctions and Commandline:-
 alias zshrc='code /Users/abhijayrajvansh/.zshrc'
