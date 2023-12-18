@@ -35,6 +35,7 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 alias desktop='cd /Users/abhijayrajvansh/Desktop'
 alias documents='cd /Users/abhijayrajvansh/Documents'
 alias developer='cd /Users/abhijayrajvansh/Developer'
+alias downloads='cd /Users/abhijayrajvansh/Downloads'
 alias projects='cd /Users/abhijayrajvansh/Projects'
 alias movies='cd /Users/abhijayrajvansh/Movies'
 alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
