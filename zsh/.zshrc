@@ -44,6 +44,9 @@ alias movies='cd /Users/abhijayrajvansh/Movies'
 alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
 alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
+# developer:-
+alias cohort='cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/'
+
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
 alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'  
@@ -53,8 +56,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
 
-# developer:-
-alias cohort='cd /Users/abhijayrajvansh/Desktop/100xdev-cohort-2.0/'
 
 prg () {
     touch $1
