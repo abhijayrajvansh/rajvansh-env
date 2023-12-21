@@ -26,7 +26,7 @@ gpush () {
 alias push-zsh="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
 
 # author's Local Custom:-
-alias download-cohort-assignment='dk && git clone https://github.com/100xdevs-cohort-2/assignments.git'
+alias download-cohort-assignment='desktop && git clone https://github.com/100xdevs-cohort-2/assignments.git'
 
 
 # launching applications
