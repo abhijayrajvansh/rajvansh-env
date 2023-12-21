@@ -17,7 +17,13 @@ alias zz='cd ..'
 alias zshrc='code /Users/abhijayrajvansh/.zshrc'
 
 # git version control
+
+removeJunk () {
+    rm .DS_Store
+}
+
 gpush () {
+    removeJunk
     git add .
     git commit -m "$1"
     git push
