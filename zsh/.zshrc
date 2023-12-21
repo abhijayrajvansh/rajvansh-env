@@ -45,6 +45,11 @@ alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
 alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
 # developer:-
+main () {
+    desktop
+    prg main.js
+}
+
 alias cohort='cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/'
 
 # to hide and reveal desktop icons (mac machines)
