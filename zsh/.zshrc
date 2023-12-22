@@ -1,7 +1,8 @@
 # alias and shortcuts:- 
 alias root='cd /Users/abhijayrajvansh'
-alias g++='g++-12'
-alias gcc='gcc-12'
+alias rr='root; reload'
+# rr -> root reload
+
 alias pip='pip3'
 alias python='python3'
 alias py='python'
@@ -51,6 +52,9 @@ alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
 alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
 
 # developer:-
+
+alias concepts='cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md'
+
 main () {
     desktop
     prg main.js
