@@ -56,6 +56,11 @@ main () {
     prg main.js
 }
 
+#debug
+deb () {
+    node "$1".js
+}
+
 alias cohort='cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/'
 
 # to hide and reveal desktop icons (mac machines)
