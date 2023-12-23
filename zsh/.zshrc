@@ -1,8 +1,11 @@
 # alias and shortcuts:- 
 alias root='cd /Users/abhijayrajvansh'
+alias reload='kk && source ~/.zshrc'
+# reload -> hot reload
 alias rr='root; reload'
 # rr -> root reload
 
+# zsh config
 alias pip='pip3'
 alias python='python3'
 alias py='python'
@@ -10,15 +13,24 @@ alias kk='clear'
 alias la='ls -l'
 alias app='python app.py'
 alias oo='open .'
-alias reload='kk && zsh'
 alias ff='fzf'
 alias zz='cd ..'
 
 # zsh configfunctions and Commandline:-
-alias zshrc='code /Users/abhijayrajvansh/.zshrc'
+alias zshrc='code ~/.zshrc'
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+zstyle ':vcs_info:git:*' formats '%b '
+
+setopt PROMPT_SUBST
+PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+
+# PROMPT='%n@%m %1~ %#'
+# Default ZSH PROMPT
 
 # git version control
-
 removeJunk () {
     rm .DS_Store
 }
