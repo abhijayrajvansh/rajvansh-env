@@ -1,9 +1,9 @@
 # alias and shortcuts:- 
 alias root='cd /Users/abhijayrajvansh'
-alias reload='kk && source ~/.zshrc'
-# reload -> hot reload
-alias rr='root; reload'
-# rr -> root reload
+alias rr='kk && source ~/.zshrc'
+# reload -> normal zshrc reload
+alias hrr='root; rr'
+# hrr -> hot reload
 
 # zsh config
 alias pip='pip3'
