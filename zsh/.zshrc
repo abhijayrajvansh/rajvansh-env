@@ -5,6 +5,7 @@ alias rr='kk && source ~/.zshrc'
 alias hrr='root; rr'
 # hrr -> hot reload
 
+
 # zsh config
 alias pip='pip3'
 alias python='python3'
@@ -103,4 +104,4 @@ react-init () {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-kk; echo "welcome to the root"
+kk; 
