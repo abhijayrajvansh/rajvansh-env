@@ -6,8 +6,6 @@ alias rr='kk && source ~/.zshrc'
 alias hrr='root; rr'
 # hrr -> hot reload
 
-
-
 # zsh config
 alias pip='pip3'
 alias python='python3'
@@ -70,7 +68,7 @@ alias my-env="cd /Users/\$(whoami)/Programming-Environment-2024"
 
 # developer:-
 
-alias concepts='cd /Users/\$(whoami)/Developer/software-engineering-concepts; code README.md'
+alias concepts="cd /Users/\$(whoami)/Developer/software-engineering-concepts; code README.md"
 
 main () {
     desktop
@@ -103,5 +101,4 @@ prg () {
 react-init () {
     npm create vite@latest ./
 }
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
