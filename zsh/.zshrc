@@ -1,5 +1,5 @@
 # alias and shortcuts:- 
-alias currUsername="echo Current user is: \$(whoami)"
+alias currUsername="echo New Session Started, Current User is: \$(whoami)"
 alias root="cd /Users/\$(whoami)"
 alias rr='kk && source ~/.zshrc'
 # reload -> normal zshrc reload
@@ -102,3 +102,4 @@ react-init () {
     npm create vite@latest ./
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+kk; currUsername; 
