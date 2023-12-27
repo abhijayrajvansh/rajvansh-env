@@ -1,9 +1,11 @@
 # alias and shortcuts:- 
-alias root='cd /Users/abhijayrajvansh'
+alias currUsername="echo Current user is: \$(whoami)"
+alias root="cd /Users/\$(whoami)"
 alias rr='kk && source ~/.zshrc'
 # reload -> normal zshrc reload
 alias hrr='root; rr'
 # hrr -> hot reload
+
 
 
 # zsh config
