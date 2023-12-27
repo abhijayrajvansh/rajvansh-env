@@ -46,7 +46,7 @@ gpush () {
     git push
 }
 
-alias push-zsh="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
+alias push-zsh="cp /users/\$(whoami)/.zshrc /Users/\$(whoami)/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
 
 # author's Local Custom:-
 alias download-cohort-assignment='desktop && git clone https://github.com/100xdevs-cohort-2/assignments.git'
@@ -57,20 +57,20 @@ alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/co
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 #directories
-alias desktop='cd /Users/abhijayrajvansh/Desktop'
-alias upwork='cd /Users/abhijayrajvansh/Upwork'
-alias archive='cd /Users/abhijayrajvansh/Archive'
-alias documents='cd /Users/abhijayrajvansh/Documents'
-alias developer='cd /Users/abhijayrajvansh/Developer'
-alias downloads='cd /Users/abhijayrajvansh/Downloads'
-alias projects='cd /Users/abhijayrajvansh/Developer/projects'
-alias movies='cd /Users/abhijayrajvansh/Movies'
-alias linkedin='cd /Users/abhijayrajvansh/Linkedin'
-alias my-env='cd /Users/abhijayrajvansh/Programming-Environment-2024'
+alias desktop="cd /Users/\$(whoami)/Desktop"
+alias upwork="cd /Users/\$(whoami)/Upwork"
+alias archive="cd /Users/\$(whoami)/Archive"
+alias documents="cd /Users/\$(whoami)/Documents"
+alias developer="cd /Users/\$(whoami)/Developer"
+alias downloads="cd /Users/\$(whoami)/Downloads"
+alias projects="cd /Users/\$(whoami)/Developer/projects"
+alias movies="cd /Users/\$(whoami)/Movies"
+alias linkedin="cd /Users/\$(whoami)/Linkedin"
+alias my-env="cd /Users/\$(whoami)/Programming-Environment-2024"
 
 # developer:-
 
-alias concepts='cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md'
+alias concepts='cd /Users/\$(whoami)/Developer/software-engineering-concepts; code README.md'
 
 main () {
     desktop
@@ -82,7 +82,7 @@ deb () {
     node "$1".js
 }
 
-alias cohort='cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/'
+alias cohort="cd /Users/\$(whoami)/Developer/100xdev-cohort-2.0/"
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
@@ -103,6 +103,5 @@ prg () {
 react-init () {
     npm create vite@latest ./
 }
-
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
