@@ -97,9 +97,5 @@ prg () {
     code $1
 }
 
-# to create vite + react app
-react-init () {
-    npm create vite@latest ./
-}
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 kk; currUsername; 
