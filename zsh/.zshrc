@@ -37,7 +37,7 @@ removeJunk () {
 
 gpush () {
     removeJunk
-    git status
+    echo "Log all updates before, git push!"
     git add .
     git status
     git commit -m "$1"
