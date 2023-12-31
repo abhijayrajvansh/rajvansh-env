@@ -61,7 +61,7 @@ alias archive="cd /Users/\$(whoami)/Archive"
 alias documents="cd /Users/\$(whoami)/Documents"
 alias developer="cd /Users/\$(whoami)/Developer"
 # developer targeted repository:
-alias masteringreact='cd /Users/abhijayrajvansh/Developer/react.js/masteringReactJS'
+alias react='cd /Users/abhijayrajvansh/Developer/react.js/'
 alias downloads="cd /Users/\$(whoami)/Downloads"
 alias projects="cd /Users/\$(whoami)/Developer/projects"
 alias movies="cd /Users/\$(whoami)/Movies"
