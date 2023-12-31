@@ -65,6 +65,7 @@ alias projects="cd /Users/\$(whoami)/Developer/projects"
 alias movies="cd /Users/\$(whoami)/Movies"
 alias linkedin="cd /Users/\$(whoami)/Linkedin"
 alias my-env="cd /Users/\$(whoami)/Programming-Environment-2024"
+alias webDevTricks="cd /Users/\$(whoami)/Developer/eBooks/webDevelopment"
 
 # developer:-
 
