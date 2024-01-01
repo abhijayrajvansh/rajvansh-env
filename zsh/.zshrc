@@ -68,6 +68,8 @@ alias movies="cd /Users/\$(whoami)/Movies"
 alias linkedin="cd /Users/\$(whoami)/Linkedin"
 alias my-env="cd /Users/\$(whoami)/Programming-Environment-2024"
 alias webDevTricks="cd /Users/\$(whoami)/Developer/eBooks/webDevelopment"
+alias eBooks="cd /Users/\$(whoami)/Developer/eBooks/"
+alias x='cd /Users/abhijayrajvansh/X'
 
 # developer:-
 
