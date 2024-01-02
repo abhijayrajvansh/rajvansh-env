@@ -35,6 +35,10 @@ removeJunk () {
     rm .DS_Store
 }
 
+# Github Custom
+
+alias gs='git status'
+
 gpush () {
     removeJunk
     echo "Log all updates before, git push!"
