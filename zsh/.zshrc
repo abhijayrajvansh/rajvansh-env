@@ -24,8 +24,8 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
 
-# PROMPT='%n@%m %1~ %#'
-# Default ZSH PROMPT
+# {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
+
 setopt PROMPT_SUBST
 PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
@@ -64,6 +64,7 @@ alias upwork="cd /Users/\$(whoami)/Upwork"
 alias archive="cd /Users/\$(whoami)/Archive"
 alias documents="cd /Users/\$(whoami)/Documents"
 alias developer="cd /Users/\$(whoami)/Developer"
+
 # developer targeted repository:
 alias react='cd /Users/abhijayrajvansh/Developer/react.js/'
 alias downloads="cd /Users/\$(whoami)/Downloads"
@@ -76,7 +77,6 @@ alias eBooks="cd /Users/\$(whoami)/Developer/eBooks/"
 alias x='cd /Users/abhijayrajvansh/X'
 
 # developer:-
-
 alias concepts="cd /Users/\$(whoami)/Developer/software-engineering-concepts; code README.md"
 
 main () {
