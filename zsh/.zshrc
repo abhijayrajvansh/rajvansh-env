@@ -12,7 +12,7 @@ alias python='python3'
 alias py='python'
 alias kk='clear' 
 # shows list by date modified   
-alias la='ls -l '
+alias la='ls -l -G'
 alias app='python app.py'
 alias oo='open .'
 alias ff='fzf'
