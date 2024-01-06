@@ -65,17 +65,19 @@ alias upwork="cd /Users/abhijayrajvansh/Upwork"
 alias archive="cd /Users/abhijayrajvansh/Archive"
 alias documents="cd /Users/abhijayrajvansh/Documents"
 alias developer="cd /Users/abhijayrajvansh/Developer"
-
-# developer targeted repository:
-alias react='cd /Users/abhijayrajvansh/Developer/react.js/'
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
-alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
 alias webDevTricks="cd /Users/abhijayrajvansh/Developer/eBooks/webDevelopment"
 alias eBooks="cd /Users/abhijayrajvansh/Developer/eBooks/"
 alias x='cd /Users/abhijayrajvansh/X'
+
+# developer targeted repository:
+alias react='cd /Users/abhijayrajvansh/Developer/react.js/'
+alias projects="cd /Users/abhijayrajvansh/Developer/projects"
+alias typescript='cd /Users/abhijayrajvansh/Developer/typescript'
+
 
 # developer:-
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
