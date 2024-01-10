@@ -7,7 +7,6 @@ alias hrr='root; rr'
 # hrr -> hot reload
 
 # zsh config
-alias pip='pip3'
 alias python='python3'
 alias py='python'
 alias kk='clear' 
