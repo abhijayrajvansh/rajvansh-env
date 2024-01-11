@@ -54,7 +54,7 @@ alias push-zsh="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programm
 
 # author's Local Custom:-
 alias download-cohort-assignment='desktop && git clone https://github.com/100xdevs-cohort-2/assignments.git'
-alias awwwards='cd /Users/abhijayrajvansh/Developer/projects/awwwards-template'
+alias awwwards='cd /Users/abhijayrajvansh/Developer/projects/awwwards-library'
 
 
 # launching applications
