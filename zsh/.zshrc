@@ -77,6 +77,7 @@ alias x='cd /Users/abhijayrajvansh/X'
 
 # developer targeted repository:
 alias react='cd /Users/abhijayrajvansh/Developer/react.js/'
+alias css='cd /Users/abhijayrajvansh/Developer/tailwindCSS'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias typescript='cd /Users/abhijayrajvansh/Developer/typescript'
 
