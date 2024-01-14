@@ -16,6 +16,7 @@ alias app='python app.py'
 alias oo='open .'
 alias ff='fzf'
 alias zz='cd ..'
+alias zzz='cd ../..'
 
 # zsh configfunctions and Commandline:-
 alias zshrc='code ~/.zshrc'
