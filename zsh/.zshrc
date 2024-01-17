@@ -4,7 +4,7 @@ alias root="cd /Users/abhijayrajvansh"
 alias rr='kk && source ~/.zshrc'
 # reload -> normal zshrc reload
 alias hrr='root; rr'
-# hrr -> hot reload
+# hrr -> for hot reload
 
 # zsh config
 alias python='python3'
