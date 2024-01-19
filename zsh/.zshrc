@@ -72,9 +72,6 @@ alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
-alias webDevTricks="cd /Users/abhijayrajvansh/Developer/eBooks/webDevelopment"
-alias eBooks="cd /Users/abhijayrajvansh/Developer/eBooks/"
-alias x='cd /Users/abhijayrajvansh/X'
 
 # developer targeted repository:
 alias react='cd /Users/abhijayrajvansh/Developer/react.js/'
