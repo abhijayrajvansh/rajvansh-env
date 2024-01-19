@@ -50,8 +50,6 @@ gpush () {
     git push
 }
 
-alias gp='gpush'
-
 alias push-zsh="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gp 'updating zsh config'"
 
 # author's Local Custom:-
