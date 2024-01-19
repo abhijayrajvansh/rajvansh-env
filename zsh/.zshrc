@@ -5,7 +5,7 @@ alias root="cd /Users/abhijayrajvansh"
 # reload -> normal zshrc refresh reload
 alias rr='kk && source ~/.zshrc'
 
-# hrr -> hot reload: refresh and root
+# hrr -> hot reload: refresh and goto root
 alias hrr='root; rr'
 
 # zsh config
@@ -27,7 +27,6 @@ alias zshrc='code ~/.zshrc'
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
-
 # {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
 
 setopt PROMPT_SUBST
