@@ -1,10 +1,12 @@
 # alias and shortcuts:- 
 alias currUsername="echo New Session Started, Current User is: abhijayrajvansh"
 alias root="cd /Users/abhijayrajvansh"
+
+# reload -> normal zshrc refresh reload
 alias rr='kk && source ~/.zshrc'
-# reload -> normal zshrc reload
+
+# hrr -> hot reload: refresh and root
 alias hrr='root; rr'
-# hrr -> for hot reload
 
 # zsh config
 alias python='python3'
