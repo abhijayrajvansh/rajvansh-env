@@ -2,7 +2,7 @@
 alias currUsername="echo New Session Started, Current User is: abhijayrajvansh"
 alias root="cd /Users/abhijayrajvansh"
 
-# reload -> normal zshrc refresh reload
+# reload: normal zshrc refresh reload
 alias rr='kk && source ~/.zshrc'
 
 # hrr -> hot reload: refresh and goto root
@@ -14,7 +14,7 @@ alias py='python'
 alias kk='clear' 
 
 # shows list by date modified   
-alias la='ls -al -G'
+alias la='ls -l -G'
 alias app='python app.py'
 alias oo='open .'
 alias ff='fzf'
