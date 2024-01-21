@@ -38,7 +38,7 @@ removeJunk () {
     rm .DS_Store
 }
 
-# Github Custom
+# Github aliases
 
 alias gs='git status'
 
