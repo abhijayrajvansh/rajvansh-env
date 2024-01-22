@@ -44,7 +44,6 @@ alias gs='git status'
 
 gpush () {
     removeJunk
-    echo "Log all updates before, git push!"
     git add .
     git status
     git commit -m "$1"
