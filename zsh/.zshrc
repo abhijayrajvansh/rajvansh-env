@@ -76,10 +76,9 @@ alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
 
-# developer targeted repository:
-alias react='cd /Users/abhijayrajvansh/Developer/react.js/'
-alias css='cd /Users/abhijayrajvansh/Developer/tailwindCSS'
-alias typescript='cd /Users/abhijayrajvansh/Developer/typescript'
+# Github Repository
+alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
+
 
 
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
