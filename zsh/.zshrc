@@ -73,6 +73,7 @@ alias developer="cd /Users/abhijayrajvansh/Developer"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
+alias github='cd /Users/abhijayrajvansh/Github'
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
 
 # developer targeted repository:
