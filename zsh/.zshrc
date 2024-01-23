@@ -3,10 +3,11 @@ alias currUsername="echo New Session Started, Current User is: abhijayrajvansh"
 alias root="cd /Users/abhijayrajvansh"
 
 # reload: normal zshrc refresh reload
-alias rr='kk && source ~/.zshrc'
+alias reload='kk && source ~/.zshrc'
+
 
 # hrr -> hot reload: refresh and goto root
-alias hrr='root; rr'
+alias hrr='root; reload'
 
 # zsh config
 alias python='python3'
@@ -49,6 +50,8 @@ gpush () {
     git commit -m "$1"
     git push
 }
+
+alias gp='gpush'
 
 alias push-zsh="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
 
