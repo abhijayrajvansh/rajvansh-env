@@ -59,7 +59,6 @@ setopt PROMPT_SUBST
 PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
 # abhijayrajvansh's Local dir
-alias download-cohort-assignment='desktop && git clone https://github.com/100xdevs-cohort-2/assignments.git'
 alias awwwards='cd /Users/abhijayrajvansh/Developer/projects/awwwards-library'
 
 
@@ -69,16 +68,19 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 
 #directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
-alias upwork="cd /Users/abhijayrajvansh/Upwork"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias documents="cd /Users/abhijayrajvansh/Documents"
-alias developer="cd /Users/abhijayrajvansh/Developer"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
-alias github='cd /Users/abhijayrajvansh/Github'
+alias pics='cd /Users/abhijayrajvansh/Pictures'
+
+# productivity
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
+alias developer="cd /Users/abhijayrajvansh/Developer"
+alias github='cd /Users/abhijayrajvansh/Github'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
+alias upwork="cd /Users/abhijayrajvansh/Upwork"
 
 # local projects
 alias snake='cd /Users/abhijayrajvansh/Developer/projects/snake-game-vanillaJS'
