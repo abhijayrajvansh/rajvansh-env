@@ -77,7 +77,7 @@ alias pics='cd /Users/abhijayrajvansh/Pictures'
 
 # productivity
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
-alias developer="cd /Users/abhijayrajvansh/Developer"
+alias dev="cd /Users/abhijayrajvansh/Developer"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias upwork="cd /Users/abhijayrajvansh/Upwork"
