@@ -68,7 +68,6 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 
 #directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
-alias archives="cd /Users/abhijayrajvansh/Archives"
 alias documents="cd /Users/abhijayrajvansh/Documents"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
@@ -76,10 +75,14 @@ alias pics='cd /Users/abhijayrajvansh/Pictures'
 
 # productivity
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
-alias dev="cd /Users/abhijayrajvansh/Developer"
+alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
-alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias upwork="cd /Users/abhijayrajvansh/Upwork"
+alias x='cd /Users/abhijayrajvansh/X'
+
+# development
+alias dev="cd /Users/abhijayrajvansh/Developer"
+alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 
 # linkedin 
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
