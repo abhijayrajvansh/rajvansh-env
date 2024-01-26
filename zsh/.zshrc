@@ -3,7 +3,7 @@ alias currUsername="echo New Session Started, Current User is: abhijayrajvansh"
 alias root="cd /Users/abhijayrajvansh"
 
 # reload: normal zshrc refresh reload
-alias reload='kk && source ~/.zshrc'
+alias reload='clear && source ~/.zshrc'
 
 # hrr -> hot reload: refresh and goto root
 alias hrr='root; reload'
