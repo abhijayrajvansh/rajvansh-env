@@ -48,7 +48,7 @@ gpush () {
 alias zshrc='code ~/.zshrc'
 
 # updating .zshrc file in git remote repo
-alias push-zsh="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
+alias pz="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -72,7 +72,6 @@ alias archives="cd /Users/abhijayrajvansh/Archives"
 alias documents="cd /Users/abhijayrajvansh/Documents"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
-alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias pics='cd /Users/abhijayrajvansh/Pictures'
 
 # productivity
@@ -81,6 +80,10 @@ alias dev="cd /Users/abhijayrajvansh/Developer"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias upwork="cd /Users/abhijayrajvansh/Upwork"
+
+# linkedin 
+alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
+alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 
 # local projects
 alias snake='cd /Users/abhijayrajvansh/Developer/projects/snake-game-vanillaJS'
