@@ -48,7 +48,7 @@ gpush () {
 alias zshrc='code ~/.zshrc'
 
 # updating .zshrc file in git remote repo
-alias pz="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'updating zsh config'"
+alias pz="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'update: optimized zsh config'"
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
