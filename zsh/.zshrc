@@ -34,6 +34,11 @@ alias gs='git status'
 alias ga='git add .'
 alias gp='git push'
 alias gc='git clone'
+
+gcm () {
+    git commit -m "$1"
+}
+
 alias gp='git push'
 
 gpush () {
