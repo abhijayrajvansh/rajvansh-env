@@ -61,7 +61,6 @@ PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 # abhijayrajvansh's Local dir
 alias awwwards='cd /Users/abhijayrajvansh/Developer/projects/awwwards-library'
 
-
 # launching applications
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -81,7 +80,7 @@ alias upwork="cd /Users/abhijayrajvansh/Upwork"
 alias x='cd /Users/abhijayrajvansh/X'
 
 # development
-alias dev="cd /Users/abhijayrajvansh/Developer"
+alias developer="cd /Users/abhijayrajvansh/Developer"
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 
 # linkedin 
@@ -117,3 +116,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
 
 clear; currUsername;
+
+# Regular Use aliases:
+alias dev='developer'
+alias desk='desktop'
