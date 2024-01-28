@@ -71,12 +71,12 @@ alias awwwards='cd /Users/abhijayrajvansh/Developer/projects/awwwards-library'
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-#directories
+# default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
 alias documents="cd /Users/abhijayrajvansh/Documents"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
-alias pics='cd /Users/abhijayrajvansh/Pictures'
+alias pictures='cd /Users/abhijayrajvansh/Pictures'
 
 # productivity
 alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
@@ -85,19 +85,9 @@ alias github='cd /Users/abhijayrajvansh/Github'
 alias upwork="cd /Users/abhijayrajvansh/Upwork"
 alias x='cd /Users/abhijayrajvansh/X'
 
-# development
+# development related directories, aliases and functions
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
-
-# linkedin 
-alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
-alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
-
-# local projects
-alias snake='cd /Users/abhijayrajvansh/Developer/projects/snake-game-vanillaJS'
-
-
-# developer
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 
 main () {
@@ -105,10 +95,17 @@ main () {
     prg main.js
 }
 
-#debug
+#debug 
 deb () {
     node "$1".js
 }
+
+# local projects
+alias snake='cd /Users/abhijayrajvansh/Developer/projects/snake-game-vanillaJS'
+
+# linkedin stuff
+alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
+alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 
 alias cohort="cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/"
 
@@ -126,3 +123,5 @@ clear; currUsername;
 # Regular Use aliases:
 alias dev='developer'
 alias desk='desktop'
+alias docs='documents'
+alias pics='pictures'
