@@ -8,14 +8,15 @@ alias reload='clear && source ~/.zshrc'
 # hrr -> hot reload: refresh and goto root
 alias hrr='root; reload'
 
-# compiler shortcuts config
+# python specifc shortcuts config
 alias python='python3'
+alias app='python app.py'
 alias py='python'
-alias kk='clear' 
+alias pip='pip3'
 
 # shows list by date modified   
 alias la='ls -l -G'
-alias app='python app.py'
+alias kk='clear' 
 alias oo='open .'
 alias ff='fzf'
 alias zz='cd ..'
