@@ -120,7 +120,8 @@ export NVM_DIR="$HOME/.nvm"
 
 clear; currUsername;
 
-# Regular Use aliases:
+# more aliases:
+alias bucketlist='cd /Users/abhijayrajvansh/Archives/bucketlist'
 alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
