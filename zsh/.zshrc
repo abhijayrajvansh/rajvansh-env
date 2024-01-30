@@ -14,7 +14,7 @@ alias app='python app.py'
 alias py='python'
 alias pip='pip3'
 
-# shows list by date modified   
+# navigation   
 alias la='ls -l -G'
 alias kk='clear' 
 alias oo='open .'
