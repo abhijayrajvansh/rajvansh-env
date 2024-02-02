@@ -25,11 +25,6 @@ alias zzz='cd ../..'
 # Github Repository
 alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
 
-# git version control
-removeJunk () {
-    rm .DS_Store
-}
-
 # github aliases
 alias gs='git status'
 alias ga='git add .'
@@ -43,7 +38,7 @@ gcm () {
 alias gp='git push'
 
 gpush () {
-    removeJunk
+    rm .DS_Store
     git add .
     git status
     git commit -m "$1"
