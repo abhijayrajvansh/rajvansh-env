@@ -87,11 +87,6 @@ main () {
     prg main.js
 }
 
-#debug 
-deb () {
-    node "$1".js
-}
-
 # local projects
 alias snake='cd /Users/abhijayrajvansh/Developer/projects/snake-game-vanillaJS'
 
