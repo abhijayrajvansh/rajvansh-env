@@ -87,9 +87,6 @@ main () {
     prg main.js
 }
 
-# local projects
-alias snake='cd /Users/abhijayrajvansh/Developer/projects/snake-game-vanillaJS'
-
 # linkedin stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
