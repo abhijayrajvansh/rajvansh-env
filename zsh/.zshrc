@@ -15,10 +15,9 @@ alias py='python'
 alias pip='pip3'
 
 # navigation   
-alias la='ls -l -G'
 alias kk='clear' 
+alias la='ls -l -G'
 alias oo='open .'
-alias ff='fzf'
 alias zz='cd ..'
 alias zzz='cd ../..'
 
