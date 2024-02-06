@@ -4,6 +4,7 @@ alias root="cd /Users/abhijayrajvansh"
 
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
+alias rr='reload'
 
 # hrr -> hot reload: refresh and goto root
 alias hrr='root; reload'
@@ -15,8 +16,8 @@ alias py='python'
 alias pip='pip3'
 
 # navigation   
-alias kk='clear' 
 alias la='ls -l -G'
+alias kk='clear' 
 alias oo='open .'
 alias zz='cd ..'
 alias zzz='cd ../..'
