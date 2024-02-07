@@ -52,7 +52,7 @@ alias zshrc='code ~/.zshrc'
 alias cp-lzsh-rzsh='cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh'
 alias cp-rzsh-lzsh='cp Users/abhijayrajvansh/Programming-Environment-2024/zsh/.zshrc /users/abhijayrajvansh/'
 
-alias pz="cp-lzsh-rzsh; my-env; gp 'update: optimized zsh config'"
+alias pz="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'update: optimized zsh config'"
 alias update-zshrc='my-env; git pull; cp-rzsh-lzsh'
 
 autoload -Uz vcs_info
@@ -114,3 +114,5 @@ alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
+
+#commit from mac mini
