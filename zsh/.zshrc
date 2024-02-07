@@ -4,7 +4,6 @@ alias root="cd /Users/abhijayrajvansh"
 
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
-alias rr='reload'
 
 # hrr -> hot reload: refresh and goto root
 alias hrr='root; reload'
@@ -19,6 +18,7 @@ alias pip='pip3'
 alias la='ls -l -G'
 alias kk='clear' 
 alias oo='open .'
+alias ff='fzf'
 alias zz='cd ..'
 alias zzz='cd ../..'
 
@@ -87,11 +87,12 @@ main () {
     prg main.js
 }
 
+# local projects
+alias snake='cd /Users/abhijayrajvansh/Developer/projects/snake-game-vanillaJS'
+
 # linkedin stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
-
-alias cohort="cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/"
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
