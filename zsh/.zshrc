@@ -115,4 +115,4 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-#commit from macbook
+#commit from mac mini and fixed userd
