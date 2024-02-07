@@ -111,4 +111,4 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-# last edited in macbook-13
+# last edited on mac mini
