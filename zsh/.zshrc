@@ -49,8 +49,8 @@ gpush () {
 alias zshrc='code ~/.zshrc'
 
 # updating .zshrc file in git remote repo
-alias cp-lzsh-rzsh='cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh'
-alias cp-rzsh-lzsh='cp Users/abhijayrajvansh/Programming-Environment-2024/zsh/.zshrc /users/abhijayrajvansh/'
+alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh'
+alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/Programming-Environment-2024/zsh/.zshrc /Users/abhijayrajvansh/'
 
 alias pz="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'update: optimized zsh config'"
 alias update-zshrc='my-env; git pull; cp-rzsh-lzsh'
