@@ -114,5 +114,3 @@ alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
-
-#commit from macbook and fixed /Users copy issue
