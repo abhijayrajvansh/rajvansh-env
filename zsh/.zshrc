@@ -85,6 +85,7 @@ alias x='cd /Users/abhijayrajvansh/X'
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
+alias dcp='cd /Users/abhijayrajvansh/Developer/daily-code-practice'
 
 main () {
     desktop
