@@ -1,19 +1,20 @@
 # username and root access
 alias currUsername="echo New Session Started, Current User is: abhijayrajvansh"
-alias root="cd /Users/abhijayrajvansh"
+alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
 alias rr='reload'
 
 # hrr -> hot reload: refresh and goto root
-alias hrr='root; reload'
+alias hrr='reload; root;'
 
 # python specifc shortcuts config
 alias python='python3'
 alias app='python app.py'
 alias py='python'
 alias pip='pip3'
+alias bi='brew install'
 
 # navigation   
 alias la='ls -l -G'
