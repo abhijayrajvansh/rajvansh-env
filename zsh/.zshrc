@@ -33,7 +33,9 @@ export NVM_DIR="$HOME/.nvm"
 alias ni='npm install'
 
 # Perfomant NPM
+alias pp='pnpm'
 alias pi='pnpm install'
+alias ppdev='pnpm run dev'
 
 # Github Repository
 alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
