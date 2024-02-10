@@ -9,19 +9,31 @@ alias rr='reload'
 # hrr -> hot reload: refresh and goto root
 alias hrr='reload; root;'
 
-# python specifc shortcuts config
-alias python='python3'
-alias app='python app.py'
-alias py='python'
-alias pip='pip3'
-alias bi='brew install'
-
 # navigation   
 alias la='ls -l -G'
 alias kk='clear' 
 alias oo='open .'
 alias zz='cd ..'
 alias zzz='cd ../..'
+
+# python specifc shortcuts config
+alias python='python3'
+alias app='python app.py'
+alias py='python'
+alias pip='pip3'
+
+alias bi='brew install'
+
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
+
+# Node package manager
+alias ni='npm install'
+
+# Perfomant NPM
+alias pi='pnpm install'
 
 # Github Repository
 alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
@@ -101,12 +113,7 @@ alias cohort="cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/"
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
-alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'  
-
-# Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
+alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'   
 
 clear; currUsername;
 
