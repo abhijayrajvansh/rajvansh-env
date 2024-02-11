@@ -36,6 +36,7 @@ alias ni='npm install'
 alias ndev='npm run dev'
 
 # Perfomant NPM
+alias pp='pnpm'
 alias pi='pnpm install'
 alias ppdev='pi; pnpm run dev'
 
