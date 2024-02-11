@@ -44,7 +44,7 @@ alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat 
 
 # github aliases
 alias gs='git status'
-alias ga='rm .DS_Store; git add .'
+alias ga='git add .'
 alias gp='git push'
 alias gc='git clone'
 
