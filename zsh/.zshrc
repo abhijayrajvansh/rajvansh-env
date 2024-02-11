@@ -22,7 +22,9 @@ alias app='python app.py'
 alias py='python'
 alias pip='pip3'
 
+# homebrew aliases
 alias bi='brew install'
+alias bui='brew uninstall'
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
@@ -34,7 +36,6 @@ alias ni='npm install'
 alias ndev='npm run dev'
 
 # Perfomant NPM
-alias pp='pnpm'
 alias pi='pnpm install'
 alias ppdev='pi; pnpm run dev'
 
