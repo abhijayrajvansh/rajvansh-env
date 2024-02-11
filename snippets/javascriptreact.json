@@ -1,0 +1,21 @@
+{
+	"export default function for js, ts, jsx and tsx": {
+		"prefix": "edf",
+		"body": [
+		  "export default function $1 () {",
+		  "  return (",
+		  "    $2",
+		  "  )",
+		  "}"
+		],
+		"description": "export default function for js, ts, jsx and tsx"
+	},
+
+	"Print to console": {
+		"prefix": "log",
+		"body": [
+			"console.log($1);",
+		],
+		"description": "Log output to console"
+	}
+}
