@@ -36,22 +36,20 @@ alias ndev='npm run dev'
 # Perfomant NPM
 alias pp='pnpm'
 alias pi='pnpm install'
-alias ppdev='pnpm run dev'
+alias ppdev='pi; pnpm run dev'
 
 # Github Repository
 alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
 
 # github aliases
 alias gs='git status'
-alias ga='git add .'
+alias ga='rm .DS_Store; git add .'
 alias gp='git push'
 alias gc='git clone'
 
 gcm () {
     git commit -m "$1"
 }
-
-alias gp='git push'
 
 gpush () {
     rm .DS_Store
