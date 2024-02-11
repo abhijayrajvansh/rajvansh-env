@@ -2,9 +2,9 @@
 	"export default function for js, ts, jsx and tsx": {
 		"prefix": "edf",
 		"body": [
-		  "export default function $1 () {",
+		  "export default function $TM_FILENAME_BASE () {",
 		  "  return (",
-		  "    $2",
+		  "    $0",
 		  "  )",
 		  "}"
 		],
@@ -14,7 +14,7 @@
 	"Print to console": {
 		"prefix": "log",
 		"body": [
-			"console.log($1);",
+			"console.log($0);",
 		],
 		"description": "Log output to console"
 	}
