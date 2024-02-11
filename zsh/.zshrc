@@ -63,12 +63,14 @@ gpush () {
 # zsh configfunctions and Commandline
 alias zshrc='code ~/.zshrc'
 
-# updating .zshrc file in git remote repo
+# updating .zshrc file and code snippets in git remote repo
 alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh'
 alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/Programming-Environment-2024/zsh/.zshrc /Users/abhijayrajvansh/'
+alias cp-lsnpt-rsnpt='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/Programming-Environment-2024'
+alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User '
 
-alias pz="cp /users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh; my-env; gpush 'update: optimized zsh config'"
-alias update-zshrc='my-env; git pull; cp-rzsh-lzsh'
+alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; my-env; gpush 'update: optimized env'"
+alias update-env='my-env; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
