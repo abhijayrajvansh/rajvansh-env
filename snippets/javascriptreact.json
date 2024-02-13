@@ -12,7 +12,7 @@
 	},
 
 	"Print to console": {
-		"prefix": "log",
+		"prefix": "clog",
 		"body": [
 			"console.log($0);",
 		],
