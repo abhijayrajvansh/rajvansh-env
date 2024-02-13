@@ -12,7 +12,7 @@
 	},
 
 	"Print to console": {
-		"prefix": "clog",
+		"prefix": "deb",
 		"body": [
 			"console.log($0);",
 		],
