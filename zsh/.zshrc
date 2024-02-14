@@ -101,6 +101,7 @@ alias x='cd /Users/abhijayrajvansh/X'
 
 # development related directories, aliases and functions
 alias developer="cd /Users/abhijayrajvansh/Developer"
+alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/daily-code-practice'
