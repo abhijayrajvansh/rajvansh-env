@@ -46,18 +46,19 @@ alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat 
 # github aliases
 alias gs='git status'
 alias ga='git add .'
-alias gp='git push'
 alias gc='git clone'
-
 gcm () {
     git commit -m "$1"
 }
+alias gp='git push'
+
+defaultCommitMessage="${1:-update: audit push from local}"
 
 gpush () {
     rm .DS_Store
     git add .
     git status
-    git commit -m "$1"
+    git commit -m "$defaultCommitMessage"
     git push
 }
 
