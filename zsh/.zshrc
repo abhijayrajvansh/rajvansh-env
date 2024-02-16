@@ -50,15 +50,14 @@ alias gc='git clone'
 gcm () {
     git commit -m "$1"
 }
-alias gp='git push'
+alias gp="gpush 'update: local audit push'"
 
-defaultCommitMessage="${1:-update: audit push from local}"
 
 gpush () {
     rm .DS_Store
     git add .
     git status
-    git commit -m "$defaultCommitMessage"
+    git commit -m "$1"  
     git push
 }
 
