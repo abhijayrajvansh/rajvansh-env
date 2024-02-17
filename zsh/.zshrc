@@ -7,7 +7,7 @@ alias reload='clear && source ~/.zshrc'
 alias rr='reload'
 
 # hrr -> hot reload: refresh and goto root
-alias hrr='reload; root;'
+alias hrr='updateenv; reload; root;'
 
 # navigation   
 alias la='ls -l -G'
