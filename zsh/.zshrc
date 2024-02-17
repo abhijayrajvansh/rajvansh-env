@@ -50,7 +50,7 @@ alias gc='git clone'
 gcm () {
     git commit -m "$1"
 }
-alias gp="gpush 'update: local audit push'"
+alias gp="gpush 'update: audit push from local env'"
 
 
 gpush () {
