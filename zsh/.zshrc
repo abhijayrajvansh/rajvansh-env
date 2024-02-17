@@ -1,5 +1,5 @@
 # username and root access
-alias currUsername="echo New Session Started, Current User is: abhijayrajvansh"
+alias newSessionNotification="echo New Session Started, Current User is: abhijayrajvansh"
 alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
@@ -121,11 +121,12 @@ alias cohort="cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/"
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
 alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'   
 
-clear; currUsername;
-
 # more aliases:
 alias bucketlist='cd /Users/abhijayrajvansh/Archives/bucketlist'
 alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
+
+# startup/init commands
+kk; newSessionNotification;
