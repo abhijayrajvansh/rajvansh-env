@@ -6,7 +6,7 @@ alias root="cd /Users/abhijayrajvansh/"
 alias reload='clear && source ~/.zshrc'
 alias rr='reload'
 
-# hrr -> hot reload: refresh and goto root
+# hrr -> hot reload: pull latest git push code from coding env, refreshes and goto root
 alias hrr='updateenv; reload; root;'
 
 # navigation   
@@ -37,7 +37,7 @@ alias ndev='npm run dev'
 
 # Perfomant NPM
 alias pp='pnpm'
-alias pi='pnpm install'
+alias ppi='pnpm install'
 alias ppdev='pi; pnpm run dev'
 
 # Github Repository
