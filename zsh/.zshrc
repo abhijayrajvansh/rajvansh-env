@@ -7,7 +7,7 @@ alias reload='clear && source ~/.zshrc'
 alias rr='reload'
 
 # hrr -> hot reload: pull latest git push code from coding env, refreshes and goto root
-alias hrr='updateenv; reload; root;'
+alias hrr='reload; root;'
 
 # navigation   
 alias la='ls -l -G'
