@@ -40,9 +40,6 @@ alias pp='pnpm'
 alias pi='pnpm install'
 alias ppdev='pi; pnpm run dev'
 
-# startup/init commands
-kk; newSessionNotification;
-# pnpm
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
@@ -138,4 +135,5 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-
+# startup/init commands
+kk; newSessionNotification;
