@@ -37,7 +37,7 @@ alias ndev='npm run dev'
 
 # Perfomant NPM
 alias pp='pnpm'
-alias ppi='pnpm install'
+alias pi='pnpm install'
 alias ppdev='pi; pnpm run dev'
 
 # Github Repository
