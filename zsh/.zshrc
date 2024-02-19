@@ -40,6 +40,16 @@ alias pp='pnpm'
 alias pi='pnpm install'
 alias ppdev='pi; pnpm run dev'
 
+# startup/init commands
+kk; newSessionNotification;
+# pnpm
+export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 # Github Repository
 alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
 
@@ -128,5 +138,4 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-# startup/init commands
-kk; newSessionNotification;
+
