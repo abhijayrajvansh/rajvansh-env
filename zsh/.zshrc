@@ -51,14 +51,17 @@ esac
 alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
 
 # github aliases
+ar='https://github.com/abhijayrajvansh/'
+
 alias gs='git status'
 alias ga='git add .'
-alias gc='git clone'
 gcm () {
     git commit -m "$1"
 }
 alias gp="gpush 'update: audit push from local env'"
 alias gpl='git pull'
+alias gc='git clone'
+
 
 
 gpush () {
@@ -78,8 +81,8 @@ alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/Programming-Environment-2024/zsh/.
 alias cp-lsnpt-rsnpt='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/Programming-Environment-2024'
 alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User '
 
-alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; my-env; gpush 'update: optimized env'"
-alias updateenv='my-env; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
+alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; myenv; gpush 'update: optimized env'"
+alias updateenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
