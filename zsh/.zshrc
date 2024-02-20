@@ -51,7 +51,7 @@ esac
 alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
 
 # github aliases
-ar='https://github.com/abhijayrajvansh/'
+mygithub='https://github.com/abhijayrajvansh/'
 
 alias gs='git status'
 alias ga='git add .'
