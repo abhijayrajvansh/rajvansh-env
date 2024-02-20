@@ -112,6 +112,7 @@ alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/daily-code-practice'
+alias rajvansh='cd /Users/abhijayrajvansh/Developer/projects/rajvansh-technologies'
 
 main () {
     desktop
