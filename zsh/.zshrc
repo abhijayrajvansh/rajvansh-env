@@ -114,6 +114,7 @@ alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concept
 alias dcp='cd /Users/abhijayrajvansh/Developer/daily-code-practice'
 alias rajvansh='cd /Users/abhijayrajvansh/Developer/projects/rajvansh-technologies'
 alias portfolio='cd /Users/abhijayrajvansh/Developer/projects/portfolio'
+alias netflixClone='cd /Users/abhijayrajvansh/Developer/projects/netflix-clone-next.js'
 
 main () {
     desktop
