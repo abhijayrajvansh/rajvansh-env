@@ -101,7 +101,7 @@ alias movies="cd /Users/abhijayrajvansh/Movies"
 alias pictures='cd /Users/abhijayrajvansh/Pictures'
 
 # productivity
-alias my-env="cd /Users/abhijayrajvansh/Programming-Environment-2024"
+alias myenv="cd /Users/abhijayrajvansh/Programming-Environment-2024"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias upwork="cd /Users/abhijayrajvansh/Upwork"
