@@ -58,6 +58,7 @@ gcm () {
     git commit -m "$1"
 }
 alias gp="gpush 'update: audit push from local env'"
+alias gpl='git pull'
 
 
 gpush () {
