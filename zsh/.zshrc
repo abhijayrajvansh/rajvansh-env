@@ -47,7 +47,8 @@ esac
 # pnpm end
 
 # Github Repository
-alias readme-format='cd /Users/abhijayrajvansh/Github/documentation-format; cat README.md'
+alias readme-format='code ~/Github/README.md'
+alias gitignore-format='code ~/Github/gitignore'
 
 # github aliases
 mygithub='https://github.com/abhijayrajvansh/'
