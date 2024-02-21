@@ -4,9 +4,8 @@ alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
-alias rr='reload'
 
-# hrr -> hot reload: pull latest git push code from coding env, refreshes and goto root
+# hrr -> hot reload: fetches last updated zshrc and goto root
 alias hrr='reload; root;'
 
 # navigation   
@@ -61,8 +60,6 @@ gcm () {
 alias gp="gpush 'update: audit push from local env'"
 alias gpl='git pull'
 alias gc='git clone'
-
-
 
 gpush () {
     rm .DS_Store
@@ -131,8 +128,6 @@ main () {
 # linkedin stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
-
-alias cohort="cd /Users/abhijayrajvansh/Developer/100xdev-cohort-2.0/"
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
