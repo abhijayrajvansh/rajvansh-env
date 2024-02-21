@@ -110,15 +110,18 @@ alias github='cd /Users/abhijayrajvansh/Github'
 alias upwork="cd /Users/abhijayrajvansh/Upwork"
 alias x='cd /Users/abhijayrajvansh/X'
 
-# development related directories, aliases and functions
+# workspace and development related directories, aliases and functions
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/daily-code-practice'
 alias rajvansh='cd /Users/abhijayrajvansh/Developer/projects/rajvansh-technologies'
-alias portfolio='cd /Users/abhijayrajvansh/Developer/projects/portfolio'
-alias netflixClone='cd /Users/abhijayrajvansh/Developer/projects/netflix-clone-next.js'
+
+# on goining projects
+alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio'
+alias netflixClone='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
+alias weatherApp='desk; cd weatherApp'
 
 main () {
     desktop
