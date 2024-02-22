@@ -113,7 +113,7 @@ alias developer="cd /Users/abhijayrajvansh/Developer"
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
-alias dcp='cd /Users/abhijayrajvansh/Developer/daily-code-practice'
+alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
 alias rajvansh='cd /Users/abhijayrajvansh/Developer/projects/rajvansh-technologies'
 
 # on goining projects
