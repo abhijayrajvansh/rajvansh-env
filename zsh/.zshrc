@@ -119,6 +119,7 @@ alias rajvansh='cd /Users/abhijayrajvansh/Developer/projects/rajvansh-technologi
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio'
 alias netflixClone='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
+alias twitterClone='cd /Users/abhijayrajvansh/Desktop/twitter-clone-next.js'
 
 main () {
     desktop
