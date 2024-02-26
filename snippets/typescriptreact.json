@@ -27,5 +27,20 @@
 		"description": "react useState snippet"
 	},
 
+	"": {
+		"prefix": "rafce",
+		"body": [
+			"import { FC } from 'react';",
+			"",
+			"interface $TM_FILENAME_BASE\'Props {}",
+			"",
+			"const $TM_FILENAME_BASE: FC<$TM_FILENAME_BASE-props> = ({}) => {",
+			"  return <div>$TM_FILENAME_BASE</div>",
+			"}",
+			"",
+			"export default $TM_FILENAME_BASE"
+		],
+		"description": ""
+	}
 
 }
