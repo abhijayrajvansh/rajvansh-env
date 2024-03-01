@@ -5,7 +5,7 @@ alias root="cd /Users/abhijayrajvansh/"
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
 
-# hrr -> hot reload: fetches last updated zshrc and goto root
+# hrr -> hot reload: fetches last updated zshrc and goes to root
 alias hrr='reload; root;'
 
 # navigation   
