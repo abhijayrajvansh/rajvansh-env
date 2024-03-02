@@ -80,7 +80,7 @@ alias cp-lsnpt-rsnpt='cp -r /Users/abhijayrajvansh/Library/Application\ Support/
 alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User '
 
 alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; myenv; gpush 'update: optimized env'"
-alias updateenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
+alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
