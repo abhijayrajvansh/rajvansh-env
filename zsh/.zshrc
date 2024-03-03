@@ -48,7 +48,7 @@ esac
 
 # Github Repository
 alias readme-format='code ~/Github/README.md'
-alias gitignore-format='code ~/Github/gitignore'
+alias gitignore-format='code ~/Github/.gitignore'
 
 # github aliases
 mygithub='https://github.com/abhijayrajvansh/'
