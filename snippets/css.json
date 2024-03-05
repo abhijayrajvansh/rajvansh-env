@@ -1,26 +1,35 @@
 {
-	"tailwind border classes for debugging": {
-		"prefix": "includeBorderDebugging",
+	"debugging border classes": {
+		"prefix": "importBorderClasses",
 		"body": [
+			"",
+			"/* debugging border classes */",
 			"@layer components {",
-			"  .b1 {",
+			"  .bred {",
 			"    @apply border-2 border-red-500",
 			"  }",
-			"  .b2 {",
+			"  .bgreen {",
 			"    @apply border-2 border-green-500",
 			"  }",
-			"  .b3 {",
+			"  .bblue {",
 			"    @apply border-2 border-blue-500",
 			"  }",
-			"  .b4 {",
+			"  .byellow {",
 			"    @apply border-2 border-yellow-500",
 			"  }",
-			"  .b5 {",
+			"  .bpurple {",
 			"    @apply border-2 border-purple-500",
 			"  }",
-			"}"
+			"  .bblack {",
+			"    @apply border-2 border-black",
+			"  }",
+			"  .bwhite {",
+			"    @apply border-2 border-white",
+			"  }",
+			"}",
+			""
 		],
-		"description": "tailwind border classes for debugging"
+		"description": "debugging border classes"
 	},
 	
 }
