@@ -29,6 +29,10 @@ alias bui='brew uninstall'
 alias ni='npm install'
 alias ndev='npm run dev'
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Perfomant NPM
 alias pp='pnpm'
 alias pi='pnpm install'
@@ -39,7 +43,6 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
 # Github Repository
 alias readme-format='code ~/Github/README.md'
