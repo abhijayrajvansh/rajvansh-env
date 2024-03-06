@@ -25,11 +25,6 @@ alias pip='pip3'
 alias bi='brew install'
 alias bui='brew uninstall'
 
-# Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
-
 # Node package manager
 alias ni='npm install'
 alias ndev='npm run dev'
