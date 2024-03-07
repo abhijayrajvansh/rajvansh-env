@@ -121,11 +121,6 @@ alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias netflixClone='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
 alias twitterClone='cd /Users/abhijayrajvansh/Desktop/twitter-clone-next.js'
 
-main () {
-    desktop
-    prg main.js
-}
-
 # linkedin stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
