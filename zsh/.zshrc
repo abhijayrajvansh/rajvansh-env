@@ -136,5 +136,4 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-# startup/init commands
-kk; newSessionNotification;
+# startup/init commands goes here ...
