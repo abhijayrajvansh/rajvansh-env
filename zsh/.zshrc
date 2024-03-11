@@ -111,6 +111,15 @@ alias upwork="cd /Users/abhijayrajvansh/Upwork"
 alias x='cd /Users/abhijayrajvansh/X'
 
 # workspace and development related directories, aliases and functions
+
+prg() {
+  for arg in "$@"; do
+    echo "creating: $arg"
+    touch $arg
+    code $arg
+  done
+}
+
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
