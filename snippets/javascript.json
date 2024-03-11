@@ -1,0 +1,10 @@
+{
+	"debugger from rajvansh snippet": {
+		"prefix": "deb",
+		"body": [
+			"console.log($1)"
+		],
+		"description": "debugger from rajvansh snippet"
+	},
+
+}

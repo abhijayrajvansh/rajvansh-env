@@ -38,8 +38,8 @@ alias ndev='npm run dev'
 alias pp='pnpm'
 alias ppi='pnpm install'
 alias ppa='pnpm add'
-alias ppd='pi; pnpm run dev'
-alias pps='pi; pnpm run start'
+alias ppd='ppi; pnpm run dev'
+alias pps='ppi; pnpm run start'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 case ":$PATH:" in
@@ -82,7 +82,7 @@ alias cp-lsnpt-rsnpt='cp -r /Users/abhijayrajvansh/Library/Application\ Support/
 alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User '
 
 alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; myenv; gpush 'update: optimized env'"
-alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
+alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; reload'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
