@@ -36,8 +36,10 @@ alias ndev='npm run dev'
 
 # Perfomant NPM
 alias pp='pnpm'
-alias pi='pnpm install'
-alias ppdev='pi; pnpm run dev'
+alias ppi='pnpm install'
+alias ppa='pnpm add'
+alias ppd='pi; pnpm run dev'
+alias pps='pi; pnpm run start'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 case ":$PATH:" in
