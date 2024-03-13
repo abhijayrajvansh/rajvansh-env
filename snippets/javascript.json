@@ -6,7 +6,8 @@
 		],
 		"description": "debugger from rajvansh snippet"
 	},
-	"Express.js server boiler code": {
+	
+	"Express.js Server Boilerplate Code": {
 		"prefix": "includeExpressjsServer",
 		"body": [
 			"const express = require(\"express\");",
@@ -18,10 +19,10 @@
 			"})",
 			"",
 			"app.listen(PORT, () => {",
-			"  console.log(`server started on PORT: ${PORT}`)",
+			"  console.log(`server started on PORT: \\${PORT}`)",
 			"})"
 		],
-		"description": "Express.js server boiler code"
+		"description": "Express.js Server Boilerplate Code"
 	}
 
 }
