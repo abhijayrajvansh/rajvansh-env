@@ -60,7 +60,6 @@ alias ga='git add .'
 gcm () {
     git commit -m "$1"
 }
-alias gp="gpush 'update: audit push from local env'"
 alias gpl='git pull'
 alias gc='git clone'
 
@@ -68,8 +67,17 @@ gpush () {
     rm .DS_Store
     git add .
     git status
-    git commit -m "$1"  
+    git commit -m $1  
     git push
+}
+
+#  git push with commit and default value
+gp () {
+  if [ -z "$1" ]; then
+    gpush 'update: audit push from local env'
+  else
+    gpush $1
+  fi
 }
 
 # zsh configfunctions and Commandline
