@@ -4,8 +4,10 @@ alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
-# running zsh-autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# zsh-autosuggestions
+alias include-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
+
 # hrr -> hot reload: fetches last updated zshrc and goes to root
 alias hrr='reload; root;'
 
@@ -139,7 +141,7 @@ alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User
 alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
-alias rajvansh='cd /Users/abhijayrajvansh/Developer/projects/rajvansh-technologies'
+
 
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
