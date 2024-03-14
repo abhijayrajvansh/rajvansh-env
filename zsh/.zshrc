@@ -120,6 +120,11 @@ alias x='cd /Users/abhijayrajvansh/X'
 
 # workspace and development related directories, aliases and functions
 
+#mongodb
+alias start-mongodb='brew services start mongodb-community@7.0'
+alias stop-mongodb='brew services stop mongodb-community@7.0'
+
+# creating files and launching them in vscode
 prg() {
   for arg in "$@"; do
     echo "creating: $arg"
