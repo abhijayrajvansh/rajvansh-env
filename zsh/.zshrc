@@ -4,7 +4,8 @@ alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
-
+# running zsh-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # hrr -> hot reload: fetches last updated zshrc and goes to root
 alias hrr='reload; root;'
 
@@ -160,4 +161,4 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-# startup/init commands goes here ...
+# END OF THE DOCUMENT!!!
