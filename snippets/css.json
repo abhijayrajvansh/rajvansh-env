@@ -44,7 +44,7 @@
 			"",
 			"@layer components {",
 			"  .wrapper {",
-			"    @apply bred max-w-screen-xl w-full h-screen flex flex-col",
+			"    @apply max-w-screen-xl w-full h-screen flex flex-col",
 			"  }",
 			"  .heading {",
 			"    @apply text-4xl font-medium py-3",
