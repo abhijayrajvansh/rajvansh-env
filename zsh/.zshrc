@@ -140,18 +140,19 @@ prg() {
   done
 }
 
-alias developer="cd /Users/abhijayrajvansh/Developer"
-alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
-alias projects="cd /Users/abhijayrajvansh/Developer/projects"
-alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
-alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
-
-
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/gettingstartedwithbackend'
 alias netflix='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
 alias twitter='cd /Users/abhijayrajvansh/Desktop/twitter-clone-next.js'
+alias meetup='cd /Users/abhijayrajvansh/Desktop/meetup'
+
+# software dir
+alias developer="cd /Users/abhijayrajvansh/Developer"
+alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
+alias projects="cd /Users/abhijayrajvansh/Developer/projects"
+alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
+alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
 
 # linkedin stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
