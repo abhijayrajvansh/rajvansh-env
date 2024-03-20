@@ -31,5 +31,30 @@
 		],
 		"description": "debugging border classes"
 	},
-	
+	"starter tailwind css constants": {
+		"prefix": "import-boilerplate-constants",
+		"body": [
+			"",
+			"/* css boilerplate contants*/",
+			"@layer base {",
+			"  body {",
+			"    @apply bg-[#121821] text-white flex justify-center",
+			"  }",
+			"}",
+			"",
+			"@layer components {",
+			"  .wrapper {",
+			"    @apply bred max-w-screen-xl w-full h-screen flex flex-col",
+			"  }",
+			"  .heading {",
+			"    @apply text-4xl font-medium py-3",
+			"  }",
+			"  .paragraph {",
+			"    @apply py-3",
+			"  }",
+			"}",
+			""
+		],
+		"description": "starter tailwind css constants"
+	},
 }
