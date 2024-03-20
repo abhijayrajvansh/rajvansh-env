@@ -62,9 +62,11 @@ mygithub='https://github.com/abhijayrajvansh/'
 
 alias gs='git status'
 alias ga='git add .'
+
 gcm () {
-    git commit -m "$1"
+  git commit -m "$1"
 }
+
 alias gpl='git pull'
 alias gc='git clone'
 
@@ -147,8 +149,9 @@ alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
 
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
-alias netflixClone='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
-alias twitterClone='cd /Users/abhijayrajvansh/Desktop/twitter-clone-next.js'
+alias backend='cd /Users/abhijayrajvansh/Desktop/gettingstartedwithbackend'
+alias netflix='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
+alias twitter='cd /Users/abhijayrajvansh/Desktop/twitter-clone-next.js'
 
 # linkedin stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
