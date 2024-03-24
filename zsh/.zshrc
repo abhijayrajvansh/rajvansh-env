@@ -105,7 +105,7 @@ zstyle ':vcs_info:git:*' formats '%b'
 # {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
 
 setopt PROMPT_SUBST
-PROMPT='%F{green}%*%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f $ '
+PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f $ '
 
 # launching applications
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
