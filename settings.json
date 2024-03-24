@@ -1,48 +1,47 @@
 {
-  "security.workspace.trust.untrustedFiles": "open",
-  "files.autoSave": "afterDelay",
-  "editor.formatOnSave": true,
-  "workbench.iconTheme": "material-icon-theme",
-  "liveServer.settings.donotShowInfoMsg": true,
-  "prettier.endOfLine": "auto",
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  "extensions.ignoreRecommendations": true,
-  "editor.fontFamily": " JetBrains Mono, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
-  "editor.tabSize": 2,
-  "editor.stickyScroll.enabled": false,
-  "editor.fontSize": 15,
-  "editor.wordWrap": "on",
-  "editor.scrollbar.vertical": "hidden",
-  "editor.minimap.enabled": false,
-  "terminal.integrated.fontWeight": 700,
-  "terminal.integrated.fontSize": 14,
-  "terminal.integrated.lineHeight": 1.1,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  "editor.lineHeight": 1.7,
-  "terminal.integrated.fontFamily": "SF Mono",
-  "window.titleBarStyle": "custom",
-  "workbench.colorCustomizations": {
-    "activityBar.border": "#1e384a"
-  },
-
-  "apc.electron": {
-    "transparent": true,
-    "opacity": 0.90,  
-    // Range: 0-1 (To go fully transparent, set it to 0)
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "prettier.endOfLine": "auto",
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
   
-    "vibrancy": "light",
-    "visualEffectState": "active"
-  },
+    "extensions.ignoreRecommendations": true,
+    "editor.fontFamily": " JetBrains Mono, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
+    "editor.tabSize": 2,
+    "editor.stickyScroll.enabled": false,
+    "editor.fontSize": 15,
+    "editor.wordWrap": "on",
+    "editor.scrollbar.vertical": "hidden",
+    "editor.minimap.enabled": false,
+    "terminal.integrated.fontWeight": 700,
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.lineHeight": 1.1,
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
   
-  "update.mode": "manual",
-  "workbench.colorTheme": "Bearded Theme Arc Blueberry",
-  "workbench.statusBar.visible": false,
-  "editor.guides.indentation": false
+    "editor.lineHeight": 1.7,
+    "terminal.integrated.fontFamily": "SF Mono",
+    "window.titleBarStyle": "custom",
+
+    "apc.electron": {
+      "transparent": true,
+      "opacity": 0.9,
+      // Range: 0-1 (To go fully transparent, set it to 0)
+    
+      "vibrancy": "",
+      "visualEffectState": "active"
+    },
+    
+    "update.mode": "manual",
+    "workbench.colorTheme": "ƒ - AYU",
+    "workbench.statusBar.visible": false,
+    "editor.guides.indentation": false,
+    "workbench.activityBar.location": "hidden",
+    "terminal.integrated.tabs.enabled": false
 }
-  
+    
