@@ -93,8 +93,12 @@ alias zshrc='code ~/.zshrc'
 # updating .zshrc file and code snippets in git remote repo
 alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh'
 alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/Programming-Environment-2024/zsh/.zshrc /Users/abhijayrajvansh/'
+
 alias cp-lsnpt-rsnpt='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/Programming-Environment-2024'
-alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User '
+alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User'
+
+alias cp-lcodest-rcodest='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/Programming-Environment-2024'
+alias cp-rcodest-lcodest='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User'
 
 alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; myenv; gp 'update: optimized env and audit fix'"
 alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
