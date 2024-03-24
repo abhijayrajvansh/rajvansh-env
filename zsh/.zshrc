@@ -100,8 +100,8 @@ alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/
 alias cp-lcodest-rcodest='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/Programming-Environment-2024'
 alias cp-rcodest-lcodest='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User'
 
-alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; myenv; gp 'update: optimized env and audit fix'"
-alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
+alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; cp-lcodest-rcodest; myenv; gp 'update: optimized env and audit fix'"
+alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rcodest-lcodest;'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
