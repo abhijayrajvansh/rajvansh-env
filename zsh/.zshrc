@@ -140,6 +140,10 @@ prg() {
   done
 }
 
+# VSCode settings:
+
+alias code-setting='code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
+
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/gettingstartedwithbackend'
