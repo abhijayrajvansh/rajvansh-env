@@ -61,7 +61,7 @@ alias gitignore-format='code ~/Github/.gitignore'
 mygithub='https://github.com/abhijayrajvansh/'
 
 alias gs='git status'
-alias ga='git add .'
+alias ga='git add . ; gs;'
 
 gcm () {
   git commit -m "$1"
