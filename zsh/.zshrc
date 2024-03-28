@@ -177,4 +177,7 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-# END OF THE DOCUMENT!!!
+# Postgresql@16
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+
+# End of the document
