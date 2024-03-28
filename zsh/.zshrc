@@ -62,6 +62,7 @@ mygithub='https://github.com/abhijayrajvansh/'
 
 alias gs='git status'
 alias ga='git add . ; gs;'
+alias gd='git diff'
 
 gcm () {
   git commit -m "$1"
@@ -161,6 +162,7 @@ alias backend='cd /Users/abhijayrajvansh/Desktop/gettingstartedwithbackend'
 alias netflix='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
 alias twitter='cd /Users/abhijayrajvansh/Desktop/twitter-clone-next.js'
 alias meetup='cd /Users/abhijayrajvansh/Desktop/meetup'
+alias checklist='desk && cd checklist'
 
 # software dir
 alias developer="cd /Users/abhijayrajvansh/Developer"
