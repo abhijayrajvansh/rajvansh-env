@@ -131,9 +131,14 @@ alias x='cd /Users/abhijayrajvansh/X'
 
 # workspace and development related directories, aliases and functions
 
-#mongodb
-alias start-mongodb='brew services start mongodb-community@7.0'
-alias stop-mongodb='brew services stop mongodb-community@7.0'
+#mongodb - commenting to skip mongodb initialization
+# alias start-mongodb='brew services start mongodb-community@7.0'
+# alias stop-mongodb='brew services stop mongodb-community@7.0'
+
+# Postgresql@16
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+alias start-postgres='brew services start postgresql@16'
+alias stop-postgres='brew services stop postgresql@16'
 
 # creating files and launching them in vscode
 prg() {
@@ -176,8 +181,5 @@ alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
-
-# Postgresql@16
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
 # End of the document
