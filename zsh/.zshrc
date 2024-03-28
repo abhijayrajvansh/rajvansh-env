@@ -150,8 +150,10 @@ prg() {
 }
 
 # VSCode settings:
-
 alias code-setting='code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
+
+# vim
+alias nv='nvim'
 
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
