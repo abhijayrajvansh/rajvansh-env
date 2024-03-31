@@ -138,8 +138,8 @@ alias x='cd /Users/abhijayrajvansh/X'
 
 # Postgresql@16
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-alias start-postgresql='brew services start postgresql@16'
-alias stop-postgresql='brew services stop postgresql@16'
+# alias start-postgresql='brew services start postgresql@16'
+# alias stop-postgresql='brew services stop postgresql@16'
 
 # creating files and launching them in vscode
 prg() {
