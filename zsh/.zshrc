@@ -9,6 +9,7 @@ alias reload='clear && source ~/.zshrc'
 alias include-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 
 # added launch application shortcut keys
+alias hotkeys='echo "chrome: ctrl + option + B"'
 
 # hrr -> hot reload: fetches last updated zshrc and goes to root
 alias hrr='reload; root;'
