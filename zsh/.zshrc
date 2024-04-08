@@ -9,7 +9,6 @@ alias reload='clear && source ~/.zshrc'
 alias include-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 
 # added launch application shortcut keys
-alias hotkeys='echo "chrome: ctrl + option + B"'
 
 # hrr -> hot reload: fetches last updated zshrc and goes to root
 alias hrr='reload; root;'
@@ -26,6 +25,9 @@ alias python='python3'
 alias app='python app.py'
 alias py='python'
 alias pip='pip3'
+
+
+
 
 # homebrew aliases
 alias bi='brew install'
@@ -135,14 +137,14 @@ alias x='cd /Users/abhijayrajvansh/X'
 
 # workspace and development related directories, aliases and functions
 
-#mongodb - commenting to skip mongodb initialization
-# alias start-mongodb='brew services start mongodb-community@7.0'
-# alias stop-mongodb='brew services stop mongodb-community@7.0'
-
 # Postgresql@16
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 # alias start-postgresql='brew services start postgresql@16'
 # alias stop-postgresql='brew services stop postgresql@16'
+
+# mongodb - commenting to skip mongodb initialization
+# alias start-mongodb='brew services start mongodb-community@7.0'
+# alias stop-mongodb='brew services stop mongodb-community@7.0'
 
 # creating files and launching them in vscode
 prg() {
@@ -174,7 +176,7 @@ alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
 
-# linkedin stuff
+# linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 
