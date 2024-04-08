@@ -26,7 +26,12 @@ alias app='python app.py'
 alias py='python'
 alias pip='pip3'
 
+# C/C++ GCC G++ Compliers
 
+deb () {
+  g++-12 $1.cpp
+  ./a.out
+}
 
 
 # homebrew aliases
