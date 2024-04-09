@@ -33,7 +33,6 @@ deb () {
   ./a.out
 }
 
-
 # homebrew aliases
 alias bi='brew install'
 alias bui='brew uninstall'
@@ -141,6 +140,8 @@ alias upwork="cd /Users/abhijayrajvansh/Upwork"
 alias x='cd /Users/abhijayrajvansh/X'
 
 # workspace and development related directories, aliases and functions
+
+alias nv='nvim'
 
 # Postgresql@16
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
