@@ -153,6 +153,7 @@ export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 # alias stop-mongodb='brew services stop mongodb-community@7.0'
 
 # creating files and launching them in vscode
+
 prg() {
   for arg in "$@"; do
     echo "creating: $arg"
