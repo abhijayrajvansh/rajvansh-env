@@ -27,6 +27,11 @@ alias pip='pip3'
 # C/C++ GCC G++ Compliers
 
 deb () {
+  g++-12 -D ABHIJAY_DEBUG $1.cpp
+  ./a.out
+}
+
+run () {
   g++-12 $1.cpp
   ./a.out
 }
