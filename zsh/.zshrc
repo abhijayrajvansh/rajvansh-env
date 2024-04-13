@@ -13,6 +13,7 @@ alias hrr='reload; root;'
 
 # navigation   
 alias la='ls -l -G'
+alias ll='ls -al -G'
 alias kk='clear' 
 alias oo='open .'
 alias zz='cd ..'
