@@ -8,8 +8,6 @@ alias reload='clear && source ~/.zshrc'
 # zsh-autosuggestions
 alias include-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 
-# added launch application shortcut keys
-
 # hrr -> hot reload: fetches last updated zshrc and goes to root
 alias hrr='reload; root;'
 
@@ -141,7 +139,9 @@ alias x='cd /Users/abhijayrajvansh/X'
 
 # workspace and development related directories, aliases and functions
 
+# vim
 alias nv='nvim'
+alias nvconfig='nv ~/.config/nvim/init.vim'
 
 # Postgresql@16
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
@@ -153,7 +153,6 @@ export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 # alias stop-mongodb='brew services stop mongodb-community@7.0'
 
 # creating files and launching them in vscode
-
 prg() {
   for arg in "$@"; do
     echo "creating: $arg"
