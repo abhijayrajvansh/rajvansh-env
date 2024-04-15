@@ -22,9 +22,6 @@ Plug 'AbdelrahmanDwedar/awesome-nvim-colorschemes' " top neovim themes
 
 call plug#end()
 
-:colorscheme ayu " nightfox github_dark_default
-
-
 
 " Hotkeys mapping
 nnoremap <C-p> :GFiles<Cr>
