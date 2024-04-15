@@ -111,11 +111,11 @@ alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/Programming-Environment-2024/zsh/.
 alias cp-lsnpt-rsnpt='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/Programming-Environment-2024'
 alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User'
 
-alias cp-lcodest-rcodest='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/Programming-Environment-2024'
-alias cp-rcodest-lcodest='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User'
+alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/programming-environment-2024/'
+alias cp-rnvcf-lnvcf='cp -r ~/programming-environment-2024/nvim ~/.config/'
 
-alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; myenv; gp 'update: optimized env and audit fix'"
-alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt;'
+alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; cp-lnvcf-rnvcf; myenv; gp 'update: optimized env and audit fix'"
+alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rnvcf-lnvcf;'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
