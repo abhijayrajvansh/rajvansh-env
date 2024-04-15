@@ -140,8 +140,6 @@ alias pictures='cd /Users/abhijayrajvansh/Pictures'
 alias myenv="cd /Users/abhijayrajvansh/programming-environment-2024"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
-alias upwork="cd /Users/abhijayrajvansh/Upwork"
-alias x='cd /Users/abhijayrajvansh/X'
 
 # workspace and development related directories, aliases and functions
 
