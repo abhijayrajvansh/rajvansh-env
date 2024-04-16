@@ -90,8 +90,12 @@ gpush () {
     rm .DS_Store
     git add .
     git status
-    git commit -m $1  
-    git push
+    git commit -m $1 
+
+	if [ -z "$2" ]; then
+		git push origin $2
+	else
+		git push origin main
 }
 
 #  git push with commit and default value
