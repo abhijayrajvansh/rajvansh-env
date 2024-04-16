@@ -26,6 +26,6 @@ call plug#end()
 inoremap <C-p> <Esc>:GFiles<Cr>
 nnoremap <C-p> <Esc>:GFiles<Cr>
 
-inoremap <C-b> <Esc>:Lex<Cr>:vertical resize 35<Cr>
-nnoremap <C-b> <Esc>:Lex<Cr>:vertical resize 35<Cr>
+inoremap <C-b> <Esc>:Lex<Cr>
+nnoremap <C-b> <Esc>:Lex<Cr>
 
