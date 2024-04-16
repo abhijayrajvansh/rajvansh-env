@@ -37,6 +37,8 @@ run () {
   ./a.out
 }
 
+alias gg='deb main'
+
 # homebrew aliases
 alias bi='brew install'
 alias bui='brew uninstall'

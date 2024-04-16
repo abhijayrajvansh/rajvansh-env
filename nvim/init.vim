@@ -22,6 +22,8 @@ Plug 'AbdelrahmanDwedar/awesome-nvim-colorschemes' " top neovim themes
 
 call plug#end()
 
+:colorscheme ayu
+
 
 " Hotkeys mapping
 nnoremap <C-p> :GFiles<Cr>
