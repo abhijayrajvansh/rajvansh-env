@@ -17,7 +17,6 @@ alias ll='ls -al -G'
 alias kk='clear' 
 alias oo='open .'
 alias zz='cd ..'
-alias zzz='cd ../..'
 
 # python specifc shortcuts config
 alias python='python3'
