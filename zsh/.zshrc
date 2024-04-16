@@ -117,7 +117,7 @@ alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/programming-environment-2024/'
 alias cp-rnvcf-lnvcf='cp -r ~/programming-environment-2024/nvim ~/.config/'
 
 alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; cp-lnvcf-rnvcf; myenv; gp 'update: optimized env and audit fix'"
-alias updatenv='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rnvcf-lnvcf;'
+alias gz='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rnvcf-lnvcf;'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
