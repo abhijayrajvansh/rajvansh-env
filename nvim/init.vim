@@ -6,6 +6,7 @@
 :set softtabstop=4
 :set mouse=a
 
+
 call plug#begin()
 
 Plug 'https://github.com/vim-airline/vim-airline'  " airline status bar
@@ -29,9 +30,11 @@ nnoremap <C-p> <Esc>:GFiles<Cr>
 inoremap <C-b> <Esc>:Lex<Cr>
 nnoremap <C-b> <Esc>:Lex<Cr>
 
-inoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
-nnoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
+inoremap <F9> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
+nnoremap <F9> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
 
 
 " custom commands
 command Greet :echo "hello, rajvansh!"
+
+
