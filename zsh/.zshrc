@@ -104,7 +104,7 @@ gp () {
   if [ -z "$1" ]; then
     gpush 'update: audit fix from local env'
   else
-    gpush $1
+    gpush $1 $2
   fi
 }
 
