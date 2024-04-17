@@ -150,6 +150,7 @@ alias github='cd /Users/abhijayrajvansh/Github'
 
 # workspace and development related directories, aliases and functions
 
+
 # vim
 alias nv='nvim'
 alias nvconfig='nv ~/.config/nvim/init.vim'
