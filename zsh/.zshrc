@@ -93,15 +93,16 @@ gpush () {
     git commit -m $1 
 
 	if [ -z "$2" ]; then
-		git push origin $2
-	else
 		git push origin main
+	else
+		git push origin $2
+	fi
 }
 
 #  git push with commit and default value
 gp () {
   if [ -z "$1" ]; then
-    gpush 'update: audit push from local env'
+    gpush 'update: audit fix from local env'
   else
     gpush $1
   fi
