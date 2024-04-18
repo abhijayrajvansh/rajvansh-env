@@ -6,7 +6,6 @@
 :set softtabstop=4
 :set mouse=a
 
-
 call plug#begin()
 
 Plug 'https://github.com/vim-airline/vim-airline'  " airline status bar
