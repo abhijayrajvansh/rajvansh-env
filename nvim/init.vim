@@ -24,18 +24,21 @@ call plug#end()
 
 
 " Hotkeys mapping
+
+" fuzzy searching buffer files
 inoremap <C-p> <Esc>:GFiles<Cr>
 nnoremap <C-p> <Esc>:GFiles<Cr>
 
+" file explorer tree
 inoremap <C-b> <Esc>:Lex<Cr>
 nnoremap <C-b> <Esc>:Lex<Cr>
 
+" run main.cpp files
 inoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
 nnoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
 
+" save file
 inoremap <C-s> <Esc>:w<Cr>
 nnoremap <C-s> <Esc>:w<Cr>
-
-" custom commands
 
 
