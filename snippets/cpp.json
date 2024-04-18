@@ -76,7 +76,7 @@
 	},
 
 	"abhijay's cp starter template": {
-		"prefix": "gg",
+		"prefix": "abhijayrajvansh",
 		"body": [
 			"#include <bits/stdc++.h>",
 			"#define int int64_t ",

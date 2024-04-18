@@ -24,19 +24,23 @@ call plug#end()
 :colorscheme github_dark_default
 
 
-" Hotkeys mapping
+" Shortcut & Hotkeys mapping
 
 " fuzzy searching buffer files
 inoremap <C-p> <Esc>:GFiles<Cr>
 nnoremap <C-p> <Esc>:GFiles<Cr>
 
 " file explorer tree
-inoremap <C-b> <Esc>:Lex<Cr>
-nnoremap <C-b> <Esc>:Lex<Cr>
+inoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
+nnoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
+
 
 " run main.cpp files
-inoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
-nnoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
+inoremap <C-d> <Esc>:w<Cr>:terminal g++-12 -D ABHIJAY_DEBUG main.cpp && ./a.out<Cr>i
+nnoremap <C-d> <Esc>:w<Cr>:terminal g++-12 -D ABHIJAY_DEBUG main.cpp && ./a.out<Cr>i
+
+inoremap <C-r> <Esc>:w<Cr>:terminal g++-12  main.cpp && ./a.out<Cr>i
+nnoremap <C-r> <Esc>:w<Cr>:terminal g++-12  main.cpp && ./a.out<Cr>i
 
 " save file
 inoremap <C-s> <Esc>:w<Cr>
