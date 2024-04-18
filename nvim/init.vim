@@ -16,6 +16,8 @@ Plug 'junegunn/fzf.vim' " fuzzy search for vim
 Plug 'https://github.com/sainnhe/gruvbox-material/'  " gruvbox material theme
 Plug 'https://github.com/projekt0n/github-nvim-theme' " github theme
 Plug 'AbdelrahmanDwedar/awesome-nvim-colorschemes' " top neovim themes
+Plug 'https://github.com/SirVer/ultisnips' " snippet extension
+
 
 call plug#end()
 
@@ -41,4 +43,6 @@ nnoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
 inoremap <C-s> <Esc>:w<Cr>
 nnoremap <C-s> <Esc>:w<Cr>
 
-
+" close file
+inoremap <C-w> <Esc>:q<Cr>
+nnoremap <C-w> <Esc>:q<Cr>
