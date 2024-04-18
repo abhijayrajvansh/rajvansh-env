@@ -43,5 +43,5 @@ inoremap <C-s> <Esc>:w<Cr>
 nnoremap <C-s> <Esc>:w<Cr>
 
 " close file
-inoremap <C-w> <Esc>:q<Cr>
-nnoremap <C-w> <Esc>:q<Cr>
+inoremap <C-q> <Esc>:q<Cr>
+nnoremap <C-q> <Esc>:q<Cr>
