@@ -35,6 +35,5 @@ nnoremap <F9> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
 
 
 " custom commands
-command Greet :echo "hello, rajvansh!"
 
 
