@@ -30,9 +30,11 @@ nnoremap <C-p> <Esc>:GFiles<Cr>
 inoremap <C-b> <Esc>:Lex<Cr>
 nnoremap <C-b> <Esc>:Lex<Cr>
 
-inoremap <F9> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
-nnoremap <F9> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
+inoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
+nnoremap <C-d> <Esc>:w<Cr>:terminal g++-12 main.cpp && ./a.out<Cr>i
 
+inoremap <C-s> <Esc>:w<Cr>
+nnoremap <C-s> <Esc>:w<Cr>
 
 " custom commands
 
