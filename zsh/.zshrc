@@ -209,4 +209,5 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
+kk; newSessionNotification;
 # End of the document
