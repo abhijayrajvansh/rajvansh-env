@@ -183,9 +183,9 @@ alias nv='nvim'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/gettingstartedwithbackend'
 alias netflix='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
-alias twitter='cd /Users/abhijayrajvansh/Desktop/twitter-clone-next.js'
 alias meetup='cd /Users/abhijayrajvansh/Desktop/meetup'
 alias checklist='desk && cd checklist'
+alias twt='desk; cd twitter-clone-next.js'
 
 # software dir
 alias developer="cd /Users/abhijayrajvansh/Developer"
