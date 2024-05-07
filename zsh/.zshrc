@@ -19,7 +19,7 @@ alias oo='open .'
 alias zz='cd ..'
 alias xx='exit'
 
-# python specifc shortcuts config
+# quick commands
 alias python='python3'
 alias app='python app.py'
 alias py='python'
