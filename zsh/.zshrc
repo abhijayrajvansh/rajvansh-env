@@ -102,7 +102,7 @@ gpush () {
 #  git push with commit and default value
 gp () {
   if [ -z "$1" ]; then
-    gpush 'update: audit fix from local env'
+    gpush 'update: audit fixes and changes'
   else
     gpush $1 $2
   fi
