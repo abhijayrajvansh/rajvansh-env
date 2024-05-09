@@ -7,6 +7,7 @@ alias reload='clear && source ~/.zshrc'
 
 # zsh-autosuggestions
 alias import-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
+import-autosuggestions
 
 # hrr -> hot reload: fetches last updated zshrc and goes to root
 alias hrr='reload; root;'
@@ -209,5 +210,5 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
-kk;
+
 # End of the document
