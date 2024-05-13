@@ -190,7 +190,7 @@ alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall F
 alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'   
 
 # more aliases:
-alias bucketlist='cd /Users/abhijayrajvansh/Archives/bucketlist'
+alias apps='cd /Applications/'
 alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
