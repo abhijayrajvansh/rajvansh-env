@@ -149,21 +149,10 @@ alias myenv="cd /Users/abhijayrajvansh/programming-environment-2024"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 
-# workspace and development related directories, aliases and functions
 
-
-# vim
+# neo vim
 alias nv='nvim'
 alias nvconfig='nv ~/.config/nvim/init.vim'
-
-# Postgresql@16
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-# alias start-postgresql='brew services start postgresql@16'
-# alias stop-postgresql='brew services stop postgresql@16'
-
-# mongodb - commenting to skip mongodb initialization
-# alias start-mongodb='brew services start mongodb-community@7.0'
-# alias stop-mongodb='brew services stop mongodb-community@7.0'
 
 # creating files and launching them in vscode
 prg() {
@@ -176,9 +165,6 @@ prg() {
 
 # VSCode settings:
 alias code-setting='code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
-
-# vim
-alias nv='nvim'
 
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
@@ -209,6 +195,5 @@ alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
-
 
 # End of the document
