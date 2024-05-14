@@ -80,12 +80,12 @@ alias gs='git status'
 alias ga='git add . ; gs;'
 alias gd='git diff'
 
-gcm () {
+gc () {
   git commit -m "$1"
 }
 
 alias gpl='git pull'
-alias gc='git clone'
+alias gcl='git clone'
 
 gpush () {
     rm .DS_Store
