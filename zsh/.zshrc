@@ -154,10 +154,10 @@ alias github='cd /Users/abhijayrajvansh/Github'
 alias nv='nvim'
 alias nvconfig='nv ~/.config/nvim/init.vim'
 
-# creating files and launching them in vscode
+# launching files and launching them in vscode
 prg() {
   for arg in "$@"; do
-    echo "creating: $arg"
+    echo "launching: $arg"
     touch $arg
     code $arg
   done
