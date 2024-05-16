@@ -69,23 +69,21 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# Github Repository
+# Git related aliases
 alias readme-format='code ~/Github/README.md'
 alias gitignore-format='code ~/Github/.gitignore'
 
-# github aliases
 mygithub='https://github.com/abhijayrajvansh/'
 
 alias gs='git status'
 alias ga='git add . ; gs;'
 alias gd='git diff'
+alias gpl='git pull'
+alias gcl='git clone'
 
 gc () {
   git commit -m "$1"
 }
-
-alias gpl='git pull'
-alias gcl='git clone'
 
 gpush () {
     rm .DS_Store
