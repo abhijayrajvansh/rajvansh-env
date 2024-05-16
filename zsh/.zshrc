@@ -125,10 +125,10 @@ alias cp-rnvcf-lnvcf='cp -r ~/programming-environment-2024/nvim ~/.config/'
 alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; cp-lnvcf-rnvcf; myenv; gp 'update: optimized env and audit fix'"
 alias gz='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rnvcf-lnvcf;'
 
+# {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b'
-# {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
 
 setopt PROMPT_SUBST
 PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f $ '
