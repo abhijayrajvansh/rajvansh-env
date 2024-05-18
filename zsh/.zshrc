@@ -175,9 +175,10 @@ alias twt='desk; cd twitter-clone-next.js'
 # software dir
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
-alias projects="cd /Users/abhijayrajvansh/Developer/projects"
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
+
+alias projects="echo '✅ projects shifted to notion.'"
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
