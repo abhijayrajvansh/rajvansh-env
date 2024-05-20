@@ -53,7 +53,7 @@ export NVM_DIR="$HOME/.nvm"
 alias ni='npm install'
 alias ndev='npm run dev'
 
-# Perfomant NPM
+# Perfomant Node Package Manager / PNPM
 alias pp='pnpm'
 alias ppi='pnpm install'
 alias ppa='pnpm add'
