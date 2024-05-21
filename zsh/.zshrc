@@ -9,8 +9,15 @@ alias reload='clear && source ~/.zshrc'
 alias import-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 import-autosuggestions
 
-# hrr -> hot reload: fetches last updated zshrc and goes to root
-alias hrr='reload; root;'
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+RESET='\033[0m'
 
 # navigation   
 alias la='ls -l -G'
@@ -79,11 +86,8 @@ alias gs='git status'
 alias ga='git add . ; gs;'
 alias gd='git diff'
 alias gpl='git pull'
-alias gcl='git clone'
+alias gc='git clone'
 
-gc () {
-  git commit -m "$1"
-}
 
 gpush () {
     rm .DS_Store
@@ -98,14 +102,7 @@ gpush () {
 	fi
 }
 
-#  git push with commit and default value
-gp () {
-  if [ -z "$1" ]; then
-    gpush 'update: audit fixes and changes'
-  else
-    gpush $1 $2
-  fi
-}
+alias gp='zsh /Users/abhijayrajvansh/programming-environment-2024/git-cli.sh'
 
 # zsh configfunctions and Commandline
 alias zshrc='code ~/.zshrc'
@@ -120,7 +117,7 @@ alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/
 alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/programming-environment-2024/'
 alias cp-rnvcf-lnvcf='cp -r ~/programming-environment-2024/nvim ~/.config/'
 
-alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; cp-lnvcf-rnvcf; myenv; gp 'update: optimized env and audit fix'"
+alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; cp-lnvcf-rnvcf; myenv; gpush 'update: optimized env and audit fix'"
 alias gz='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rnvcf-lnvcf;'
 
 # {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
