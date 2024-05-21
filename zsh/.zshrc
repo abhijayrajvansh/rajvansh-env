@@ -126,10 +126,10 @@ alias gz='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rnvcf-lnvcf;'
 # {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
 autoload -Uz vcs_info
 precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:git:*' formats '%F{cyan}git:(%f%F{red}%b%f%F{cyan})%f'
 
 setopt PROMPT_SUBST
-PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f $ '
+PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
 
 # launching applications
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
