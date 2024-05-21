@@ -102,19 +102,22 @@ gpush () {
 	fi
 }
 
+default_commit_msg="wagmi: minor bug fixes & improvements"
+default_push_branch="main"
+
 gp () {
-  echo -n "Enter Commit (D- audit fixes & changes): "
+  echo -n "Enter Commit (D- $default_commit_msg): "
   read commit_msg
 
-  echo -n "Enter Branch (D- main): "
+  echo -n "Enter Branch (D- $default_push_branch): "
   read push_branch
 
   if [ -z "$commit_msg" ]; then
-    commit_msg="update: audit fixes & changes"
+    commit_msg="$default_commit_msg"
   fi
 
   if [ -z "$push_branch" ]; then
-    push_branch="main"
+    push_branch="$default_push_branch"
   fi
 
   echo ""
