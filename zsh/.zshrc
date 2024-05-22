@@ -86,8 +86,7 @@ alias gs='git status'
 alias ga='git add . ; gs;'
 alias gd='git diff'
 alias gpl='git pull'
-alias gc='git clone'
-
+alias gcl='git clone'
 
 gpush () {
     rm .DS_Store
@@ -104,6 +103,20 @@ gpush () {
 
 default_commit_msg="wagmi: minor bug fixes & improvements"
 default_push_branch="main"
+
+gc () {
+  echo -n "Enter Commit (D- $default_commit_msg): "
+  read commit_msg
+
+  if [ -z "$commit_msg" ]; then
+    commit_msg="$default_commit_msg"
+  fi
+
+  # git commands:
+  git add .
+  git status
+  git commit -m "$commit_msg"
+}
 
 gp () {
   echo -n "Enter Commit (D- $default_commit_msg): "
