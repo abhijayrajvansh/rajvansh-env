@@ -133,7 +133,7 @@ gp () {
 }
 
 # zsh configfunctions and Commandline
-alias zshrc='code ~/.zshrc'
+alias zshrc='code ~/.zshrc; echo launching: zsh config'
 
 # updating .zshrc file and code snippets in git remote repo
 alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh'
