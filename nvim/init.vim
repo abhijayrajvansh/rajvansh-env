@@ -57,6 +57,4 @@ nnoremap <C-a> <Esc>ggVG
 " copy to system clipboard
 vnoremap <C-c> "+y
 
-
-
-
+let g:loaded_python3_provider=0
