@@ -1,54 +1,12 @@
 {
-  "security.workspace.trust.untrustedFiles": "open",
-  "files.autoSave": "afterDelay",
+  "workbench.iconTheme": "vscode-icons-mac",
+  "workbench.colorTheme": "Monospace IDX Dark",
+  "editor.fontFamily": "Jetbrains Mono, Menlo, Monaco, 'Courier New', monospace",
+  "terminal.integrated.fontSize": 13,
+  
   "editor.formatOnSave": true,
-  "workbench.iconTheme": "material-icon-theme",
-  "liveServer.settings.donotShowInfoMsg": true,
+  "files.autoSave": "afterDelay",
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.fontSize": 14,
   "prettier.endOfLine": "auto",
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  "extensions.ignoreRecommendations": true,
-  "editor.fontFamily": " JetBrains Mono, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
-  "editor.tabSize": 2,
-  "editor.stickyScroll.enabled": false,
-  "editor.fontSize": 15,
-  "editor.fontWeight": "bold",
-  "editor.wordWrap": "on",
-  "editor.scrollbar.vertical": "hidden",
-  "editor.minimap.enabled": false,
-  "terminal.integrated.fontWeight": 700,
-  "terminal.integrated.fontSize": 14,
-  "terminal.integrated.lineHeight": 1.1,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  "editor.lineHeight": 1.7,
-  "terminal.integrated.fontFamily": "SF Mono",
-  "window.titleBarStyle": "custom",
-  "workbench.colorCustomizations": {
-    // "editor.background": "#000000",
-    "activityBar.border": "#1e384a"
-  },
-
-  "apc.electron": {
-    "transparent": true,
-    "opacity": 0.95,
-    // Range: 0-1 (To go fully transparent, set it to 0)
-
-    "vibrancy": "light",
-    "visualEffectState": "active"
-  },
-
-  "update.mode": "manual",
-  "workbench.colorTheme": "Bearded Theme Arc Blueberry",
-  "workbench.statusBar.visible": false,
-  "editor.guides.indentation": false,
-  "workbench.activityBar.location": "hidden",
-  "terminal.integrated.smoothScrolling": true,
-  "editor.smoothScrolling": true,
-  "git.enabled": false,
-  "terminal.integrated.tabs.enabled": false
 }
