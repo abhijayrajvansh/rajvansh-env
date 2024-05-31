@@ -1,5 +1,5 @@
 # username and root access
-alias newSessionNotification="echo New Session Started, Current User is: abhijayrajvansh"
+alias newSessionNotification="echo New Session Started, Welcome Mr.Rajvansh"
 alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
@@ -7,8 +7,7 @@ alias reload='clear && source ~/.zshrc'
 alias rr='reload'
 
 # zsh-autosuggestions
-alias import-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
-import-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Define color codes
 RESET='\033[0m'
@@ -26,7 +25,7 @@ alias redcross='echo -n ${RED}✘ ${RESET}'
 # navigation   
 alias la='ls -l -G'
 alias ll='ls -al -G'
-alias l='ll'
+alias l='la'
 alias kk='clear' 
 alias oo='open .'
 alias zz='cd ..'
@@ -39,7 +38,6 @@ alias py='python'
 alias pip='pip3'
 
 # C/C++ GCC G++ Compliers
-
 deb () {
   g++-12 -D ABHIJAY_DEBUG $1.cpp
   ./a.out
@@ -61,11 +59,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
 
-# Node package manager
+# Node package manager or npm
 alias ni='npm install'
 alias ndev='npm run dev'
 
-# Perfomant Node Package Manager / PNPM
+# Perfomant Node Package Manager or PNPM
 alias pp='pnpm'
 alias ppi='pnpm install'
 alias ppa='pnpm add'
@@ -83,11 +81,10 @@ esac
 # pnpm end
 
 # Git related aliases
-alias readme-format='code ~/Github/README.md'
-alias gitignore-format='code ~/Github/.gitignore'
-
 mygithub='https://github.com/abhijayrajvansh/'
 
+alias readme-format='code ~/Github/README.md'
+alias gitignore-format='code ~/Github/.gitignore'
 alias gs='git status'
 alias ga='git add . ; gs;'
 alias gd='git diff'
@@ -267,4 +264,5 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='pictures'
 
+kk; newSessionNotification;
 # End of the document
