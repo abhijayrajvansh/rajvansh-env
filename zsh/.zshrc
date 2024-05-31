@@ -249,8 +249,7 @@ alias developer="cd /Users/abhijayrajvansh/Developer"
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
-
-alias projects="echo projects are shifted to notion."
+alias projects="greentick; echo projects are shifted to notion."
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
