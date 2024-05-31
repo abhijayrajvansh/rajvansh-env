@@ -1,0 +1,53 @@
+{
+  "security.workspace.trust.untrustedFiles": "open",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "workbench.iconTheme": "vscode-icons-mac",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "prettier.endOfLine": "auto",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "extensions.ignoreRecommendations": true,
+  "editor.fontFamily": "JetBrains Mono, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
+  "editor.tabSize": 2,
+  "editor.stickyScroll.enabled": false,
+  "editor.lineHeight": 1.7,
+  "editor.fontWeight": 400,
+  "editor.wordWrap": "on",
+  "editor.scrollbar.vertical": "hidden",
+  "editor.minimap.enabled": false,
+  "terminal.integrated.fontWeight": 700,
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.lineHeight": 1.1,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "terminal.integrated.fontFamily": "monospace",
+  "window.titleBarStyle": "custom",
+
+  "apc.electron": {
+    "transparent": true,
+    "opacity": 1,
+    // Range: 0-1 (To go fully transparent, set it to 0)
+
+    "vibrancy": "light",
+    "visualEffectState": "active"
+  },
+
+  "update.mode": "manual",
+  "editor.guides.indentation": true,
+  "terminal.integrated.smoothScrolling": true,
+  "editor.smoothScrolling": true,
+  "terminal.integrated.tabs.enabled": false,
+  "git.enabled": false,
+  "workbench.statusBar.visible": false,
+  "prisma.showPrismaDataPlatformNotification": false,
+  "editor.fontSize": 14,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "IDX Monospace Dark"
+}
