@@ -95,7 +95,7 @@ gpush () {
     rm .DS_Store
     git add .
     git status
-    echo "\nCommit Message: ${GREEN}$1${RESET}"
+    echo "\nCommit Message: ${GREEN}$1${RESET}\n"
     git commit -m $1 
 
 	if [ -z "$2" ]; then
