@@ -72,6 +72,7 @@ alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
 alias pps='ppi; pnpm run start'
 
+# Next.js related aliases
 alias cna='pp create next-app'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
