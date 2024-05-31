@@ -30,7 +30,7 @@
 
   "apc.electron": {
     "transparent": true,
-    "opacity": 1,
+    "opacity": 0.9,
     // Range: 0-1 (To go fully transparent, set it to 0)
 
     "vibrancy": "light",
