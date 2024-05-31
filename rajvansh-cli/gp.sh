@@ -26,3 +26,5 @@ git add .
 git status
 git commit -m "$commit_msg"
 git push origin "$push_branch"
+
+# end of the document

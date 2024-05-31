@@ -4,6 +4,7 @@ alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
+alias rr='reload'
 
 # zsh-autosuggestions
 alias import-autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
@@ -19,6 +20,9 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 
+alias greentick='echo -n ${GREEN}✔ ${RESET}'
+alias redcross='echo -n ${RED}✘ ${RESET}'
+  
 # navigation   
 alias la='ls -l -G'
 alias ll='ls -al -G'
@@ -101,7 +105,8 @@ gpush () {
 	fi
 }
 
-default_commit_msg="wagmi: minor bug fixes & improvements"
+# git global default values:
+default_commit_msg="wagmi: fixed bugs & improvements"
 default_push_branch="main"
 
 gc () {
@@ -145,21 +150,49 @@ gp () {
   git push origin "$push_branch"
 }
 
-# zsh configfunctions and Commandline
+# zsh configfunctions and Commandline:
 alias zshrc='code ~/.zshrc; echo launching: zsh config'
 
-# updating .zshrc file and code snippets in git remote repo
+# updating .zshrc file and code snippets in git remote repo:
 alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/Programming-Environment-2024/zsh'
 alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/Programming-Environment-2024/zsh/.zshrc /Users/abhijayrajvansh/'
 
-alias cp-lsnpt-rsnpt='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/Programming-Environment-2024'
-alias cp-rsnpt-lsnpt='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User'
+alias cp-lcodesetting-rcodesetting='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/Programming-Environment-2024/vscode/'
+alias cp-rcodesetting-lcodesetting='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/vscode/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
+
+alias cp-lcodesnippets-rcodesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/Programming-Environment-2024/vscode/'
+alias cp-rcodesnippets-lcodesnippets='cp -r /Users/abhijayrajvansh/Programming-Environment-2024/vscode/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
 
 alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/programming-environment-2024/'
 alias cp-rnvcf-lnvcf='cp -r ~/programming-environment-2024/nvim ~/.config/'
 
-alias pz="cp-lzsh-rzsh; cp-lsnpt-rsnpt; cp-lnvcf-rnvcf; myenv; gpush 'update: optimized env and audit fix'"
-alias gz='myenv; git pull; cp-rzsh-lzsh; cp-rsnpt-lsnpt; cp-rnvcf-lnvcf;'
+copy_localenv_to_remoteenv () {
+  echo "Copying following configurations to remote environment:\n";
+  greentick; echo "Copied rajvansh-cli and zsh config.";  cp-lzsh-rzsh;
+  greentick; echo "Copied settings.json & snippets."; cp-lcodesetting-rcodesetting; cp-lcodesnippets-rcodesnippets;
+  greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
+  echo
+}
+
+update_dev_configurations () {
+  echo "Updating remote configurations to local environment:\n";
+  greentick; echo "Updated rajvansh-cli and zsh config.";  cp-rzsh-lzsh;
+  greentick; echo "Updated settings.json & snippets."; cp-rcodesetting-lcodesetting; cp-rcodesnippets-lcodesnippets;
+  greentick; echo "Updated neovim config."; cp-rnvcf-lnvcf;
+  echo
+}
+
+pz () {
+  myenv;
+  copy_localenv_to_remoteenv;
+  gpush "update: dev configs and improvements" main
+}
+
+gz () {
+  myenv;
+  git pull origin main;
+  update_dev_configurations;
+}
 
 # {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
 autoload -Uz vcs_info
@@ -185,13 +218,12 @@ alias myenv="cd /Users/abhijayrajvansh/programming-environment-2024"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 
-
 # neo vim
 alias nv='nvim'
 alias nvconfig='nv ~/.config/nvim/init.vim'
 
 # launching files and launching them in vscode
-prg() {
+prg () {
   for arg in "$@"; do
     echo "launching: $arg"
     touch $arg
@@ -216,7 +248,7 @@ alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
 
-alias projects="echo '✅ projects are shifted to notion.'"
+alias projects="echo projects are shifted to notion."
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
