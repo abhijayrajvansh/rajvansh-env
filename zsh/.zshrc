@@ -192,6 +192,7 @@ gz () {
   cd /Users/abhijayrajvansh/programming-environment-2024
   git pull origin main;
   update_dev_configurations;
+  echo "Reload .zshrc to reflect changes."
 }
 
 # {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
