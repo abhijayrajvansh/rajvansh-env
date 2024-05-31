@@ -95,11 +95,14 @@ gpush () {
     rm .DS_Store
     git add .
     git status
+    echo "\nCommit Message: $1"
     git commit -m $1 
 
 	if [ -z "$2" ]; then
+    echo "\nPushing to branch: ${GREEN}main${RESET}"
 		git push origin main
 	else
+    echo "\nPushing to branch: ${GREEN}$2${RESET}"
 		git push origin $2
 	fi
 }
