@@ -26,6 +26,7 @@ alias redcross='echo -n ${RED}✘ ${RESET}'
 # navigation   
 alias la='ls -l -G'
 alias ll='ls -al -G'
+alias l='ll'
 alias kk='clear' 
 alias oo='open .'
 alias zz='cd ..'
