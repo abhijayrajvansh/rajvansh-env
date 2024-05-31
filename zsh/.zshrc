@@ -183,13 +183,13 @@ update_dev_configurations () {
 }
 
 pz () {
-  myenv;
+  cd /Users/abhijayrajvansh/programming-environment-2024
   copy_localenv_to_remoteenv;
   gpush "update: dev configs and improvements" main
 }
 
 gz () {
-  myenv;
+  cd /Users/abhijayrajvansh/programming-environment-2024
   git pull origin main;
   update_dev_configurations;
 }
