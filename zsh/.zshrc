@@ -1,5 +1,5 @@
 # username and root access
-alias newSessionNotification="echo New Session Started, Welcome Mr.Rajvansh"
+alias newSessionNotification="echo New Session Started, Welcome Back Mr.Rajvansh"
 alias root="cd /Users/abhijayrajvansh/"
 
 # reload: normal zshrc refresh reload
