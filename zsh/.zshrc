@@ -192,7 +192,7 @@ update_dev_configurations () {
 pz () {
   cd /Users/abhijayrajvansh/programming-environment-2024
   copy_localenv_to_remoteenv;
-  gpush "update: dev configs and improvements" main
+  gpush "update: audit push and improvements" main
 }
 
 gz () {
