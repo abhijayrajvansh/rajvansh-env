@@ -2,12 +2,24 @@
 alias newSessionNotification="echo New Session Started, Welcome Back Mr.Rajvansh"
 alias root="cd /Users/abhijayrajvansh/"
 
+# zsh-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%F{cyan}git:(%f%F{red}%b%f%F{cyan})%f'
+
+setopt PROMPT_SUBST
+PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
+
 # reload: normal zshrc refresh reload
 alias reload='clear && source ~/.zshrc'
 alias rr='reload'
 
-# zsh-autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# to hide and reveal desktop icons (mac machines)
+alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
+alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'  
 
 # Define color codes
 RED='\033[0;31m'
@@ -31,12 +43,6 @@ alias oo='open .'
 alias zz='cd ..'
 alias xx='exit'
 
-# quick commands
-alias python='python3'
-alias app='python app.py'
-alias py='python'
-alias pip='pip3'
-
 # C/C++ GCC G++ Compliers
 deb () {
   g++-12 -D ABHIJAY_DEBUG $1.cpp
@@ -48,7 +54,11 @@ run () {
   ./a.out
 }
 
-alias gg='deb main'
+# python related aliases
+alias python='python3'
+alias app='python app.py'
+alias py='python'
+alias pip='pip3'
 
 # homebrew aliases
 alias bi='brew install'
@@ -59,10 +69,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
 
-# Node package manager or npm
-alias ni='npm install'
-alias ndev='npm run dev'
-
 # Perfomant Node Package Manager or PNPM
 alias pp='pnpm'
 alias ppi='pnpm install'
@@ -70,15 +76,14 @@ alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
 alias pps='ppi; pnpm run start'
 
-# Next.js related aliases
-alias cna='pp create next-app'
-
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
+
+# Next.js related aliases
+alias cna='pp create next-app'
 
 # Git related aliases
 mygithub='https://github.com/abhijayrajvansh/'
@@ -197,35 +202,15 @@ gz () {
   echo "Reload .zshrc to reflect changes."
 }
 
-# {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%F{cyan}git:(%f%F{red}%b%f%F{cyan})%f'
-
-setopt PROMPT_SUBST
-PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
+# neo vim
+alias nv='nvim'
+alias nvconfig='nv ~/.config/nvim/init.vim'
 
 # launching applications
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-# default directories
-alias desktop="cd /Users/abhijayrajvansh/Desktop"
-alias documents="cd /Users/abhijayrajvansh/Documents"
-alias downloads="cd /Users/abhijayrajvansh/Downloads"
-alias movies="cd /Users/abhijayrajvansh/Movies"
-alias pictures='cd /Users/abhijayrajvansh/Pictures'
-
-# productivity
-alias myenv="cd /Users/abhijayrajvansh/programming-environment-2024"
-alias archives="cd /Users/abhijayrajvansh/Archives"
-alias github='cd /Users/abhijayrajvansh/Github'
-
-# neo vim
-alias nv='nvim'
-alias nvconfig='nv ~/.config/nvim/init.vim'
-
-# launching files and launching them in vscode
+# creating files and launching in vscode
 prg () {
   for arg in "$@"; do
     echo "launching: $arg"
@@ -234,38 +219,41 @@ prg () {
   done
 }
 
+# default directories
+alias desktop="cd /Users/abhijayrajvansh/Desktop"
+alias documents="cd /Users/abhijayrajvansh/Documents"
+alias developer="cd /Users/abhijayrajvansh/Developer"
+alias downloads="cd /Users/abhijayrajvansh/Downloads"
+alias movies="cd /Users/abhijayrajvansh/Movies"
+
+# quick directories
+alias myenv="cd /Users/abhijayrajvansh/programming-environment-2024"
+alias archives="cd /Users/abhijayrajvansh/Archives"
+alias github='cd /Users/abhijayrajvansh/Github'
+alias resume='cd ~/Documents/resume'
+
 # VSCode settings:
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
-
-# on goining projects
-alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
-alias backend='cd /Users/abhijayrajvansh/Desktop/server-side-programming'
-alias netflix='cd /Users/abhijayrajvansh/Desktop/netflix-clone-next.js'
-alias meetup='cd /Users/abhijayrajvansh/Desktop/meetup'
-alias checklist='desk && cd checklist'
-alias twt='desk; cd twitter-clone-next.js'
+alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
 # software dir
-alias developer="cd /Users/abhijayrajvansh/Developer"
-alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
-alias projects="greentick; echo projects are shifted to notion."
+alias projects="greentick; echo 'projects are shifted to notion.'"
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 
-# to hide and reveal desktop icons (mac machines)
-alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
-alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'   
-
-# more aliases:
+# quick aliases:
 alias apps='cd /Applications/'
 alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
-alias pics='pictures'
+
+# on goining projects
+alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
+alias backend='cd /Users/abhijayrajvansh/Desktop/server-side-programming'
 
 kk; newSessionNotification;
 # End of the document
