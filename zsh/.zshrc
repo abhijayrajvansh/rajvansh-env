@@ -252,8 +252,13 @@ alias desk='desktop'
 alias docs='documents'
 
 # on goining projects
-alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/server-side-programming'
+portfolio () {
+  cd /Users/abhijayrajvansh/Desktop/portfolio.js
+  code .
+  ppd
+}
+
 
 kk; newSessionNotification;
 # End of the document
