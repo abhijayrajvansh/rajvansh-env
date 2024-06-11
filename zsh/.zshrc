@@ -253,11 +253,14 @@ alias docs='documents'
 
 # on goining projects
 alias backend='cd /Users/abhijayrajvansh/Desktop/server-side-programming'
-portfolio () {
+alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
+start_portfolio () {
   cd /Users/abhijayrajvansh/Desktop/portfolio.js
   code .
   ppd
 }
+
+
 
 
 kk; newSessionNotification;
