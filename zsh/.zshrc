@@ -261,7 +261,5 @@ start_portfolio () {
 }
 
 
-
-
 kk; newSessionNotification;
 # End of the document
