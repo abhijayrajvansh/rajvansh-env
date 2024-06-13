@@ -250,6 +250,7 @@ alias apps='cd /Applications/'
 alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
+alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 
 # on goining projects
 alias backend='cd /Users/abhijayrajvansh/Desktop/server-side-programming'
