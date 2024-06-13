@@ -252,7 +252,7 @@ alias desk='desktop'
 alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 
-# database
+# postgres database
 alias psql_docker_postgres='psql postgres://abhijay:rajvansh@localhost:5432/postgres'
 
 # on goining projects
