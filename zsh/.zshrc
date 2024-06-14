@@ -14,7 +14,7 @@ setopt PROMPT_SUBST
 PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
 
 # reload: normal zshrc refresh reload
-alias reload='clear && source ~/.zshrc'
+alias reload='root && clear && source ~/.zshrc'
 alias rr='reload'
 
 # to hide and reveal desktop icons (mac machines)
@@ -263,7 +263,6 @@ start_portfolio () {
   code .
   ppd
 }
-
 
 kk; newSessionNotification;
 # End of the document
