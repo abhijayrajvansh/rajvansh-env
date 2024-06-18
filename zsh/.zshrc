@@ -1,6 +1,6 @@
 # username and root access
-alias newSessionNotification="echo New Session Started, Welcome Back Mr.Rajvansh"
-alias root="cd /Users/abhijayrajvansh/"
+alias newSessionNotification="echo New Session Started, Welcome Back Mr.Rajvansh!"
+alias root="cd "
 
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -14,8 +14,7 @@ setopt PROMPT_SUBST
 PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
 
 # reload: normal zshrc refresh reload
-alias reload='root && clear && source ~/.zshrc'
-alias rr='reload'
+alias rr='source ~/.zshrc'
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
