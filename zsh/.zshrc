@@ -112,28 +112,36 @@ gpush () {
 }
 
 # git global default values:
-default_commit_msg="wagmi: fixed bugs & improvements"
-default_push_branch="main"
+init_gitcli_default_values () {
+  default_remote=$(git remote)
+  default_commit_msg="wagmi: bug fixes & improvements"
+  default_push_branch=$(git rev-parse --abbrev-ref HEAD)
+}
 
 gc () {
-  echo -n "Enter Commit (D- $default_commit_msg): "
+  init_gitcli_default_values
+  echo -n "Enter Commit (def- $default_commit_msg): "
   read commit_msg
 
   if [ -z "$commit_msg" ]; then
     commit_msg="$default_commit_msg"
   fi
 
-  # git commands:
   git add .
   git status
   git commit -m "$commit_msg"
 }
 
 gp () {
-  echo -n "Enter Commit (D- $default_commit_msg): "
+  init_gitcli_default_values
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  RESET='\033[0m'
+
+  echo -n "Enter Commit (def- $default_commit_msg): "
   read commit_msg
 
-  echo -n "Enter Branch (D- $default_push_branch): "
+  echo -n "Enter Branch (def- $default_remote/$default_push_branch): "
   read push_branch
 
   if [ -z "$commit_msg" ]; then
@@ -149,11 +157,10 @@ gp () {
   echo "Using git push branch: ${RED}$push_branch${RESET}"
   echo ""
 
-  # git commands:
   git add .
   git status
   git commit -m "$commit_msg"
-  git push origin "$push_branch"
+  git push $default_remote $push_branch
 }
 
 # zsh configfunctions and Commandline:
