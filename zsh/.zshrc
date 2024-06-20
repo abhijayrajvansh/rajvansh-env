@@ -84,7 +84,7 @@ esac
 # Next.js related aliases
 alias cna='pp create next-app'
 
-# Git related aliases
+# Git aliases
 mygithub='https://github.com/abhijayrajvansh/'
 
 alias readme-format='code ~/Github/README.md'
@@ -94,6 +94,7 @@ alias ga='git add . ; gs;'
 alias gd='git diff'
 alias gpl='git pull'
 alias gcl='git clone'
+alias gw='git switch'
 
 gpush () {
     rm .DS_Store
