@@ -21,7 +21,6 @@ alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall F
 alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'  
 
 # Define color codes
-RESET='\033[0m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -29,6 +28,7 @@ BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 WHITE='\033[0;37m'
+RESET='\033[0m'
 
 alias greentick='echo -n ${GREEN}✔ ${RESET}'
 alias redcross='echo -n ${RED}✘ ${RESET}'
