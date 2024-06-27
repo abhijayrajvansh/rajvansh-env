@@ -9,3 +9,6 @@ echo 'services:
     ports:
       - "5432:5432"
 ' >> docker-compose.yaml
+echo ''
+echo 'DATABASE_URL="postgresql://postgres:postgres@localhost:5432/postgres"'
+echo ''
