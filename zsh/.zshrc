@@ -82,7 +82,7 @@ case ":$PATH:" in
 esac
 
 # Next.js related aliases
-alias cna='pp create next-app'
+alias cna='pp create next-app@latest'
 
 # Git aliases
 mygithub='https://github.com/abhijayrajvansh/'
