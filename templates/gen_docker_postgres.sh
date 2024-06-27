@@ -1,3 +1,7 @@
+GREEN='\033[0;32m'
+RESET='\033[0m'
+alias greentick='echo -n ${GREEN}✔ ${RESET}'
+
 echo 'services:
   db:
     image: postgres:latest
@@ -9,6 +13,6 @@ echo 'services:
     ports:
       - "5432:5432"
 ' >> docker-compose.yaml
-echo ''
+
+greentick; echo 'postgres service added to docker-compose.yaml.'
 echo 'DATABASE_URL="postgresql://postgres:postgres@localhost:5432/postgres"'
-echo ''
