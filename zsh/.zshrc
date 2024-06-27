@@ -260,7 +260,7 @@ alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 
 # postgres database
-alias psql_docker_postgres='psql postgres://abhijay:rajvansh@localhost:5432/postgres'
+alias psql_docker_postgres='psql postgresql://postgres:postgres@localhost:5432/postgres'
 
 # on goining projects
 alias backend='cd /Users/abhijayrajvansh/Desktop/server-side-programming'

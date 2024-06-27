@@ -2,7 +2,7 @@
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,
-  "workbench.iconTheme": "vscode-icons-mac",
+  "workbench.iconTheme": "material-icon-theme",
   "liveServer.settings.donotShowInfoMsg": true,
   "prettier.endOfLine": "auto",
   "[html]": {
