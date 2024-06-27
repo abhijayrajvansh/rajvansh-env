@@ -84,7 +84,12 @@ esac
 # Next.js related aliases
 alias cna='pp create next-app@latest'
 
-# Git aliases
+# Generate Templates
+gen_docker_postgres () {
+  zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_docker_postgres.sh
+}
+
+# Git aliases and functions
 mygithub='https://github.com/abhijayrajvansh/'
 
 alias readme-format='code ~/Github/README.md'
