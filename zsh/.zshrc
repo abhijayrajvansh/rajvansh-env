@@ -268,7 +268,7 @@ alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias psql_docker_postgres='psql postgresql://postgres:postgres@localhost:5432/postgres'
 
 # on goining projects
-alias backend='cd /Users/abhijayrajvansh/Desktop/server-side-programming'
+alias backend='cd /Users/abhijayrajvansh/Desktop/backend'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 start_portfolio () {
   cd /Users/abhijayrajvansh/Desktop/portfolio.js
