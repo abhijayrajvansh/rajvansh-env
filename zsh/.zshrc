@@ -256,7 +256,6 @@ alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
 alias projects="greentick; echo 'projects are shifted to notion.'"
-alias dcud='docker-compose up -d'
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
