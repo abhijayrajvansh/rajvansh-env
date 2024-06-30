@@ -276,5 +276,5 @@ start_portfolio () {
   ppd
 }
 
-kk; newSessionNotification;
+
 # End of the document
