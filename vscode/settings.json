@@ -45,7 +45,6 @@
   "git.enabled": false,
   "workbench.statusBar.visible": false,
   "prisma.showPrismaDataPlatformNotification": false,
-  "editor.fontSize": 14,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
