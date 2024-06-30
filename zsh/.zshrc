@@ -89,6 +89,10 @@ gen_docker_postgres () {
   zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_docker_postgres.sh
 }
 
+gen_readme_template() {
+  zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_readme.sh
+}
+
 # Git aliases and functions
 mygithub='https://github.com/abhijayrajvansh/'
 
@@ -248,10 +252,11 @@ alias resume='cd ~/Documents/resume'
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
-# software dir
+# development related aliases and commands
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
 alias projects="greentick; echo 'projects are shifted to notion.'"
+alias dcud='docker-compose up -d'
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
