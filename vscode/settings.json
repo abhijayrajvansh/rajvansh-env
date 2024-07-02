@@ -51,5 +51,6 @@
   "workbench.colorTheme": "IDX Monospace Dark",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "editor.fontSize": 14
 }

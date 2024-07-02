@@ -235,6 +235,9 @@ prg () {
   done
 }
 
+# enable scripts or productivity
+alias start_skip_script='cd /Users/abhijayrajvansh/Documents/skip-script; app'
+
 # default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
 alias documents="cd /Users/abhijayrajvansh/Documents"
@@ -248,20 +251,19 @@ alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias resume='cd ~/Documents/resume'
 
-# VSCode settings:
+# VS Code settings
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
 # development related aliases and commands
 alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
 alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
-alias projects="greentick; echo 'projects are shifted to notion.'"
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 
-# quick aliases:
+# quick aliases
 alias apps='cd /Applications/'
 alias dev='developer'
 alias desk='desktop'
@@ -269,16 +271,16 @@ alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 
 # postgres database
-alias psql_docker_postgres='psql postgresql://postgres:postgres@localhost:5432/postgres'
+alias psql-connect='psql postgresql://postgres:postgres@localhost:5432/postgres'
 
 # on goining projects
-alias backend='cd /Users/abhijayrajvansh/Desktop/backend'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
+alias backend='cd /Users/abhijayrajvansh/Desktop/backend'
+
 start_portfolio () {
   cd /Users/abhijayrajvansh/Desktop/portfolio.js
   code .
   ppd
 }
-
 
 # End of the document
