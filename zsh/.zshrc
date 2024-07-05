@@ -275,13 +275,8 @@ alias psql-connect='psql postgresql://postgres:postgres@localhost:5432/postgres'
 
 # on goining projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
+alias start-portfolio-development='portfolio; code .; ppd'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend'
 alias node-auth='cd /Users/abhijayrajvansh/Desktop/backend/auth-for-node-ts-server'
-
-start_portfolio () {
-  cd /Users/abhijayrajvansh/Desktop/portfolio.js
-  code .
-  ppd
-}
 
 # End of the document
