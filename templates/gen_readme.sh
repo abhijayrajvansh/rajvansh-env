@@ -9,4 +9,3 @@ Author: [Abhijay Rajvansh](https://abhijayrajvansh.com)
 TBW' >> README.md
 
 greentick; echo 'sample readme template added to README.md'
-

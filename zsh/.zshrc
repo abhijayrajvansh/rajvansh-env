@@ -89,8 +89,12 @@ gen_docker_postgres () {
   zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_docker_postgres.sh
 }
 
-gen_readme_template() {
+gen_readme_template () {
   zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_readme.sh
+}
+
+gen_tsconfig () {
+  zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_tsconfig.sh
 }
 
 # Git aliases and functions
@@ -277,6 +281,6 @@ alias psql-connect='psql postgresql://postgres:postgres@localhost:5432/postgres'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias start-portfolio-development='portfolio; code .; ppd'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend'
-alias node-auth='cd /Users/abhijayrajvansh/Desktop/backend/auth-for-node-ts-server'
+alias auth-node='cd /Users/abhijayrajvansh/Desktop/backend/auth-for-node-ts-server'
 
 # End of the document
