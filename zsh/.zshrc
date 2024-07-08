@@ -74,6 +74,7 @@ alias ppi='pnpm install'
 alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
 alias pps='ppi; pnpm run start'
+alias ppb='ppi; pnpm run build'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 case ":$PATH:" in
