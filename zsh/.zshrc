@@ -241,7 +241,7 @@ prg () {
 }
 
 # enable scripts or productivity
-alias start_skip_script='cd /Users/abhijayrajvansh/Documents/skip-script; app'
+alias start-skip-script='cd /Users/abhijayrajvansh/Documents/skip-script; app'
 
 # default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
