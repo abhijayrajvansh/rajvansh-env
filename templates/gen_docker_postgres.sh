@@ -21,5 +21,5 @@ volumes:
 ' >> docker-compose.yaml
 
 echo '> Writing docker-compose.yaml file...'
-greentick; echo 'Postgres service added to docker-compose.yaml.\n'
+greentick; echo 'Postgres service added to docker-compose.yaml.\n'; 
 echo 'DATABASE_URL="postgresql://postgres:postgres@localhost:5432/postgres?schema=public"'
