@@ -18,8 +18,7 @@ services:
 
 volumes:
   postgres_data:
-' 
->> docker-compose.yaml
+' >> docker-compose.yaml
 
 greentick; echo 'postgres service added to docker-compose.yaml.'
 echo 'DATABASE_URL="postgresql://postgres:postgres@localhost:5432/postgres?schema=public"'
