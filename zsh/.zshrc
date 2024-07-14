@@ -87,7 +87,7 @@ case ":$PATH:" in
 esac
 
 # Next.js related aliases
-alias cna='pp create next-app@latest'
+alias cna='pnpm create next-app@latest'
 
 # Generate Templates
 gen_docker_postgres () {
