@@ -264,10 +264,6 @@ alias resume='cd ~/Documents/resume'
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
-# development related aliases and commands
-alias concepts="cd /Users/abhijayrajvansh/Developer/software-engineering-concepts; code README.md"
-alias dcp='cd /Users/abhijayrajvansh/Developer/dev-concepts-practice'
-
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
@@ -282,10 +278,9 @@ alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 # postgres database
 alias psql-connect='psql postgresql://postgres:postgres@localhost:5432/postgres'
 
-# on goining projects
+# on goining development projects
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias start-portfolio-development='portfolio; code .; ppd'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend'
-alias auth-node='cd /Users/abhijayrajvansh/Desktop/backend/auth-for-node-ts-server'
 
 # End of the document
