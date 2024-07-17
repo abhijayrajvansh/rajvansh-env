@@ -282,5 +282,6 @@ alias psql-connect='psql postgresql://postgres:postgres@localhost:5432/postgres'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias start-portfolio-development='portfolio; code .; ppd'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend-library'
+alias google-auth='cd /Users/abhijayrajvansh/Desktop/backend-library/google-auth-next.js'
 
 # End of the document
