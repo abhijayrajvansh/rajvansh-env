@@ -46,6 +46,9 @@ alias oo='open .'
 alias zz='cd ..'
 alias xx='exit'
 
+# data science
+alias count-files='ls -1 | wc -l'
+
 # C/C++ GCC G++ Compliers
 deb () {
   g++-12 -D ABHIJAY_DEBUG $1.cpp
