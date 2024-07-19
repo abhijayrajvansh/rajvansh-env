@@ -253,6 +253,7 @@ alias start-skip-script='cd /Users/abhijayrajvansh/Documents/skip-script; app'
 # default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
 alias documents="cd /Users/abhijayrajvansh/Documents"
+alias ss='cd /Users/abhijayrajvansh/Documents/screenshots'
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
@@ -282,9 +283,8 @@ alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias psql-connect='psql postgresql://postgres:postgres@localhost:5432/postgres'
 
 # on goining development projects
-alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias start-portfolio-development='portfolio; code .; ppd'
+alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend-library'
-alias google-auth='cd /Users/abhijayrajvansh/Desktop/backend-library/google-auth-next.js'
 
 # End of the document
