@@ -280,6 +280,7 @@ alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 
 # postgres database
+alias local-postgres-link='echo "> Docker Postgres: postgresql://postgres:postgres@localhost:5432/postgres"'
 alias psql-connect='psql postgresql://postgres:postgres@localhost:5432/postgres'
 
 # on goining development projects
