@@ -24,8 +24,6 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
-  "terminal.integrated.fontFamily": "monospace",
   "window.titleBarStyle": "custom",
 
   "apc.electron": {
@@ -42,8 +40,6 @@
   "terminal.integrated.smoothScrolling": true,
   "editor.smoothScrolling": true,
   "terminal.integrated.tabs.enabled": false,
-  "git.enabled": false,
-  "workbench.statusBar.visible": false,
   "prisma.showPrismaDataPlatformNotification": false,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -53,4 +49,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.fontSize": 14,
+  "git.branchRandomName.enable": true,
+  "git.confirmSync": false,
+  "terminal.integrated.fontFamily": "monospace",
+  "git.enabled": false
 }
