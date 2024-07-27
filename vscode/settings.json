@@ -52,5 +52,6 @@
   "git.branchRandomName.enable": true,
   "git.confirmSync": false,
   "terminal.integrated.fontFamily": "monospace",
-  "git.enabled": false
+  "git.enabled": false,
+  "workbench.statusBar.visible": false
 }

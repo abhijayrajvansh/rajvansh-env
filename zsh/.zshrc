@@ -93,16 +93,14 @@ esac
 alias cna='pnpm create next-app@latest'
 
 # Generate Templates
-gen_docker_postgres () {
-  zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_docker_postgres.sh
-}
 
+# backend
+alias generate-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-compose.yaml -o docker-compose.yaml'
+alias generate-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/tsconfig.json -o tsconfig.json'
+
+# documentaions
 gen_readme_template () {
   zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_readme.sh
-}
-
-gen_tsconfig () {
-  zsh /Users/abhijayrajvansh/programming-environment-2024/templates/gen_tsconfig.sh
 }
 
 # Git aliases and functions
