@@ -53,5 +53,6 @@
   "git.confirmSync": false,
   "terminal.integrated.fontFamily": "monospace",
   "git.enabled": false,
-  "workbench.statusBar.visible": false
+  "workbench.statusBar.visible": false,
+  "terminal.integrated.env.osx": {}
 }

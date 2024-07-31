@@ -286,3 +286,4 @@ alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend-library'
 
 # End of the document
+PATH=~/.console-ninja/.bin:$PATH
