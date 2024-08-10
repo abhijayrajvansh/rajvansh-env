@@ -279,7 +279,7 @@ alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
 # postgres database
-alias psql-connection-string='echo "psql connection string:\npostgresql://postgres:postgres@localhost:5432/postgres"'
+alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # on goining development projects
 alias start-portfolio-development='portfolio; code .; ppd'
