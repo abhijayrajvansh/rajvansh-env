@@ -77,6 +77,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Perfomant Node Package Manager or PNPM
 alias pp='pnpm'
+alias ppx='pnpm dlx'
 alias ppi='pnpm install'
 alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
