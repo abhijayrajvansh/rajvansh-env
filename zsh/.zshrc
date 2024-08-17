@@ -108,6 +108,7 @@ gen_readme_template () {
 
 # Git aliases and functions
 mygithub='https://github.com/abhijayrajvansh/'
+alias re-init-git='rm -rf .git && git init'
 
 alias readme-format='code ~/Github/README.md'
 alias gitignore-format='code ~/Github/.gitignore'
