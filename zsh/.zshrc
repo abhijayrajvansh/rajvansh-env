@@ -1,6 +1,7 @@
 # username and root access
 alias newSessionNotification="echo New Session Started, Welcome Back Mr.Rajvansh!"
-alias root="cd "
+alias reload='zsh'
+
 
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh

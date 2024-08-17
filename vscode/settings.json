@@ -54,5 +54,9 @@
   "terminal.integrated.fontFamily": "monospace",
   "git.enabled": false,
   "workbench.statusBar.visible": false,
-  "terminal.integrated.env.osx": {}
+  "terminal.integrated.env.osx": {},
+  "workbench.colorCustomizations": {
+    "terminal.background": "#00000000"
+  },
+  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"]
 }
