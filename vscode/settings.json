@@ -48,7 +48,7 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.fontSize": 13,
+  "editor.fontSize": 15,
   "git.branchRandomName.enable": true,
   "git.confirmSync": false,
   "terminal.integrated.fontFamily": "monospace",

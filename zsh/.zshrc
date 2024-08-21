@@ -269,6 +269,7 @@ alias resume='cd ~/Documents/resume'
 # VS Code settings
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
+PATH=~/.console-ninja/.bin:$PATH
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
@@ -291,4 +292,5 @@ alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend-library'
 
 # End of the document
-PATH=~/.console-ninja/.bin:$PATH
+
+kk; 
