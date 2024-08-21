@@ -100,6 +100,7 @@ alias cna='pnpm create next-app@latest'
 # backend
 alias generate-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-compose.yaml -o docker-compose.yaml'
 alias generate-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/tsconfig.json -o tsconfig.json'
+alias generate-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/drizzle.config.ts -o drizzle.config.ts'
 
 # documentaions
 gen_readme_template () {
