@@ -1,5 +1,5 @@
 # username and root access
-alias greet="echo New Session Started, Welcome Back Mr.Rajvansh!"
+alias greet="echo New Session Started, Welcome Back Mr. Rajvansh!"
 alias reload='source ~/.zshrc'
 
 
@@ -291,7 +291,8 @@ alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend-library'
 
 # on session load / startup commands:
-kk; # clear history junks
+kk; # clear history, logs and junks
+greet; # respect your master, ofc 
 
 
 # End of the document
