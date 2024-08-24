@@ -2,7 +2,7 @@
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "vscode-icons-mac",
   "liveServer.settings.donotShowInfoMsg": true,
   "prettier.endOfLine": "auto",
   "[html]": {
@@ -58,5 +58,7 @@
   "workbench.colorCustomizations": {
     "terminal.background": "#00000000"
   },
-  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"]
+  "workbench.settings.applyToAllProfiles": [
+    "workbench.colorCustomizations"
+  ]
 }

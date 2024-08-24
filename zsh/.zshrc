@@ -1,7 +1,7 @@
 # username and root access
-alias newSessionNotification="echo New Session Started, Welcome Back Mr.Rajvansh!"
+alias greet="echo New Session Started, Welcome Back Mr.Rajvansh!"
 alias reload='zsh'
-
+alias starship-init='eval "$(starship init zsh)"'
 
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
