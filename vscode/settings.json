@@ -19,7 +19,7 @@
   "editor.scrollbar.vertical": "hidden",
   "editor.minimap.enabled": false,
   "terminal.integrated.fontWeight": 500,
-  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.fontSize": 12,
   "terminal.integrated.lineHeight": 1.1,
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -48,7 +48,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.fontSize": 14,
   "git.branchRandomName.enable": true,
   "git.confirmSync": false,
   "terminal.integrated.fontFamily": "monospace",
