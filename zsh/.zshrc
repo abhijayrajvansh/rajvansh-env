@@ -98,7 +98,9 @@ alias cna='pnpm create next-app@latest'
 # Generate Templates
 
 # backend
-alias add-docker-postgres-with-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/postgres-with-pgadmin-compose.yaml -o docker-compose.yml'
+alias add-docker-postgres-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-postgres-pgadmin.yaml -o docker-compose.yml'
+alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-postgres-adminer.yaml -o docker-compose.yml'
+alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-postgres.yaml -o docker-compose.yml'
 alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/tsconfig.json -o tsconfig.json'
 alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/drizzle.config.ts -o drizzle.config.ts'
 

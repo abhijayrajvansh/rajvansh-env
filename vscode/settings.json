@@ -57,5 +57,6 @@
   "workbench.colorCustomizations": {
     "terminal.background": "#00000000"
   },
-  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"]
+  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
+  "editor.fontSize": 13
 }
