@@ -1,6 +1,6 @@
 # username and root access
 alias greet="echo New Session Started, Welcome Back Mr.Rajvansh!"
-alias reload='zsh'
+alias reload='source ~/.zshrc'
 alias starship-init='eval "$(starship init zsh)"'
 
 # zsh-autosuggestions
@@ -9,17 +9,16 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
 autoload -Uz vcs_info
 precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%F{cyan}git:(%f%F{red}%b%f%F{cyan})%f'
+zstyle ':vcs_info:git:*' formats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{cyan})%f '
 
 setopt PROMPT_SUBST
-PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
+# prompt v1
+# PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$❯%f '
 
-# renpy env
-export RENPY_PLATFORM=mac-universal
-alias renpy='cd /Applications/renpy-8.2.3-sdk'
+# prompt v2
+PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
+%B%F{green}❯%f%b '
 
-# reload: normal zshrc refresh reload
-alias rr='source ~/.zshrc'
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
@@ -35,8 +34,8 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 
-alias greentick='echo -n ${GREEN}✔ ${RESET}'
-alias redcross='echo -n ${RED}✘ ${RESET}'
+alias greentick='echo -n \[${GREEN}✔${RESET}\]" "'
+alias redcross='echo -n \[${RED}✘${RESET}\]" "'
   
 # navigation   
 alias la='ls -l -G'
