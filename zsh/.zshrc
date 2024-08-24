@@ -239,7 +239,7 @@ alias nvconfig='nv ~/.config/nvim/init.vim'
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-# creating files and launching in vscode
+# creat new files and launch code-in directories 
 prg () {
   for arg in "$@"; do
     echo "launching: $arg"
