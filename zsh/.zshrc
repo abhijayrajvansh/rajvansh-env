@@ -1,7 +1,7 @@
 # username and root access
 alias greet="echo New Session Started, Welcome Back Mr.Rajvansh!"
 alias reload='source ~/.zshrc'
-alias starship-init='eval "$(starship init zsh)"'
+
 
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -290,6 +290,11 @@ alias start-portfolio-development='portfolio; code .; ppd'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias backend='cd /Users/abhijayrajvansh/Desktop/backend-library'
 
+# on session load / startup commands:
+kk; # clear history junks
+
+
 # End of the document
 
-kk; 
+# config archives
+# alias starship-init='eval "$(starship init zsh)"'
