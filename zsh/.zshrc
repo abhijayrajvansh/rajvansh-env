@@ -297,4 +297,4 @@ kk; # clear history junks
 # End of the document
 
 # config archives
-# alias starship-init='eval "$(starship init zsh)"'
+alias starship-init='eval "$(starship init zsh)"'
