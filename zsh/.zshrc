@@ -16,7 +16,8 @@ setopt PROMPT_SUBST
 # PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$❯%f '
 
 # prompt v2
-PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
+PROMPT='
+%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
 %B%F{green}❯%f%b '
 
 
@@ -220,7 +221,7 @@ update_dev_configurations () {
 pz () {
   cd /Users/abhijayrajvansh/programming-environment-2024
   copy_localenv_to_remoteenv;
-  gpush "update: audit push and improvements" main
+  gpush "update: audit push && improvements" main
 }
 
 gz () {
