@@ -22,8 +22,7 @@ Plug 'https://github.com/SirVer/ultisnips' " snippet extension
 call plug#end()
 
 " nvim editor theme
-:colorscheme github_dark_tritanopia
-
+:colorscheme ayu-dark
 
 " Shortcut & Hotkeys mapping
 
@@ -34,7 +33,6 @@ nnoremap <C-p> <Esc>:GFiles<Cr>
 " file explorer tree
 inoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
 nnoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
-
 
 " debug main.cpp file
 inoremap <C-d> <Esc>:w<Cr><Esc>ggVG"+y<Esc>:terminal g++-12 -D ABHIJAY_DEBUG main.cpp && ./a.out<Cr>i

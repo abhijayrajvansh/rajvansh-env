@@ -232,7 +232,7 @@ gz () {
 }
 
 # neo vim
-alias vimrc='code ~/.config/nvim/init.vim; echo launching: neovim config'
+alias vimrc='nv ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
 
 # launching applications
