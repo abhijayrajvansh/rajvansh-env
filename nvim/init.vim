@@ -6,6 +6,8 @@
 :set softtabstop=4
 :set mouse=a
 
+let g:python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.12/bin/python3'
+
 call plug#begin()
 
 Plug 'https://github.com/vim-airline/vim-airline'  " airline status bar
@@ -57,4 +59,4 @@ nnoremap <C-a> <Esc>ggVG
 " copy to system clipboard
 vnoremap <C-c> "+y
 
-let g:loaded_python3_provider=0
+

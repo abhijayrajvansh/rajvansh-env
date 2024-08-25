@@ -2,7 +2,6 @@
 alias greet="echo New Session Started, Welcome Back Mr. Rajvansh!"
 alias reload='source ~/.zshrc'
 
-
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -19,7 +18,6 @@ setopt PROMPT_SUBST
 PROMPT='
 %F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
 %B%F{green}❯%f%b '
-
 
 # to hide and reveal desktop icons (mac machines)
 alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
@@ -234,8 +232,8 @@ gz () {
 }
 
 # neo vim
+alias vimrc='code ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
-alias nvconfig='nv ~/.config/nvim/init.vim'
 
 # launching applications
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
