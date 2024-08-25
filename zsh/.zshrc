@@ -150,6 +150,7 @@ gc () {
     commit_msg="$default_commit_msg"
   fi
 
+  rm -rf .DS_Store
   git add .
   git status
   git commit -m "$commit_msg"
@@ -180,6 +181,7 @@ gp () {
   echo "Using git push branch: ${RED}$push_branch${RESET}"
   echo ""
 
+  rm -rf .DS_Store
   git add .
   git status
   git commit -m "$commit_msg"
