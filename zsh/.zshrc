@@ -262,7 +262,7 @@ alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 
 # quick directories
-alias myenv="cd /Users/abhijayrajvansh/dev-env"
+alias dev-env="cd /Users/abhijayrajvansh/dev-env"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias resume='cd ~/Documents/resume'
