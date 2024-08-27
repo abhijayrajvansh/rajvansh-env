@@ -104,7 +104,7 @@ alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh
 
 # documentaions
 gen_readme_template () {
-  zsh /Users/abhijayrajvansh/dev-env/templates/gen_readme.sh
+  zsh /Users/abhijayrajvansh/rajvansh-env/templates/gen_readme.sh
 }
 
 # Git aliases and functions
@@ -192,17 +192,17 @@ gp () {
 alias zshrc='code ~/.zshrc; echo launching: zsh config'
 
 # updating .zshrc file and code snippets in git remote repo:
-alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/dev-env/zsh'
-alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/dev-env/zsh/.zshrc /Users/abhijayrajvansh/'
+alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/rajvansh-env/zsh'
+alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/rajvansh-env/zsh/.zshrc /Users/abhijayrajvansh/'
 
-alias cp-lcodesetting-rcodesetting='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/dev-env/vscode/'
-alias cp-rcodesetting-lcodesetting='cp -r /Users/abhijayrajvansh/dev-env/vscode/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
+alias cp-lcodesetting-rcodesetting='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/rajvansh-env/vscode/'
+alias cp-rcodesetting-lcodesetting='cp -r /Users/abhijayrajvansh/rajvansh-env/vscode/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
 
-alias cp-lcodesnippets-rcodesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/dev-env/vscode/'
-alias cp-rcodesnippets-lcodesnippets='cp -r /Users/abhijayrajvansh/dev-env/vscode/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
+alias cp-lcodesnippets-rcodesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/rajvansh-env/vscode/'
+alias cp-rcodesnippets-lcodesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/vscode/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
 
-alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/dev-env/'
-alias cp-rnvcf-lnvcf='cp -r ~/dev-env/nvim ~/.config/'
+alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/rajvansh-env/'
+alias cp-rnvcf-lnvcf='cp -r ~/rajvansh-env/nvim ~/.config/'
 
 copy_localenv_to_remoteenv () {
   echo "Copying following configurations to remote environment:\n";
@@ -221,13 +221,13 @@ update_dev_configurations () {
 }
 
 pz () {
-  cd /Users/abhijayrajvansh/dev-env
+  cd /Users/abhijayrajvansh/rajvansh-env
   copy_localenv_to_remoteenv;
   gpush "update: audit push && improvements" main
 }
 
 gz () {
-  cd /Users/abhijayrajvansh/dev-env
+  cd /Users/abhijayrajvansh/rajvansh-env
   git pull origin main;
   update_dev_configurations;
   echo "Reload .zshrc to reflect changes."
@@ -262,7 +262,7 @@ alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 
 # quick directories
-alias dev-env="cd /Users/abhijayrajvansh/dev-env"
+alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias resume='cd ~/Documents/resume'
