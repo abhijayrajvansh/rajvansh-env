@@ -257,7 +257,6 @@ alias start-skip-script='cd /Users/abhijayrajvansh/Documents/skip-script; app'
 # default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
 alias documents="cd /Users/abhijayrajvansh/Documents"
-alias ss='cd /Users/abhijayrajvansh/Documents/screenshots'
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
