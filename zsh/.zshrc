@@ -292,6 +292,9 @@ alias start-portfolio-development='portfolio; code .; ppd'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
 
+# gnu-tar (homebrew version)
+export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
