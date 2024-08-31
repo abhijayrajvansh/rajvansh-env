@@ -293,7 +293,6 @@ alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
 
 # solana cli
-alias sol='solana'
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
 # on session load / startup commands:
