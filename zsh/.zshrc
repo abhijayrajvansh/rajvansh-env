@@ -96,12 +96,12 @@ alias cna='pnpm create next-app@latest'
 
 # Generate Templates
 
-# backend
-alias add-docker-postgres-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-postgres-pgadmin.yaml -o docker-compose.yml'
-alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-postgres-adminer.yaml -o docker-compose.yml'
-alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/docker-postgres.yaml -o docker-compose.yml'
-alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/tsconfig.json -o tsconfig.json'
-alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/backend-library/main/config/drizzle.config.ts -o drizzle.config.ts'
+# full-stack configs
+alias add-docker-postgres-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-pgadmin.yaml -o docker-compose.yml'
+alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-adminer.yaml -o docker-compose.yml'
+alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres.yaml -o docker-compose.yml'
+alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/tsconfig.json -o tsconfig.json'
+alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/drizzle.config.ts -o drizzle.config.ts'
 
 # documentaions
 gen_readme_template () {
@@ -290,7 +290,7 @@ alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@l
 # on goining development projects
 alias start-portfolio-development='portfolio; code .; ppd'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
-alias backend='cd /Users/abhijayrajvansh/Desktop/backend-library'
+alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
