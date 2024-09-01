@@ -42,10 +42,10 @@ alias ll='ls -al -G'
 alias l='la'
 alias kk='clear' 
 alias oo='open .'
+alias xx='exit'
 alias z='cd ..'
 alias zz='cd ../..'
-alias xx='exit'
-
+alias zzz='cd ../../../'
 # data science
 alias count-files='ls -1 | wc -l'
 
