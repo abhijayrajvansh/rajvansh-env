@@ -39,14 +39,14 @@ alias redcross='echo -n \[${RED}✘${RESET}\]" "'
 # navigation   
 alias la='ls -l -G'
 alias ll='ls -al -G'
-alias l='la'
 alias kk='clear' 
 alias oo='open .'
 alias xx='exit'
 alias z='cd ..'
 alias zz='cd ../..'
 alias zzz='cd ../../../'
-# data science
+
+# data science and analysis
 alias count-files='ls -1 | wc -l'
 
 # C/C++ GCC G++ Compliers
