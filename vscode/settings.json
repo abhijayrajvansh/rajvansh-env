@@ -51,8 +51,6 @@
   "git.branchRandomName.enable": true,
   "git.confirmSync": false,
   "terminal.integrated.fontFamily": "monospace",
-  "git.enabled": false,
-  "workbench.statusBar.visible": false,
   "terminal.integrated.env.osx": {},
   "workbench.colorCustomizations": {
     "terminal.background": "#00000000"
