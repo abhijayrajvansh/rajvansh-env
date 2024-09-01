@@ -293,18 +293,21 @@ alias start-portfolio-development='portfolio; code .; ppd'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
 
-# gnu-tar (homebrew version)
+# solana cli
+export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
+
+# replacing bsd-tar with gnu-tar for solana validator (homebrew version)
 # for apple silicon mac, (/opt/homebrew): default homebrew location
 export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
 # for intel mac, (/usr/local/homebrew): default homebrew location
 
-# solana cli
-export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
+
+
+
 
 # on session load / startup commands:
 kk; # clear history, logs and junks
 greet; # respect your master, ofc 
-
 
 # End of the document
 
