@@ -305,5 +305,5 @@ greet; # respect your master, ofc
 
 # End of the document
 
-# config archives
+# ARCHIVED
 # alias starship-init='eval "$(starship init zsh)"'
