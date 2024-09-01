@@ -42,8 +42,7 @@ alias ll='ls -al -G'
 alias kk='clear' 
 alias oo='open .'
 alias xx='exit'
-alias z='cd ..'
-alias zz='cd ../..'
+alias zz='cd ..'
 alias zzz='cd ../../../'
 
 # data science and analysis
