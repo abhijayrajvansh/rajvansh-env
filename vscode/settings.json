@@ -19,7 +19,7 @@
   "editor.scrollbar.vertical": "hidden",
   "editor.minimap.enabled": false,
   "terminal.integrated.fontWeight": 500,
-  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontSize": 12,
   "terminal.integrated.lineHeight": 1.1,
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -55,8 +55,9 @@
   "workbench.colorCustomizations": {
     "terminal.background": "#00000000"
   },
-  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
-  "editor.fontSize": 13,
+  "workbench.settings.applyToAllProfiles": [
+    "workbench.colorCustomizations"
+  ],
   "git.enabled": false,
   "workbench.activityBar.location": "hidden"
 }
