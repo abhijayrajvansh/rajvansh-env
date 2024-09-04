@@ -314,6 +314,5 @@ kk; # clear history, logs and junks
 greet; # respect your master, ofc 
 
 # End of the document
-
 # ARCHIVED
 # alias starship-init='eval "$(starship init zsh)"'
