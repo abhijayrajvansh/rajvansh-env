@@ -1,3 +1,4 @@
+# author: https://abhijayrajvansh.com
 # username and root access
 alias greet="echo New Session Started, Welcome Back Mr. Rajvansh!"
 alias reload='source ~/.zshrc'
@@ -296,16 +297,19 @@ alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
+chipset=$(sysctl -n machdep.cpu.brand_string)
+
 # replacing bsd-tar with gnu-tar for solana validator (homebrew version)
-# for apple silicon mac, (/opt/homebrew): default homebrew location
-export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
-# for intel mac, (/usr/local/homebrew): default homebrew location
+if [[ "$chipset" == *"Apple M2"* ]]; then
+  export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+elif [[ "$chipset" == *"Intel"* ]]; then
+  export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+else
+  echo "unknown chipset"
+fi
 
 
-
-
-
-# on session load / startup commands:
+# on session load and startup commands:
 kk; # clear history, logs and junks
 greet; # respect your master, ofc 
 
