@@ -41,7 +41,7 @@ alias redcross='echo -n \[${RED}✘${RESET}\]" "'
 alias la='ls -l -G'
 alias l='la'
 alias ll='ls -al -G'
-alias kk='clear;' 
+alias kk='clear' 
 alias oo='open .'
 alias xx='exit'
 alias zz='cd ..'
@@ -82,8 +82,9 @@ alias ppx='pnpm dlx'
 alias ppr='pnpm run'
 alias ppi='pnpm install'
 alias ppui='pnpm uninstall'
-alias pps='ppi; pnpm run start'
+alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
+alias pps='ppi; pnpm run start'
 alias ppb='ppi; pnpm run build'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
@@ -97,13 +98,17 @@ alias cna='pnpm create next-app@latest'
 
 # Generate Templates
 
-# full-stack configs and templates
+# full-stack configs
 alias add-docker-postgres-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-pgadmin.yaml -o docker-compose.yml'
 alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-adminer.yaml -o docker-compose.yml'
 alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres.yaml -o docker-compose.yml'
 alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/tsconfig.json -o tsconfig.json'
 alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/drizzle.config.ts -o drizzle.config.ts'
-alias add-readme-md='https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/README.md -o README.md'
+
+# documentaions
+gen_readme_template () {
+  zsh /Users/abhijayrajvansh/rajvansh-env/templates/gen_readme.sh
+}
 
 # Git aliases and functions
 mygithub='https://github.com/abhijayrajvansh/'
@@ -278,7 +283,6 @@ alias apps='cd /Applications/'
 alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
-alias private-env='cd /Users/abhijayrajvansh/private'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
@@ -293,22 +297,23 @@ alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
-chipset=$(sysctl -n machdep.cpu.brand_string)
-
-# replacing bsd-tar with gnu-tar for solana validator (homebrew version)
-if [[ "$chipset" == *"Apple M2"* ]]; then
-  export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
-elif [[ "$chipset" == *"Intel"* ]]; then
-  export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-else
-  echo "unknown chipset"
-fi
-
 
 # on session load and startup commands:
 kk; # clear history, logs and junks
 greet; # respect your master, ofc 
 
 # End of the document
+
 # ARCHIVED
 # alias starship-init='eval "$(starship init zsh)"'
+
+#solana gnu-tar error:
+# chipset=$(sysctl -n machdep.cpu.brand_string)
+# replacing bsd-tar with gnu-tar for solana validator (homebrew version)
+# if [[ "$chipset" == *"Apple M2"* ]]; then
+#   export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+# elif [[ "$chipset" == *"Intel"* ]]; then
+#   export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+# else
+#   echo "unknown chipset"
+# fi
