@@ -278,6 +278,7 @@ alias apps='cd /Applications/'
 alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
+alias private-env='cd /Users/abhijayrajvansh/private'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
