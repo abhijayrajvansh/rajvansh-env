@@ -41,7 +41,7 @@ alias redcross='echo -n \[${RED}✘${RESET}\]" "'
 alias la='ls -l -G'
 alias l='la'
 alias ll='ls -al -G'
-alias kk='clear' 
+alias kk='clear;' 
 alias oo='open .'
 alias xx='exit'
 alias zz='cd ..'
@@ -82,9 +82,8 @@ alias ppx='pnpm dlx'
 alias ppr='pnpm run'
 alias ppi='pnpm install'
 alias ppui='pnpm uninstall'
-alias ppa='pnpm add'
-alias ppd='ppi; pnpm run dev'
 alias pps='ppi; pnpm run start'
+alias ppd='ppi; pnpm run dev'
 alias ppb='ppi; pnpm run build'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
@@ -98,17 +97,13 @@ alias cna='pnpm create next-app@latest'
 
 # Generate Templates
 
-# full-stack configs
+# full-stack configs and templates
 alias add-docker-postgres-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-pgadmin.yaml -o docker-compose.yml'
 alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-adminer.yaml -o docker-compose.yml'
 alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres.yaml -o docker-compose.yml'
 alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/tsconfig.json -o tsconfig.json'
 alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/drizzle.config.ts -o drizzle.config.ts'
-
-# documentaions
-gen_readme_template () {
-  zsh /Users/abhijayrajvansh/rajvansh-env/templates/gen_readme.sh
-}
+alias add-readme-md='https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/README.md -o README.md'
 
 # Git aliases and functions
 mygithub='https://github.com/abhijayrajvansh/'
