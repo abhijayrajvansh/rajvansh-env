@@ -30,7 +30,7 @@ call plug#end()
 inoremap <C-p> <Esc>:GFiles<Cr>
 nnoremap <C-p> <Esc>:GFiles<Cr>
 
-" file explorer tree
+" file tree
 inoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
 nnoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
 
