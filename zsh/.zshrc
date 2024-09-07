@@ -299,7 +299,7 @@ export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/b
 
 
 # on session load and startup commands:
-desk; kk; # cd to desktop and clear history, logs and junks
+kk; # cd to desktop and clear history, logs and junks
 greet; # respect your master, ofc 
 
 # End of the document
