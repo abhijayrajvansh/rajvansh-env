@@ -44,7 +44,7 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorTheme": "Ayu Dark Bordered",
+  "workbench.colorTheme": "Best Themes - Github Dark Default",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
