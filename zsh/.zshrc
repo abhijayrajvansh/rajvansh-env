@@ -104,6 +104,7 @@ alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhija
 alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres.yaml -o docker-compose.yml'
 alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/tsconfig.json -o tsconfig.json'
 alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/drizzle.config.ts -o drizzle.config.ts'
+alias add-readme-md='https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/README.md -o README.md'
 
 # documentaions
 gen_readme_template () {
@@ -292,7 +293,7 @@ alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@l
 # on goining development projects
 alias start-portfolio-development='portfolio; code .; ppd'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
-alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
+alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"

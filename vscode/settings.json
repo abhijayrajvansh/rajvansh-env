@@ -8,7 +8,6 @@
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
   "extensions.ignoreRecommendations": true,
   "editor.fontFamily": "JetBrains Mono, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
   "editor.tabSize": 2,
@@ -25,16 +24,13 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "window.titleBarStyle": "custom",
-
   "apc.electron": {
     "transparent": true,
     "opacity": 1,
     // Range: 0-1 (To go fully transparent, set it to 0)
-
     "vibrancy": "light",
     "visualEffectState": "active"
   },
-
   "update.mode": "manual",
   "editor.guides.indentation": true,
   "terminal.integrated.smoothScrolling": true,
@@ -44,7 +40,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorTheme": "Best Themes - Github Dark Default",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -58,5 +53,7 @@
   "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
   "git.enabled": false,
   "workbench.statusBar.visible": false,
-  "claude.lang": "en"
+  "claude.lang": "en",
+  "workbench.colorTheme": "Best Themes - Github Dark Default",
+  "workbench.activityBar.location": "hidden"
 }
