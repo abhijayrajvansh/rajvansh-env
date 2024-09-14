@@ -293,7 +293,7 @@ alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@l
 # on goining development projects
 alias start-portfolio-development='portfolio; code .; ppd'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
-alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-library'
+alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"

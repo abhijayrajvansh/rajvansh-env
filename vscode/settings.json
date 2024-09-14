@@ -2,7 +2,7 @@
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,
-  "workbench.iconTheme": "vscode-icons-mac",
+  "workbench.iconTheme": "material-icon-theme",
   "liveServer.settings.donotShowInfoMsg": true,
   "prettier.endOfLine": "auto",
   "[html]": {
@@ -55,5 +55,6 @@
   "workbench.statusBar.visible": false,
   "claude.lang": "en",
   "workbench.colorTheme": "Best Themes - Github Dark Default",
-  "workbench.activityBar.location": "hidden"
+  "workbench.activityBar.location": "hidden",
+  "editor.fontSize": 13
 }
