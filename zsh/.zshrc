@@ -291,6 +291,7 @@ alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # on goining development projects
+alias private-env='cd /Users/abhijayrajvansh/private-env'
 alias start-portfolio-development='portfolio; code .; ppd'
 alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
