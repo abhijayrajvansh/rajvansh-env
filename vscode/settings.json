@@ -55,6 +55,5 @@
   "workbench.statusBar.visible": false,
   "claude.lang": "en",
   "workbench.colorTheme": "Best Themes - Github Dark Default",
-  "workbench.activityBar.location": "hidden",
-  "editor.fontSize": 13
+  "workbench.activityBar.location": "hidden"
 }
