@@ -291,8 +291,8 @@ alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@l
 
 # on goining development projects
 alias private-env='cd /Users/abhijayrajvansh/private-env'
-alias start-portfolio-development='portfolio; code .; ppd'
-alias portfolio='cd /Users/abhijayrajvansh/Desktop/portfolio.js'
+alias start-com-development='com; code .; ppd'
+alias com='cd /Users/abhijayrajvansh/Desktop/com'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
 
 # solana cli
