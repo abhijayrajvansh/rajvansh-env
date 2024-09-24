@@ -13,12 +13,12 @@
     "editor.tabSize": 2,
     "editor.stickyScroll.enabled": false,
     "editor.lineHeight": 1.8,
-    "editor.fontWeight": 100,
+    "editor.fontWeight": 500,
     "editor.wordWrap": "on",
     "editor.scrollbar.vertical": "hidden",
     "editor.minimap.enabled": false,
     // terminal
-    "terminal.integrated.fontWeight": "500",
+    "terminal.integrated.fontWeight": "normal",
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.lineHeight": 1.1,
     "[json]": {
@@ -57,6 +57,8 @@
     "claude.lang": "en",
     "workbench.colorTheme": "IDX Monospace Dark",
     "workbench.activityBar.location": "hidden",
-    "editor.fontSize": 13
+    "editor.cursorBlinking": "phase",
+    "terminal.integrated.cursorStyle": "underline",
+    "editor.cursorSmoothCaretAnimation": "on"
   }
   
