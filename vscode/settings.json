@@ -1,59 +1,62 @@
 {
-  "security.workspace.trust.untrustedFiles": "open",
-  "files.autoSave": "afterDelay",
-  "editor.formatOnSave": true,
-  "workbench.iconTheme": "material-icon-theme",
-  "liveServer.settings.donotShowInfoMsg": true,
-  "prettier.endOfLine": "auto",
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "extensions.ignoreRecommendations": true,
-  "editor.fontFamily": "JetBrains Mono, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
-  "editor.tabSize": 2,
-  "editor.stickyScroll.enabled": false,
-  "editor.lineHeight": 1.7,
-  "editor.fontWeight": 400,
-  "editor.wordWrap": "on",
-  "editor.scrollbar.vertical": "hidden",
-  "editor.minimap.enabled": false,
-  "terminal.integrated.fontWeight": 500,
-  "terminal.integrated.fontSize": 12,
-  "terminal.integrated.lineHeight": 1.1,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "window.titleBarStyle": "custom",
-  "apc.electron": {
-    "transparent": true,
-    "opacity": 1,
-    // Range: 0-1 (To go fully transparent, set it to 0)
-    "vibrancy": "light",
-    "visualEffectState": "active"
-  },
-  "update.mode": "manual",
-  "editor.guides.indentation": true,
-  "terminal.integrated.smoothScrolling": true,
-  "editor.smoothScrolling": true,
-  "terminal.integrated.tabs.enabled": false,
-  "prisma.showPrismaDataPlatformNotification": false,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "git.branchRandomName.enable": true,
-  "git.confirmSync": false,
-  "terminal.integrated.fontFamily": "monospace",
-  "terminal.integrated.env.osx": {},
-  "workbench.colorCustomizations": {
-    "terminal.background": "#00000000"
-  },
-  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
-  "git.enabled": false,
-  "workbench.statusBar.visible": false,
-  "claude.lang": "en",
-  "workbench.colorTheme": "Best Themes - Github Dark Default",
-  "workbench.activityBar.location": "hidden"
-}
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "prettier.endOfLine": "auto",
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "extensions.ignoreRecommendations": true,
+    "editor.fontFamily": " JetBrains Mono, SF Mone, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
+    "editor.tabSize": 2,
+    "editor.stickyScroll.enabled": false,
+    "editor.lineHeight": 1.8,
+    "editor.fontWeight": 100,
+    "editor.wordWrap": "on",
+    "editor.scrollbar.vertical": "hidden",
+    "editor.minimap.enabled": false,
+    // terminal
+    "terminal.integrated.fontWeight": "500",
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.lineHeight": 1.1,
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "window.titleBarStyle": "custom",
+    "apc.electron": {
+      "transparent": true,
+      // Range: 0-1 (To go fully transparent, set it to 0)
+      "opacity": 0.97,
+      "vibrancy": "appearance-based",
+      "visualEffectState": "active"
+    },
+    "update.mode": "manual",
+    "editor.guides.indentation": true,
+    "terminal.integrated.smoothScrolling": true,
+    "editor.smoothScrolling": true,
+    "terminal.integrated.tabs.enabled": false,
+    "prisma.showPrismaDataPlatformNotification": false,
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.branchRandomName.enable": true,
+    "git.confirmSync": false,
+    "terminal.integrated.fontFamily": "monospace",
+    "terminal.integrated.env.osx": {},
+    "workbench.colorCustomizations": {
+      "terminal.background": "#00000000"
+    },
+    "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
+    "git.enabled": false,
+    "workbench.statusBar.visible": false,
+    "claude.lang": "en",
+    "workbench.colorTheme": "IDX Monospace Dark",
+    "workbench.activityBar.location": "hidden",
+    "editor.fontSize": 13
+  }
+  
