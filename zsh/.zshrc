@@ -284,6 +284,7 @@ alias dev='developer'
 alias desk='desktop'
 alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
+alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
 # postgres database
