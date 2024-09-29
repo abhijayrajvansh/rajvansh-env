@@ -291,7 +291,7 @@ alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # ollama
-alias expose_ollama_host='launchctl setenv OLLAMA_HOST 0.0.0.0:11434'
+export OLLAMA_HOST=0.0.0.0:11434 
 
 # on goining development projects
 alias private-env='cd /Users/abhijayrajvansh/private-env'
