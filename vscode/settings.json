@@ -59,5 +59,6 @@
   "workbench.activityBar.location": "hidden",
   "editor.cursorBlinking": "phase",
   "terminal.integrated.cursorStyle": "underline",
-  "editor.cursorSmoothCaretAnimation": "on"
+  "editor.cursorSmoothCaretAnimation": "on",
+  "typescript.updateImportsOnFileMove.enabled": "always"
 }

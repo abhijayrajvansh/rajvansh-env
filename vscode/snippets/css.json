@@ -1,6 +1,6 @@
 {
 	"debugging border classes": {
-		"prefix": "importBorderClasses",
+		"prefix": "import-border-classes",
 		"body": [
 			"",
 			"/* debugging border classes */",
@@ -32,25 +32,12 @@
 		"description": "debugging border classes"
 	},
 	"starter tailwind css constants": {
-		"prefix": "import-boilerplate-constants",
+		"prefix": "import-base-components",
 		"body": [
-			"",
-			"/* css boilerplate contants*/",
-			"@layer base {",
-			"  body {",
-			"    @apply bg-[#121821] text-white flex justify-center",
-			"  }",
-			"}",
 			"",
 			"@layer components {",
 			"  .wrapper {",
-			"    @apply max-w-screen-xl w-full h-screen flex flex-col",
-			"  }",
-			"  .heading {",
-			"    @apply text-4xl font-medium py-3",
-			"  }",
-			"  .paragraph {",
-			"    @apply py-3",
+			"    @apply container mx-auto flex flex-col items-center justify-center w-full px-4",
 			"  }",
 			"}",
 			""
