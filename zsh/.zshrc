@@ -273,6 +273,7 @@ alias movies="cd /Users/abhijayrajvansh/Movies"
 alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
 alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
+alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 alias resume='cd ~/Documents/resume'
 
 # VS Code settings
