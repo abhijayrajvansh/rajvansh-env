@@ -301,7 +301,7 @@ alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@l
 export OLLAMA_HOST=0.0.0.0:11434 
 
 # on goining development projects
-alias private-env='cd /Users/abhijayrajvansh/private-env'
+alias private-keys='cd /Users/abhijayrajvansh/private-keys'
 alias start-com-development='com; code .; ppd'
 alias com='cd /Users/abhijayrajvansh/Desktop/com'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
