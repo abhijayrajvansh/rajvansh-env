@@ -1,6 +1,5 @@
 # author: https://abhijayrajvansh.com
 # username and root access
-
 alias greet="echo New Session Started, Welcome Back Mr. Rajvansh!"
 alias reload='source ~/.zshrc'
 
