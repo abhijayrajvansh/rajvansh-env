@@ -329,4 +329,4 @@ greet; # respect your master, ofc
 #   echo "unknown chipset"
 # fi
 #
-# awk tuah
+# hawk tuah
