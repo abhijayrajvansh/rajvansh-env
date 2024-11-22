@@ -56,7 +56,6 @@
   "workbench.statusBar.visible": false,
   "claude.lang": "en",
   "workbench.colorTheme": "IDX Monospace Dark",
-  "workbench.activityBar.location": "hidden",
   "editor.cursorBlinking": "phase",
   "terminal.integrated.cursorStyle": "underline",
   "editor.cursorSmoothCaretAnimation": "on",

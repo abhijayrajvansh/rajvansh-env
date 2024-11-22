@@ -86,6 +86,7 @@ alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
 alias pps='ppi; pnpm run start'
 alias ppb='ppi; pnpm run build'
+alias ppl='ppi; pnpm run lint'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 case ":$PATH:" in
@@ -120,7 +121,18 @@ mygithub='https://github.com/abhijayrajvansh'
 alias re-init-git='rm -rf .git && git init'
 
 alias gs='git status'
-alias ga='git add . ; gs;'
+
+ga() {
+  for arg in "$@"; do
+    git add $arg
+  done
+  git status
+}
+
+gc() {
+  git commit -m "$1"
+}
+
 alias gd='git diff'
 alias gpl='git pull'
 alias gcl='git clone'
@@ -149,7 +161,7 @@ init_gitcli_default_values () {
   default_push_branch=$(git rev-parse --abbrev-ref HEAD)
 }
 
-gc () {
+gca() {
   init_gitcli_default_values
   echo -n "Enter Commit (def- $default_commit_msg): "
   read commit_msg
