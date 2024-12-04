@@ -113,7 +113,7 @@ alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvans
 alias add-drizzle-ts='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-index.ts -o drizzle.ts'
 alias add-drizzle-nextauth-schema='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-nextauth-users-schema.ts -o schema.ts'
 alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/drizzle.config.ts -o drizzle.config.ts'
-alias add-drizzle-scripts-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-scripts.json -o drizzle-scripts.json'
+alias print-drizzle-scripts='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-scripts.json'
 
 
 # Git aliases and functions
@@ -306,7 +306,7 @@ alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
 # postgres database
-alias local-postgres-server='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
+alias docker-postgres-connection-string='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # ollama
 export OLLAMA_HOST=0.0.0.0:11434 
