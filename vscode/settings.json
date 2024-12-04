@@ -12,12 +12,12 @@
   "editor.fontFamily": "SF Mono, JetBrains Mono, SF Mone, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
   "editor.tabSize": 2,
   "editor.stickyScroll.enabled": false,
-  "editor.lineHeight": 1.6,
+  "editor.lineHeight": 1.7,
   "editor.fontWeight": 500,
   "editor.wordWrap": "on",
   "editor.scrollbar.vertical": "hidden",
-  "editor.minimap.enabled": false,
-  
+  "editor.minimap.enabled": true,
+
   // integrated terminal configs
   // "terminal.integrated.fontWeight": "normal",
   // "terminal.integrated.fontSize": 12,
@@ -54,14 +54,15 @@
   },
   "git.branchRandomName.enable": true,
   "git.confirmSync": false,
-  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
-  "git.enabled": false,
-  "workbench.statusBar.visible": false,
+  "workbench.settings.applyToAllProfiles": [
+    "workbench.colorCustomizations"
+  ],
   "claude.lang": "en",
-  "workbench.colorTheme": "Monospace IDX Light",
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "editor.fontSize": 13,
-  "workbench.activityBar.location": "hidden"
+  "git.enabled": false,
+  "workbench.statusBar.visible": false,
+  "workbench.colorTheme": "IDX Monospace Dark",
+  "editor.fontSize": 14,
 }
