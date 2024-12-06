@@ -64,5 +64,5 @@
   "git.enabled": false,
   "workbench.statusBar.visible": false,
   "workbench.colorTheme": "IDX Monospace Dark",
-  "editor.fontSize": 14,
+  "editor.fontSize": 16,
 }

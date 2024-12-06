@@ -316,6 +316,7 @@ alias private-keys='cd /Users/abhijayrajvansh/private-keys'
 alias start-com-development='com; code .; ppd'
 alias com='cd /Users/abhijayrajvansh/Desktop/com'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
+alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
