@@ -54,15 +54,13 @@
   },
   "git.branchRandomName.enable": true,
   "git.confirmSync": false,
-  "workbench.settings.applyToAllProfiles": [
-    "workbench.colorCustomizations"
-  ],
+  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
   "claude.lang": "en",
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "git.enabled": false,
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "IDX Monospace Dark",
-  "editor.fontSize": 16,
+  "workbench.colorTheme": "Monospace IDX Dark",
+  "editor.fontSize": 18
 }

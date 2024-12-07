@@ -317,6 +317,7 @@ alias start-com-development='com; code .; ppd'
 alias com='cd /Users/abhijayrajvansh/Desktop/com'
 alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
 alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
+alias start-evaluate-dev='evaluate; code .; ppd'
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
