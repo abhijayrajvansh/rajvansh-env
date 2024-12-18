@@ -2,7 +2,7 @@
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "vscode-icons-mac",
   "liveServer.settings.donotShowInfoMsg": true,
   "prettier.endOfLine": "auto",
   "[html]": {
@@ -61,6 +61,5 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "git.enabled": false,
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "Monospace IDX Dark",
-  "editor.fontSize": 18
+  "editor.fontSize": 13
 }

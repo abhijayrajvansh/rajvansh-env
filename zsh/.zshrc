@@ -306,7 +306,7 @@ alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
 # postgres database
-alias docker-postgres-connection-string='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
+alias local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # ollama
 export OLLAMA_HOST=0.0.0.0:11434 
