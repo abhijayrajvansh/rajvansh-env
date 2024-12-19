@@ -19,17 +19,16 @@
   "editor.minimap.enabled": true,
 
   "terminal.integrated.fontFamily": "SF Mono",
-  // integrated terminal configs
-  // "terminal.integrated.fontWeight": "normal",
-  // "terminal.integrated.fontSize": 12,
-  // "terminal.integrated.lineHeight": 1.1,
-  // "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.fontWeight": "500",
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.lineHeight": 1,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.cursorStyle": "block",
   // "terminal.integrated.tabs.enabled": false,
   // "terminal.integrated.env.osx": {},
   // "workbench.colorCustomizations": {
   //   "terminal.background": "#00000000"
   // },
-  // "terminal.integrated.cursorStyle": "underline",
 
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
