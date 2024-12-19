@@ -13,18 +13,18 @@
   "editor.tabSize": 2,
   "editor.stickyScroll.enabled": false,
   "editor.lineHeight": 1.7,
-  "editor.fontWeight": 500,
-  "editor.wordWrap": "on",
+  "editor.fontWeight": "500",
+  "editor.wordWrap": "off",
   "editor.scrollbar.vertical": "hidden",
   "editor.minimap.enabled": true,
 
+  "terminal.integrated.fontFamily": "SF Mono",
   // integrated terminal configs
   // "terminal.integrated.fontWeight": "normal",
   // "terminal.integrated.fontSize": 12,
   // "terminal.integrated.lineHeight": 1.1,
   // "terminal.integrated.smoothScrolling": true,
   // "terminal.integrated.tabs.enabled": false,
-  // "terminal.integrated.fontFamily": "monospace",
   // "terminal.integrated.env.osx": {},
   // "workbench.colorCustomizations": {
   //   "terminal.background": "#00000000"
@@ -59,7 +59,7 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "git.enabled": false,
   "workbench.statusBar.visible": false,
-  "editor.fontSize": 13
+  "workbench.colorTheme": "Best Themes - Poimandres Dark",
+  "editor.fontSize": 12
 }
