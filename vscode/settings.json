@@ -59,6 +59,6 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "Best Themes - Poimandres Dark",
-  "editor.fontSize": 12
+  "workbench.colorTheme": "IDX Monospace Dark",
+  "editor.fontSize": 13
 }
