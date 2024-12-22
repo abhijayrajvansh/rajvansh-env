@@ -2,7 +2,7 @@
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,
-  "workbench.iconTheme": "vscode-icons-mac",
+  "workbench.iconTheme": "bearded-icons",
   "liveServer.settings.donotShowInfoMsg": true,
   "prettier.endOfLine": "auto",
   "[html]": {
@@ -58,7 +58,5 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "IDX Monospace Dark",
-  "editor.fontSize": 13
+  "workbench.statusBar.visible": false
 }
