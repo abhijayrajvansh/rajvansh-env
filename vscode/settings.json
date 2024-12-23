@@ -12,7 +12,7 @@
   "editor.fontFamily": "SF Mono, JetBrains Mono, SF Mone, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
   "editor.tabSize": 2,
   "editor.stickyScroll.enabled": false,
-  "editor.lineHeight": 1.7,
+  "editor.lineHeight": 1.6,
   "editor.fontWeight": "500",
   "editor.wordWrap": "off",
   "editor.scrollbar.vertical": "hidden",
@@ -58,5 +58,6 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.statusBar.visible": false
+  "workbench.statusBar.visible": false,
+  "workbench.colorTheme": "SLab Encore Pro -X06- Ayu"
 }
