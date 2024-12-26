@@ -309,8 +309,8 @@ alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 # postgres database
 alias local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
-# ollama
-export OLLAMA_HOST=0.0.0.0:11434 
+# ollama local ai config
+export OLLAMA_HOST=0.0.0.0:11434
 
 # on goining development projects
 alias dev-evaluate='evaluate; code .; ppd'
