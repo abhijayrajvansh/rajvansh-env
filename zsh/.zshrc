@@ -313,12 +313,9 @@ alias local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@l
 export OLLAMA_HOST=0.0.0.0:11434 
 
 # on goining development projects
-alias private-keys='cd /Users/abhijayrajvansh/private-keys'
-alias start-com-development='com; code .; ppd'
-alias com='cd /Users/abhijayrajvansh/Desktop/com'
-alias fullstack='cd /Users/abhijayrajvansh/Desktop/fullstack-sdk'
-alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
-alias start-evaluate-dev='evaluate; code .; ppd'
+alias dev-evaluate='evaluate; code .; ppd'
+alias dev-com='com; code .; ppd'
+
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
