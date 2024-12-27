@@ -313,8 +313,10 @@ alias local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@l
 export OLLAMA_HOST=0.0.0.0:11434
 
 # on goining development projects
+alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
 alias dev-evaluate='evaluate; code .; ppd'
 alias dev-com='com; code .; ppd'
+
 
 
 # solana cli
