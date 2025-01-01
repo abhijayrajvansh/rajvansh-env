@@ -1,30 +1,12 @@
 # author: https://abhijayrajvansh.com
-# username and root access
-alias greet="echo New Session Started, Welcome Back Mr. Rajvansh!"
+
+
+# identity configs
+alias greetMe="echo New Session Started, Welcome Back Mr. Rajvansh!"
 alias reload='source ~/.zshrc'
 
-# zsh-autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# {PROMPT='%n@%m %1~ %#}Default ZSH PROMPT
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{cyan})%f '
-
-setopt PROMPT_SUBST
-# prompt v1
-# PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$❯%f '
-
-# prompt v2
-PROMPT='
-%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
-%B%F{green}❯%f%b '
-
-# to hide and reveal desktop icons (mac machines)
-alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
-alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'  
-
-# Define color codes
+# color codes and ui variables
 RESET='\033[0m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -36,8 +18,36 @@ WHITE='\033[0;37m'
 
 alias greentick='echo -n \[${GREEN}✔${RESET}\]" "'
 alias redcross='echo -n \[${RED}✘${RESET}\]" "'
-  
-# navigation   
+
+
+# zsh-autosuggestions
+alias source-zsh_autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
+
+
+# custom zsh prompt status
+# come more symbols:                                                                                                                         
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{cyan})%f '
+setopt PROMPT_SUBST
+
+# prompt style v2
+PROMPT='
+%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
+%B%F{green}❯%f%b '
+
+# Default ZSH PROMPT v0: 
+# {PROMPT='%n@%m %1~ %#}
+
+# prompt style v1
+# PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$❯%f '
+
+
+# hide and reveal desktop icons
+alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
+alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'  
+
+# quick actions
 alias la='ls -l -G'
 alias l='la'
 alias ll='ls -al -G'
@@ -46,37 +56,23 @@ alias oo='open .'
 alias xx='exit'
 alias zz='cd ..'
 alias zzz='cd ../../../'
-
-# data science and analysis
 alias count-files='ls -1 | wc -l'
 
-# C/C++ GCC G++ Compliers
-deb () {
-  g++-12 -D ABHIJAY_DEBUG $1.cpp
-  ./a.out
-}
 
-run () {
-  g++-12 $1.cpp
-  ./a.out
-}
-
-# python related aliases
+# python configs
 alias python='python3'
 alias app='python app.py'
 alias py='python'
 alias pip='pip3'
 
-# homebrew aliases
-alias bi='brew install'
-alias bui='brew uninstall'
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
 
-# Perfomant Node Package Manager or PNPM
+
+# pnpm (Perfomant Node Package Manager)
 alias pp='pnpm'
 alias ppx='pnpm dlx'
 alias ppr='pnpm run'
@@ -94,21 +90,18 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# Next.js related aliases
+# next.js configs
 alias cna='pnpm create next-app@latest'
 
-# Generate Templates
-
-# fullstack configs
+# fullstack related templates configs
 alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/tsconfig.json -o tsconfig.json'
-alias add-readme-md='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/README.md -o README.md'
 alias add-prettierrc-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/.prettierrc.json -o .prettierrc.json'
 alias add-abhijay-debug-ts='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/abhijay-debug.ts -o abhijay-debug.ts'
 
 # docker compose yaml
+alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres.yaml -o docker-compose.yml'
 alias add-docker-postgres-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-pgadmin.yaml -o docker-compose.yml'
 alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-adminer.yaml -o docker-compose.yml'
-alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres.yaml -o docker-compose.yml'
 
 # drizzle config
 alias add-drizzle-ts='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-index.ts -o drizzle.ts'
@@ -116,12 +109,20 @@ alias add-drizzle-nextauth-schema='curl https://raw.githubusercontent.com/abhija
 alias add-drizzle-config='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/drizzle.config.ts -o drizzle.config.ts'
 alias print-drizzle-scripts='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-scripts.json'
 
+# documentation configs
+alias add-readme-md='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/README.md -o README.md'
 
-# Git aliases and functions
+# git configs
+
 mygithub='https://github.com/abhijayrajvansh'
+
 alias re-init-git='rm -rf .git && git init'
 
 alias gs='git status'
+alias gd='git diff'
+alias gpl='git pull'
+alias gcl='git clone'
+alias gw='git switch'
 
 ga() {
   for arg in "$@"; do
@@ -133,11 +134,6 @@ ga() {
 gc() {
   git commit -m "$1"
 }
-
-alias gd='git diff'
-alias gpl='git pull'
-alias gcl='git clone'
-alias gw='git switch'
 
 gpush () {
     rm .DS_Store
@@ -325,12 +321,25 @@ export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/b
 
 # on session load and startup commands:
 kk; # cd to desktop and clear history, logs and junks
-greet; # respect your master, ofc 
+greetMe; # respect your master, ofc 
 
 # End of the document
 
 # ARCHIVED
-# alias starship-init='eval "$(starship init zsh)"'
+
+# C/C++ GCC G++ Compliers
+# deb () {
+#   g++-12 -D ABHIJAY_DEBUG $1.cpp
+#   ./a.out
+# }
+
+# run () {
+#   g++-12 $1.cpp
+#   ./a.out
+# }
+
+
+alias starship-init='eval "$(starship init zsh)"'
 
 #solana gnu-tar error:
 # chipset=$(sysctl -n machdep.cpu.brand_string)
@@ -343,4 +352,3 @@ greet; # respect your master, ofc
 #   echo "unknown chipset"
 # fi
 #
-# hawk tuah
