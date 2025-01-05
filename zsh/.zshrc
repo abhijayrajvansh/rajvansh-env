@@ -71,6 +71,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
 
+# local installs and configurations
+
+# git to text parser for llms: git2txt
+alias git2txt='git2txt'
+# get all commits and logs in a text file
+alias git_print_all_logs='git log --pretty=format:"%h - %an, %ar : %s" > gitlog.txt'
 
 # pnpm (Perfomant Node Package Manager)
 alias pp='pnpm'
@@ -82,6 +88,7 @@ alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
 alias pps='ppi; pnpm run start'
 alias ppb='ppi; pnpm run build'
+alias ppbs='ppi; pnpm run build && pnpm run start'
 alias ppl='ppi; pnpm run lint'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
@@ -312,8 +319,6 @@ export OLLAMA_HOST=0.0.0.0:11434
 alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
 alias dev-evaluate='evaluate; code .; ppd'
 alias dev-com='com; code .; ppd'
-
-
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
