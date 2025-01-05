@@ -303,6 +303,7 @@ alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 # quick aliases
 alias apps='cd /Applications/'
 alias dev='developer'
+alias dev-notes='dev; cd dev-notes && oo .'
 alias desk='desktop'
 alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
