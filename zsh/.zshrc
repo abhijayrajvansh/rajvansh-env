@@ -88,6 +88,7 @@ alias ppa='pnpm add'
 alias ppd='ppi; pnpm run dev'
 alias pps='ppi; pnpm run start'
 alias ppb='ppi; pnpm run build'
+alias ppw='ppi; pnpm run watch'
 alias ppbs='ppi; pnpm run build && pnpm run start'
 alias ppl='ppi; pnpm run lint'
 
