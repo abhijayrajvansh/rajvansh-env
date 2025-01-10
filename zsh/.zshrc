@@ -322,8 +322,7 @@ export OLLAMA_HOST=0.0.0.0:11434
 
 # on goining development projects
 alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
-alias 
-themis='desk; cd themis; code .'
+alias themis='desk; cd themis; code .'
 alias dev-com='com; code .; ppd'
 
 # solana cli
