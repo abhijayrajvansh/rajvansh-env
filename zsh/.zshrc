@@ -311,8 +311,14 @@ alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
-# postgres database
+# local databases
+
+# postgres
 alias local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
+
+#mongodb
+alias start-mongodb='brew services start mongodb-community'
+alias stop-mongodb='brew services stop mongodb-community'
 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
