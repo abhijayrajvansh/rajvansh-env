@@ -325,6 +325,9 @@ alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
 alias themis='desk; cd themis; code .'
 alias dev-com='com; code .; ppd'
 
+# dev tools
+alias create-tree-context='tree . --gitignore -o ./context/workspace-repo-structure.txt'
+
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 

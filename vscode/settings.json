@@ -14,7 +14,6 @@
   "editor.stickyScroll.enabled": false,
   "editor.lineHeight": 1.6,
   "editor.fontWeight": "500",
-  "editor.wordWrap": "off",
   "editor.scrollbar.vertical": "hidden",
   "editor.minimap.enabled": true,
 
