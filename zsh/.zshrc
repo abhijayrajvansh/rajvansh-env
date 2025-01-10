@@ -313,19 +313,23 @@ alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 # postgres
 alias local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
-#mongodb
-alias start-mongodb='brew services start mongodb-community'
-alias stop-mongodb='brew services stop mongodb-community'
-
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
 
 # on goining development projects
 alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
-alias themis='desk; cd themis; code .'
 alias dev-com='com; code .; ppd'
 
+alias themis='desk; cd themis; code .'
+#mongodb
+alias start-mongodb='brew services start mongodb-community'
+alias stop-mongodb='brew services stop mongodb-community'
+
+themisMongodb='mongodb+srv://abhijay:RXsWo3QimwdawfPV@themiscluster.q2hty.mongodb.net/?retryWrites=true&w=majority&appName=themisCluster'
+alias connect-themisMongodb='mongosh $themisMongodb'
+
 # dev tools
+alias private-keys='cd /Users/abhijayrajvansh/private-env'
 alias create-tree-context='tree . --gitignore -o ./context/workspace-repo-structure.txt'
 
 # solana cli
