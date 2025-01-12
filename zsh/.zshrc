@@ -331,8 +331,8 @@ alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
 alias dev-com='com; code .; ppd'
 alias themis='desk; cd themis; code .'
 
-alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis-env/themis-db-connection-string'
-alias show-themis-db-credentials='cat /Users/abhijayrajvansh/private-env/themis-env/themis-db-credentials'
+alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
+alias show-themis-db-credentials='cat /Users/abhijayrajvansh/private-env/themis/themis-db-credentials'
 
 # dev tools
 alias shh='cd /Users/abhijayrajvansh/private-env'
