@@ -143,7 +143,7 @@ gc() {
   for arg in "$@"; do
     git add $arg
   done
-  echo -n "enter commit: "
+  echo -n "Enter Commit: "
   read commit_msg
   git commit -m "$commit_msg"
   git status
@@ -314,10 +314,8 @@ alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 
-# local databases
-
-# postgres
-alias local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
+# local databases 
+alias show-local-docker-postgres='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
@@ -325,14 +323,12 @@ export OLLAMA_HOST=0.0.0.0:11434
 # on goining development projects
 alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
 alias dev-com='com; code .; ppd'
-
 alias themis='desk; cd themis; code .'
+
 #mongodb
 alias start-mongodb='brew services start mongodb-community'
 alias stop-mongodb='brew services stop mongodb-community'
-
-themisMongodb='mongodb+srv://abhijay:RXsWo3QimwdawfPV@themiscluster.q2hty.mongodb.net/?retryWrites=true&w=majority&appName=themisCluster'
-alias connect-themisMongodb='mongosh $themisMongodb'
+alias show-themis-db-connection-string='echo "DATABASE_URL=mongodb+srv://abhijay:RXsWo3QimwdawfPV@themiscluster.q2hty.mongodb.net/?retryWrites=true&w=majority&appName=themisCluster"'
 
 # dev tools
 alias private-env='cd /Users/abhijayrajvansh/private-env'
