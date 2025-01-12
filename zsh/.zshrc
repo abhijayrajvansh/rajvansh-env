@@ -44,8 +44,8 @@ PROMPT='
 
 
 # hide and reveal desktop icons
-alias showdesktop='defaults write com.apple.finder CreateDesktop true; killall Finder'
-alias hidedesktop='defaults write com.apple.finder CreateDesktop false; killall Finder'  
+alias reveal-desktop-icons='defaults write com.apple.finder CreateDesktop true; killall Finder'
+alias hide-desktop-icons='defaults write com.apple.finder CreateDesktop false; killall Finder' 
 
 # quick actions
 alias la='ls -l -G'
