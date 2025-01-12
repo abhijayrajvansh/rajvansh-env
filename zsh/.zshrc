@@ -335,7 +335,7 @@ themisMongodb='mongodb+srv://abhijay:RXsWo3QimwdawfPV@themiscluster.q2hty.mongod
 alias connect-themisMongodb='mongosh $themisMongodb'
 
 # dev tools
-alias private-keys='cd /Users/abhijayrajvansh/private-env'
+alias private-env='cd /Users/abhijayrajvansh/private-env'
 alias create-tree-context='tree . --gitignore -o ./context/workspace-repo-structure.txt'
 
 # solana cli

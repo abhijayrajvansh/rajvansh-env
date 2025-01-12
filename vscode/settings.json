@@ -58,5 +58,6 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.panel.showLabels": false
+  "workbench.panel.showLabels": false,
+  "workbench.colorTheme": "Monospace IDX Dark"
 }
