@@ -146,6 +146,7 @@ gc() {
   echo -n "Enter Commit: "
   read commit_msg
   git commit -m "$commit_msg"
+  git push
   git status
 }
 
