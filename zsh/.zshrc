@@ -140,7 +140,13 @@ ga() {
 }
 
 gc() {
-  git commit -m "$1"
+  for arg in "$@"; do
+    git add $arg
+  done
+  echo -n "enter commit: "
+  read commit_msg
+  git commit -m "$commit_msg"
+  git status
 }
 
 gpush () {
