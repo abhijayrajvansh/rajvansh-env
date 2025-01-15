@@ -93,10 +93,7 @@ alias ppbs='ppi; pnpm run build && pnpm run start'
 alias ppl='ppi; pnpm run lint'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+export PATH="$PNPM_HOME:$PATH"
 
 # next.js configs
 alias cna='pnpm create next-app@latest'
