@@ -311,6 +311,9 @@ alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
+alias clients='cd /Users/abhijayrajvansh/Documents/clients'
+alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
+
 
 # local databases
 
