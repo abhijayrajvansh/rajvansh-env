@@ -91,6 +91,7 @@ alias ppb='ppi; pnpm run build'
 alias ppw='ppi; pnpm run watch'
 alias ppbs='ppi; pnpm run build && pnpm run start'
 alias ppl='ppi; pnpm run lint'
+alias ppt='pp run test'
 
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
