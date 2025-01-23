@@ -109,6 +109,9 @@ alias add-docker-postgres='curl https://raw.githubusercontent.com/abhijayrajvans
 alias add-docker-postgres-pgadmin='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-pgadmin.yaml -o docker-compose.yml'
 alias add-docker-postgres-adminer='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/docker-postgres-adminer.yaml -o docker-compose.yml'
 
+# docker instances
+alias docker_spin_ubuntu='docker run -d ubuntu tail -f /dev/null'
+
 # drizzle config
 alias add-drizzle-ts='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-index.ts -o drizzle.ts'
 alias add-drizzle-nextauth-schema='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/refs/heads/main/config/drizzle-nextauth-users-schema.ts -o schema.ts'
