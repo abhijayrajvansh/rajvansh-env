@@ -121,7 +121,7 @@ alias print-drizzle-scripts='curl https://raw.githubusercontent.com/abhijayrajva
 # documentation configs
 alias add-readme-md='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/README.md -o README.md'
 
-# git configs
+# git configs and github aliases
 
 mygithub='https://github.com/abhijayrajvansh'
 
@@ -132,6 +132,7 @@ alias gd='git diff'
 alias gpl='git pull'
 alias gcl='git clone'
 alias gw='git switch'
+alias gl='git log --oneline'
 
 ga() {
   for arg in "$@"; do
@@ -147,7 +148,6 @@ gc() {
   echo -n "Enter Commit: "
   read commit_msg
   git commit -m "$commit_msg"
-  git push
   git status
 }
 
