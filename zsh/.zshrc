@@ -169,7 +169,7 @@ gpush () {
 
 # git global default values:
 init_gitcli_default_values () {
-  default_remote=remote
+  default_remote=origin
   default_commit_msg="wagmi: bug fixes & improvements"
   default_push_branch=$(git rev-parse --abbrev-ref HEAD)
 }
