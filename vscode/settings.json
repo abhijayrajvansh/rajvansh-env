@@ -16,6 +16,12 @@
   "editor.fontWeight": "500",
   "editor.scrollbar.vertical": "hidden",
   "editor.minimap.enabled": true,
+  
+  // github copilot
+  // "github.copilot.chat.codeGeneration.instructions": [
+  //   {
+  //   }
+  // ],
 
   "terminal.integrated.fontFamily": "SF Mono",
   "terminal.integrated.fontWeight": "500",

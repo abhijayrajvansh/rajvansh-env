@@ -341,7 +341,11 @@ alias show-themis-db-credentials='cat /Users/abhijayrajvansh/private-env/themis/
 
 # dev tools
 alias shh='cd /Users/abhijayrajvansh/private-env'
-alias create-tree-context='tree . --gitignore -o workspace-repo-structure-context.txt'
+
+createTreeContext() {
+  echo '## Current Repository Tree Structure' >> workspace-repo-structure-context.md
+  tree . --gitignore >> workspace-repo-structure-context.md
+}
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
