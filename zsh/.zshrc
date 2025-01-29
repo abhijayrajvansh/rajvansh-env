@@ -317,11 +317,10 @@ alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 alias clients='cd /Users/abhijayrajvansh/Documents/clients'
 alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
+alias private-env='cd /Users/abhijayrajvansh/private-env'
 
 
-# local databases
-
-# postgres
+# local databases postgres
 alias show-local-postgres-connection-string='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # mongodb
