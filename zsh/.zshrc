@@ -176,7 +176,7 @@ git_clone_here() {
 
     git clone --depth=1 "$1" temp_repo && \
     mv temp_repo/* temp_repo/.* ./ 2>/dev/null && \
-    rmdir temp_repo
+    rm -rf temp_repo
 }
 
 
