@@ -64,6 +64,5 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "Best Themes - Github Black",
-  "editor.fontSize": 13
+  "workbench.colorTheme": "Monospace IDX Dark",
 }
