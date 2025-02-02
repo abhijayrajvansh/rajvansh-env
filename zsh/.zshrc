@@ -343,6 +343,7 @@ alias show-themis-db-credentials='cat /Users/abhijayrajvansh/private-env/themis/
 alias shh='cd /Users/abhijayrajvansh/private-env'
 
 createTreeContext() {
+  rm -rf workspace-repo-structure-context.md
   echo '## Current Repository Tree Structure' >> workspace-repo-structure-context.md
   tree . --gitignore >> workspace-repo-structure-context.md
 }
