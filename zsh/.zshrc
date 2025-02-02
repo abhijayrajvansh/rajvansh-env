@@ -131,6 +131,7 @@ alias gs='git status'
 alias gd='git diff'
 alias gpl='git pull'
 alias gcl='git clone'
+alias gcl_here='git_clone_here'
 alias gw='git switch'
 alias gl='git log --oneline'
 
@@ -166,6 +167,18 @@ gpush () {
 		git push origin $2
 	fi
 }
+
+git_clone_here() {
+    if [ -z "$1" ]; then
+        echo "Usage: clone_here <repo_url>"
+        return 1
+    fi
+
+    git clone --depth=1 "$1" temp_repo && \
+    mv temp_repo/* temp_repo/.* ./ 2>/dev/null && \
+    rmdir temp_repo
+}
+
 
 # git global default values:
 init_gitcli_default_values () {

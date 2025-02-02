@@ -16,7 +16,7 @@
   "editor.fontWeight": "500",
   "editor.scrollbar.vertical": "hidden",
   "editor.minimap.enabled": true,
-  
+
   // github copilot
   // "github.copilot.chat.codeGeneration.instructions": [
   //   {
@@ -64,5 +64,5 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "Monospace IDX Dark",
+  "workbench.colorTheme": "IDX Monospace Light"
 }
