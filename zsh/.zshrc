@@ -348,6 +348,8 @@ createTreeContext() {
   tree . --gitignore >> workspace-repo-structure-context.md
 }
 
+alias update-tree-context='createTreeContext'
+
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
