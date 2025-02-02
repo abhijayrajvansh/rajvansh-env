@@ -345,7 +345,7 @@ export OLLAMA_HOST=0.0.0.0:11434
 
 # on goining development projects
 alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
-alias code-com='com; code .; ppd'
+alias code-com='desk; cd com; code .;'
 alias code-themis='desk; cd themis; code .'
 alias themis='desk; cd themis;'
 
