@@ -363,7 +363,7 @@ createTreeContext() {
 
 alias update-tree-context='createTreeContext'
 alias utc='createTreeContext'
-alias add_github_copilot_config='gcl_here https://github.com/abhijayrajvansh/github-copilot-config'
+alias add-github-copilot-config='gcl_here https://github.com/abhijayrajvansh/github-copilot-config'
 
 
 # solana cli
