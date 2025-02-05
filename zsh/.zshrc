@@ -175,7 +175,7 @@ git_clone_here() {
     fi
 
     git clone --depth=1 "$1" temp_repo && \
-    mv temp_repo/* temp_repo/.* ./ 2>/dev/null && \
+    mv temp_repo/* temp_repo/.* ./ 2>/dev/null;
     rm -rf temp_repo
 }
 
@@ -362,10 +362,12 @@ createTreeContext() {
 }
 
 alias update-tree-context='createTreeContext'
+alias utc='createTreeContext'
+alias add_github_copilot_config='gcl_here https://github.com/abhijayrajvansh/github-copilot-config'
+
 
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
-
 
 # on session load and startup commands:
 kk; # cd to desktop and clear history, logs and junks
