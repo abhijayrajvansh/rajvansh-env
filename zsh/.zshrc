@@ -349,6 +349,9 @@ alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
 alias code-com='desk; cd com; code .;'
 alias code-themis='desk; cd themis; code .'
 alias themis='desk; cd themis;'
+alias com='desk; cd com'
+alias com-api='desk; cd com-api'
+
 
 alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
 alias show-themis-db-credentials='cat /Users/abhijayrajvansh/private-env/themis/themis-db-credentials'
