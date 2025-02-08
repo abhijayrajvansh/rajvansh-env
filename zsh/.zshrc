@@ -146,7 +146,7 @@ gc() {
   for arg in "$@"; do
     git add $arg
   done
-  echo -n "Enter Commit: "
+  echo -n "enter commit: "
   read commit_msg
   git commit -m "$commit_msg"
   git status
