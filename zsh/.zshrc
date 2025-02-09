@@ -284,9 +284,6 @@ gz () {
 alias vimrc='nv ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
 
-# launching applications
-alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # creat new files and launch code-in directories 
 prg () {
@@ -312,6 +309,9 @@ alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 alias resume='cd ~/Documents/resume'
 
 # VS Code settings
+alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
 alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 PATH=~/.console-ninja/.bin:$PATH
