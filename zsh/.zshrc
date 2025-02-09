@@ -309,11 +309,13 @@ alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 alias resume='cd ~/Documents/resume'
 
 # VS Code settings
-alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+alias code-old='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+alias code='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
 
-alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
-alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
+alias code-setting-old='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
+alias snippets-old='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
+alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
+alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
 PATH=~/.console-ninja/.bin:$PATH
 
 # linkedin portfolio stuff
