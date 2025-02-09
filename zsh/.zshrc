@@ -308,15 +308,15 @@ alias github='cd /Users/abhijayrajvansh/Github'
 alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 alias resume='cd ~/Documents/resume'
 
-# VS Code settings
+# vscode release settings 
 alias code-old='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
-alias code='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
-
 alias code-setting-old='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
-alias snippets-old='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
+alias code-snippets-old='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
+
+# vscode insiders 
+alias code='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
-alias snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
-PATH=~/.console-ninja/.bin:$PATH
+alias code-snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
