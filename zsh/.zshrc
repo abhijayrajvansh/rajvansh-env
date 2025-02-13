@@ -342,7 +342,7 @@ alias private-env='cd /Users/abhijayrajvansh/private-env'
 
 
 # local databases postgres
-alias show-local-postgres-connection-string='echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres"'
+alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
 
 # mongodb
 alias start-mongodb='brew services start mongodb-community'
