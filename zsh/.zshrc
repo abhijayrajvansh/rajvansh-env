@@ -362,6 +362,7 @@ alias com-api='desk; cd com-api'
 # themis
 alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
 alias show-themis-master-api-key='cat /Users/abhijayrajvansh/private-env/themis/master-api-key'
+alias show-themis-env='cat /Users/abhijayrajvansh/private-env/themis/themis.env'
 
 # github
 alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github-access-token'
