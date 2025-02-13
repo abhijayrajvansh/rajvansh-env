@@ -285,8 +285,13 @@ alias vimrc='nv ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
 
 
-# creat new files and launch code-in directories 
+# create new files and launch code-in directories 
 prg () {
+  if ! command -v code &> /dev/null; then
+    echo "Error: VS Code command line tool 'code' not found"
+    return 1
+  fi
+  
   for arg in "$@"; do
     echo "launching: $arg"
     touch $arg
