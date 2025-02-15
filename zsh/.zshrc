@@ -316,7 +316,7 @@ alias code-snippets-old='cd /Users/abhijayrajvansh/Library/Application\ Support/
 # vscode insiders 
 alias code='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
-alias code-snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
+alias code-snippets='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
 
 # linkedin portfolio stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
