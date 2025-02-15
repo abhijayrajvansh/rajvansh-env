@@ -252,17 +252,17 @@ alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/rajvansh-env/'
 alias cp-rnvcf-lnvcf='cp -r ~/rajvansh-env/nvim ~/.config/'
 
 copy_localenv_to_remoteenv () {
-  echo "Copying following configurations to remote environment:\n";
+  echo "copying following configurations to remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config.";  cp-lzsh-rzsh;
-  greentick; echo "Copied settings.json & snippets."; cp-lcodesetting-rcodesetting; cp-lcodesnippets-rcodesnippets;
+  greentick; echo "Copied code settings.json & snippets."; cp-lcodesetting-rcodesetting; cp-lcodesnippets-rcodesnippets;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
   echo
 }
 
 update_dev_configurations () {
-  echo "Updating remote configurations to local environment:\n";
+  echo "updating remote configurations to local environment:\n";
   greentick; echo "Updated rajvansh-cli and zsh config.";  cp-rzsh-lzsh;
-  greentick; echo "Updated settings.json & snippets."; cp-rcodesetting-lcodesetting; cp-rcodesnippets-lcodesnippets;
+  greentick; echo "Updated code settings.json & snippets."; cp-rcodesetting-lcodesetting; cp-rcodesnippets-lcodesnippets;
   greentick; echo "Updated neovim config."; cp-rnvcf-lnvcf;
   echo
 }
@@ -313,12 +313,12 @@ alias code-old='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bi
 alias code-setting-old='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
 alias code-snippets-old='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
-# vscode insiders 
+# vscode insiders settings
 alias code='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
 alias code-snippets='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
 
-# linkedin portfolio stuff
+# portfolio related stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 
@@ -335,7 +335,6 @@ alias clients='cd /Users/abhijayrajvansh/Documents/clients'
 alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
 alias private-env='cd /Users/abhijayrajvansh/private-env'
 
-
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
 
@@ -347,12 +346,11 @@ alias stop-mongodb='brew services stop mongodb-community'
 export OLLAMA_HOST=0.0.0.0:11434
 
 # on goining development projects
-alias evaluate='cd /Users/abhijayrajvansh/Desktop/evaluate-ai'
-alias code-com='desk; cd com; code .;'
-alias code-themis='desk; cd themis; code .'
-alias themis='desk; cd themis;'
 alias com='desk; cd com'
 alias com-api='desk; cd com-api'
+alias code-com='desk; cd com; code .;'
+alias themis='desk; cd themis;'
+alias code-themis='desk; cd themis; code .'
 
 # themis
 alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
