@@ -286,12 +286,7 @@ alias nv='nvim'
 
 
 # create new files and launch code-in directories 
-prg () {
-  if ! command -v code &> /dev/null; then
-    echo "Error: VS Code command line tool 'code' not found"
-    return 1
-  fi
-  
+prg () {  
   for arg in "$@"; do
     echo "launching: $arg"
     touch $arg
