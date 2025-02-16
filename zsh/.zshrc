@@ -290,7 +290,7 @@ prg () {
   for arg in "$@"; do
     echo "launching: $arg"
     touch $arg
-    code $arg
+    /Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code $arg
   done
 }
 
