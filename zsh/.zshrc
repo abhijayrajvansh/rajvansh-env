@@ -55,7 +55,7 @@ alias kk='clear'
 alias oo='open .'
 alias xx='exit'
 alias zz='cd ..'
-alias zzz='cd ../../../'
+alias zzz='cd ../../'
 alias count-files='ls -1 | wc -l'
 
 
