@@ -134,6 +134,7 @@ alias gcl='git clone'
 alias gcl_here='git_clone_here'
 alias gw='git switch'
 alias gl='git log --oneline'
+alias gb='git branch'
 
 ga() {
   for arg in "$@"; do

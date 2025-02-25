@@ -64,5 +64,6 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "SLab Halcyon"
+  "workbench.colorTheme": "SLab Halcyon",
+  "workbench.activityBar.location": "hidden"
 }
