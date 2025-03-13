@@ -25,15 +25,23 @@ alias source-zsh_autosuggestions='source $(brew --prefix)/share/zsh-autosuggesti
 
 
 # custom zsh prompt status
-# come more symbols:                                                                                                                         
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{cyan})%f '
 setopt PROMPT_SUBST
 
+# Function to show Python venv
+function virtualenv_info {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    echo "%F{yellow}(${VIRTUAL_ENV:t})%f "
+  elif [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+    echo "%F{yellow}(${CONDA_DEFAULT_ENV})%f "
+  fi
+}
+
 # prompt style v2
 PROMPT='
-%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
+%F{green}[%*]%f: $(virtualenv_info)%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
 %B%F{green}❯%f%b '
 
 # Default ZSH PROMPT v0: 
