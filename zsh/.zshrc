@@ -65,6 +65,7 @@ alias xx='exit'
 alias zz='cd ..'
 alias zzz='cd ../../'
 alias count-files='ls -1 | wc -l'
+alias show-inet='ifconfig | grep "inet "'
 
 
 # python configs
