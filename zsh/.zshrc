@@ -421,3 +421,6 @@ alias starship-init='eval "$(starship init zsh)"'
 #   echo "unknown chipset"
 # fi
 #
+
+# Added by Windsurf
+export PATH="/Users/abhijayrajvansh/.codeium/windsurf/bin:$PATH"
