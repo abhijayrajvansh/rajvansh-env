@@ -143,7 +143,7 @@ alias gpl='git pull'
 alias gcl='git clone'
 alias gcl_here='git_clone_here'
 alias gw='git switch'
-alias gl='git log --oneline'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias gb='git branch'
 
 ga() {
@@ -362,6 +362,9 @@ alias com-api='desk; cd com-api'
 alias code-com='desk; cd com; code .;'
 alias themis='desk; cd themis;'
 alias code-themis='desk; cd themis; code .'
+
+# react native env
+alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
 
 # themis
 alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
