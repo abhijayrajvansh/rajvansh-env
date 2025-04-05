@@ -371,11 +371,9 @@ alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/t
 alias show-themis-master-api-key='cat /Users/abhijayrajvansh/private-env/themis/master-api-key'
 alias show-themis-env='cat /Users/abhijayrajvansh/private-env/themis/themis.env'
 
-# github
-alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github-access-token'
-
-# dev tools
-alias shh='cd /Users/abhijayrajvansh/private-env'
+# private env
+alias shh='private-env'
+alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github/github-access-token'
 
 createTreeContext() {
   rm -rf workspace-repo-structure-context.md
