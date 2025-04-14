@@ -1,10 +1,8 @@
 # author: https://abhijayrajvansh.com
 
-
 # identity configs
 alias greetMe="echo New Session Started, Welcome Back Mr. Rajvansh!"
 alias reload='source ~/.zshrc'
-
 
 # color codes and ui variables
 RESET='\033[0m'
@@ -362,6 +360,7 @@ alias com-api='desk; cd com-api'
 alias code-com='desk; cd com; code .;'
 alias themis='desk; cd themis;'
 alias code-themis='desk; cd themis; code .'
+alias tms='cd /Users/abhijayrajvansh/Desktop/tms-web-app'
 
 # react native env
 alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
