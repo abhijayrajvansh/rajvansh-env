@@ -296,12 +296,12 @@ alias vimrc='nv ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
 
 
-# create new files and launch code-in directories 
+# create new files and launch code directories 
 prg () {  
   for arg in "$@"; do
     echo "launching: $arg"
     touch $arg
-    /Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code $arg
+    code $arg
   done
 }
 
