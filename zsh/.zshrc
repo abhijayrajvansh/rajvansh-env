@@ -144,7 +144,6 @@ alias gcl_here='git_clone_here'
 alias gw='git switch'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias gb='git branch'
-alias gpbm='git push beta main'
 
 ga() {
   for arg in "$@"; do
@@ -320,14 +319,14 @@ alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 alias resume='cd ~/Documents/resume'
 
 # vscode release settings 
-alias code-old='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
-alias code-setting-old='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
-alias code-snippets-old='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
+alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
+alias code-snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
 # vscode insiders settings
-alias code='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
-alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
-alias code-snippets='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
+alias code-in='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
+alias code-in-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
+alias code-in-snippets='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
 
 # portfolio related stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
