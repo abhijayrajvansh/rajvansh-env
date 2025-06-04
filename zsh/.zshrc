@@ -363,6 +363,7 @@ alias code-com='desk; cd com; code .;'
 alias themis='desk; cd themis;'
 alias code-themis='desk; cd themis; code .'
 alias tms='cd /Users/abhijayrajvansh/Desktop/tms'
+alias bms='cd /Users/abhijayrajvansh/Desktop/bms'
 
 # react native env
 alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
