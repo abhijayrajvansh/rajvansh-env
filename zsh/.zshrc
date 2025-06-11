@@ -346,6 +346,16 @@ alias clients='cd /Users/abhijayrajvansh/Documents/clients'
 alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
 alias private-env='cd /Users/abhijayrajvansh/private-env'
 
+# private automation flow
+# jasmine
+jasmine() {
+  if [ -z "$1" ]; then
+    echo "jasmine: hey ssup, im jasmine, abhijay's personal AI!"
+    return
+  fi
+  /Users/abhijayrajvansh/Desktop/project-jasmine-ai/jasmine "$1"
+}
+
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
 
@@ -427,3 +437,9 @@ alias starship-init='eval "$(starship init zsh)"'
 
 # Added by Windsurf
 export PATH="/Users/abhijayrajvansh/.codeium/windsurf/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc'; fi

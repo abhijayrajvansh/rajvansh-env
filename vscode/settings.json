@@ -64,7 +64,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "i3 - Garnet - Custom II",
+  "workbench.colorTheme": "i3 - IDX Monospace Dark - Github Dark",
   "workbench.activityBar.location": "hidden",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
@@ -72,5 +72,6 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false
-  }
+  },
+  "workbench.sideBar.location": "right"
 }
