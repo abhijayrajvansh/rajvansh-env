@@ -73,5 +73,7 @@
     "markdown": false,
     "scminput": false
   },
-  "workbench.sideBar.location": "right"
+  "workbench.sideBar.location": "right",
+  "chat.tools.autoApprove": true,
+
 }
