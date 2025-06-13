@@ -353,9 +353,12 @@ jasmine() {
     echo "jasmine: hey ssup, im jasmine, abhijay's personal AI!"
     return
   fi
-  tsx /Users/abhijayrajvansh/Desktop/project-jasmine/jasmine/index.ts "$*"
-}
 
+  setopt localoptions noglob  # prevent ? globbing in zsh
+  local prompt="$*"
+  tsx /Users/abhijayrajvansh/Desktop/project-jasmine/jasmine/index.ts "$prompt"
+}
+alias jasmine='noglob jasmine'
 alias start-tbot='zsh /Users/abhijayrajvansh/Desktop/project-jasmine/tbot/start-all.sh'
 
 # local databases postgres
