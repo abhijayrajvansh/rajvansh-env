@@ -65,7 +65,6 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
   "workbench.colorTheme": "i3 - IDX Monospace Dark - Github Dark",
-  "workbench.activityBar.location": "hidden",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
@@ -76,4 +75,10 @@
   "workbench.sideBar.location": "right",
   "chat.tools.autoApprove": true,
 
+
+  // copilot response logger
+  "copilotResponseLogger.enabled": true,
+  "copilotResponseLogger.outputMethod": "file",
+  "copilotResponseLogger.filePath": "/tmp/copilot-responses.log",
+  "copilotResponseLogger.logFormat": "json"
 }

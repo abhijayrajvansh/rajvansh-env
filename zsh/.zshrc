@@ -360,7 +360,7 @@ _jasmine_internal() {
 
 # jasmine alias with noglob to prevent ? and * expansion
 alias jasmine='noglob _jasmine_internal'
-alias start-tbot='zsh /Users/abhijayrajvansh/Desktop/project-jasmine/tbot/start-all.sh'
+alias start-tbot='cd /Users/abhijayrajvansh/Desktop/project-jasmine/tbot && zsh start-all.sh'
 
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
