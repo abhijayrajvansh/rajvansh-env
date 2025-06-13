@@ -347,18 +347,19 @@ alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
 alias private-env='cd /Users/abhijayrajvansh/private-env'
 
 # private automation flow
-# jasmine
-jasmine() {
+# jasmine - internal function
+_jasmine_internal() {
   if [ $# -eq 0 ]; then
     echo "jasmine: hey ssup, im jasmine, abhijay's personal AI!"
     return
   fi
 
-  setopt localoptions noglob  # prevent ? globbing in zsh
   local prompt="$*"
   tsx /Users/abhijayrajvansh/Desktop/project-jasmine/jasmine/index.ts "$prompt"
 }
-alias jasmine='noglob jasmine'
+
+# jasmine alias with noglob to prevent ? and * expansion
+alias jasmine='noglob _jasmine_internal'
 alias start-tbot='zsh /Users/abhijayrajvansh/Desktop/project-jasmine/tbot/start-all.sh'
 
 # local databases postgres
