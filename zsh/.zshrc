@@ -349,12 +349,14 @@ alias private-env='cd /Users/abhijayrajvansh/private-env'
 # private automation flow
 # jasmine
 jasmine() {
-  if [ -z "$1" ]; then
+  if [ $# -eq 0 ]; then
     echo "jasmine: hey ssup, im jasmine, abhijay's personal AI!"
     return
   fi
-  tsx /Users/abhijayrajvansh/Desktop/project-jasmine/jasmine/index.ts "$1"
+  tsx /Users/abhijayrajvansh/Desktop/project-jasmine/jasmine/index.ts "$*"
 }
+
+alias start-tbot='zsh /Users/abhijayrajvansh/Desktop/project-jasmine/tbot/start-all.sh'
 
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
