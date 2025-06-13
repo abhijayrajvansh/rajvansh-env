@@ -353,7 +353,7 @@ jasmine() {
     echo "jasmine: hey ssup, im jasmine, abhijay's personal AI!"
     return
   fi
-  tsx /Users/abhijayrajvansh/Desktop/project-jasmine-ai/jasmine/index.ts "$1"
+  tsx /Users/abhijayrajvansh/Desktop/jasmine/index.ts "$1"
 }
 
 # local databases postgres
