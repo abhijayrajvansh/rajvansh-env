@@ -107,6 +107,9 @@ export PATH="$PNPM_HOME:$PATH"
 # next.js configs
 alias cna='pnpm create next-app@latest'
 
+# core computer use
+alias execute_take_ss_script='tsx /Users/abhijayrajvansh/Desktop/take-ss.ts'
+
 # fullstack related templates configs
 alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/tsconfig.json -o tsconfig.json'
 alias add-prettierrc-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/.prettierrc.json -o .prettierrc.json'

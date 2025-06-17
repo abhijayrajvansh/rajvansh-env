@@ -75,10 +75,8 @@
   "workbench.sideBar.location": "right",
   "chat.tools.autoApprove": true,
 
-
   // copilot response logger
   "copilotResponseLogger.enabled": true,
-  "copilotResponseLogger.outputMethod": "file",
   "copilotResponseLogger.filePath": "/tmp/copilot-responses.log",
   "copilotResponseLogger.logFormat": "json"
 }
