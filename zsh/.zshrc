@@ -147,7 +147,7 @@ alias gcl_here='git_clone_here'
 alias gw='git switch'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias gb='git branch'
-alias gpp='git push prod'
+alias gpp='git push fork'
 
 ga() {
   for arg in "$@"; do

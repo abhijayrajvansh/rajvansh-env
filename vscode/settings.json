@@ -64,7 +64,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "i3 - IDX Monospace Dark - Github Dark",
+  "workbench.colorTheme": "i3 - Aurora X - Custom",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
@@ -72,11 +72,14 @@
     "markdown": false,
     "scminput": false
   },
-  "workbench.sideBar.location": "right",
   "chat.tools.autoApprove": true,
 
   // copilot response logger
   "copilotResponseLogger.enabled": true,
   "copilotResponseLogger.filePath": "/tmp/copilot-responses.log",
-  "copilotResponseLogger.logFormat": "json"
+  "copilotResponseLogger.logFormat": "json",
+  "workbench.startupEditor": "none",
+  "workbench.activityBar.location": "hidden",
+  "workbench.sideBar.location": "right",
+  "css.lint.unknownAtRules": "ignore"
 }
