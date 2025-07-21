@@ -64,7 +64,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "i3 - Aurora X - Custom",
+  "workbench.colorTheme": "i3 - Aurora X - Github Dark",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
@@ -81,5 +81,7 @@
   "workbench.startupEditor": "none",
   "workbench.activityBar.location": "hidden",
   "workbench.sideBar.location": "right",
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "chat.mcp.discovery.enabled": true
 }
