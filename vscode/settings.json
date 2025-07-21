@@ -83,5 +83,13 @@
   "workbench.sideBar.location": "right",
   "css.lint.unknownAtRules": "ignore",
   "github.copilot.nextEditSuggestions.enabled": true,
-  "chat.mcp.discovery.enabled": true
+  "chat.mcp.discovery.enabled": true,
+  "chat.mcp.servers": {
+    "computer-use": {
+      "command": "node",
+      "args": [
+        "/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"
+      ]
+    }
+  }
 }
