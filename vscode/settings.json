@@ -64,7 +64,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "i3 - Aurora X - Github Dark",
+  "workbench.colorTheme": "Best Themes - Github Black",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,

@@ -385,8 +385,12 @@ alias code-themis='desk; cd themis; code .'
 alias tms='cd /Users/abhijayrajvansh/Desktop/tms'
 alias bms='cd /Users/abhijayrajvansh/Desktop/bms'
 
+
 # react native env
 alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
+
+# jaiz logistics (client)
+alias show-jaiz-logistics-creds='cat jaiz-logistics-creds.txt'
 
 # themis
 alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
