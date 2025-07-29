@@ -394,7 +394,7 @@ alias stop-mongodb='brew services stop mongodb-community'
 export OLLAMA_HOST=0.0.0.0:11434
 
 # claude code cli and OSS
-alias enable-secret-key=''
+alias kimi='/Users/abhijayrajvansh/private-env/kimi/kimi.init.sh'
 
 
 # on goining development projects
@@ -405,7 +405,6 @@ alias themis='desk; cd themis;'
 alias code-themis='desk; cd themis; code .'
 alias tms='cd /Users/abhijayrajvansh/Desktop/tms'
 alias bms='cd /Users/abhijayrajvansh/Desktop/bms'
-
 
 # react native env
 alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
