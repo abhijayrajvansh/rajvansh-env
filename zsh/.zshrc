@@ -389,8 +389,13 @@ alias show-local-postgres-connection-string='echo "postgresql://postgres:postgre
 alias start-mongodb='brew services start mongodb-community'
 alias stop-mongodb='brew services stop mongodb-community'
 
+## LLMs and AI related 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
+
+# claude code cli and OSS
+alias enable-secret-key=''
+
 
 # on goining development projects
 alias com='desk; cd com'
@@ -406,7 +411,7 @@ alias bms='cd /Users/abhijayrajvansh/Desktop/bms'
 alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
 
 # jaiz logistics (client)
-alias show-jaiz-logistics-creds='cat /Users/abhijayrajvansh/rajvansh-env/zsh/jaiz-logistics-creds.txt'
+alias show-jaiz-logistics-creds='cat /Users/abhijayrajvansh/private-env/tms/jaiz-logistics-creds.txt'
 
 # themis
 alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
@@ -431,39 +436,8 @@ alias add-github-copilot-config='gcl_here https://github.com/abhijayrajvansh/git
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
-# on session load and startup commands:
-kk; # cd to desktop and clear history, logs and junks
-greetMe; # respect your master, ofc 
-
-# End of the document
-
-# ARCHIVED
-
-# C/C++ GCC G++ Compliers
-# deb () {
-#   g++-12 -D ABHIJAY_DEBUG $1.cpp
-#   ./a.out
-# }
-
-# run () {
-#   g++-12 $1.cpp
-#   ./a.out
-# }
-
-
+# extras
 alias starship-init='eval "$(starship init zsh)"'
-
-#solana gnu-tar error:
-# chipset=$(sysctl -n machdep.cpu.brand_string)
-# replacing bsd-tar with gnu-tar for solana validator (homebrew version)
-# if [[ "$chipset" == *"Apple M2"* ]]; then
-#   export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
-# elif [[ "$chipset" == *"Intel"* ]]; then
-#   export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-# else
-#   echo "unknown chipset"
-# fi
-#
 
 # Added by Windsurf
 export PATH="/Users/abhijayrajvansh/.codeium/windsurf/bin:$PATH"
@@ -473,3 +447,9 @@ if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc' ]; then .
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# on session load and startup commands:
+kk; greetMe; # respect your master, ofc 
+
+# End of the document
