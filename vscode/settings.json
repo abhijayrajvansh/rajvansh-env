@@ -91,5 +91,6 @@
         "/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"
       ]
     }
-  }
+  },
+  "workbench.panel.showLabels": false
 }

@@ -101,6 +101,22 @@ alias ppl='ppi; pnpm run lint'
 alias ppt='pp run test'
 alias ppg='pp pg'
 
+# bun
+alias bb='bun'
+alias bbx='bunx'
+alias bbr='bun run'
+alias bbi='bun i'
+alias bbui='bun remove'
+alias bba='bun i'
+alias bbd='bbi; bun run dev'
+alias bbs='bbi; bun run start'
+alias bbb='bbi; bun run build'
+alias bbw='bbi; bun run watch'
+alias bbs='bbi; bun run build && bun run start'
+alias bbl='bbi; bun run lint'
+alias bbt='bbi; bun run test'
+alias bbg='bb pg'
+
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
