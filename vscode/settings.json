@@ -69,7 +69,7 @@
   "github.copilot.enable": {
     "*": true,
     "plaintext": false,
-    "markdown": false,
+    "markdown": true,
     "scminput": false
   },
   "chat.tools.autoApprove": true,
@@ -79,18 +79,16 @@
   "copilotResponseLogger.filePath": "/tmp/copilot-responses.log",
   "copilotResponseLogger.logFormat": "json",
   "workbench.startupEditor": "none",
-  "workbench.activityBar.location": "hidden",
-  "workbench.sideBar.location": "right",
   "css.lint.unknownAtRules": "ignore",
   "github.copilot.nextEditSuggestions.enabled": true,
   "chat.mcp.discovery.enabled": true,
   "chat.mcp.servers": {
     "computer-use": {
       "command": "node",
-      "args": [
-        "/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"
-      ]
+      "args": ["/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"]
     }
   },
-  "workbench.panel.showLabels": false
+  "workbench.panel.showLabels": false,
+  "workbench.activityBar.location": "hidden",
+  "workbench.sideBar.location": "right"
 }

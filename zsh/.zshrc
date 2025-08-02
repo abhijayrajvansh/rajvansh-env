@@ -452,3 +452,4 @@ if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc' ]; 
 kk; greetMe; # respect your master, ofc 
 
 # End of the document
+# bun completions
