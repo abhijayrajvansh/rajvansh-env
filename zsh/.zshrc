@@ -165,6 +165,8 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
 alias gb='git branch'
 alias gpp='git push fork'
 
+## github related aliases
+
 ga() {
   for arg in "$@"; do
     git add $arg
@@ -264,6 +266,10 @@ gp () {
   git commit -m "$commit_msg"
   git push $default_remote $push_branch
 }
+
+## github copilot related aliases
+alias ghce='gh copilot explain'
+alias ghcs='gh copilot suggest'
 
 # zsh configfunctions and Commandline:
 alias zshrc='code ~/.zshrc; echo launching: zsh config'
