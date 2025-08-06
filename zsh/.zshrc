@@ -375,7 +375,6 @@ alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
 
 # private automation flow
 # Jasmine - Modular Copilot Automation
-alias jasmine='/Users/abhijayrajvansh/Desktop/jasmine/src/jasmine.sh'
 alias jc='jasmine complete'
 
 # local databases postgres
@@ -450,3 +449,6 @@ kk; greetMe; # respect your master, ofc
 # End of the document
 # bun completions
 
+
+# Jasmine - Python-based Copilot Automation
+alias jasmine='osascript "/Users/abhijayrajvansh/Desktop/jasmine/src/copilot-prompt.scpt"'
