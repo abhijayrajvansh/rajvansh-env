@@ -373,8 +373,9 @@ alias private-env='cd /Users/abhijayrajvansh/private-env'
 alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
 
 # private automation flow
-# jasmine - internal function
-alias jasmine='osascript /Users/abhijayrajvansh/Desktop/jasmine/src/copilot-prompt.scpt'
+# Jasmine - Modular Copilot Automation
+alias jasmine='/Users/abhijayrajvansh/Desktop/jasmine/scripts/jasmine.sh'
+alias jc='jasmine complete'
 
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
@@ -447,3 +448,4 @@ kk; greetMe; # respect your master, ofc
 
 # End of the document
 # bun completions
+
