@@ -375,7 +375,7 @@ alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
 
 # private automation flow
 # Jasmine - Modular Copilot Automation
-alias jasmine='/Users/abhijayrajvansh/Desktop/jasmine/jasmine_python.sh'
+alias jasmine='/Users/abhijayrajvansh/Desktop/jasmine/src/jasmine.sh'
 alias jc='jasmine complete'
 
 # local databases postgres
