@@ -374,19 +374,7 @@ alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
 
 # private automation flow
 # jasmine - internal function
-_jasmine_internal() {
-  if [ $# -eq 0 ]; then
-    echo "jasmine: hey ssup, im jasmine, abhijay's personal AI!"
-    return
-  fi
-
-  local prompt="$*"
-  tsx /Users/abhijayrajvansh/Desktop/project-jasmine/jasmine/index.ts "$prompt"
-}
-
-# jasmine alias with noglob to prevent ? and * expansion
-alias jasmine='noglob _jasmine_internal'
-alias start-tbot='cd /Users/abhijayrajvansh/Desktop/project-jasmine/tbot && zsh start-all.sh'
+alias jasmine='osascript /Users/abhijayrajvansh/Desktop/jasmine/src/copilot-prompt.scpt'
 
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'

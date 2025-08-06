@@ -90,5 +90,6 @@
   },
   "workbench.panel.showLabels": false,
   "workbench.activityBar.location": "hidden",
-  "workbench.sideBar.location": "right"
+  "workbench.sideBar.location": "right",
+  "editor.fontSize": 11
 }
