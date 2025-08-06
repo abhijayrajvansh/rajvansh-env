@@ -3,6 +3,7 @@
 # identity configs
 alias greetMe="echo New Session Started, Welcome Back Mr. Rajvansh!"
 alias reload='source ~/.zshrc'
+alias rr='reload'
 
 # color codes and ui variables
 RESET='\033[0m'
@@ -374,7 +375,7 @@ alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
 
 # private automation flow
 # Jasmine - Modular Copilot Automation
-alias jasmine='/Users/abhijayrajvansh/Desktop/jasmine/scripts/jasmine.sh'
+alias jasmine='/Users/abhijayrajvansh/Desktop/jasmine/jasmine_python.sh'
 alias jc='jasmine complete'
 
 # local databases postgres
