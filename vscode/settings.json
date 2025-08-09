@@ -9,7 +9,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "extensions.ignoreRecommendations": true,
-  "editor.fontFamily": "SF Mono, JetBrains Mono, SF Mone, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
+  "editor.fontFamily": "JetBrains Mono, SF Mono, SF Mone, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
   "editor.tabSize": 2,
   "editor.stickyScroll.enabled": false,
   "editor.lineHeight": 1.6,
@@ -32,8 +32,7 @@
   // "terminal.integrated.tabs.enabled": false,
   // "terminal.integrated.env.osx": {},
   // "workbench.colorCustomizations": {
-  //   "terminal.background": "#00000000"
-  // },
+  //   // },
 
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -63,8 +62,7 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.statusBar.visible": false,
-  "workbench.colorTheme": "Best Themes - Github Black",
+  "workbench.colorTheme": "Best Themes - Material Black Italic",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
@@ -90,6 +88,7 @@
   },
   "workbench.panel.showLabels": false,
   "workbench.activityBar.location": "hidden",
+  "editor.fontSize": 11,
   "workbench.sideBar.location": "right",
-  "editor.fontSize": 11
+  "workbench.statusBar.visible": false
 }
