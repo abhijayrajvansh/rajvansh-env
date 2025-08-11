@@ -427,9 +427,9 @@ alias shh='private-env'
 alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github/github-access-token'
 
 createTreeContext() {
-  rm -rf workspace-repo-structure-context.md
-  echo '## Current Repository Tree Structure' >> workspace-repo-structure-context.md
-  tree . --gitignore >> workspace-repo-structure-context.md
+  rm -rf .github/workspace-repo-structure-context.md
+  echo '## Current Repository Tree Structure' >> .github/workspace-repo-structure-context.md
+  tree . --gitignore >> .github/workspace-repo-structure-context.md
 }
 
 alias update-tree-context='createTreeContext'
