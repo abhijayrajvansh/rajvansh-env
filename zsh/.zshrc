@@ -390,6 +390,7 @@ export OLLAMA_HOST=0.0.0.0:11434
 
 # claude code cli and OSS
 alias kimi='/Users/abhijayrajvansh/private-env/kimi/kimi.init.sh'
+alias horizon='/Users/abhijayrajvansh/private-env/horizon/horizon.init.sh'
 
 ## TS Term
 alias tt='tsx /Users/abhijayrajvansh/Desktop/ts-term/background-executor.ts'
