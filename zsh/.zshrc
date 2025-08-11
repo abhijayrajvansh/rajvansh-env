@@ -121,6 +121,13 @@ alias bbg='bb pg'
 export PNPM_HOME="/Users/abhijayrajvansh/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
+# serveo tunnel function
+forward_port() {
+  local port=${1:-3000}
+  echo "Creating tunnel for localhost:$port via serveo.net..."
+  ssh -R 80:localhost:$port serveo.net
+}
+
 # next.js configs
 alias cna='pnpm create next-app@latest'
 

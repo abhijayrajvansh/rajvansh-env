@@ -62,7 +62,7 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.colorTheme": "GitHub Dark (Web Based)",
+  "workbench.colorTheme": "i3 - Dark+ - Custom",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
@@ -87,7 +87,6 @@
     }
   },
   "workbench.activityBar.location": "hidden",
-  "editor.fontSize": 11,
   "workbench.sideBar.location": "right",
   "workbench.statusBar.visible": false
 }
