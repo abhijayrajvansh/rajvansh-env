@@ -391,6 +391,8 @@ export OLLAMA_HOST=0.0.0.0:11434
 # claude code cli and OSS
 alias kimi='/Users/abhijayrajvansh/private-env/kimi/kimi.init.sh'
 
+## TS Term
+alias tt='tsx /Users/abhijayrajvansh/Desktop/ts-term/background-executor.ts'
 
 # on goining development projects
 alias com='desk; cd com'

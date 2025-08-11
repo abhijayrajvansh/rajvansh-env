@@ -62,7 +62,7 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.colorTheme": "Best Themes - Material Black Italic",
+  "workbench.colorTheme": "GitHub Dark (Web Based)",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
