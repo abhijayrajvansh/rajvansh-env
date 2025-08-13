@@ -163,6 +163,7 @@ mygithub='https://github.com/abhijayrajvansh'
 alias re-init-git='rm -rf .git && git init'
 
 alias gs='git status'
+alias gr='git restore .'
 alias gd='git diff'
 alias gpl='git pull'
 alias gpf='git push --force-with-lease'
