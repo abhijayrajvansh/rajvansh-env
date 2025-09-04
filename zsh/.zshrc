@@ -461,5 +461,10 @@ kk; greetMe; # respect your master, ofc
 # bun completions
 
 
-# Jasmine - Python-based Copilot Automation
-alias jasmine='osascript "/Users/abhijayrajvansh/Desktop/jasmine/src/copilot-prompt.scpt"'
+# github askpass for non-interactive authentication in git
+
+# >>> GitHub AskPass (auto-added) >>>
+export GIT_ASKPASS="$HOME/bin/git-askpass-github.sh"
+export SSH_ASKPASS="$GIT_ASKPASS"
+export GIT_TERMINAL_PROMPT=0
+# <<< GitHub AskPass <<<

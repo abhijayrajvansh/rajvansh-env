@@ -62,7 +62,7 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.colorTheme": "i3 - Garnet - Github Dark",
+  "workbench.colorTheme": "i3 - Dark+ - Custom",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
@@ -86,8 +86,5 @@
       "args": ["/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"]
     }
   },
-  "workbench.activityBar.location": "hidden",
-  "workbench.sideBar.location": "right",
-  "workbench.statusBar.visible": false,
-  "editor.fontSize": 14
+  "workbench.statusBar.visible": false
 }
