@@ -425,7 +425,7 @@ alias show-themis-env='cat /Users/abhijayrajvansh/private-env/themis/themis.env'
 
 # private env
 alias shh='private-env'
-alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github/github-access-token'
+alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github.env'
 
 createTreeContext() {
   rm -rf .github/workspace-repo-structure-context.md
@@ -464,7 +464,7 @@ kk; greetMe; # respect your master, ofc
 # github askpass for non-interactive authentication in git
 
 # >>> GitHub AskPass (auto-added) >>>
-export GIT_ASKPASS="$HOME/bin/git-askpass-github.sh"
+export GIT_ASKPASS="$HOME/private-env/git-askpass-github.sh"
 export SSH_ASKPASS="$GIT_ASKPASS"
 export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
