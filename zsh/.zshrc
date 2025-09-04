@@ -465,6 +465,6 @@ kk; greetMe; # respect your master, ofc
 
 # >>> GitHub AskPass (auto-added) >>>
 export GIT_ASKPASS="$HOME/private-env/git-askpass-github.sh"
-export SSH_ASKPASS="$GIT_ASKPASS1"
+export SSH_ASKPASS="$GIT_ASKPASS"
 export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
