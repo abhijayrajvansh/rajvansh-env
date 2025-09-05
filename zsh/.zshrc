@@ -468,3 +468,6 @@ export GIT_ASKPASS="$HOME/private-env/git-askpass-github.sh"
 export SSH_ASKPASS="$GIT_ASKPASS"
 export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
+
+# Added by Codex CLI: jas alias
+alias jas='codex --yolo'
