@@ -85,6 +85,5 @@
       "command": "node",
       "args": ["/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"]
     }
-  },
-  "workbench.statusBar.visible": false
+  }
 }
