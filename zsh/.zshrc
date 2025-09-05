@@ -378,7 +378,6 @@ alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 alias clients='cd /Users/abhijayrajvansh/Documents/clients'
 alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
-alias pvt='cd /Users/abhijayrajvansh/private-env'
 alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
 
 # private automation flow
@@ -424,8 +423,9 @@ alias show-themis-master-api-key='cat /Users/abhijayrajvansh/private-env/themis/
 alias show-themis-env='cat /Users/abhijayrajvansh/private-env/themis/themis.env'
 
 # private env
-alias shh='private-env'
+alias pvt='cd /Users/abhijayrajvansh/private-env'
 alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github.env'
+alias show-openai-api-key='cat /Users/abhijayrajvansh/private-env/openai/openai-api-key.txt'
 
 createTreeContext() {
   rm -rf .github/workspace-repo-structure-context.md
