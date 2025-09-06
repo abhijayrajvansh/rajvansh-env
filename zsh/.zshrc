@@ -453,17 +453,9 @@ if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc' ]; then .
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc'; fi
 
-
-# on session load and startup commands:
-kk; greetMe; # respect your master, ofc 
-
-# End of the document
-# bun completions
-
-
 # github askpass for non-interactive authentication in git
 
-# >>> GitHub AskPass (auto-added) >>>
+# >>> GitHub AskPass >>>
 export GIT_ASKPASS="$HOME/private-env/git-askpass-github.sh"
 export SSH_ASKPASS="$GIT_ASKPASS"
 export GIT_TERMINAL_PROMPT=0
@@ -471,3 +463,11 @@ export GIT_TERMINAL_PROMPT=0
 
 # Added by Codex CLI: jas alias
 alias jas='codex --yolo'
+
+# Playwright config for Codex/MCP
+export PLAYWRIGHT_BROWSERS_PATH="$HOME/Library/Caches/ms-playwright"
+export NODE_PATH="$(npm root -g)"
+
+# on session load and startup commands (must be present at the end of file)
+kk; greetMe; # respect your master, ofc 
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
