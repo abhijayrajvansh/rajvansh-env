@@ -470,5 +470,5 @@ export NODE_PATH="$(npm root -g)"
 
 # on session load and startup commands (must be present at the end of file)
 kk; greetMe; # respect your master, ofc 
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo "-----------------------------------------------"
 
