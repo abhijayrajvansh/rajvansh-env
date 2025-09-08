@@ -86,5 +86,6 @@
       "args": ["/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"]
     }
   },
-  "workbench.activityBar.location": "hidden"
+  "workbench.activityBar.location": "hidden",
+  "workbench.sideBar.location": "right"
 }

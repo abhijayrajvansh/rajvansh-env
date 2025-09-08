@@ -423,6 +423,7 @@ alias show-themis-env='cat /Users/abhijayrajvansh/private-env/themis/themis.env'
 alias pvt='cd /Users/abhijayrajvansh/private-env'
 alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github.env'
 alias show-openai-api-key='cat /Users/abhijayrajvansh/private-env/openai/openai-api-key.txt'
+alias show-openrouter-api-key='pvt; cd openrouter; cat coding-apikey.txt'
 
 createTreeContext() {
   rm -rf .github/workspace-repo-structure-context.md
@@ -469,3 +470,4 @@ export NODE_PATH="$(npm root -g)"
 kk; greetMe; # respect your master, ofc 
 echo "-----------------------------------------------"
 
+export PATH="$HOME/.local/bin:$PATH"
