@@ -406,7 +406,7 @@ alias tt='tsx /Users/abhijayrajvansh/Desktop/ts-term/background-executor.ts'
 alias com='desk; cd com'
 alias themis='desk; cd themis;'
 alias tms='desk; cd tms'
-alias medusa='desk; cd medusa'
+alias jasmine='desk; cd jasmine'
 
 # react native env
 alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
