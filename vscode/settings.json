@@ -23,9 +23,9 @@
   //   }
   // ],
 
-  "terminal.integrated.fontFamily": "SF Mono",
+  "terminal.integrated.fontFamily": "JetBrains Mono",
   "terminal.integrated.fontWeight": "500",
-  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.fontSize": 14,
   "terminal.integrated.lineHeight": 1,
   "terminal.integrated.smoothScrolling": true,
   "terminal.integrated.cursorStyle": "block",
@@ -86,7 +86,7 @@
       "args": ["/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"]
     }
   },
-  "workbench.activityBar.location": "hidden",
   "workbench.statusBar.visible": false,
-  "workbench.sideBar.location": "right"
+  "chatgpt.cliExecutable": "",
+  "workbench.activityBar.location": "hidden"
 }
