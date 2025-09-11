@@ -473,11 +473,6 @@ alias add-github-copilot-config='gcl_here https://github.com/abhijayrajvansh/git
 # solana cli
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
-# extras
-alias starship-init='eval "$(starship init zsh)"'
-
-# Added by Windsurf
-export PATH="/Users/abhijayrajvansh/.codeium/windsurf/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc'; fi
@@ -500,9 +495,14 @@ alias jas='codex --yolo'
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/Library/Caches/ms-playwright"
 export NODE_PATH="$(npm root -g)"
 
-# on session load and startup commands (must be present at the end of file)
-kk; greetMe; # respect your master, ofc 
-echo "-----------------------------------------------"
+# # Java and Android SDKs
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/emulator:$PATH
 
 export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+
+# on session load and startup commands (must be present at the end of file)
+kk; greetMe; # respect your master, ofc 
+echo "-----------------------------------------------"
