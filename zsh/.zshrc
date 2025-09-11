@@ -380,10 +380,6 @@ alias clients='cd /Users/abhijayrajvansh/Documents/clients'
 alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
 alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
 
-# private automation flow
-# Jasmine - Modular Copilot Automation
-alias jc='jasmine complete'
-
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
 
@@ -404,9 +400,8 @@ alias tt='tsx /Users/abhijayrajvansh/Desktop/ts-term/background-executor.ts'
 
 # on goining development projects
 alias com='desk; cd com'
-alias themis='desk; cd themis;'
 alias tms='desk; cd tms'
-alias jasmine='desk; cd jasmine'
+alias chainge='desk; cd chainge'
 
 # react native env
 alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
@@ -426,8 +421,13 @@ alias show-openai-api-key='cat /Users/abhijayrajvansh/private-env/openai/openai-
 alias show-openrouter-api-key='pvt; cd openrouter; cat coding-apikey.txt'
 
 createTreeContext() {
-  rm -rf .github/workspace-repo-structure-context.md
-  echo '## Current Repository Tree Structure' >> .github/workspace-repo-structure-context.md
+  # Create .github directory if it doesn't exist
+  mkdir -p .github
+  
+  # Remove the file if it exists (no error if it doesn't exist)
+  rm -f .github/workspace-repo-structure-context.md
+  
+  echo '## Current Repository Tree Structure' > .github/workspace-repo-structure-context.md
   tree . --gitignore >> .github/workspace-repo-structure-context.md
 }
 
