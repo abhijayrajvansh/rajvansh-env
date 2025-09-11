@@ -406,18 +406,39 @@ alias chainge='desk; cd chainge'
 # react native env
 
 # List only iOS simulators (with version headers)
-list_ios_simulators() {
+print_all_onlineSimulators() {
   xcrun simctl list devices | awk '
-    /^== Devices ==$/ { print; in_devices = 1; next }
+    BEGIN {
+      green = "\033[0;32m"
+      red = "\033[0;31m"
+      reset = "\033[0m"
+    }
+    /^== Devices ==$/ {
+      print; in_devices = 1; next
+    }
     in_devices && /^-- / {
-      if ($0 ~ /-- iOS /) { in_ios = 1; print }
-      else { in_ios = 0 }
+      if ($0 ~ /-- iOS /) {
+        in_ios = 1
+        print
+      } else {
+        in_ios = 0
+      }
       next
     }
-    in_devices && in_ios && $0 !~ /unavailable/ { print }
+    in_devices && in_ios {
+      if ($0 ~ /unavailable/) {
+        gsub(/^ +/, "", $0)
+        print "❌ " $0 reset
+      } else {
+        gsub(/^ +/, "", $0)
+        print "✅ " $0 reset
+      }
+    }
   '
 }
 
+
+alias list-simulators='print_all_onlineSimulators'
 
 # jaiz logistics (client)
 alias show-jaiz-logistics-creds='cat /Users/abhijayrajvansh/private-env/tms/jaiz-logistics-creds.txt'
