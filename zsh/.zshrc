@@ -404,7 +404,20 @@ alias tms='desk; cd tms'
 alias chainge='desk; cd chainge'
 
 # react native env
-alias start-android-emulator='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator @Medium_Phone_API_35'
+
+# List only iOS simulators (with version headers)
+list_ios_simulators() {
+  xcrun simctl list devices | awk '
+    /^== Devices ==$/ { print; in_devices = 1; next }
+    in_devices && /^-- / {
+      if ($0 ~ /-- iOS /) { in_ios = 1; print }
+      else { in_ios = 0 }
+      next
+    }
+    in_devices && in_ios && $0 !~ /unavailable/ { print }
+  '
+}
+
 
 # jaiz logistics (client)
 alias show-jaiz-logistics-creds='cat /Users/abhijayrajvansh/private-env/tms/jaiz-logistics-creds.txt'
@@ -471,3 +484,4 @@ kk; greetMe; # respect your master, ofc
 echo "-----------------------------------------------"
 
 export PATH="$HOME/.local/bin:$PATH"
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
