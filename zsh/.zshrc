@@ -102,6 +102,22 @@ alias ppl='ppi; pnpm run lint'
 alias ppt='pp run test'
 alias ppg='pp pg'
 
+# npm (Node Package Manager)
+alias nn='npm'
+alias nnx='npx'
+alias nnr='npm run'
+alias nni='npm install'
+alias nnui='npm uninstall'
+alias nna='npm install'
+alias nnd='nni; npm run dev'
+alias nns='nni; npm run start'
+alias nnb='nni; npm run build'
+alias nnw='nni; npm run watch'
+alias nnbs='nni; npm run build && npm run start'
+alias nnl='nni; npm run lint'
+alias nnt='nni; npm run test'
+alias nng='nn pg'
+
 # bun
 alias bb='bun'
 alias bbx='bunx'
