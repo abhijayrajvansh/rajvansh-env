@@ -23,31 +23,141 @@ alias redcross='echo -n \[${RED}✘${RESET}\]" "'
 alias source-zsh_autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 
 
-# custom zsh prompt status
+# ================================================================
+# =================== ZSH PROMPT CONFIGURATION =================
+# ================================================================
+
+# ============= PROMPT CORE SETUP =============
+
+# Load version control system info
 autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{cyan})%f '
 setopt PROMPT_SUBST
 
-# Function to show Python venv
+# Enhanced git info with status indicators
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr "%F{green}●%f"
+zstyle ':vcs_info:*' unstagedstr "%F{red}●%f"
+zstyle ':vcs_info:git:*' formats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{cyan})%f%c%u'
+zstyle ':vcs_info:git:*' actionformats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{yellow}|%a%f%F{cyan})%f%c%u'
+
+# ============= PROMPT COMPONENT FUNCTIONS =============
+
+# Function to show Python virtual environment
 function virtualenv_info {
   if [[ -n "$VIRTUAL_ENV" ]]; then
-    echo "%F{yellow}(${VIRTUAL_ENV:t})%f "
+    echo "%F{yellow}(py:${VIRTUAL_ENV:t})%f "
   elif [[ -n "$CONDA_DEFAULT_ENV" ]]; then
-    echo "%F{yellow}(${CONDA_DEFAULT_ENV})%f "
+    echo "%F{yellow}(conda:${CONDA_DEFAULT_ENV})%f "
   fi
 }
 
-# prompt style v2
+# Function to show Node.js version
+function node_info {
+  if command -v node &> /dev/null; then
+    local node_version=$(node --version 2>/dev/null)
+    if [[ -n "$node_version" ]]; then
+      echo "%F{green}(node:${node_version#v})%f "
+    fi
+  fi
+}
+
+# Function to show git status indicators
+function git_status_info {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    local git_status=""
+    
+    # Check if repo is clean
+    if [[ -z "$(git status --porcelain 2>/dev/null)" ]]; then
+      git_status+="%F{green}✓%f"
+    else
+      git_status+="%F{red}✗%f"
+    fi
+    
+    # Check for ahead/behind
+    local ahead_behind=$(git rev-list --left-right --count HEAD...@{upstream} 2>/dev/null)
+    if [[ -n "$ahead_behind" ]]; then
+      local ahead=$(echo $ahead_behind | cut -f1)
+      local behind=$(echo $ahead_behind | cut -f2)
+      if [[ "$ahead" -gt 0 ]]; then
+        git_status+="%F{cyan}↑$ahead%f"
+      fi
+      if [[ "$behind" -gt 0 ]]; then
+        git_status+="%F{magenta}↓$behind%f"
+      fi
+    fi
+    
+    echo " $git_status"
+  fi
+}
+
+# Function to show background jobs
+function jobs_info {
+  local job_count=$(jobs | wc -l | tr -d ' ')
+  if [[ "$job_count" -gt 0 ]]; then
+    echo "%F{yellow}[bg:$job_count]%f "
+  fi
+}
+
+# Function to show directory permissions
+function dir_permissions {
+  if [[ ! -w "$PWD" ]]; then
+    echo "%F{red}🔒%f"
+  fi
+}
+
+# Function to show battery status (macOS)
+function battery_info {
+  if command -v pmset &> /dev/null; then
+    local battery_percent=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+    local power_source=$(pmset -g batt | grep -o "AC Power\|Battery Power")
+    
+    if [[ -n "$battery_percent" ]]; then
+      local battery_icon
+      if [[ "$power_source" == "AC Power" ]]; then
+        battery_icon="🔌"
+      elif [[ "$battery_percent" -gt 80 ]]; then
+        battery_icon="🔋"
+      elif [[ "$battery_percent" -gt 50 ]]; then
+        battery_icon="🔋"
+      elif [[ "$battery_percent" -gt 20 ]]; then
+        battery_icon="🪫"
+      else
+        battery_icon="%F{red}🪫%f"
+      fi
+      echo "$battery_icon$battery_percent%% "
+    fi
+  fi
+}
+
+# Function to show return code of last command
+function return_code_info {
+  echo "%(?..%F{red}[%?]%f )"
+}
+
+# ============= PROMPT UPDATE FUNCTION =============
+
+# Precmd function to update vcs_info and other dynamic content
+precmd() { 
+  vcs_info
+}
+
+# ============= PROMPT STYLE =============
+
+# Enhanced prompt style (default and only style)
 PROMPT='
-%F{green}[%*]%f: $(virtualenv_info)%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f
+%F{green}[%D{%H:%M:%S}]%f $(battery_info)$(jobs_info)$(return_code_info)$(virtualenv_info)$(node_info)%F{blue}%~%f$(dir_permissions) %F{red}${vcs_info_msg_0_}%f$(git_status_info)
 %B%F{green}❯%f%b '
 
-# Default ZSH PROMPT v0: 
-# {PROMPT='%n@%m %1~ %#}
+# ============= ESSENTIAL PROMPT ALIASES =============
 
-# prompt style v1
-# PROMPT='%F{green}[%*]%f: %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f %F{yellow}$❯%f '
+# System status
+alias status='echo "\n$(date)\nUptime: $(uptime)\nDisk: $(df -h / | tail -1 | awk "{print \$5\" used\"}")\nMemory: $(top -l 1 | grep PhysMem | awk "{print \$2\" used\"}")\n"'
+
+# ================================================================
+# ================ END ZSH PROMPT CONFIGURATION =================
+# ================================================================
 
 
 # hide and reveal desktop icons
@@ -518,7 +628,3 @@ export PATH=$ANDROID_HOME/emulator:$PATH
 
 export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-
-# on session load and startup commands (must be present at the end of file)
-kk; greetMe; # respect your master, ofc 
-echo "-----------------------------------------------"
