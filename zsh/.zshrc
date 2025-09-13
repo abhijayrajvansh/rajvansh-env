@@ -37,8 +37,8 @@ setopt PROMPT_SUBST
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green}●%f"
-zstyle ':vcs_info:*' unstagedstr "%F{red}●%f"
+zstyle ':vcs_info:*' stagedstr "%F{green} ●%f"
+zstyle ':vcs_info:*' unstagedstr "%F{red} ●%f"
 zstyle ':vcs_info:git:*' formats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{cyan})%f%c%u'
 zstyle ':vcs_info:git:*' actionformats '%F{white}on%f %F{cyan}git:(%f%F{red}%b%f%F{yellow}|%a%f%F{cyan})%f%c%u'
 
@@ -55,25 +55,15 @@ function virtualenv_info {
 
 # Function to show Node.js version
 function node_info {
-  if command -v node &> /dev/null; then
-    local node_version=$(node --version 2>/dev/null)
-    if [[ -n "$node_version" ]]; then
-      echo "%F{green}(node:${node_version#v})%f "
-    fi
-  fi
+  # Node.js version display disabled
+  return
 }
 
 # Function to show git status indicators
 function git_status_info {
   if git rev-parse --git-dir > /dev/null 2>&1; then
     local git_status=""
-    
-    # Check if repo is clean
-    if [[ -z "$(git status --porcelain 2>/dev/null)" ]]; then
-      git_status+="%F{green}✓%f"
-    else
-      git_status+="%F{red}✗%f"
-    fi
+  
     
     # Check for ahead/behind
     local ahead_behind=$(git rev-list --left-right --count HEAD...@{upstream} 2>/dev/null)
