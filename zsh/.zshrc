@@ -468,6 +468,13 @@ alias archives="cd /Users/abhijayrajvansh/Archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 alias resume='cd ~/Documents/resume'
+alias projects='cd /Users/abhijayrajvansh/Developer/projects'
+
+# on goining development projects
+alias com='desk; cd com'
+alias tms='desk; cd tms'
+alias chainge='desk; cd chainge'
+alias jasmine='desk; cd jasmine'
 
 # vscode release settings 
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
@@ -513,11 +520,6 @@ alias horizon='/Users/abhijayrajvansh/private-env/horizon/horizon.init.sh'
 
 ## TS Term
 alias tt='tsx /Users/abhijayrajvansh/Desktop/ts-term/background-executor.ts'
-
-# on goining development projects
-alias com='desk; cd com'
-alias tms='desk; cd tms'
-alias chainge='desk; cd chainge'
 
 # react native env
 
