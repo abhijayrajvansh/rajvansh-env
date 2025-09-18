@@ -22,7 +22,7 @@ Plug 'https://github.com/SirVer/ultisnips' " snippet extension
 call plug#end()
 
 " nvim editor theme
-:colorscheme ayu-dark
+:colorscheme github_dark_default
 
 " Shortcut & Hotkeys mapping
 
@@ -57,4 +57,23 @@ nnoremap <C-a> <Esc>ggVG
 " copy to system clipboard
 vnoremap <C-c> "+y
 
+" --- FZF: enhanced fuzzy finding ---
+" Use ripgrep for fast file listing (includes hidden, ignores .git)
+let $FZF_DEFAULT_COMMAND = "rg --files --hidden --follow -g '!.git' 2>/dev/null"
+let $FZF_CTRL_T_COMMAND = $FZF_DEFAULT_COMMAND
 
+" FZF window + preview settings
+let g:fzf_layout = { 'down': '40%' }
+let g:fzf_preview_window = [ 'right:50%', 'ctrl-/' ]
+
+" Handy fuzzy-find keymaps (fzf.vim)
+" Leader remains default (\\) unless you’ve set it elsewhere
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :Rg<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fl :BLines<CR>
+nnoremap <leader>fh :History<CR>
+
+" Quit all without saving, no prompt
+command! XX qa!
+command! WQ wq
