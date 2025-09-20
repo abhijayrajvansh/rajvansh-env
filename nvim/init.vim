@@ -31,8 +31,8 @@ inoremap <C-p> <Esc>:GFiles<Cr>
 nnoremap <C-p> <Esc>:GFiles<Cr>
 
 " file tree
-inoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
-nnoremap <C-b> <Esc>:Lex<Cr>:vertical resize 40<Cr>
+inoremap <C-b> <Esc>:Lex<Cr>:vertical resize 50<Cr>
+nnoremap <C-b> <Esc>:Lex<Cr>:vertical resize 50<Cr>
 
 " debug main.cpp file
 inoremap <C-d> <Esc>:w<Cr><Esc>ggVG"+y<Esc>:terminal g++-12 -D ABHIJAY_DEBUG main.cpp && ./a.out<Cr>i
