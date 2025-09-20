@@ -62,23 +62,8 @@ function node_info {
 # Function to show git status indicators
 function git_status_info {
   if git rev-parse --git-dir > /dev/null 2>&1; then
-    local git_status=""
-  
-    
-    # Check for ahead/behind
-    local ahead_behind=$(git rev-list --left-right --count HEAD...@{upstream} 2>/dev/null)
-    if [[ -n "$ahead_behind" ]]; then
-      local ahead=$(echo $ahead_behind | cut -f1)
-      local behind=$(echo $ahead_behind | cut -f2)
-      if [[ "$ahead" -gt 0 ]]; then
-        git_status+="%F{cyan}↑$ahead%f"
-      fi
-      if [[ "$behind" -gt 0 ]]; then
-        git_status+="%F{magenta}↓$behind%f"
-      fi
-    fi
-    
-    echo " $git_status"
+    # ahead/behind arrows removed for faster prompt
+    echo ""
   fi
 }
 
@@ -126,6 +111,28 @@ function return_code_info {
   echo "%(?..%F{red}[%?]%f )"
 }
 
+# Quick status widget for optional prompt extras
+prompt_extras_widget() {
+  local extras=""
+  local battery=$(battery_info)
+  [[ -n $battery ]] && extras+="$battery"
+  local jobs=$(jobs_info)
+  [[ -n $jobs ]] && extras+="$jobs"
+  local venv=$(virtualenv_info)
+  [[ -n $venv ]] && extras+="$venv"
+
+  if [[ -n $extras ]]; then
+    zle -M "${extras% }"
+  else
+    zle -M "No extra status"
+  fi
+}
+
+if [[ -o interactive ]]; then
+  zle -N prompt_extras_widget
+  bindkey '^G' prompt_extras_widget
+fi
+
 # ============= PROMPT UPDATE FUNCTION =============
 
 # Precmd function to update vcs_info and other dynamic content
@@ -136,9 +143,7 @@ precmd() {
 # ============= PROMPT STYLE =============
 
 # Enhanced prompt style (default and only style)
-PROMPT='
-%F{green}[%D{%H:%M:%S}]%f $(battery_info)$(jobs_info)$(return_code_info)$(virtualenv_info)$(node_info)%F{blue}%~%f$(dir_permissions) %F{red}${vcs_info_msg_0_}%f$(git_status_info)
-%B%F{green}❯%f%b '
+PROMPT='%F{green}[%D{%H:%M:%S}]%f $(return_code_info)%F{blue}%1~%f$(dir_permissions) %F{red}${vcs_info_msg_0_}%f$(git_status_info) %B%F{green}❯%f%b '
 
 # ============= ESSENTIAL PROMPT ALIASES =============
 
