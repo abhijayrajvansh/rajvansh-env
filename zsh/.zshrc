@@ -82,6 +82,15 @@ function dir_permissions {
   fi
 }
 
+# Show username when in home, otherwise mimic %1~ behavior
+function prompt_cwd {
+  if [[ "$PWD" == "$HOME" ]]; then
+    print -n -- "$USER"
+  else
+    print -Pn "%1~"
+  fi
+}
+
 # Function to show battery status (macOS)
 function battery_info {
   if command -v pmset &> /dev/null; then
@@ -143,7 +152,7 @@ precmd() {
 # ============= PROMPT STYLE =============
 
 # Enhanced prompt style (default and only style)
-PROMPT='%F{green}[%D{%H:%M:%S}]%f $(return_code_info)%F{blue}%1~%f$(dir_permissions) %F{red}${vcs_info_msg_0_}%f$(git_status_info) %B%F{green}❯%f%b '
+PROMPT='%F{green}[%D{%H:%M:%S}]%f $(return_code_info)%F{blue}$(prompt_cwd)%f$(dir_permissions) %F{red}${vcs_info_msg_0_}%f$(git_status_info) %B%F{green}❯ %f%b'
 
 # ============= ESSENTIAL PROMPT ALIASES =============
 
@@ -473,7 +482,8 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias chainge='desk; cd chainge'
-alias jasmine='desk; cd jasmine'
+alias jasmine-ws-server='cd /Users/abhijayrajvansh/Desktop/jasmine-ws-server'
+alias jasmine-ios-app='cd /Users/abhijayrajvansh/Desktop/jasmine-ios-app'
 
 # vscode release settings 
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
