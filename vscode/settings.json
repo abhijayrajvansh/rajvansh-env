@@ -72,5 +72,6 @@
   },
   "workbench.statusBar.visible": false,
   "chatgpt.cliExecutable": "",
-  "workbench.activityBar.location": "hidden"
+  "workbench.activityBar.location": "hidden",
+  "editor.accessibilitySupport": "on"
 }

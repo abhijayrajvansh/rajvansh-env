@@ -450,6 +450,7 @@ prg () {
 
 # default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
+alias dk='desk'; # cant type lol
 alias documents="cd /Users/abhijayrajvansh/Documents"
 alias developer="cd /Users/abhijayrajvansh/Developer"
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
