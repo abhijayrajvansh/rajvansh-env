@@ -22,7 +22,7 @@ Plug 'https://github.com/SirVer/ultisnips' " snippet extension
 call plug#end()
 
 " nvim editor theme
-:colorscheme github_dark_default
+:colorscheme github_light_default
 
 " Shortcut & Hotkeys mapping
 

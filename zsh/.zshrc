@@ -177,7 +177,7 @@ alias oo='open .'
 alias xx='exit'
 alias zz='cd ..'
 alias zzz='cd ../../'
-alias count-files='ls -1 | wc -l'
+alias count-files='printf "total files: %s\n" "$(ls -1 | wc -l | tr -d "[:space:]")"'
 alias show-inet='ifconfig | grep "inet "'
 
 
@@ -482,8 +482,7 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias chainge='desk; cd chainge'
-alias jasmine-ws-server='cd /Users/abhijayrajvansh/Desktop/jasmine-ws-server'
-alias jasmine-ios-app='cd /Users/abhijayrajvansh/Desktop/jasmine-ios-app'
+alias jasmine='dk; cd jasmine'
 
 # vscode release settings 
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
