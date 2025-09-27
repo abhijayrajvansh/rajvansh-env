@@ -46,7 +46,7 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.colorTheme": "i3 - Dark+ - Custom",
+  "workbench.colorTheme": "IDX Monospace Dark",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.enable": {
     "*": true,
@@ -72,6 +72,5 @@
   },
   "workbench.statusBar.visible": false,
   "chatgpt.cliExecutable": "",
-  "workbench.activityBar.location": "hidden",
   "editor.accessibilitySupport": "on"
 }
