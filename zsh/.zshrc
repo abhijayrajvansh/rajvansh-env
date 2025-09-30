@@ -453,12 +453,75 @@ alias vimrc='nv ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
 
 
+# Code editor launchers and helpers
+CODE_LAUNCHER_VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+CODE_LAUNCHER_VSCODE_INSIDERS="/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"
+CODE_LAUNCHER_TRAE="/Applications/Trae.app/Contents/Resources/app/bin/trae"
+
+if [[ -n "${primary_code_editor:-}" ]]; then
+  PRIMARY_CODE_EDITOR="$primary_code_editor"
+else
+  : "${PRIMARY_CODE_EDITOR:=vscode}"
+fi
+
+typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
+
+__code_cli_for() {
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-vscode}}}"
+
+  case "$choice" in
+    vscode|code|visual-studio-code)
+      printf '%s' "$CODE_LAUNCHER_VSCODE"
+      ;;
+    vscode-insiders|code-insiders|insiders)
+      printf '%s' "$CODE_LAUNCHER_VSCODE_INSIDERS"
+      ;;
+    trae|marscode)
+      printf '%s' "$CODE_LAUNCHER_TRAE"
+      ;;
+    *)
+      if [[ -n "$CODE_CUSTOM_LAUNCHER" ]]; then
+        printf '%s' "$CODE_CUSTOM_LAUNCHER"
+        return 0
+      fi
+
+      printf 'primary code editor %q is not configured\n' "$choice" >&2
+      return 1
+      ;;
+  esac
+}
+
+set-primary-code-editor() {
+  if [[ $# -eq 0 ]]; then
+    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|trae>" >&2
+    return 1
+  fi
+
+  local choice="$1"
+
+  if ! __code_cli_for "$choice" >/dev/null 2>&1; then
+    echo "primary code editor '$choice' is not configured" >&2
+    return 1
+  fi
+
+  PRIMARY_CODE_EDITOR="$choice"
+  export PRIMARY_CODE_EDITOR
+  typeset -g primary_code_editor="$choice"
+  echo "Primary code editor set to $choice"
+}
+
+code() {
+  local cli
+  cli="$(__code_cli_for)" || return 1
+  "$cli" "$@"
+}
+
 # create new files and launch code directories 
 prg () {  
   for arg in "$@"; do
     echo "launching: $arg"
-    touch $arg
-    /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code $arg
+    touch -- "$arg"
+    code "$arg"
   done
 }
 
@@ -485,14 +548,13 @@ alias chainge='desk; cd chainge'
 alias jasmine='dk; cd jasmine'
 
 # vscode release settings 
-alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
 alias code-snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
 # vscode insiders settings
 alias code-in='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
-alias code-in-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
-alias code-in-snippets='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
+alias code-in-setting='echo "launching: settings.json"; code-in /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
+alias code-in-snippets='echo "launching: settings.json"; code-in /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
 
 # portfolio related stuff
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
