@@ -461,13 +461,13 @@ CODE_LAUNCHER_TRAE="/Applications/Trae.app/Contents/Resources/app/bin/trae"
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
 else
-  : "${PRIMARY_CODE_EDITOR:=vscode}"
+  : "${PRIMARY_CODE_EDITOR:=trae}"
 fi
 
 typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
 
 __code_cli_for() {
-  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-vscode}}}"
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-trae}}}"
 
   case "$choice" in
     vscode|code|visual-studio-code)
@@ -486,6 +486,31 @@ __code_cli_for() {
       fi
 
       printf 'primary code editor %q is not configured\n' "$choice" >&2
+      return 1
+      ;;
+  esac
+}
+
+__code_settings_path_for() {
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-trae}}}"
+
+  case "$choice" in
+    vscode|code|visual-studio-code)
+      printf '%s' "$HOME/Library/Application Support/Code/User/settings.json"
+      ;;
+    vscode-insiders|code-insiders|insiders)
+      printf '%s' "$HOME/Library/Application Support/Code - Insiders/User/settings.json"
+      ;;
+    trae|marscode)
+      printf '%s' "$HOME/Library/Application Support/Trae/User/settings.json"
+      ;;
+    *)
+      if [[ -n "$CODE_CUSTOM_SETTINGS_PATH" ]]; then
+        printf '%s' "$CODE_CUSTOM_SETTINGS_PATH"
+        return 0
+      fi
+
+      printf 'primary code editor %q does not have a known settings path\n' "$choice" >&2
       return 1
       ;;
   esac
@@ -548,7 +573,23 @@ alias chainge='desk; cd chainge'
 alias jasmine='dk; cd jasmine'
 
 # vscode release settings 
-alias code-setting='echo "launching: settings.json"; code /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json'
+unalias code-setting 2>/dev/null
+code-setting() {
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-trae}}}"
+  local cli
+  local settings_path
+
+  if ! cli="$(__code_cli_for "$choice")"; then
+    return 1
+  fi
+
+  if ! settings_path="$(__code_settings_path_for "$choice")"; then
+    return 1
+  fi
+
+  echo "launching ($choice): settings.json"
+  "$cli" "$settings_path"
+}
 alias code-snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
 # vscode insiders settings
