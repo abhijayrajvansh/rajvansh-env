@@ -2,7 +2,7 @@
 
 # identity configs
 alias greetMe="echo New Session Started, Welcome Back Mr. Rajvansh!"
-alias reload='source ~/.zshrc'
+alias reload='source ~/.zshrc && echo "source ~/.zshrc" && clear && greetMe'
 alias rr='reload'
 
 # color codes and ui variables
@@ -571,6 +571,7 @@ alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias chainge='desk; cd chainge'
 alias jasmine='dk; cd jasmine'
+alias expofirebaseauth='dk; cd expofirebaseauth'
 
 # vscode release settings 
 unalias code-setting 2>/dev/null
@@ -666,8 +667,14 @@ print_all_onlineSimulators() {
   '
 }
 
+## android and ios | react native expo development 
+alias list-ios-simulators='print_all_onlineSimulators'
+alias list-android-emulators='/Users/abhijayrajvansh/Library/Android/sdk/emulator/emulator -list-avds'
 
-alias list-simulators='print_all_onlineSimulators'
+# Android & iOS Emulator shortcuts
+alias start-android-emulator='~/Library/Android/sdk/emulator/emulator -avd Pixel_9_Pro'
+alias start-ios-emulator='open -a Simulator && xcrun simctl boot "iPhone 16e"'
+
 
 # jaiz logistics (client)
 alias show-jaiz-logistics-creds='cat /Users/abhijayrajvansh/private-env/tms/jaiz-logistics-creds.txt'
@@ -731,3 +738,5 @@ export PATH=$ANDROID_HOME/emulator:$PATH
 
 export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+
+## -- Execute On Every Zsh Session --
