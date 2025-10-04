@@ -571,7 +571,6 @@ alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias chainge='desk; cd chainge'
 alias jasmine='dk; cd jasmine'
-alias expofirebaseauth='dk; cd expofirebaseauth'
 
 # vscode release settings 
 unalias code-setting 2>/dev/null
@@ -687,7 +686,7 @@ alias show-themis-env='cat /Users/abhijayrajvansh/private-env/themis/themis.env'
 # private env
 alias pvt='cd /Users/abhijayrajvansh/private-env'
 alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github.env'
-alias show-openai-api-key='cat /Users/abhijayrajvansh/private-env/openai/openai-api-key.txt'
+alias show-chatgpt-credentials='cat /Users/abhijayrajvansh/private-env/openai/chatgpt-credentials.txt'
 alias show-openrouter-api-key='pvt; cd openrouter; cat coding-apikey.txt'
 
 createTreeContext() {
