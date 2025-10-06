@@ -677,6 +677,7 @@ alias start-ios-emulator='open -a Simulator && xcrun simctl boot "iPhone 16e"'
 
 # jaiz logistics (client)
 alias show-jaiz-logistics-creds='cat /Users/abhijayrajvansh/private-env/tms/jaiz-logistics-creds.txt'
+alias show-wheelseye-credentials='cat /Users/abhijayrajvansh/private-env/tms/wheelseye-credentials.txt'
 
 # themis
 alias show-themis-db-connection-string='cat /Users/abhijayrajvansh/private-env/themis/themis-db-connection-string'
