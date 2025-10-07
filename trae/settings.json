@@ -1,0 +1,54 @@
+{
+  "workbench.colorTheme": "Deep Blue",
+  "security.workspace.trust.untrustedFiles": "open",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "prettier.endOfLine": "auto",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "extensions.ignoreRecommendations": true,
+  "editor.fontFamily": "'JetBrains Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 12,
+  "editor.stickyScroll.enabled": false,
+  "editor.lineHeight": 1.5,
+  "editor.fontWeight": "500",
+  "editor.scrollbar.vertical": "hidden",
+  "terminal.integrated.fontFamily": "JetBrains Mono, SF Mono",
+  "terminal.integrated.fontWeight": "500",
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.lineHeight": 1,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.cursorStyle": "block",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.titleBarStyle": "custom",
+  "update.mode": "manual",
+  "editor.guides.indentation": true,
+  "editor.smoothScrolling": true,
+  "prisma.showPrismaDataPlatformNotification": false,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "git.branchRandomName.enable": true,
+  "git.confirmSync": false,
+  "workbench.settings.applyToAllProfiles": [
+    "workbench.colorCustomizations"
+  ],
+  "claude.lang": "en",
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.statusBar.visible": true,
+  "workbench.sideBar.location": "right",
+  "AI.toolcall.confirmMode": "autoRun",
+  "editor.fontVariations": false,
+  "git.enabled": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "trae.notification.enableOffersAndPromotions": false,
+}
