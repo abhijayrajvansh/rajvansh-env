@@ -410,28 +410,39 @@ alias zshrc='code ~/.zshrc; echo launching: zsh config'
 alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/rajvansh-env/zsh'
 alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/rajvansh-env/zsh/.zshrc /Users/abhijayrajvansh/'
 
+# VSCode settings and snippets
 alias cp-lcodesetting-rcodesetting='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/rajvansh-env/vscode/'
 alias cp-rcodesetting-lcodesetting='cp -r /Users/abhijayrajvansh/rajvansh-env/vscode/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
 
 alias cp-lcodesnippets-rcodesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/rajvansh-env/vscode/'
 alias cp-rcodesnippets-lcodesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/vscode/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
 
+# Trae IDE settings and snippets
+alias cp-ltraesetting-rtraesetting='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/settings.json /Users/abhijayrajvansh/rajvansh-env/trae/'
+alias cp-rtraesetting-ltraesetting='cp -r /Users/abhijayrajvansh/rajvansh-env/trae/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/'
+
+alias cp-ltraesnippets-rtraesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/snippets /Users/abhijayrajvansh/rajvansh-env/trae/'
+alias cp-rtraesnippets-ltraesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/trae/snippets /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/'
+
+# Neovim config
 alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/rajvansh-env/'
 alias cp-rnvcf-lnvcf='cp -r ~/rajvansh-env/nvim ~/.config/'
 
 copy_localenv_to_remoteenv () {
   echo "copying following configurations to remote environment:\n";
-  greentick; echo "Copied rajvansh-cli and zsh config.";  cp-lzsh-rzsh;
-  greentick; echo "Copied code settings.json & snippets."; cp-lcodesetting-rcodesetting; cp-lcodesnippets-rcodesnippets;
+  greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
+  greentick; echo "Copied VSCode settings.json & snippets."; cp-lcodesetting-rcodesetting; cp-lcodesnippets-rcodesnippets;
+  greentick; echo "Copied Trae IDE settings.json & snippets."; cp-ltraesetting-rtraesetting; cp-ltraesnippets-rtraesnippets;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
   echo
 }
 
-update_dev_configurations () {
-  echo "updating remote configurations to local environment:\n";
-  greentick; echo "Updated rajvansh-cli and zsh config.";  cp-rzsh-lzsh;
-  greentick; echo "Updated code settings.json & snippets."; cp-rcodesetting-lcodesetting; cp-rcodesnippets-lcodesnippets;
-  greentick; echo "Updated neovim config."; cp-rnvcf-lnvcf;
+copy_remoteenv_to_localenv () {
+  echo "copying following configurations from remote environment:\n";
+  greentick; echo "Copied rajvansh-cli and zsh config."; cp-rzsh-lzsh;
+  greentick; echo "Copied VSCode settings.json & snippets."; cp-rcodesetting-lcodesetting; cp-rcodesnippets-lcodesnippets;
+  greentick; echo "Copied Trae IDE settings.json & snippets."; cp-rtraesetting-ltraesetting; cp-rtraesnippets-ltraesnippets;
+  greentick; echo "Copied neovim config."; cp-rnvcf-lnvcf;
   echo
 }
 
@@ -441,11 +452,12 @@ pz () {
   gpush "update: audit push && improvements" main
 }
 
+# New function to pull configurations from remote
 gz () {
   cd /Users/abhijayrajvansh/rajvansh-env
-  git pull origin main;
-  update_dev_configurations;
-  echo "Reload .zshrc to reflect changes."
+  git pull origin main
+  copy_remoteenv_to_localenv;
+  echo "> Successfully pulled and applied remote configurations"
 }
 
 # neo vim
