@@ -625,6 +625,7 @@ alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
 alias clients='cd /Users/abhijayrajvansh/Documents/clients'
 alias freelancers='cd /Users/abhijayrajvansh/Documents/freelancers'
 alias icons='cd /Users/abhijayrajvansh/Archives/iconsbabbyyy'
+alias finance='cd /Users/abhijayrajvansh/Documents/finance'
 
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
