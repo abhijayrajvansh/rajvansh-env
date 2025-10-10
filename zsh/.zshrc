@@ -753,3 +753,4 @@ export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 ## -- Execute On Every Zsh Session --
+kk; greetMe;
