@@ -45,10 +45,10 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.statusBar.visible": true,
-  "workbench.sideBar.location": "right",
   "AI.toolcall.confirmMode": "autoRun",
   "editor.fontVariations": false,
   "git.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
   "trae.notification.enableOffersAndPromotions": false,
+  // "workbench.sideBar.location": "right",
 }

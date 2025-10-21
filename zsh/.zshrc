@@ -298,7 +298,6 @@ alias gd='git diff'
 alias gpl='git pull'
 alias gpf='git push --force-with-lease'
 alias gcl='git clone'
-alias gcl_here='git_clone_here'
 alias gw='git switch'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias gb='git branch'
@@ -339,7 +338,7 @@ gpush () {
 	fi
 }
 
-git_clone_here() {
+gcl_here() {
     if [ -z "$1" ]; then
         echo "Usage: clone_here <repo_url>"
         return 1
