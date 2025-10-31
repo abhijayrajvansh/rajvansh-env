@@ -580,8 +580,11 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 # on goining development projects
 alias com='desk; cd com'
 alias tms='desk; cd tms'
-alias workflows='cd /Users/abhijayrajvansh/Desktop/workflows'
 alias jasmine='dk; cd jasmine'
+
+# comyui setups
+alias workflows='cd /Users/abhijayrajvansh/Desktop/workflows'
+alias workspace='cd /Users/abhijayrajvansh/Desktop/workspace'
 
 # vscode release settings 
 unalias code-setting 2>/dev/null
