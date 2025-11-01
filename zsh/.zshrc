@@ -705,6 +705,7 @@ alias show-github-access-token='cat /Users/abhijayrajvansh/private-env/github.en
 alias show-chatgpt-credentials='cat /Users/abhijayrajvansh/private-env/openai/chatgpt-credentials.txt'
 alias show-openrouter-api-key='pvt; cd openrouter; cat coding-apikey.txt'
 alias show-civitai-access-token='cat /Users/abhijayrajvansh/private-env/civitai/access-token.txt'
+alias show-hf-access-token='cat /Users/abhijayrajvansh/private-env/hf/access-token.txt'
 
 createTreeContext() {
   # Create .github directory if it doesn't exist
