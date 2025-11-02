@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Deep Blue",
+  "workbench.colorTheme": "Light",
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,

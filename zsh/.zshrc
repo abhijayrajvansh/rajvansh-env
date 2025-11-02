@@ -758,3 +758,7 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 ## -- Execute On Every Zsh Session --
 kk; greetMe;
+
+
+# custome scripts added from private-env
+alias update-project="$HOME/private-env/custom-scripts/update-project.zsh"
