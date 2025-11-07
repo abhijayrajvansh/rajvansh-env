@@ -761,4 +761,4 @@ kk; greetMe;
 
 
 # custome scripts added from private-env
-alias updateProjectHere="zsh /Users/abhijayrajvansh/private-env/custom-scripts/update-project.zsh"
+alias updateProjectHere="source /Users/abhijayrajvansh/private-env/custom-scripts/update-project.zsh && update-project"
