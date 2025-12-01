@@ -580,6 +580,7 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 # on goining development projects
 alias com='desk; cd com'
 alias tms='desk; cd tms'
+alias boat='desk; cd boat'
 alias jasmine='dk; cd jasmine'
 
 # comyui setups

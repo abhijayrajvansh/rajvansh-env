@@ -1,5 +1,4 @@
 {
-  "workbench.colorTheme": "Light",
   "security.workspace.trust.untrustedFiles": "open",
   "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,
@@ -50,5 +49,7 @@
   "git.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
   "trae.notification.enableOffersAndPromotions": false,
+  "workbench.colorTheme": "Monospace IDX Dark",
+  "editor.wordWrap": "on",
   // "workbench.sideBar.location": "right",
 }
