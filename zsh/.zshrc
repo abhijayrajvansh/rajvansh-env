@@ -581,7 +581,7 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias boat='desk; cd boat'
-alias jasmine='dk; cd jasmine'
+alias donna='dk; cd donna'
 
 # comyui setups
 alias workflows='cd /Users/abhijayrajvansh/Desktop/workflows'

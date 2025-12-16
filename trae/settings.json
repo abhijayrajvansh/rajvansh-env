@@ -51,5 +51,7 @@
   "trae.notification.enableOffersAndPromotions": false,
   "workbench.colorTheme": "Monospace IDX Dark",
   "editor.wordWrap": "on",
+  "AI.toolcall.v2.ide.mcp.autoRun": "alwaysRun",
+  "AI.toolcall.v2.ide.command.mode": "blacklist",
   // "workbench.sideBar.location": "right",
 }
