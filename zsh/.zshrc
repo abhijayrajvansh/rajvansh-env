@@ -744,6 +744,7 @@ export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
 
 # Added by Codex CLI: jas alias
+DEFAULT_JAS_ALIAS='Codex with YOLO'
 alias jas='codex --yolo'
 
 # Playwright config for Codex/MCP
@@ -760,7 +761,3 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 ## -- Execute On Every Zsh Session --
 kk; greetMe;
-
-
-# custome scripts added from private-env
-alias updateProjectHere="source /Users/abhijayrajvansh/private-env/custom-scripts/update-project.zsh && update-project"

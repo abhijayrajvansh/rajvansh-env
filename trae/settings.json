@@ -49,9 +49,9 @@
   "git.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
   "trae.notification.enableOffersAndPromotions": false,
-  "workbench.colorTheme": "GitHub Dark Default",
   "editor.wordWrap": "on",
   "AI.toolcall.v2.ide.mcp.autoRun": "alwaysRun",
   "AI.toolcall.v2.ide.command.mode": "blacklist",
-  // "workbench.sideBar.location": "right",
+  "workbench.colorTheme": "One Hunter Flexoki Light",
+  "workbench.sideBar.location": "right",
 }
