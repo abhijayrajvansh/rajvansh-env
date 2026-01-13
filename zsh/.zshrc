@@ -580,9 +580,8 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 # on goining development projects
 alias com='desk; cd com'
 alias tms='desk; cd tms'
-alias lms='desk; cd lms'
-alias boat='desk; cd boat'
-alias donna='dk; cd donna'
+alias orca='desk; cd orca'
+
 
 # comyui setups
 alias workflows='cd /Users/abhijayrajvansh/Desktop/workflows'
