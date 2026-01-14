@@ -52,6 +52,6 @@
   "editor.wordWrap": "on",
   "AI.toolcall.v2.ide.mcp.autoRun": "alwaysRun",
   "AI.toolcall.v2.ide.command.mode": "blacklist",
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "GitHub Dark Default",
   // "workbench.sideBar.location": "right",
 }

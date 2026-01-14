@@ -581,6 +581,7 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias orca='desk; cd orca'
+alias njf='desk; cd not-just-flowers'
 
 
 # comyui setups
