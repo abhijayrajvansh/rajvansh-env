@@ -2,7 +2,7 @@
 
 # identity configs
 alias greetMe="bash /Users/abhijayrajvansh/rajvansh-env/zsh/welcome.sh"
-alias reload='source ~/.zshrc && echo "source ~/.zshrc" && clear && greetMe'
+alias reload='source ~/.zshrc'
 alias rr='reload'
 
 # color codes and ui variables
@@ -762,3 +762,4 @@ export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 ## -- Execute On Every Zsh Session --
+clear; greetMe;
