@@ -1,7 +1,7 @@
 # author: https://abhijayrajvansh.com
 
 # identity configs
-alias greetMe="echo New Session Started, Welcome Back Mr. Rajvansh!"
+alias greetMe="bash /Users/abhijayrajvansh/rajvansh-env/zsh/welcome.sh"
 alias reload='source ~/.zshrc && echo "source ~/.zshrc" && clear && greetMe'
 alias rr='reload'
 
@@ -762,4 +762,3 @@ export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 ## -- Execute On Every Zsh Session --
-kk; greetMe;
