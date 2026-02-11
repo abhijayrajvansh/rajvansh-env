@@ -546,7 +546,7 @@ set-primary-code-editor() {
   echo "Primary code editor set to $choice"
 }
 
-code() {
+function code {
   local cli
   cli="$(__code_cli_for)" || return 1
   "$cli" "$@"
