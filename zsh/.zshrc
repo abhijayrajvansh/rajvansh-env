@@ -468,11 +468,16 @@ alias nv='nvim'
 CODE_LAUNCHER_VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 CODE_LAUNCHER_VSCODE_INSIDERS="/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"
 CODE_LAUNCHER_TRAE="/Applications/Trae.app/Contents/Resources/app/bin/trae"
+CODE_LAUNCHER_CURSOR="/Applications/Cursor.app/Contents/Resources/app/bin/cursor"
 
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
 else
   : "${PRIMARY_CODE_EDITOR:=trae}"
+fi
+
+if [[ "$(hostname)" == "Abhijays-MacBook-Air.local" ]]; then
+  PRIMARY_CODE_EDITOR="cursor"
 fi
 
 typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
@@ -486,6 +491,9 @@ __code_cli_for() {
       ;;
     vscode-insiders|code-insiders|insiders)
       printf '%s' "$CODE_LAUNCHER_VSCODE_INSIDERS"
+      ;;
+    cursor)
+      printf '%s' "$CODE_LAUNCHER_CURSOR"
       ;;
     trae|marscode)
       printf '%s' "$CODE_LAUNCHER_TRAE"
@@ -512,6 +520,9 @@ __code_settings_path_for() {
     vscode-insiders|code-insiders|insiders)
       printf '%s' "$HOME/Library/Application Support/Code - Insiders/User/settings.json"
       ;;
+    cursor)
+      printf '%s' "$HOME/Library/Application Support/Cursor/User/settings.json"
+      ;;
     trae|marscode)
       printf '%s' "$HOME/Library/Application Support/Trae/User/settings.json"
       ;;
@@ -529,7 +540,7 @@ __code_settings_path_for() {
 
 set-primary-code-editor() {
   if [[ $# -eq 0 ]]; then
-    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|trae>" >&2
+    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|cursor|trae>" >&2
     return 1
   fi
 
