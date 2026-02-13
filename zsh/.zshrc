@@ -759,6 +759,7 @@ export GIT_TERMINAL_PROMPT=0
 # Added by Codex CLI: jas alias
 DEFAULT_JAS_ALIAS='Codex with YOLO'
 alias jas='codex --yolo'
+alias don='codex --yolo --profile openrouter'
 
 # Playwright config for Codex/MCP
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/Library/Caches/ms-playwright"
