@@ -756,10 +756,13 @@ export SSH_ASKPASS="$GIT_ASKPASS"
 export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
 
-# Added by Codex CLI: jas alias
-DEFAULT_JAS_ALIAS='Codex with YOLO'
+# Added by Codex CLI: jasmine and donna alias 
 alias jas='codex --yolo'
 alias don='codex --yolo --profile openrouter'
+
+# openrouter api key
+alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
+
 
 # Playwright config for Codex/MCP
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/Library/Caches/ms-playwright"
