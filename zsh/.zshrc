@@ -427,12 +427,17 @@ alias cp-rtraesnippets-ltraesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/
 alias cp-lnvcf-rnvcf='cp -r ~/.config/nvim ~/rajvansh-env/'
 alias cp-rnvcf-lnvcf='cp -r ~/rajvansh-env/nvim ~/.config/'
 
+# Codex config
+alias cp-lcodexconfig-rcodexconfig='mkdir -p ~/rajvansh-env/codex && cp ~/.codex/config.toml ~/rajvansh-env/codex/'
+alias cp-rcodexconfig-lcodexconfig='mkdir -p ~/.codex && cp ~/rajvansh-env/codex/config.toml ~/.codex/'
+
 copy_localenv_to_remoteenv () {
   echo "copying following configurations to remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
   greentick; echo "Copied VSCode settings.json & snippets."; cp-lcodesetting-rcodesetting; cp-lcodesnippets-rcodesnippets;
   greentick; echo "Copied Trae IDE settings.json & snippets."; cp-ltraesetting-rtraesetting; cp-ltraesnippets-rtraesnippets;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
+  greentick; echo "Copied Codex config.toml."; cp-lcodexconfig-rcodexconfig;
   echo
 }
 
@@ -442,6 +447,7 @@ copy_remoteenv_to_localenv () {
   greentick; echo "Copied VSCode settings.json & snippets."; cp-rcodesetting-lcodesetting; cp-rcodesnippets-lcodesnippets;
   greentick; echo "Copied Trae IDE settings.json & snippets."; cp-rtraesetting-ltraesetting; cp-rtraesnippets-ltraesnippets;
   greentick; echo "Copied neovim config."; cp-rnvcf-lnvcf;
+  greentick; echo "Copied Codex config.toml."; cp-rcodexconfig-lcodexconfig;
   echo
 }
 

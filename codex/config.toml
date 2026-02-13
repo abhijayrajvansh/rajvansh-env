@@ -1,0 +1,79 @@
+# -----------------------------
+# DEFAULT (no flags): OpenAI
+# -----------------------------
+model = "gpt-5.3-codex"
+model_provider = "openai"
+
+personality = "pragmatic"
+model_reasoning_effort = "medium"
+
+
+
+# -----------------------------
+# MODEL PROVIDERS
+# -----------------------------
+# "openai" is built-in, so you usually don't need to define it.
+# Add it only if you want to override base_url / headers etc.
+# (Leaving it undefined is fine.)
+
+[model_providers.openrouter]
+name = "OpenRouter"
+base_url = "https://openrouter.ai/api/v1"
+env_key = "OPENROUTER_API_KEY"
+wire_api = "responses"
+
+# Optional but recommended by OpenRouter:
+http_headers = { "HTTP-Referer" = "https://abhijayrajvansh.com", "X-Title" = "Abhijay's Codex CLI" }
+
+
+
+# -----------------------------
+# PROFILES (easy switching)
+# -----------------------------
+[profiles.openai]
+model_provider = "openai"
+model = "gpt-5.3-codex"
+
+[profiles.openrouter]
+model_provider = "openrouter"
+model = "arcee-ai/trinity-large-preview:free"
+
+# -----------------------------
+# YOUR EXISTING TRUSTED PROJECTS
+# -----------------------------
+[projects."/Users/abhijayrajvansh/Desktop/tms"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/private-env"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/rajvansh-env"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/medusa"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/com"]
+trust_level = "trusted"
+
+## Codex CLI MCP Servers Config
+# [mcp_servers.playwright]
+# command = "playwright-mcp-server"
+
+# [mcp_servers.playwright.env]
+# PLAYWRIGHT_BROWSERS_PATH = "/Users/abhijayrajvansh/Library/Caches/ms-playwright"
+
+# [mcp_servers.shadcn]
+# command = "npx"
+# args = ["shadcn@latest", "mcp"]
+
+## Firebase MCP Server but creates firebase log debug 🫠
+# [mcp_servers.firebase]
+# command = "firebase"
+# args = ["experimental:mcp"]
