@@ -657,6 +657,10 @@ alias show-local-postgres-connection-string='echo "postgresql://postgres:postgre
 alias start-mongodb='brew services start mongodb-community'
 alias stop-mongodb='brew services stop mongodb-community'
 
+# openclaw
+alias stop-openclaw='launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
+alias start-openclaw='launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
+
 ## LLMs and AI related 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
