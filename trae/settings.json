@@ -52,5 +52,6 @@
   "editor.wordWrap": "on",
   "AI.toolcall.v2.ide.mcp.autoRun": "alwaysRun",
   "AI.toolcall.v2.ide.command.mode": "blacklist",
+  "workbench.colorTheme": "Monospace IDX Light",
   // "workbench.sideBar.location": "right",
 }
