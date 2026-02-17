@@ -431,6 +431,9 @@ alias cp-rnvcf-lnvcf='cp -r ~/rajvansh-env/nvim ~/.config/'
 alias cp-lcodexconfig-rcodexconfig='mkdir -p ~/rajvansh-env/codex && cp ~/.codex/config.toml ~/rajvansh-env/codex/'
 alias cp-rcodexconfig-lcodexconfig='mkdir -p ~/.codex && cp ~/rajvansh-env/codex/config.toml ~/.codex/'
 
+# OpenClaw config sync to private-env
+alias cp-lopenclaw-ropenclaw='mkdir -p ~/private-env && rm -rf ~/private-env/openclaw && cp -R ~/.openclaw ~/private-env/openclaw'
+
 copy_localenv_to_remoteenv () {
   echo "copying following configurations to remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
@@ -455,6 +458,15 @@ pz () {
   cd /Users/abhijayrajvansh/rajvansh-env
   copy_localenv_to_remoteenv;
   gpush "update: audit push && improvements" main
+
+  cd /Users/abhijayrajvansh/private-env || return 1
+  if [ -d "$HOME/.openclaw" ]; then
+    echo "copying .openclaw to private-env:\n";
+    cp-lopenclaw-ropenclaw;
+    gpush "update: openclaw sync" main
+  else
+    echo "Skipping private-env sync: $HOME/.openclaw not found"
+  fi
 }
 
 # New function to pull configurations from remote
