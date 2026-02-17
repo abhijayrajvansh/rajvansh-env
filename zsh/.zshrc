@@ -800,3 +800,6 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 ## -- Execute On Every Zsh Session --
 clear; greetMe;
+
+# OpenClaw Completion
+source "/Users/abhijayrajvansh/.openclaw/completions/openclaw.zsh"
