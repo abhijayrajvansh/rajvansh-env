@@ -77,3 +77,10 @@ trust_level = "trusted"
 # [mcp_servers.firebase]
 # command = "firebase"
 # args = ["experimental:mcp"]
+
+# [mcp_servers.linear]
+# command = "npx"
+# args = ["-y", "linear-mcp"]
+
+# [mcp_servers.linear.env]
+# LINEAR_ACCESS_TOKEN = "lin_api_o6s23bVIQymFqQQz76axvXfkBJkMBAZQA9ED5oHW"
