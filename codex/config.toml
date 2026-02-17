@@ -83,4 +83,4 @@ trust_level = "trusted"
 # args = ["-y", "linear-mcp"]
 
 # [mcp_servers.linear.env]
-# LINEAR_ACCESS_TOKEN = "lin_api_o6s23bVIQymFqQQz76axvXfkBJkMBAZQA9ED5oHW"
+# LINEAR_ACCESS_TOKEN = "paste-your-token-here"
