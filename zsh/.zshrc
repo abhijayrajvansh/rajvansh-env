@@ -801,5 +801,11 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 ## -- Execute On Every Zsh Session --
 clear; greetMe;
 
+# Initialize zsh completion system before loading completion scripts.
+if [[ -o interactive ]]; then
+  autoload -Uz compinit
+  (( $+functions[compdef] )) || compinit
+fi
+
 # OpenClaw Completion
 source "/Users/abhijayrajvansh/.openclaw/completions/openclaw.zsh"
