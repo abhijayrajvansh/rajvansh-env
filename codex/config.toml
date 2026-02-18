@@ -5,9 +5,7 @@ model = "gpt-5.3-codex"
 model_provider = "openai"
 
 personality = "pragmatic"
-model_reasoning_effort = "medium"
-
-
+model_reasoning_effort = "medium"   
 
 # -----------------------------
 # MODEL PROVIDERS
@@ -22,11 +20,6 @@ base_url = "https://openrouter.ai/api/v1"
 env_key = "OPENROUTER_API_KEY"
 wire_api = "responses"
 
-# Optional but recommended by OpenRouter:
-http_headers = { "HTTP-Referer" = "https://abhijayrajvansh.com", "X-Title" = "Abhijay's Codex CLI" }
-
-
-
 # -----------------------------
 # PROFILES (easy switching)
 # -----------------------------
@@ -37,6 +30,10 @@ model = "gpt-5.3-codex"
 [profiles.openrouter]
 model_provider = "openrouter"
 model = "arcee-ai/trinity-large-preview:free"
+
+# OpenRouter: HTTP Headers
+http_headers = { "HTTP-Referer" = "https://abhijayrajvansh.com", "X-Title" = "Abhijay's Codex CLI" }
+
 
 # -----------------------------
 # YOUR EXISTING TRUSTED PROJECTS
@@ -62,6 +59,12 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/com"]
 trust_level = "trusted"
 
+[features]
+experimental_use_rmcp_client = true
+
+[mcp_servers.linear]
+url = "https://mcp.linear.app/mcp"
+
 ## Codex CLI MCP Servers Config
 # [mcp_servers.playwright]
 # command = "playwright-mcp-server"
@@ -72,15 +75,3 @@ trust_level = "trusted"
 # [mcp_servers.shadcn]
 # command = "npx"
 # args = ["shadcn@latest", "mcp"]
-
-## Firebase MCP Server but creates firebase log debug 🫠
-# [mcp_servers.firebase]
-# command = "firebase"
-# args = ["experimental:mcp"]
-
-# [mcp_servers.linear]
-# command = "npx"
-# args = ["-y", "linear-mcp"]
-
-# [mcp_servers.linear.env]
-# LINEAR_ACCESS_TOKEN = "paste-your-token-here"
