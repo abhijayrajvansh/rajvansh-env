@@ -806,6 +806,3 @@ if [[ -o interactive ]]; then
   autoload -Uz compinit
   (( $+functions[compdef] )) || compinit
 fi
-
-# OpenClaw Completion
-source "/Users/abhijayrajvansh/.openclaw/completions/openclaw.zsh"
