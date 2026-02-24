@@ -59,11 +59,11 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/com"]
 trust_level = "trusted"
 
-[features]
-experimental_use_rmcp_client = true
+# [features]
+# experimental_use_rmcp_client = true
 
-[mcp_servers.linear]
-url = "https://mcp.linear.app/mcp"
+# [mcp_servers.linear]
+# url = "https://mcp.linear.app/mcp"
 
 ## Codex CLI MCP Servers Config
 # [mcp_servers.playwright]
