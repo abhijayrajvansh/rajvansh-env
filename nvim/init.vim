@@ -6,7 +6,19 @@
 :set softtabstop=4
 :set mouse=a
 
-let g:python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.12/bin/python3'
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
+
+let s:plug_path = stdpath('data') . '/site/autoload/plug.vim'
+
+" Bootstrap vim-plug if missing
+if empty(glob(s:plug_path))
+  silent execute '!curl -fLo ' . shellescape(s:plug_path) . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+if filereadable(s:plug_path)
+  execute 'source ' . fnameescape(s:plug_path)
+endif
 
 call plug#begin()
 
@@ -22,7 +34,7 @@ Plug 'https://github.com/SirVer/ultisnips' " snippet extension
 call plug#end()
 
 " nvim editor theme
-:colorscheme github_dark_default
+silent! colorscheme github_dark_default
 
 " Shortcut & Hotkeys mapping
 

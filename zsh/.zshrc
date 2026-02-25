@@ -806,3 +806,9 @@ if [[ -o interactive ]]; then
   autoload -Uz compinit
   (( $+functions[compdef] )) || compinit
 fi
+
+# OpenClaw Completion
+source "/Users/abhijayrajvansh/.openclaw/completions/openclaw.zsh"
+
+# Added by Antigravity
+export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
