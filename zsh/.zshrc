@@ -806,7 +806,9 @@ if [[ -o interactive ]]; then
 fi
 
 # OpenClaw Completion
-source "/Users/abhijayrajvansh/.openclaw/completions/openclaw.zsh"
+if [[ -f "$HOME/.openclaw/completions/openclaw.zsh" ]]; then
+  source "$HOME/.openclaw/completions/openclaw.zsh"
+fi
 
 # Added by Antigravity
 export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
