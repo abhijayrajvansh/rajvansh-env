@@ -458,15 +458,6 @@ pz () {
   cd /Users/abhijayrajvansh/rajvansh-env
   copy_localenv_to_remoteenv;
   gpush "update: audit push && improvements" main
-
-  cd /Users/abhijayrajvansh/private-env || return 1
-  if [ -d "$HOME/.openclaw" ]; then
-    echo "copying .openclaw to private-env:\n";
-    cp-lopenclaw-ropenclaw;
-    gpush "update: openclaw sync" main
-  else
-    echo "Skipping private-env sync: $HOME/.openclaw not found"
-  fi
 }
 
 # New function to pull configurations from remote
