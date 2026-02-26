@@ -487,11 +487,12 @@ CODE_LAUNCHER_VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/ap
 CODE_LAUNCHER_VSCODE_INSIDERS="/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"
 CODE_LAUNCHER_TRAE="/Applications/Trae.app/Contents/Resources/app/bin/trae"
 CODE_LAUNCHER_CURSOR="/Applications/Cursor.app/Contents/Resources/app/bin/cursor"
+CODE_LAUNCHER_ANTIGRAVITY="agy"
 
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
 else
-  : "${PRIMARY_CODE_EDITOR:=trae}"
+  : "${PRIMARY_CODE_EDITOR:=antigravity}"
 fi
 
 if [[ "$(hostname)" == "Abhijays-MacBook-Air.local" ]]; then
@@ -501,7 +502,7 @@ fi
 typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
 
 __code_cli_for() {
-  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-trae}}}"
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity}}}"
 
   case "$choice" in
     vscode|code|visual-studio-code)
@@ -516,6 +517,9 @@ __code_cli_for() {
     trae|marscode)
       printf '%s' "$CODE_LAUNCHER_TRAE"
       ;;
+    antigravity|agy)
+      printf '%s' "$CODE_LAUNCHER_ANTIGRAVITY"
+      ;;
     *)
       if [[ -n "$CODE_CUSTOM_LAUNCHER" ]]; then
         printf '%s' "$CODE_CUSTOM_LAUNCHER"
@@ -529,7 +533,7 @@ __code_cli_for() {
 }
 
 __code_settings_path_for() {
-  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-trae}}}"
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity}}}"
 
   case "$choice" in
     vscode|code|visual-studio-code)
@@ -543,6 +547,9 @@ __code_settings_path_for() {
       ;;
     trae|marscode)
       printf '%s' "$HOME/Library/Application Support/Trae/User/settings.json"
+      ;;
+    antigravity|agy)
+      printf '%s' "$HOME/Library/Application Support/Antigravity/User/settings.json"
       ;;
     *)
       if [[ -n "$CODE_CUSTOM_SETTINGS_PATH" ]]; then
@@ -558,7 +565,7 @@ __code_settings_path_for() {
 
 set-primary-code-editor() {
   if [[ $# -eq 0 ]]; then
-    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|cursor|trae>" >&2
+    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|cursor|trae|antigravity>" >&2
     return 1
   fi
 
@@ -622,7 +629,7 @@ alias workspace='cd /Users/abhijayrajvansh/Desktop/workspace'
 # vscode release settings 
 unalias code-setting 2>/dev/null
 code-setting() {
-  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-trae}}}"
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity}}}"
   local cli
   local settings_path
 
@@ -809,6 +816,12 @@ fi
 
 # OpenClaw Completion
 source "/Users/abhijayrajvansh/.openclaw/completions/openclaw.zsh"
+
+# Added by Antigravity
+export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
 
 # Added by Antigravity
 export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
