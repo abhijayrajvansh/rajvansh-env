@@ -6,7 +6,16 @@
 :set softtabstop=4
 :set mouse=a
 
-let g:python3_host_prog = '/opt/homebrew/bin/python3'
+" Configure a working Python host dynamically.
+" UltiSnips requires the Neovim Python provider (pynvim).
+let s:py3 = exepath('python3')
+if !empty(s:py3)
+  let g:python3_host_prog = s:py3
+  silent! call system([s:py3, '-c', 'import pynvim'])
+  let g:has_pynvim = (v:shell_error == 0)
+else
+  let g:has_pynvim = 0
+endif
 
 let s:plug_path = stdpath('data') . '/site/autoload/plug.vim'
 
@@ -29,7 +38,9 @@ Plug 'junegunn/fzf.vim' " fuzzy search for vim
 Plug 'https://github.com/sainnhe/gruvbox-material/'  " gruvbox material theme
 Plug 'https://github.com/projekt0n/github-nvim-theme' " github theme
 Plug 'AbdelrahmanDwedar/awesome-nvim-colorschemes' " top neovim themes
-Plug 'https://github.com/SirVer/ultisnips' " snippet extension
+if get(g:, 'has_pynvim', 0)
+  Plug 'https://github.com/SirVer/ultisnips' " snippet extension
+endif
 
 call plug#end()
 
