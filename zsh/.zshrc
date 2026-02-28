@@ -483,17 +483,13 @@ CODE_LAUNCHER_ANTIGRAVITY="agy"
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
 else
-  : "${PRIMARY_CODE_EDITOR:=antigravity}"
-fi
-
-if [[ "$(hostname)" == "Abhijays-MacBook-Air.local" ]]; then
-  PRIMARY_CODE_EDITOR="cursor"
+  : "${PRIMARY_CODE_EDITOR:=antigravity-now}"
 fi
 
 typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
 
 __code_cli_for() {
-  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity}}}"
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity-now}}}"
 
   case "$choice" in
     vscode|code|visual-studio-code)
@@ -508,7 +504,7 @@ __code_cli_for() {
     trae|marscode)
       printf '%s' "$CODE_LAUNCHER_TRAE"
       ;;
-    antigravity|agy)
+    antigravity|antigravity-now|agy)
       printf '%s' "$CODE_LAUNCHER_ANTIGRAVITY"
       ;;
     *)
@@ -524,7 +520,7 @@ __code_cli_for() {
 }
 
 __code_settings_path_for() {
-  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity}}}"
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity-now}}}"
 
   case "$choice" in
     vscode|code|visual-studio-code)
@@ -539,7 +535,7 @@ __code_settings_path_for() {
     trae|marscode)
       printf '%s' "$HOME/Library/Application Support/Trae/User/settings.json"
       ;;
-    antigravity|agy)
+    antigravity|antigravity-now|agy)
       printf '%s' "$HOME/Library/Application Support/Antigravity/User/settings.json"
       ;;
     *)
@@ -556,7 +552,7 @@ __code_settings_path_for() {
 
 set-primary-code-editor() {
   if [[ $# -eq 0 ]]; then
-    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|cursor|trae|antigravity>" >&2
+    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|cursor|trae|antigravity|antigravity-now>" >&2
     return 1
   fi
 
@@ -620,7 +616,7 @@ alias workspace='cd /Users/abhijayrajvansh/Desktop/workspace'
 # vscode release settings 
 unalias code-setting 2>/dev/null
 code-setting() {
-  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity}}}"
+  local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity-now}}}"
   local cli
   local settings_path
 
