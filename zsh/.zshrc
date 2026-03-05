@@ -502,6 +502,7 @@ backup-donna () {
   local commit_msg="backup: sync local donna to remote"
   git commit -m "$commit_msg"
   git push origin main
+  echo ""
   echo "> donna 💅: backup successfully completed sir!"
 }
 
