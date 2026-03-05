@@ -478,7 +478,7 @@ gz () {
 }
 
 # Push full OpenClaw state to ~/Donna git repo
-pod () {
+backup-donna () {
   local donna_repo="/Users/abhijayrajvansh/Donna"
   local source_openclaw="/Users/abhijayrajvansh/.openclaw"
   local target_openclaw="$donna_repo"
@@ -499,10 +499,10 @@ pod () {
     return 0
   fi
 
-  local commit_msg="update: sync local openclaw to remote"
+  local commit_msg="backup: sync local donna to remote"
   git commit -m "$commit_msg"
   git push origin main
-  echo "> result: donna backup successfully completed"
+  echo "> donna 💅: backup successfully completed sir!"
 }
 
 # neo vim
