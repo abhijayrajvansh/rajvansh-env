@@ -503,7 +503,25 @@ backup-donna () {
   git commit -m "$commit_msg"
   git push origin main
   echo ""
-  echo "> donna 💅: backup successfully completed sir!"
+  echo "> donna 💅: backup successfully completed!"
+}
+
+# Pull Donna repo and restore everything into local ~/.openclaw
+pull-donna () {
+  local donna_repo="/Users/abhijayrajvansh/Donna"
+  local target_openclaw="/Users/abhijayrajvansh/.openclaw"
+
+  cd "$donna_repo" || return 1
+  git pull origin main
+
+  mkdir -p "$target_openclaw"
+  rsync -a --delete \
+    --exclude '.DS_Store' \
+    --exclude '.git/' \
+    "$donna_repo/" "$target_openclaw/"
+
+  echo ""
+  echo "> donna 💅: restore successfully completed!"
 }
 
 # neo vim
