@@ -659,10 +659,7 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 # on goining development projects
 alias com='desk; cd com'
 alias tms='desk; cd tms'
-alias orca='desk; cd orca'
-alias njf='desk; cd not-just-flowers'
-alias gor='desk; cd guess-or-regret'
-alias binsr='desk; cd binsr-inspect'
+alias pull-codex='pnpm install -g @openai/codex'
 
 
 # comyui setups
