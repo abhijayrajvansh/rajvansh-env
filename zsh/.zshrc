@@ -519,7 +519,7 @@ backup-donna () {
   git commit -m "$commit_msg"
   git push origin main
   echo ""
-  echo "> donna 💅: workspace backup from '$workspace_branch' completed!"
+  echo "> backup: workspace backup from '$workspace_branch' completed!"
 }
 
 # Pull Donna repo and restore everything into local ~/.openclaw
@@ -538,6 +538,27 @@ pull-donna () {
 
   echo ""
   echo "> donna 💅: restore successfully completed!"
+}
+
+# Backup single OpenClaw workspace (including .git) directly into ~/openclaw-workspaces and push to GitHub
+backup-openclaw-workspaces () {
+  local source_workspace="/Users/abhijayrajvansh/.openclaw/workspace"
+  local target_root="/Users/abhijayrajvansh/openclaw-workspaces"
+
+  if [[ ! -d "$source_workspace" ]]; then
+    echo "> source workspace not found: $source_workspace"
+    return 1
+  fi
+
+  mkdir -p "$target_root"
+
+  rsync -a --delete \
+    --exclude '.DS_Store' \
+    "$source_workspace/" "$target_root/"
+
+  echo ""
+  echo "> synced: $source_workspace -> $target_root"
+  echo "> backup: openclaw-workspaces backup completed!"
 }
 
 # neo vim
