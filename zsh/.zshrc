@@ -439,6 +439,7 @@ alias cp-lcodexconfig-rcodexconfig='mkdir -p ~/rajvansh-env/codex && cp ~/.codex
 alias cp-rcodexconfig-lcodexconfig='mkdir -p ~/.codex && cp ~/rajvansh-env/codex/config.toml ~/.codex/'
 
 # OpenClaw config sync to private-env
+alias donna='cd /Users/abhijayrajvansh/.openclaw'
 alias cp-lopenclaw-ropenclaw='mkdir -p ~/private-env && rm -rf ~/private-env/openclaw && cp -R ~/.openclaw ~/private-env/openclaw'
 
 copy_localenv_to_remoteenv () {
@@ -477,33 +478,48 @@ gz () {
   echo "> Successfully pulled and applied remote configurations"
 }
 
-# Push full OpenClaw state to ~/Donna git repo
+# Backup ONLY OpenClaw workspace from donna branch to ~/Donna repo
 backup-donna () {
   local donna_repo="/Users/abhijayrajvansh/Donna"
-  local source_openclaw="/Users/abhijayrajvansh/.openclaw"
-  local target_openclaw="$donna_repo"
+  local source_workspace="/Users/abhijayrajvansh/.openclaw/workspace"
+  local target_workspace="$donna_repo/workspace"
+  local workspace_branch="donna"
 
-  mkdir -p "$target_openclaw"
+  if ! git -C "$source_workspace" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "> workspace is not a git repo: $source_workspace"
+    return 1
+  fi
+
+  # Always force workspace to donna branch before taking backup
+  if ! git -C "$source_workspace" switch "$workspace_branch" >/dev/null 2>&1; then
+    if ! git -C "$source_workspace" checkout "$workspace_branch" >/dev/null 2>&1; then
+      echo "> failed to switch workspace to branch: $workspace_branch"
+      echo "> resolve local conflicts/uncommitted changes in $source_workspace and retry"
+      return 1
+    fi
+  fi
+
+  mkdir -p "$target_workspace"
   rsync -a --delete \
     --exclude '.DS_Store' \
     --exclude '.git/' \
-    "$source_openclaw/" "$target_openclaw/"
+    "$source_workspace/" "$target_workspace/"
 
   cd "$donna_repo" || return 1
 
-  git add .
+  git add workspace
   git status
 
   if git diff --cached --quiet; then
-    echo "> no changes to commit in Donna"
+    echo "> no workspace changes to commit in Donna"
     return 0
   fi
 
-  local commit_msg="backup: sync local donna to remote"
+  local commit_msg="backup: sync workspace (branch: $workspace_branch)"
   git commit -m "$commit_msg"
   git push origin main
   echo ""
-  echo "> donna 💅: backup successfully completed!"
+  echo "> donna 💅: workspace backup from '$workspace_branch' completed!"
 }
 
 # Pull Donna repo and restore everything into local ~/.openclaw
@@ -790,6 +806,7 @@ alias show-chatgpt-credentials='cat /Users/abhijayrajvansh/private-env/openai/ch
 alias show-openrouter-api-key='pvt; cd openrouter; cat coding-apikey.txt'
 alias show-civitai-access-token='cat /Users/abhijayrajvansh/private-env/civitai/access-token.txt'
 alias show-hf-access-token='cat /Users/abhijayrajvansh/private-env/hf/access-token.txt'
+alias show-hostinger-credentials='cat /Users/abhijayrajvansh/private-env/hostinger/hostinger-acc-creds.txt'
 
 createTreeContext() {
   # Create .github directory if it doesn't exist
