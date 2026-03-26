@@ -17,4 +17,5 @@
         "*.sdb": "${capture}.${extname}-*",
         "*.s3db": "${capture}.${extname}-*"
     },
+    "editor.accessibilitySupport": "off",
 }

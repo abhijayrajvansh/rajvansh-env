@@ -61,6 +61,15 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/uptut-blogs"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/nuuk-email-automation"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/travelboots"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/.openclaw"]
+trust_level = "trusted"
+
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 gpt-5-codex = "gpt-5.3-codex"
