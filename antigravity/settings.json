@@ -1,21 +1,81 @@
 {
-    "workbench.statusBar.visible": false,
-    "files.autoSave": "afterDelay",
-    "editor.stickyScroll.enabled": false,
-    "workbench.colorTheme": "Monospace IDX Dark",
-    "explorer.fileNesting.patterns": {
-        "*.ts": "${capture}.js",
-        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-        "*.jsx": "${capture}.js",
-        "*.tsx": "${capture}.ts",
-        "tsconfig.json": "tsconfig.*.json",
-        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock",
-        "*.sqlite": "${capture}.${extname}-*",
-        "*.db": "${capture}.${extname}-*",
-        "*.sqlite3": "${capture}.${extname}-*",
-        "*.db3": "${capture}.${extname}-*",
-        "*.sdb": "${capture}.${extname}-*",
-        "*.s3db": "${capture}.${extname}-*"
-    },
-    "editor.accessibilitySupport": "off",
+  "security.workspace.trust.untrustedFiles": "open",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "workbench.iconTheme": "bearded-icons",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "prettier.endOfLine": "auto",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "extensions.ignoreRecommendations": true,
+  "editor.fontFamily": "JetBrains Mono, SF Mono, SF Mone, Martian Mono, Monaco, Menlo, 'Courier New', monospace",
+  "editor.tabSize": 2,
+  "editor.stickyScroll.enabled": false,
+  "editor.lineHeight": 1.6,
+  "editor.fontWeight": "500",
+  "editor.scrollbar.vertical": "hidden",
+  "editor.minimap.enabled": true,
+  "terminal.integrated.fontFamily": "JetBrains Mono",
+  "terminal.integrated.fontWeight": "500",
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.lineHeight": 1,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.cursorStyle": "block",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.titleBarStyle": "custom",
+  "update.mode": "manual",
+  "editor.guides.indentation": true,
+  "editor.smoothScrolling": true,
+  "prisma.showPrismaDataPlatformNotification": false,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "git.branchRandomName.enable": true,
+  "git.confirmSync": false,
+  "workbench.settings.applyToAllProfiles": [
+    "workbench.colorCustomizations"
+  ],
+  "claude.lang": "en",
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorTheme": "Monospace IDX Light",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false
+  },
+  "chat.tools.autoApprove": true,
+  // copilot response logger
+  "copilotResponseLogger.enabled": true,
+  "copilotResponseLogger.filePath": "/tmp/copilot-responses.log",
+  "copilotResponseLogger.logFormat": "json",
+  "workbench.startupEditor": "none",
+  "css.lint.unknownAtRules": "ignore",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "chat.mcp.discovery.enabled": {
+    "claude-desktop": true,
+    "antigravity": true,
+    "cursor-global": true,
+    "cursor-workspace": true
+  },
+  "chat.mcp.servers": {
+    "computer-use": {
+      "command": "node",
+      "args": [
+        "/Users/abhijayrajvansh/Desktop/computer-use-mcp/dist/index.js"
+      ]
+    }
+  },
+  "workbench.statusBar.visible": false,
+  "chatgpt.cliExecutable": "",
+  "editor.accessibilitySupport": "on"
 }
