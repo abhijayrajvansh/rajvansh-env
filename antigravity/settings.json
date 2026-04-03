@@ -3,5 +3,6 @@
     "workbench.statusBar.visible": false,
     "editor.fontFamily": "JetBrains Mono",
     "editor.stickyScroll.enabled": false,
-    "files.autoSave": "afterDelay"
+    "files.autoSave": "afterDelay",
+    "terminal.integrated.stickyScroll.enabled": false
 }
