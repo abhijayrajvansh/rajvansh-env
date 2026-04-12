@@ -1,10 +1,11 @@
 # -----------------------------
 # DEFAULT (no flags): OpenAI
 # -----------------------------
-model = "gpt-5.3-codex"
+model = "gpt-5.4"
 model_provider = "openai"
 
 personality = "pragmatic"
+model_reasoning_effort = "medium"
 
 # -----------------------------
 # MODEL PROVIDERS

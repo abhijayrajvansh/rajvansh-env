@@ -3,5 +3,6 @@
     "editor.fontFamily": "JetBrains Mono",
     "editor.stickyScroll.enabled": false,
     "files.autoSave": "afterDelay",
-    "terminal.integrated.stickyScroll.enabled": false
+    "terminal.integrated.stickyScroll.enabled": false,
+    "extensions.ignoreRecommendations": true
 }

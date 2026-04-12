@@ -830,6 +830,7 @@ alias show-hf-access-token='cat /Users/abhijayrajvansh/private-env/hf/access-tok
 alias show-hostinger-credentials='cat /Users/abhijayrajvansh/private-env/hostinger/hostinger-acc-creds.txt'
 alias show-maharaja-club-id='cat /Users/abhijayrajvansh/private-env/airindia/maharaja-club.txt'
 alias show-contabo-creds='cat /Users/abhijayrajvansh/private-env/contabo/vps-login-creds.txt'
+alias show-linear-key='cat /Users/abhijayrajvansh/private-env/linear/linear-login-key.txt'
 
 createTreeContext() {
   # Create .github directory if it doesn't exist
