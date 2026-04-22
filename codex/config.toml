@@ -1,7 +1,7 @@
 # -----------------------------
 # DEFAULT (no flags): OpenAI
 # -----------------------------
-model = "gpt-5.4"
+model = "gpt-5.3-codex"
 model_provider = "openai"
 
 personality = "pragmatic"
@@ -78,6 +78,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/abhijayrajvansh/Desktop/uptut"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/uptut/travelboots"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/ai-playground"]
 trust_level = "trusted"
 
 [notice.model_migrations]

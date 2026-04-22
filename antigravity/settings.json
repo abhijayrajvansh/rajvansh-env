@@ -4,5 +4,6 @@
     "editor.stickyScroll.enabled": false,
     "files.autoSave": "afterDelay",
     "terminal.integrated.stickyScroll.enabled": false,
-    "extensions.ignoreRecommendations": true
+    "extensions.ignoreRecommendations": true,
+    "workbench.iconTheme": "monospace-idx-file-icon-theme"
 }

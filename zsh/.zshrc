@@ -908,3 +908,4 @@ export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
 
 # Added by Antigravity
 export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
+export PATH="$HOME/.nvm/versions/node/v24.13.1/bin:$PATH"
