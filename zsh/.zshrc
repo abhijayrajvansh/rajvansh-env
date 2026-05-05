@@ -890,7 +890,8 @@ export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 ## -- Execute On Every Zsh Session --
-clear; greetMe;
+clear; 
+# greetMe;
 
 # Initialize zsh completion system before loading completion scripts.
 if [[ -o interactive ]]; then
