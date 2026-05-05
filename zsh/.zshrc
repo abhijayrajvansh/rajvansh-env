@@ -872,6 +872,7 @@ export GIT_TERMINAL_PROMPT=0
 
 # Added by Codex CLI: jasmine and donna alias 
 alias jas='codex --yolo'
+alias kas='claude --dangerously-skip-permissions'
 
 # openrouter api key
 alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
