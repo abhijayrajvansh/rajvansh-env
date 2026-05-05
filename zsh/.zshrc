@@ -696,8 +696,13 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 # on goining development projects
 alias com='desk; cd com'
 alias tms='desk; cd tms'
-alias pull-codex='pnpm install -g @openai/codex'
+alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
+alias ailabs='cd /Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs'
 
+
+
+# codex
+alias pull-codex='pnpm install -g @openai/codex'
 
 # comyui setups
 alias workflows='cd /Users/abhijayrajvansh/Desktop/workflows'
@@ -867,7 +872,6 @@ export GIT_TERMINAL_PROMPT=0
 
 # Added by Codex CLI: jasmine and donna alias 
 alias jas='codex --yolo'
-alias codex-openrouter='codex --yolo --profile openrouter'
 
 # openrouter api key
 alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
