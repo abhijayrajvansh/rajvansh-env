@@ -888,7 +888,11 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$ANDROID_HOME/emulator:$PATH
 
 export PATH="$HOME/.local/bin:$PATH"
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+if /usr/libexec/java_home -v 17 >/dev/null 2>&1; then
+  export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+else
+  unset JAVA_HOME
+fi
 
 ## -- Execute On Every Zsh Session --
 clear; 

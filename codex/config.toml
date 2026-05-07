@@ -35,6 +35,9 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/rajvansh-env"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/uptut/my-trainings/oracle-performance-tuning"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 last_updated = "2026-05-03T16:59:51Z"
 source_type = "local"
