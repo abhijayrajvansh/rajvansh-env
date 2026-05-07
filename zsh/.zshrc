@@ -2,6 +2,8 @@
 
 # identity configs
 alias greetMe="bash /Users/abhijayrajvansh/rajvansh-env/zsh/welcome.sh"
+alias greetMeSession="bash /Users/abhijayrajvansh/rajvansh-env/zsh/session-welcome.sh"
+alias greetme2='greetMeSession'
 alias reload='source ~/.zshrc'
 alias rr='reload'
 
@@ -896,7 +898,7 @@ fi
 
 ## -- Execute On Every Zsh Session --
 clear; 
-# greetMe;
+greetme2;
 
 # Initialize zsh completion system before loading completion scripts.
 if [[ -o interactive ]]; then
