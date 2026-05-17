@@ -6,5 +6,6 @@
     "terminal.integrated.stickyScroll.enabled": false,
     "extensions.ignoreRecommendations": true,
     "workbench.iconTheme": "monospace-idx-file-icon-theme",
-    "workbench.colorTheme": "Monospace IDX Dark"
+    "workbench.colorTheme": "Monospace IDX Light",
+    "python.languageServer": "Default"
 }
