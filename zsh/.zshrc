@@ -699,7 +699,7 @@ alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
-alias ailabs='cd /Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs'
+alias labs='cd /Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs'
 
 # quick projects locations
 alias trainings='cd /Users/abhijayrajvansh/Desktop/uptut/trainings'
