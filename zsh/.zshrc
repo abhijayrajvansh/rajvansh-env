@@ -573,7 +573,7 @@ CODE_LAUNCHER_VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/ap
 CODE_LAUNCHER_VSCODE_INSIDERS="/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"
 CODE_LAUNCHER_TRAE="/Applications/Trae.app/Contents/Resources/app/bin/trae"
 CODE_LAUNCHER_CURSOR="/Applications/Cursor.app/Contents/Resources/app/bin/cursor"
-CODE_LAUNCHER_ANTIGRAVITY="agy"
+CODE_LAUNCHER_ANTIGRAVITY="agy-ide"
 
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
@@ -701,6 +701,9 @@ alias tms='desk; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias ailabs='cd /Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs'
 
+# quick projects locations
+alias trainings='cd /Users/abhijayrajvansh/Desktop/uptut/trainings'
+alias uptut='cd /Users/abhijayrajvansh/Desktop/uptut/'
 
 
 # codex
@@ -920,3 +923,6 @@ export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
 # Added by Antigravity
 export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.nvm/versions/node/v24.13.1/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="/Users/abhijayrajvansh/.antigravity-ide/antigravity-ide/bin:$PATH"
