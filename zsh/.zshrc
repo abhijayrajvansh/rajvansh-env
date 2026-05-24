@@ -704,6 +704,7 @@ alias labs='cd /Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs'
 # quick projects locations
 alias trainings='cd /Users/abhijayrajvansh/Desktop/uptut/trainings'
 alias uptut='cd /Users/abhijayrajvansh/Desktop/uptut/'
+alias brackets='cd /Users/abhijayrajvansh/Desktop/brackets/'
 
 
 # codex
