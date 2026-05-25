@@ -879,6 +879,7 @@ export GIT_TERMINAL_PROMPT=0
 # Added by Codex CLI: jasmine and donna alias 
 alias jas='codex --yolo'
 alias kas='claude --dangerously-skip-permissions'
+alias ssh-donna-vps='ssh donna-vps'
 
 # openrouter api key
 alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
@@ -927,3 +928,9 @@ export PATH="$HOME/.nvm/versions/node/v24.13.1/bin:$PATH"
 
 # Added by Antigravity IDE
 export PATH="/Users/abhijayrajvansh/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<

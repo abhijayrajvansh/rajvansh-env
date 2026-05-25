@@ -59,6 +59,12 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/brackets/ai-chatbot"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/brackets/rag-chatbot-brackets"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/malaysia"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 last_updated = "2026-05-14T00:52:12Z"
 source_type = "local"
