@@ -700,6 +700,7 @@ alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias labs='cd /Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs'
+alias xlr8='cd /Users/abhijayrajvansh/Desktop/xlr8'
 
 # quick projects locations
 alias trainings='cd /Users/abhijayrajvansh/Desktop/uptut/trainings'
