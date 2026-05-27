@@ -65,6 +65,18 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/malaysia"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/brackets/xlr8"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/grok-image-gen-script"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/grok-image-gen"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/grok-image-telegram"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 last_updated = "2026-05-14T00:52:12Z"
 source_type = "local"
