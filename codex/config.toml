@@ -1,6 +1,6 @@
 notify = ["/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/computer-use/1.0.770/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
-model = "gpt-5.5"
-model_reasoning_effort = "high"
+model = "gpt-5.3-codex"
+model_reasoning_effort = "medium"
 
 [projects."/Users/abhijayrajvansh/Desktop/brackets/procurement-ak"]
 trust_level = "trusted"
@@ -77,6 +77,12 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/grok-image-telegram"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-grok-generate-telegram"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/xlr8"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 last_updated = "2026-05-14T00:52:12Z"
 source_type = "local"
@@ -109,4 +115,4 @@ enabled = true
 "gpt-5.5" = 4
 
 [notice.model_migrations]
-"gpt-5.3-codex" = "gpt-5.4"
+"gpt-5.3-codex" = "gpt-5.5"

@@ -880,6 +880,9 @@ export GIT_TERMINAL_PROMPT=0
 # Added by Codex CLI: jasmine and donna alias 
 alias jas='codex --yolo'
 alias kas='claude --dangerously-skip-permissions'
+alias lin='grok --always-approve'
+
+# vps & openclaw connection
 alias ssh-donna-vps='ssh donna-vps'
 
 # openrouter api key
