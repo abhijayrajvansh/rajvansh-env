@@ -167,7 +167,7 @@ alias status='echo "\n$(date)\nUptime: $(uptime)\nDisk: $(df -h / | tail -1 | aw
 
 
 # hide and reveal desktop icons
-alias reveal-desktop-icons='defaults write com.apple.finder CreateDesktop true; killall Finder'
+alias show-desktop-icons='defaults write com.apple.finder CreateDesktop true; killall Finder'
 alias hide-desktop-icons='defaults write com.apple.finder CreateDesktop false; killall Finder' 
 
 # quick actions
