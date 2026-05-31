@@ -710,10 +710,6 @@ alias brackets='cd /Users/abhijayrajvansh/Desktop/brackets/'
 # codex
 alias pull-codex='npm install -g @openai/codex'
 
-# comyui setups
-alias workflows='cd /Users/abhijayrajvansh/Desktop/workflows'
-alias workspace='cd /Users/abhijayrajvansh/Desktop/workspace'
-
 # vscode release settings 
 unalias code-setting 2>/dev/null
 code-setting() {
