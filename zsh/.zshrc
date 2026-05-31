@@ -681,23 +681,19 @@ prg () {
 
 # default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
-alias dk='desk'; # cant type lol
+alias dk='desktop'; # cant type lol
 alias documents="cd /Users/abhijayrajvansh/Documents"
-alias developer="cd /Users/abhijayrajvansh/Developer"
+alias docs='documents'
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 
 # quick directories
 alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
 alias archives="cd /Users/abhijayrajvansh/Desktop/archives"
-alias github='cd /Users/abhijayrajvansh/Github'
 alias obs='cd /Users/abhijayrajvansh/Documents/obs'
-alias resume='cd ~/Documents/resume'
-alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 
 # on goining development projects
 alias tms='desk; cd tms'
-alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias labs='cd /Users/abhijayrajvansh/Desktop/archives/rajvansh-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/xlr8'
 
@@ -743,8 +739,6 @@ alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 alias apps='cd /Applications/'
 alias dev='developer'
 alias dev-notes='dev; cd dev-notes && oo .'
-alias desk='desktop'
-alias docs='documents'
 alias pics='cd /Users/abhijayrajvansh/Pictures/pics'
 alias wallpapers='cd /Users/abhijayrajvansh/Pictures/pics/wallpapers; oo'
 alias rar='/Users/abhijayrajvansh/Documents/rar/rar'
