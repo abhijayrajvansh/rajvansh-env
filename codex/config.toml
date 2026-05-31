@@ -84,8 +84,14 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/xlr8"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-workspace"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/archives/rajvansh-labs"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-05-29T20:38:26Z"
+last_updated = "2026-05-30T16:29:08Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -117,6 +123,7 @@ enabled = true
 
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.5"
+"gpt-5.4" = "gpt-5.5"
 
 [desktop]
 ambient-suggestions-enabled = true

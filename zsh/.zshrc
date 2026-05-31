@@ -689,17 +689,16 @@ alias movies="cd /Users/abhijayrajvansh/Movies"
 
 # quick directories
 alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
-alias archives="cd /Users/abhijayrajvansh/Archives"
+alias archives="cd /Users/abhijayrajvansh/Desktop/archives"
 alias github='cd /Users/abhijayrajvansh/Github'
 alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 alias resume='cd ~/Documents/resume'
 alias projects='cd /Users/abhijayrajvansh/Developer/projects'
 
 # on goining development projects
-alias com='desk; cd com'
 alias tms='desk; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
-alias labs='cd /Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs'
+alias labs='cd /Users/abhijayrajvansh/Desktop/archives/rajvansh-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/xlr8'
 
 # quick projects locations
@@ -709,7 +708,7 @@ alias brackets='cd /Users/abhijayrajvansh/Desktop/brackets/'
 
 
 # codex
-alias pull-codex='pnpm install -g @openai/codex'
+alias pull-codex='npm install -g @openai/codex'
 
 # comyui setups
 alias workflows='cd /Users/abhijayrajvansh/Desktop/workflows'
