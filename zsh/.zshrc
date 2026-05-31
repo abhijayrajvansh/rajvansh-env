@@ -681,6 +681,7 @@ prg () {
 
 # default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
+alias desk='desktop'
 alias dk='desktop'; # cant type lol
 alias documents="cd /Users/abhijayrajvansh/Documents"
 alias docs='documents'
