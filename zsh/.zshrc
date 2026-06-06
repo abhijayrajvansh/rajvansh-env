@@ -695,6 +695,7 @@ alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 
 # on goining development projects
 alias tms='desk; cd tms'
+alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias labs='cd /Users/abhijayrajvansh/Desktop/archives/rajvansh-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/xlr8'
 

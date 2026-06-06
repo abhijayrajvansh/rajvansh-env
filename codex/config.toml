@@ -1,4 +1,4 @@
-model = "gpt-5.4"
+model = "gpt-5.4-mini"
 model_reasoning_effort = "medium"
 
 notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
@@ -90,8 +90,14 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/archives/rajvansh-labs"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/perchance-api"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-kie-generate-telegram"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-05-30T16:29:08Z"
+last_updated = "2026-06-05T18:30:55Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -116,6 +122,9 @@ enabled = true
 enabled = true
 
 [plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
 enabled = true
 
 [tui.model_availability_nux]
