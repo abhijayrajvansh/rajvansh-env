@@ -51,10 +51,7 @@ done
 border="$(printf '%*s' "$((max_width + 2))" '' | tr ' ' '-')"
 
 printf '\n'
-printf '>> J.A.S.M.I.N.E LINK ESTABLISHED\n'
-printf '>> PERSONAL SESSION CONSOLE ONLINE\n'
-printf '>> GOOD TO SEE YOU, MR. RAJVANSH.\n'
-printf '\n'
+printf '>> injecting scripts\n'
 printf '+%s+\n' "$border"
 printf '| %-*s |\n' "$max_width" "$title"
 printf '+%s+\n' "$border"
@@ -63,3 +60,5 @@ for i in "${!detail_lines[@]}"; do
   printf '| %s%*s |\n' "${display_lines[$i]}" "$padding" ''
 done
 printf '+%s+\n\n' "$border"
+printf '>> j.a.s.m.i.n.e link established\n'
+printf '>> WELCOME BACK, MR. RAJVANSH.\n'
