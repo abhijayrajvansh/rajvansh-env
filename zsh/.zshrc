@@ -700,6 +700,7 @@ alias labs='cd /Users/abhijayrajvansh/Desktop/archives/rajvansh-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/xlr8'
 
 # quick projects locations
+alias scripts='cd /Users/abhijayrajvansh/rajvansh-env/scripts'
 alias trainings='cd /Users/abhijayrajvansh/Desktop/uptut/trainings'
 alias uptut='cd /Users/abhijayrajvansh/Desktop/uptut/'
 alias brackets='cd /Users/abhijayrajvansh/Desktop/brackets/'
