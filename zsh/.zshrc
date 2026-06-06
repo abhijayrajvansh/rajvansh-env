@@ -2,7 +2,7 @@
 
 # identity configs
 alias greetMe="bash /Users/abhijayrajvansh/rajvansh-env/zsh/welcome.sh"
-alias greetMeSession="bash /Users/abhijayrajvansh/rajvansh-env/zsh/session-welcome.sh"
+alias greetMeSession="bash /Users/abhijayrajvansh/rajvansh-env/session-welcome.sh"
 alias greetme2='greetMeSession'
 alias reload='source ~/.zshrc'
 alias rr='reload'
