@@ -51,11 +51,10 @@ done
 border="$(printf '%*s' "$((max_width + 2))" '' | tr ' ' '-')"
 
 printf '\n'
-printf 'welcome mr. rajvansh!\n'
-printf '~~~~~~~~~~~~~~~~~~~~~ \n\n'
-printf '> starting new session...\n'
-printf '> checking system details...\n'
-printf '> injecting scripts...\n\n'
+printf '>> J.A.S.M.I.N.E LINK ESTABLISHED\n'
+printf '>> PERSONAL SESSION CONSOLE ONLINE\n'
+printf '>> GOOD TO SEE YOU, MR. RAJVANSH.\n'
+printf '\n'
 printf '+%s+\n' "$border"
 printf '| %-*s |\n' "$max_width" "$title"
 printf '+%s+\n' "$border"
