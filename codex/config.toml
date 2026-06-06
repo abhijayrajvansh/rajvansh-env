@@ -96,13 +96,16 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-kie-generate-telegram"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-tools/openclaw-companion-generator-nsfw"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-06-05T18:30:55Z"
+last_updated = "2026-06-06T14:39:40Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-29T20:46:44Z"
+last_updated = "2026-06-06T14:48:07Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -136,7 +139,7 @@ enabled = true
 
 [desktop]
 ambient-suggestions-enabled = true
-appearanceTheme = "dark"
+appearanceTheme = "light"
 conversationDetailMode = "STEPS_COMMANDS"
 
 [desktop.appearanceLightChromeTheme]
