@@ -1,8 +1,8 @@
 # author: https://abhijayrajvansh.com
 
 # identity configs
-alias greetMe="bash /Users/abhijayrajvansh/rajvansh-env/zsh/welcome.sh"
-alias greetMeSession="bash /Users/abhijayrajvansh/rajvansh-env/session-welcome.sh"
+alias greetMe="bash /Users/abhijayrajvansh/rajvansh-env/scripts/welcome.sh"
+alias greetMeSession="bash /Users/abhijayrajvansh/rajvansh-env/scripts/session-welcome.sh"
 alias greetme2='greetMeSession'
 alias reload='source ~/.zshrc'
 alias rr='reload'
