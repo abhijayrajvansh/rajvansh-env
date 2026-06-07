@@ -480,8 +480,6 @@ companion-update() {
 copy_localenv_to_remoteenv () {
   echo "copying following configurations to remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
-  greentick; echo "Copied VSCode settings.json & snippets."; cp-lcodesetting-rcodesetting; cp-lcodesnippets-rcodesnippets;
-  greentick; echo "Copied Trae IDE settings.json & snippets."; cp-ltraesetting-rtraesetting; cp-ltraesnippets-rtraesnippets;
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-lagsetting-ragsetting; cp-lagsnippets-ragsnippets;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
   greentick; echo "Copied Codex config.toml."; cp-lcodexconfig-rcodexconfig;
@@ -491,8 +489,6 @@ copy_localenv_to_remoteenv () {
 copy_remoteenv_to_localenv () {
   echo "copying following configurations from remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-rzsh-lzsh;
-  greentick; echo "Copied VSCode settings.json & snippets."; cp-rcodesetting-lcodesetting; cp-rcodesnippets-lcodesnippets;
-  greentick; echo "Copied Trae IDE settings.json & snippets."; cp-rtraesetting-ltraesetting; cp-rtraesnippets-ltraesnippets;
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-ragsetting-lagsetting; cp-ragsnippets-lagsnippets;
   greentick; echo "Copied neovim config."; cp-rnvcf-lnvcf;
   greentick; echo "Copied Codex config.toml."; cp-rcodexconfig-lcodexconfig;
