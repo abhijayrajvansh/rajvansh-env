@@ -780,25 +780,17 @@ alias finance='cd /Users/abhijayrajvansh/Documents/finance'
 # local databases postgres
 alias show-local-postgres-connection-string='echo "postgresql://postgres:postgres@localhost:5432/postgres"'
 
-# mongodb
-alias start-mongodb='brew services start mongodb-community'
-alias stop-mongodb='brew services stop mongodb-community'
-
 # n8n via docker
 alias start-n8n='/Users/abhijayrajvansh/rajvansh-env/scripts/n8n-docker.sh'
 
-# openclaw
+# openclaw via node
 alias stop-openclaw='launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
 alias start-openclaw='launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
 
-# claude code cli and OSS
-alias horizon='/Users/abhijayrajvansh/private-env/horizon/horizon.init.sh'
-
-# react native env
-
+# mobile dev react native
 # List only iOS simulators (with version headers)
 print_all_onlineSimulators() {
   xcrun simctl list devices | awk '
