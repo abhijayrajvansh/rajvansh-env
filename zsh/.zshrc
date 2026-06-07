@@ -722,8 +722,9 @@ alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 
 # quick directories
-alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
 alias archives="cd /Users/abhijayrajvansh/Desktop/archives"
+alias resume='cd /Users/abhijayrajvansh/Desktop/archives/resume'
+alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
 alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 
 # on goining development projects

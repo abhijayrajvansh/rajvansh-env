@@ -99,6 +99,9 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-tools/openclaw-companion-generator-nsfw"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-tools/openclaw-kie-generate-telegram"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 last_updated = "2026-06-06T14:39:40Z"
 source_type = "local"
