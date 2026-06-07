@@ -263,9 +263,6 @@ forward_port() {
 # next.js configs
 alias cna='pnpm create next-app@latest'
 
-# core computer use
-alias execute_take_ss_script='tsx /Users/abhijayrajvansh/Desktop/take-ss.ts'
-
 # fullstack related templates configs
 alias add-tsconfig-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-library/main/config/tsconfig.json -o tsconfig.json'
 alias add-prettierrc-json='curl https://raw.githubusercontent.com/abhijayrajvansh/fullstack-sdk/main/config/.prettierrc.json -o .prettierrc.json'
@@ -787,19 +784,18 @@ alias show-local-postgres-connection-string='echo "postgresql://postgres:postgre
 alias start-mongodb='brew services start mongodb-community'
 alias stop-mongodb='brew services stop mongodb-community'
 
+# n8n via docker
+alias start-n8n='/Users/abhijayrajvansh/rajvansh-env/scripts/n8n-docker.sh'
+
 # openclaw
 alias stop-openclaw='launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
 alias start-openclaw='launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
 
-## LLMs and AI related 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
 
 # claude code cli and OSS
 alias horizon='/Users/abhijayrajvansh/private-env/horizon/horizon.init.sh'
-
-## TS Term
-alias tt='tsx /Users/abhijayrajvansh/Desktop/ts-term/background-executor.ts'
 
 # react native env
 
@@ -910,7 +906,6 @@ alias ssh-donna-vps='ssh donna-vps'
 # openrouter api key
 alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
 
-
 # Playwright config for Codex/MCP
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/Library/Caches/ms-playwright"
 export NODE_PATH="$(npm root -g)"
@@ -944,15 +939,7 @@ fi
 
 # Added by Antigravity
 export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
-
-# Added by Antigravity
-export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
-
-# Added by Antigravity
-export PATH="/Users/abhijayrajvansh/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.nvm/versions/node/v24.13.1/bin:$PATH"
-
-# Added by Antigravity IDE
 export PATH="/Users/abhijayrajvansh/.antigravity-ide/antigravity-ide/bin:$PATH"
 
 # >>> grok installer >>>
