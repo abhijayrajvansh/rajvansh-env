@@ -729,6 +729,7 @@ alias tms='desk; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias labs='cd /Users/abhijayrajvansh/Desktop/archives/rajvansh-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8'
+alias ep='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging'
 
 # quick projects locations
 alias scripts='cd /Users/abhijayrajvansh/rajvansh-env/scripts'
