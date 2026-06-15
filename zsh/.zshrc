@@ -720,11 +720,15 @@ alias resume='cd /Users/abhijayrajvansh/Desktop/archives/resume'
 alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
 alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 
-# on goining development projects
+# personal on going projects
+alias projects='cd /Users/abhijayrajvansh/Desktop/projects'
+
+
+# corporate on goining development projects
 alias tms='desk; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias labs='cd /Users/abhijayrajvansh/Desktop/archives/rajvansh-labs'
-alias xlr8='cd /Users/abhijayrajvansh/Desktop/xlr8'
+alias xlr8='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8'
 
 # quick projects locations
 alias scripts='cd /Users/abhijayrajvansh/rajvansh-env/scripts'
