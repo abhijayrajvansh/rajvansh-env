@@ -892,8 +892,9 @@ export SSH_ASKPASS="$GIT_ASKPASS"
 export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
 
-# Added by Codex CLI: jasmine and donna alias 
-alias jas='codex --yolo'
+# Added by Codex CLI: jasmine and donna alias
+alias codex-fast='codex --profile no-mcp -c "mcp_servers.node_repl.enabled=false" -c "mcp_servers.computer-use.enabled=false"'
+alias jas='codex-fast --yolo'
 alias kas='claude --dangerously-skip-permissions'
 alias lin='grok --always-approve'
 
