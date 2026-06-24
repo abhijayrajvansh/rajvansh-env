@@ -902,6 +902,100 @@ alias lin='grok --always-approve'
 # vps & openclaw connection
 alias ssh-donna-vps='ssh donna-vps'
 
+export DONNA_PROXY_PID_FILE="$HOME/.ssh/donna-proxy.pid"
+export DONNA_PROXY_PORT=1080
+
+_donna_proxy_pid_is_live() {
+  local pid="$1"
+  [[ "$pid" == <-> ]] && kill -0 "$pid" 2>/dev/null
+}
+
+_donna_proxy_pid_matches() {
+  local pid="$1"
+  local command
+
+  command="$(ps -p "$pid" -o command= 2>/dev/null)"
+  [[ "$command" == *"ssh"* && "$command" == *"donna-vps"* && "$command" == *"-D"* ]]
+}
+
+donna-proxy-start() {
+  local pid
+
+  if [[ -f "$DONNA_PROXY_PID_FILE" ]]; then
+    pid="$(<"$DONNA_PROXY_PID_FILE")"
+
+    if _donna_proxy_pid_is_live "$pid"; then
+      echo "Donna proxy is already running with PID $pid."
+      echo "Run donna-proxy-stop before starting another proxy."
+      return 1
+    fi
+
+    echo "Removing stale Donna proxy PID file: $DONNA_PROXY_PID_FILE"
+    rm -f "$DONNA_PROXY_PID_FILE"
+  fi
+
+  if lsof -nP -iTCP:"$DONNA_PROXY_PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+    echo "Port $DONNA_PROXY_PORT is already in use. Donna proxy was not started."
+    return 1
+  fi
+
+  ssh -D "127.0.0.1:$DONNA_PROXY_PORT" \
+    -N \
+    -C \
+    -o ExitOnForwardFailure=yes \
+    -o BatchMode=yes \
+    donna-vps &
+  pid=$!
+
+  sleep 1
+
+  if ! _donna_proxy_pid_is_live "$pid"; then
+    echo "Donna proxy failed to start."
+    return 1
+  fi
+
+  printf '%s\n' "$pid" > "$DONNA_PROXY_PID_FILE"
+  echo "Donna proxy started on 127.0.0.1:$DONNA_PROXY_PORT with PID $pid."
+}
+
+donna-proxy-stop() {
+  local pid
+  local attempt
+
+  if [[ ! -f "$DONNA_PROXY_PID_FILE" ]]; then
+    echo "Donna proxy is not running. No PID file found."
+    return 0
+  fi
+
+  pid="$(<"$DONNA_PROXY_PID_FILE")"
+
+  if ! _donna_proxy_pid_is_live "$pid"; then
+    echo "Donna proxy PID file was stale. Removing it."
+    rm -f "$DONNA_PROXY_PID_FILE"
+    return 0
+  fi
+
+  if ! _donna_proxy_pid_matches "$pid"; then
+    echo "PID $pid does not look like the Donna proxy. Refusing to kill it."
+    echo "Check $DONNA_PROXY_PID_FILE manually."
+    return 1
+  fi
+
+  kill "$pid"
+
+  for attempt in {1..20}; do
+    if ! _donna_proxy_pid_is_live "$pid"; then
+      rm -f "$DONNA_PROXY_PID_FILE"
+      echo "Donna proxy stopped."
+      return 0
+    fi
+    sleep 0.1
+  done
+
+  echo "Donna proxy did not stop after SIGTERM. PID file kept at $DONNA_PROXY_PID_FILE."
+  return 1
+}
+
 # openrouter api key
 alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
 

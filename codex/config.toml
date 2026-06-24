@@ -130,7 +130,7 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-06-24T05:37:52Z"
+last_updated = "2026-06-24T15:33:53Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -181,6 +181,7 @@ status_line_use_colors = true
 ambient-suggestions-enabled = true
 appearanceTheme = "light"
 conversationDetailMode = "STEPS_COMMANDS"
+keepRemoteControlAwakeWhilePluggedIn = true
 
 [desktop.appearanceLightChromeTheme]
 accent = "#339cff"
