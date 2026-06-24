@@ -1,5 +1,5 @@
 model = "gpt-5.5"
-model_reasoning_effort = "high"
+model_reasoning_effort = "medium"
 
 notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
@@ -114,13 +114,28 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/server"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/client"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/uptut/automations"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/uptut/uptut-webflow-cms"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-06-13T13:30:56Z"
+last_updated = "2026-06-24T05:37:52Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-06-06T14:48:07Z"
+last_updated = "2026-06-18T06:47:27Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -139,11 +154,21 @@ enabled = true
 [plugins."google-drive@openai-curated"]
 enabled = true
 
+[plugins."superpowers@openai-curated"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
 [plugins."browser@openai-bundled"]
 enabled = true
 
 [plugins."chrome@openai-bundled"]
 enabled = true
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir"]
+status_line_use_colors = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
@@ -182,19 +207,19 @@ js_repl = false
 
 [mcp_servers.node_repl]
 args = []
-command = "/Applications/Codex.app/Contents/Resources/node_repl"
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
 startup_timeout_sec = 120
 
 [mcp_servers.node_repl.env]
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = ""
-NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/node"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
 CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "0b0d41e7a14a4903d2f95b0b3f427ed796b12c8edca2fa392a03df43997075ae"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "5504c0782b5c86b7dd08314045b9843e973a230e1be8f7e2e0ba3716fc63c55e"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/computer-use/1.0.799/Codex Computer Use.app"
+BROWSER_USE_CODEX_APP_VERSION = "26.616.81150"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
