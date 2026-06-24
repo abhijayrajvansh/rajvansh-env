@@ -592,6 +592,7 @@ backup-openclaw-workspaces () {
 # neo vim
 alias vimrc='nv ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
+alias vi='nv'
 
 
 # Code editor launchers and helpers
