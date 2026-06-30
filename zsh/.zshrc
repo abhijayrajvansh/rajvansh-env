@@ -901,6 +901,7 @@ alias lin='grok --always-approve'
 
 # vps & openclaw connection
 alias ssh-donna-vps='ssh donna-vps'
+alias ssh-vahaana-aws-ec2='ssh vahaana-aws-ec2'
 
 export DONNA_PROXY_PID_FILE="$HOME/.ssh/donna-proxy.pid"
 export DONNA_PROXY_PORT=1080

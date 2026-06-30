@@ -2,6 +2,7 @@ model = "gpt-5.5"
 model_reasoning_effort = "medium"
 
 notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+service_tier = "default"
 
 [projects."/Users/abhijayrajvansh/Desktop/brackets/procurement-ak"]
 trust_level = "trusted"
@@ -129,13 +130,25 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/uptut/uptut-webflow-cms"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/testapi"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/codex-bridge"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/algo-videos"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/manim-with-codex"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-06-24T15:33:53Z"
+last_updated = "2026-06-29T16:05:10Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-06-18T06:47:27Z"
+last_updated = "2026-06-28T16:47:25Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -166,6 +179,9 @@ enabled = true
 [plugins."chrome@openai-bundled"]
 enabled = true
 
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
 [tui]
 status_line = ["model-with-reasoning", "current-dir"]
 status_line_use_colors = true
@@ -182,6 +198,7 @@ ambient-suggestions-enabled = true
 appearanceTheme = "light"
 conversationDetailMode = "STEPS_COMMANDS"
 keepRemoteControlAwakeWhilePluggedIn = true
+followUpQueueMode = "queue"
 
 [desktop.appearanceLightChromeTheme]
 accent = "#339cff"
@@ -217,10 +234,10 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_nod
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
 CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "5504c0782b5c86b7dd08314045b9843e973a230e1be8f7e2e0ba3716fc63c55e"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "a05cdd282c2717f076e11bc0e94b7b20e1fc4759dbe28440bd1c734953606a56"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.616.81150"
+BROWSER_USE_CODEX_APP_VERSION = "26.623.61825"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
