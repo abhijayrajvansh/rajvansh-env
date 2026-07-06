@@ -298,6 +298,7 @@ alias gpl='git pull'
 alias gpf='git push --force-with-lease'
 alias gcl='git clone'
 alias gw='git switch'
+alias gf='git fetch'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias gb='git branch'
 alias gpp='git push fork'
