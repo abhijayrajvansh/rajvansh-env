@@ -606,7 +606,7 @@ CODE_LAUNCHER_ANTIGRAVITY="agy-ide"
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
 else
-  : "${PRIMARY_CODE_EDITOR:=antigravity-now}"
+  : "${PRIMARY_CODE_EDITOR:=cursor}"
 fi
 
 typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
