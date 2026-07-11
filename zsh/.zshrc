@@ -896,7 +896,7 @@ export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
 
 # Added by coding agent CLI: codex, claude, grok and aliases jasmine and donna alias
-alias codex-fast='CODEX_HOME="$HOME/.codex-no-mcp" codex'
+alias codex-fast='CODEX_HOME="$HOME/.codex-abhijay" codex'
 jas() {
   local abhijay_home="$HOME/.codex-abhijay"
   local abhijay_source_config="$HOME/.codex/abhijay-config.toml"
