@@ -898,15 +898,7 @@ export GIT_TERMINAL_PROMPT=0
 # Added by coding agent CLI: codex, claude, grok and aliases jasmine and donna alias
 alias codex-fast='CODEX_HOME="$HOME/.codex-abhijay" codex'
 jas() {
-  local abhijay_home="$HOME/.codex-abhijay"
-  local abhijay_source_config="$HOME/.codex/abhijay-config.toml"
-
-  mkdir -p "$abhijay_home"
-
-  ln -sfn "$HOME/.codex/auth.json" "$abhijay_home/auth.json"
-  ln -sfn "$abhijay_source_config" "$abhijay_home/config.toml"
-
-  CODEX_HOME="$abhijay_home" codex --dangerously-bypass-approvals-and-sandbox "$@"
+  codex --dangerously-bypass-approvals-and-sandbox "$@"
 }
 alias kas='claude --dangerously-skip-permissions'
 alias lin='grok --always-approve'
