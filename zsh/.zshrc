@@ -914,11 +914,22 @@ jas() {
       print 'model = "gpt-5.5"'
       print 'model_reasoning_effort = "medium"'
       print 'service_tier = "default"'
+      print 'project_root_markers = [".git", "package.json", "AGENTS.md"]'
       print ''
     } > "$no_mcp_config"
   fi
 
-  if ! grep -F "[projects.\"$escaped_pwd\"]" "$no_mcp_config" >/dev/null 2>&1; then
+  if ! grep -F 'project_root_markers' "$no_mcp_config" >/dev/null 2>&1; then
+    local no_mcp_config_tmp="$no_mcp_config.tmp.$$"
+    awk '
+      { print }
+      $0 == "service_tier = \"default\"" {
+        print "project_root_markers = [\".git\", \"package.json\", \"AGENTS.md\"]"
+      }
+    ' "$no_mcp_config" > "$no_mcp_config_tmp" && mv "$no_mcp_config_tmp" "$no_mcp_config"
+  fi
+
+  if [[ "$PWD" != "$HOME" ]] && ! grep -F "[projects.\"$escaped_pwd\"]" "$no_mcp_config" >/dev/null 2>&1; then
     {
       print ''
       print "[projects.\"$escaped_pwd\"]"
