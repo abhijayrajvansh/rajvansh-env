@@ -898,61 +898,15 @@ export GIT_TERMINAL_PROMPT=0
 # Added by coding agent CLI: codex, claude, grok and aliases jasmine and donna alias
 alias codex-fast='CODEX_HOME="$HOME/.codex-no-mcp" codex'
 jas() {
-  local no_mcp_home="$HOME/.codex-no-mcp"
-  local no_mcp_config="$no_mcp_home/config.toml"
-  local escaped_pwd="${PWD//\\/\\\\}"
-  escaped_pwd="${escaped_pwd//\"/\\\"}"
+  local abhijay_home="$HOME/.codex-abhijay"
+  local abhijay_source_config="$HOME/.codex/abhijay-config.toml"
 
-  mkdir -p "$no_mcp_home"
+  mkdir -p "$abhijay_home"
 
-  if [[ ! -e "$no_mcp_home/auth.json" ]]; then
-    ln -s "$HOME/.codex/auth.json" "$no_mcp_home/auth.json"
-  fi
+  ln -sfn "$HOME/.codex/auth.json" "$abhijay_home/auth.json"
+  ln -sfn "$abhijay_source_config" "$abhijay_home/config.toml"
 
-  if [[ ! -f "$no_mcp_config" ]]; then
-    {
-      print 'model = "gpt-5.5"'
-      print 'model_reasoning_effort = "medium"'
-      print 'service_tier = "default"'
-      print 'project_root_markers = [".git", "package.json", "AGENTS.md"]'
-      print ''
-    } > "$no_mcp_config"
-  fi
-
-  if ! grep -F 'project_root_markers' "$no_mcp_config" >/dev/null 2>&1; then
-    local no_mcp_config_tmp="$no_mcp_config.tmp.$$"
-    awk '
-      { print }
-      $0 == "service_tier = \"default\"" {
-        print "project_root_markers = [\".git\", \"package.json\", \"AGENTS.md\"]"
-      }
-    ' "$no_mcp_config" > "$no_mcp_config_tmp" && mv "$no_mcp_config_tmp" "$no_mcp_config"
-  fi
-
-  if grep -F "[projects.\"$HOME\"]" "$no_mcp_config" >/dev/null 2>&1; then
-    local no_mcp_config_tmp="$no_mcp_config.tmp.$$"
-    awk -v home="$HOME" '
-      $0 == "[projects.\"" home "\"]" {
-        skip = 1
-        next
-      }
-      skip && $0 == "trust_level = \"trusted\"" {
-        skip = 0
-        next
-      }
-      { print }
-    ' "$no_mcp_config" > "$no_mcp_config_tmp" && mv "$no_mcp_config_tmp" "$no_mcp_config"
-  fi
-
-  if [[ "$PWD" != "$HOME" ]] && ! grep -F "[projects.\"$escaped_pwd\"]" "$no_mcp_config" >/dev/null 2>&1; then
-    {
-      print ''
-      print "[projects.\"$escaped_pwd\"]"
-      print 'trust_level = "trusted"'
-    } >> "$no_mcp_config"
-  fi
-
-  CODEX_HOME="$no_mcp_home" codex --dangerously-bypass-approvals-and-sandbox "$@"
+  CODEX_HOME="$abhijay_home" codex --dangerously-bypass-approvals-and-sandbox "$@"
 }
 alias kas='claude --dangerously-skip-permissions'
 alias lin='grok --always-approve'

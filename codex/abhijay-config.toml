@@ -1,0 +1,15 @@
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+service_tier = "default"
+
+project_root_markers = [".git", "package.json", "AGENTS.md"]
+
+[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging"]
+trust_level = "trusted"
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir"]
+status_line_use_colors = true
+
+[features]
+js_repl = false
