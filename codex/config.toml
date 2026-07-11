@@ -1,148 +1,16 @@
 model = "gpt-5.5"
 model_reasoning_effort = "medium"
-
-notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 service_tier = "default"
 
-[projects."/Users/abhijayrajvansh/Desktop/brackets/procurement-ak"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/unisource-erp"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/20-percent/rajvansh-labs"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/tms"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Documents/Codex/2026-05-03/can-you-control-my-desktop"]
-trust_level = "trusted"
+notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
 [projects."/Users/abhijayrajvansh"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Documents/Codex/2026-05-03/what-all-cool-codex-plugins-are"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Documents/Codex/2026-05-03/okay-so-we-have-to-creatively"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/rajvansh-env"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/uptut/my-trainings/oracle-performance-tuning"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/unisource-erp"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/oracle-training"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/uptut/travelboots"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/uptut/projects/travelboots"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/rag-chatbot"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/chatbot"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/ai-chatbot"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/rag-chatbot-brackets"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/malaysia"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/xlr8"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/grok-image-gen-script"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/grok-image-gen"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/grok-image-telegram"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-grok-generate-telegram"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/xlr8"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-workspace"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/archives/rajvansh-labs"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/perchance-api"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-kie-generate-telegram"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-tools/openclaw-companion-generator-nsfw"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-tools/openclaw-kie-generate-telegram"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/projects/fiverr-for-ai-agents"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/projects/ai-influencer"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/comfyui-workflows"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/server"]
 trust_level = "trusted"
 
 [projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging"]
 trust_level = "trusted"
 
-[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/client"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/uptut/automations"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/uptut/uptut-webflow-cms"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/testapi"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/projects/codex-bridge"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/algo-videos"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/projects/manim-with-codex"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/EpFrontend"]
+[projects."/Users/abhijayrajvansh/rajvansh-env"]
 trust_level = "trusted"
 
 [marketplaces.openai-bundled]
@@ -150,10 +18,20 @@ last_updated = "2026-07-06T06:23:41Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
+[marketplaces.openai-curated]
+source_type = "local"
+source = "/Users/abhijayrajvansh/.codex/.tmp/plugins"
+
 [marketplaces.openai-primary-runtime]
 last_updated = "2026-06-28T16:47:25Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
 
 [plugins."computer-use@openai-bundled"]
 enabled = true
@@ -161,25 +39,19 @@ enabled = true
 [plugins."documents@openai-primary-runtime"]
 enabled = true
 
-[plugins."spreadsheets@openai-primary-runtime"]
-enabled = true
-
-[plugins."presentations@openai-primary-runtime"]
-enabled = true
-
 [plugins."google-drive@openai-curated"]
-enabled = true
-
-[plugins."superpowers@openai-curated"]
 enabled = true
 
 [plugins."pdf@openai-primary-runtime"]
 enabled = true
 
-[plugins."browser@openai-bundled"]
+[plugins."presentations@openai-primary-runtime"]
 enabled = true
 
-[plugins."chrome@openai-bundled"]
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."superpowers@personal"]
 enabled = true
 
 [plugins."template-creator@openai-primary-runtime"]
@@ -189,58 +61,35 @@ enabled = true
 status_line = ["model-with-reasoning", "current-dir"]
 status_line_use_colors = true
 
-[tui.model_availability_nux]
-"gpt-5.5" = 4
-
-[notice.model_migrations]
-"gpt-5.3-codex" = "gpt-5.5"
-"gpt-5.4" = "gpt-5.5"
-
-[desktop]
-ambient-suggestions-enabled = true
-appearanceTheme = "light"
-conversationDetailMode = "STEPS_COMMANDS"
-keepRemoteControlAwakeWhilePluggedIn = true
-followUpQueueMode = "queue"
-
-[desktop.appearanceLightChromeTheme]
-accent = "#339cff"
-contrast = 46
-ink = "#1a1c1f"
-opaqueWindows = false
-surface = "#ffffff"
-
-[desktop.appearanceLightChromeTheme.fonts]
-
-[desktop.appearanceLightChromeTheme.semanticColors]
-diffAdded = "#00a240"
-diffRemoved = "#ba2623"
-skill = "#924ff7"
-
-[desktop.open-in-target-preferences]
-global = "iterm2"
-
-[desktop.open-in-target-preferences.perPath]
-"/Users/abhijayrajvansh" = "iterm2"
-
 [features]
 js_repl = false
 
 [mcp_servers.node_repl]
-args = []
 command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
-startup_timeout_sec = 120
+startup_timeout_sec = 120.0
 
 [mcp_servers.node_repl.env]
-NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
-NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
-CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "a05cdd282c2717f076e11bc0e94b7b20e1fc4759dbe28440bd1c734953606a56"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
 BROWSER_USE_CODEX_APP_VERSION = "26.623.61825"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+CODEX_HOME = "/Users/abhijayrajvansh/.codex"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "a05cdd282c2717f076e11bc0e94b7b20e1fc4759dbe28440bd1c734953606a56"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
+
+[mcp_servers.n8n]
+command = "npx"
+args = ["-y", "n8n-mcp@2.63.1"]
+
+[mcp_servers.n8n.env]
+DISABLE_CONSOLE_OUTPUT = "true"
+LOG_LEVEL = "error"
+MCP_LOG_LEVEL = "error"
+MCP_MODE = "stdio"
+N8N_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjE1Y2ViNi00MDVlLTQzOWEtODg3OC1jZmI3YTI2NDYxZmQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZTJlMDIwNWEtY2Q3NS00NDIwLTgyYmMtODhlZmY5MjhiN2U5IiwiaWF0IjoxNzgzNTM3MzUxfQ.bR4d0Ewo9SvNeDqPb5k3airAeZZpFafK15RAhRSIS1g"
+N8N_API_URL = "https://vmi3427713.contaboserver.net"
