@@ -896,8 +896,38 @@ export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
 
 # Added by coding agent CLI: codex, claude, grok and aliases jasmine and donna alias
-alias codex-fast='codex --profile no-mcp -c "mcp_servers.node_repl.enabled=false"'
-alias jas='codex --yolo'
+alias codex-fast='CODEX_HOME="$HOME/.codex-no-mcp" codex'
+jas() {
+  local no_mcp_home="$HOME/.codex-no-mcp"
+  local no_mcp_config="$no_mcp_home/config.toml"
+  local escaped_pwd="${PWD//\\/\\\\}"
+  escaped_pwd="${escaped_pwd//\"/\\\"}"
+
+  mkdir -p "$no_mcp_home"
+
+  if [[ ! -e "$no_mcp_home/auth.json" ]]; then
+    ln -s "$HOME/.codex/auth.json" "$no_mcp_home/auth.json"
+  fi
+
+  if [[ ! -f "$no_mcp_config" ]]; then
+    {
+      print 'model = "gpt-5.5"'
+      print 'model_reasoning_effort = "medium"'
+      print 'service_tier = "default"'
+      print ''
+    } > "$no_mcp_config"
+  fi
+
+  if ! grep -F "[projects.\"$escaped_pwd\"]" "$no_mcp_config" >/dev/null 2>&1; then
+    {
+      print ''
+      print "[projects.\"$escaped_pwd\"]"
+      print 'trust_level = "trusted"'
+    } >> "$no_mcp_config"
+  fi
+
+  CODEX_HOME="$no_mcp_home" codex --dangerously-bypass-approvals-and-sandbox "$@"
+}
 alias kas='claude --dangerously-skip-permissions'
 alias lin='grok --always-approve'
 
