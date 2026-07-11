@@ -929,6 +929,21 @@ jas() {
     ' "$no_mcp_config" > "$no_mcp_config_tmp" && mv "$no_mcp_config_tmp" "$no_mcp_config"
   fi
 
+  if grep -F "[projects.\"$HOME\"]" "$no_mcp_config" >/dev/null 2>&1; then
+    local no_mcp_config_tmp="$no_mcp_config.tmp.$$"
+    awk -v home="$HOME" '
+      $0 == "[projects.\"" home "\"]" {
+        skip = 1
+        next
+      }
+      skip && $0 == "trust_level = \"trusted\"" {
+        skip = 0
+        next
+      }
+      { print }
+    ' "$no_mcp_config" > "$no_mcp_config_tmp" && mv "$no_mcp_config_tmp" "$no_mcp_config"
+  fi
+
   if [[ "$PWD" != "$HOME" ]] && ! grep -F "[projects.\"$escaped_pwd\"]" "$no_mcp_config" >/dev/null 2>&1; then
     {
       print ''
