@@ -1,6 +1,20 @@
-model = "gpt-5.6-sol"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "medium"
 service_tier = "default"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
@@ -25,8 +39,56 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/projects/hsm"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-13/chrome-tabs-the-user-has-the"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-13/chrome-tabs-the-user-has-the-2"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-13/hi"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-13/chrome-tabs-the-user-has-the-3"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-14/hi"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-14/hi-2"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/uptut/travelboots"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/codex-pika-hook"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/vahaana-production"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/manim-with-codex"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-18/chrome-tabs-the-user-has-the"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/snake-game"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/snake"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-18/can"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/imspeed"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/.codex/visualizations"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-07-12T22:31:50Z"
+last_updated = "2026-07-18T01:20:17Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -35,12 +97,9 @@ source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/plugins"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-12T22:47:06Z"
+last_updated = "2026-07-16T09:47:45Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
-
-[plugins."chrome@openai-bundled"]
-enabled = true
 
 [plugins."computer-use@openai-bundled"]
 enabled = true
@@ -72,6 +131,12 @@ enabled = true
 [plugins."visualize@openai-bundled"]
 enabled = true
 
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."imspeed@personal"]
+enabled = true
+
 [plugins."browser@openai-bundled"]
 enabled = true
 
@@ -80,6 +145,7 @@ status_line = ["model-with-reasoning", "current-dir"]
 status_line_use_colors = true
 
 [tui.model_availability_nux]
+"gpt-5.5" = 1
 "gpt-5.6-sol" = 4
 
 [features]
@@ -96,14 +162,14 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
 CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e74b67ab909392b37f7aef14977fce7aa80cfa02ade5491f30abcdbcb9e69f33"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "330cfa6875d3acd34ed3d321d03e97c0dd9ee3c1855467f2600215089f2d8279,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.707.51957"
-SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/computer-use/1.0.1000387/Codex Computer Use.app"
+BROWSER_USE_CODEX_APP_VERSION = "26.715.31251"
+SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/computer-use/1.0.1000451/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -112,14 +178,34 @@ args = ["mcp"]
 cwd = "."
 enabled = false
 
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[[hooks.Stop]]
+
+[[hooks.Stop.hooks]]
+type = "command"
+command = "/Users/abhijayrajvansh/Desktop/codex-pika-hook/hooks/play-answer-sound.sh"
+timeout = 10
+statusMessage = "Playing answer sound"
+
 [hooks.state]
 
 [hooks.state."superpowers@personal:hooks/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:62acbaff2b2f55f41971e21a164990aaa53c96919baa0a5eae2eb5db73b9e6e6"
 
+[hooks.state."/Users/abhijayrajvansh/.codex/config.toml:stop:0:0"]
+trusted_hash = "sha256:5eb26d3ec9f51099a369556d8ff4064dc6573604e58ee50e335079f2aa62942d"
+
 [desktop]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
+appearanceTheme = "light"
+
+[shell_environment_policy.set]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "330cfa6875d3acd34ed3d321d03e97c0dd9ee3c1855467f2600215089f2d8279,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
 
 
 
