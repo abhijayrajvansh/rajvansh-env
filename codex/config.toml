@@ -1,20 +1,8 @@
-model = "gpt-5.6-terra"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 service_tier = "default"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+personality = "pragmatic"
 
 notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
@@ -87,8 +75,53 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/.codex/visualizations"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/com"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/tms"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/plugins/imspeed"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/hsm/n8n/linkedin-leads"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/hsm/hsm-labs"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-25/realtime-voice-chat"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-25/realtime-voice-chat-2"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/samples/orders"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-25/chan"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/hsm-workspace"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/vahaana-algorithm"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-30/realtime-voice-chat"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-docs/companion"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-02/help"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-02/realtime-voice-chat"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-07-18T01:20:17Z"
+last_updated = "2026-08-02T04:28:50Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -97,7 +130,7 @@ source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/plugins"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-16T09:47:45Z"
+last_updated = "2026-08-02T04:47:02Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -119,9 +152,6 @@ enabled = true
 [plugins."spreadsheets@openai-primary-runtime"]
 enabled = true
 
-[plugins."superpowers@personal"]
-enabled = true
-
 [plugins."template-creator@openai-primary-runtime"]
 enabled = true
 
@@ -134,9 +164,6 @@ enabled = true
 [plugins."chrome@openai-bundled"]
 enabled = true
 
-[plugins."imspeed@personal"]
-enabled = true
-
 [plugins."browser@openai-bundled"]
 enabled = true
 
@@ -145,7 +172,7 @@ status_line = ["model-with-reasoning", "current-dir"]
 status_line_use_colors = true
 
 [tui.model_availability_nux]
-"gpt-5.5" = 1
+"gpt-5.5" = 2
 "gpt-5.6-sol" = 4
 
 [features]
@@ -162,14 +189,14 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
 CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "330cfa6875d3acd34ed3d321d03e97c0dd9ee3c1855467f2600215089f2d8279,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "14e425736668bf21b5b39f2cc022ee8684728617fb5c49f35533c2e349f47193,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.715.31251"
-SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/computer-use/1.0.1000451/Codex Computer Use.app"
+BROWSER_USE_CODEX_APP_VERSION = "26.721.81911"
+SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -181,43 +208,27 @@ enabled = false
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 
-[[hooks.Stop]]
-
-[[hooks.Stop.hooks]]
-type = "command"
-command = "/Users/abhijayrajvansh/Desktop/codex-pika-hook/hooks/play-answer-sound.sh"
-timeout = 10
-statusMessage = "Playing answer sound"
-
-[hooks.state]
-
-[hooks.state."superpowers@personal:hooks/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:62acbaff2b2f55f41971e21a164990aaa53c96919baa0a5eae2eb5db73b9e6e6"
-
-[hooks.state."/Users/abhijayrajvansh/.codex/config.toml:stop:0:0"]
-trusted_hash = "sha256:5eb26d3ec9f51099a369556d8ff4064dc6573604e58ee50e335079f2aa62942d"
-
 [desktop]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
-appearanceTheme = "light"
+appearanceTheme = "dark"
+conversationDetailMode = "STEPS_COMMANDS"
 
 [shell_environment_policy.set]
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "330cfa6875d3acd34ed3d321d03e97c0dd9ee3c1855467f2600215089f2d8279,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "14e425736668bf21b5b39f2cc022ee8684728617fb5c49f35533c2e349f47193,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex"
 
 
+[mcp_servers.n8n]
+command = "npx"
+args = ["-y", "n8n-mcp@2.63.1"]
 
-## n8n MCP server is disabled for now
-# [mcp_servers.n8n]
-# command = "npx"
-# args = ["-y", "n8n-mcp@2.63.1"]
+[mcp_servers.n8n.env]
+DISABLE_CONSOLE_OUTPUT = "true"
+LOG_LEVEL = "error"
+MCP_LOG_LEVEL = "error"
+MCP_MODE = "stdio"
 
-# [mcp_servers.n8n.env]
-# DISABLE_CONSOLE_OUTPUT = "true"
-# LOG_LEVEL = "error"
-# MCP_LOG_LEVEL = "error"
-# MCP_MODE = "stdio"
 # N8N_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjE1Y2ViNi00MDVlLTQzOWEtODg3OC1jZmI3YTI2NDYxZmQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZTJlMDIwNWEtY2Q3NS00NDIwLTgyYmMtODhlZmY5MjhiN2U5IiwiaWF0IjoxNzgzNTM3MzUxfQ.bR4d0Ewo9SvNeDqPb5k3airAeZZpFafK15RAhRSIS1g"
 # N8N_API_URL = "https://vmi3427713.contaboserver.net"

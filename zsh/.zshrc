@@ -898,7 +898,6 @@ export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
 
 # Added by coding agent CLI: codex, claude, grok and aliases jasmine and donna alias
-alias codex-fast='CODEX_HOME="$HOME/.codex-abhijay" codex'
 jas() {
   codex --dangerously-bypass-approvals-and-sandbox "$@"
 }
@@ -1048,3 +1047,6 @@ export PATH="$HOME/.grok/bin:$PATH"
 fpath=(~/.grok/completions/zsh $fpath)
 autoload -Uz compinit && compinit -C
 # <<< grok installer <<<
+
+# kimi-code
+export PATH="/Users/abhijayrajvansh/.kimi-code/bin:$PATH"
