@@ -442,6 +442,8 @@ alias cp-rnvcf-lnvcf='cp -r ~/rajvansh-env/nvim ~/.config/'
 # Codex config
 alias cp-lcodexconfig-rcodexconfig='mkdir -p ~/rajvansh-env/codex && cp ~/.codex/config.toml ~/rajvansh-env/codex/'
 alias cp-rcodexconfig-lcodexconfig='mkdir -p ~/.codex && cp ~/rajvansh-env/codex/config.toml ~/.codex/'
+alias cp-lcodexagents-rcodexagents='mkdir -p ~/rajvansh-env/codex && cp ~/.codex/AGENTS.md ~/rajvansh-env/codex/'
+alias cp-rcodexagents-lcodexagents='mkdir -p ~/.codex && cp ~/rajvansh-env/codex/AGENTS.md ~/.codex/'
 
 # OpenClaw config sync to private-env
 alias donna='cd /Users/abhijayrajvansh/.openclaw'
@@ -486,7 +488,7 @@ copy_localenv_to_remoteenv () {
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-lagsetting-ragsetting; cp-lagsnippets-ragsnippets;
   greentick; echo "Copied Cursor settings.json."; cp-lcursorsetting-rcursorsetting;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
-  greentick; echo "Copied Codex config.toml."; cp-lcodexconfig-rcodexconfig;
+  greentick; echo "Copied Codex config.toml & AGENTS.md."; cp-lcodexconfig-rcodexconfig; cp-lcodexagents-rcodexagents;
   echo
 }
 
@@ -496,7 +498,7 @@ copy_remoteenv_to_localenv () {
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-ragsetting-lagsetting; cp-ragsnippets-lagsnippets;
   greentick; echo "Copied Cursor settings.json."; cp-rcursorsetting-lcursorsetting;
   greentick; echo "Copied neovim config."; cp-rnvcf-lnvcf;
-  greentick; echo "Copied Codex config.toml."; cp-rcodexconfig-lcodexconfig;
+  greentick; echo "Copied Codex config.toml & AGENTS.md."; cp-rcodexconfig-lcodexconfig; cp-rcodexagents-lcodexagents;
   echo
 }
 
