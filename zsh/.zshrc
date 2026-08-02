@@ -1,5 +1,17 @@
 # author: https://abhijayrajvansh.com
 
+# ============================================================================
+# SECTION 1 — SHARED CONFIGURATION (macOS + Linux/VPS)
+# ============================================================================
+# Common aliases, prompt configuration, Git helpers, language/tooling helpers,
+# SSH/VPS helpers, and personal shell functions live in this file.
+#
+# SECTION 2 — macOS-ONLY CONFIGURATION
+# ============================================================================
+# macOS-specific commands are kept below and marked with "[macOS only]".
+# They are intentionally preserved for this Mac and can be skipped when
+# copying this file to a Linux/VPS machine.
+
 # identity configs
 alias greetMe="bash /Users/abhijayrajvansh/rajvansh-env/scripts/welcome.sh"
 alias greetMeSession="bash /Users/abhijayrajvansh/rajvansh-env/scripts/session-welcome.sh"
@@ -22,7 +34,7 @@ alias greentick='echo -n \[${GREEN}✔${RESET}\]" "'
 alias redcross='echo -n \[${RED}✘${RESET}\]" "'
 
 
-# zsh-autosuggestions
+# [macOS only] Homebrew-based zsh-autosuggestions loader
 alias source-zsh_autosuggestions='source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 
 
@@ -94,7 +106,7 @@ function prompt_cwd {
   fi
 }
 
-# Function to show battery status (macOS)
+# [macOS only] Function to show battery status (macOS)
 function battery_info {
   if command -v pmset &> /dev/null; then
     local battery_percent=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
@@ -167,7 +179,14 @@ alias status='echo "\n$(date)\nUptime: $(uptime)\nDisk: $(df -h / | tail -1 | aw
 # ================================================================
 
 
-# hide and reveal desktop icons
+# ----------------------------------------------------------------------------
+# SECTION 2 — macOS-ONLY ENTRIES (INLINE MARKERS)
+# ----------------------------------------------------------------------------
+# These commands are retained but are intended only for this Mac. Shared
+# configuration continues below; each macOS-specific group is explicitly
+# marked so it can be skipped when copying settings to a Linux/VPS machine.
+
+# [macOS only] Hide and reveal desktop icons
 alias show-desktop-icons='defaults write com.apple.finder CreateDesktop true; killall Finder'
 alias hide-desktop-icons='defaults write com.apple.finder CreateDesktop false; killall Finder' 
 
@@ -410,25 +429,25 @@ alias zshrc='code ~/.zshrc; echo launching: zsh config'
 alias cp-lzsh-rzsh='cp /Users/abhijayrajvansh/.zshrc /Users/abhijayrajvansh/rajvansh-env/zsh'
 alias cp-rzsh-lzsh='cp /Users/abhijayrajvansh/rajvansh-env/zsh/.zshrc /Users/abhijayrajvansh/'
 
-# VSCode settings and snippets
+# [macOS only] VSCode settings and snippets
 alias cp-lcodesetting-rcodesetting='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/settings.json /Users/abhijayrajvansh/rajvansh-env/vscode/'
 alias cp-rcodesetting-lcodesetting='cp -r /Users/abhijayrajvansh/rajvansh-env/vscode/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
 
 alias cp-lcodesnippets-rcodesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets /Users/abhijayrajvansh/rajvansh-env/vscode/'
 alias cp-rcodesnippets-lcodesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/vscode/snippets /Users/abhijayrajvansh/Library/Application\ Support/Code/User/'
 
-# Trae IDE settings and snippets
+# [macOS only] Trae IDE settings and snippets
 alias cp-ltraesetting-rtraesetting='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/settings.json /Users/abhijayrajvansh/rajvansh-env/trae/'
 alias cp-rtraesetting-ltraesetting='cp -r /Users/abhijayrajvansh/rajvansh-env/trae/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/'
 
 alias cp-ltraesnippets-rtraesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/snippets /Users/abhijayrajvansh/rajvansh-env/trae/'
 alias cp-rtraesnippets-ltraesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/trae/snippets /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/'
 
-# Cursor settings
+# [macOS only] Cursor settings
 alias cp-lcursorsetting-rcursorsetting='mkdir -p /Users/abhijayrajvansh/rajvansh-env/cursor && cp -r /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User/settings.json /Users/abhijayrajvansh/rajvansh-env/cursor/'
 alias cp-rcursorsetting-lcursorsetting='mkdir -p /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User && cp -r /Users/abhijayrajvansh/rajvansh-env/cursor/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User/'
 
-# Antigravity IDE settings and snippets
+# [macOS only] Antigravity IDE settings and snippets
 alias cp-lagsetting-ragsetting='mkdir -p /Users/abhijayrajvansh/rajvansh-env/antigravity && cp -r /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User/settings.json /Users/abhijayrajvansh/rajvansh-env/antigravity/'
 alias cp-ragsetting-lagsetting='mkdir -p /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User && cp -r /Users/abhijayrajvansh/rajvansh-env/antigravity/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User/'
 
@@ -605,7 +624,7 @@ alias nv='nvim'
 alias vi='nv'
 
 
-# Code editor launchers and helpers
+# [macOS only] Code editor launchers and helpers
 CODE_LAUNCHER_VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 CODE_LAUNCHER_VSCODE_INSIDERS="/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"
 CODE_LAUNCHER_TRAE="/Applications/Trae.app/Contents/Resources/app/bin/trae"
@@ -716,7 +735,7 @@ prg () {
   done
 }
 
-# default directories
+# [macOS only] Default directories
 alias desktop="cd /Users/abhijayrajvansh/Desktop"
 alias desk='desktop'
 alias dk='desktop'; # cant type lol
@@ -725,24 +744,24 @@ alias docs='documents'
 alias downloads="cd /Users/abhijayrajvansh/Downloads"
 alias movies="cd /Users/abhijayrajvansh/Movies"
 
-# quick directories
+# [macOS only] Quick directories
 alias archives="cd /Users/abhijayrajvansh/Desktop/archives"
 alias resume='cd /Users/abhijayrajvansh/Desktop/archives/resume'
 alias rajvansh-env="cd /Users/abhijayrajvansh/rajvansh-env"
 alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 
-# personal on going projects
+# [macOS only] Personal project directories
 alias projects='cd /Users/abhijayrajvansh/Desktop/projects'
 
 
-# corporate on goining development projects
+# [macOS only] Corporate project directories
 alias tms='desk; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias labs='cd /Users/abhijayrajvansh/Desktop/projects/hsm/hsm-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8'
 alias ep='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging'
 
-# quick projects locations
+# [macOS only] Quick project locations
 alias scripts='cd /Users/abhijayrajvansh/rajvansh-env/scripts'
 alias trainings='cd /Users/abhijayrajvansh/Desktop/uptut/trainings'
 alias uptut='cd /Users/abhijayrajvansh/Desktop/uptut/'
@@ -753,7 +772,7 @@ alias hsm='cd /Users/abhijayrajvansh/Desktop/projects/hsm'
 # codex
 alias pull-codex='npm install -g @openai/codex'
 
-# vscode release settings 
+# [macOS only] VS Code release settings
 unalias code-setting 2>/dev/null
 code-setting() {
   local choice="${1:-${primary_code_editor:-${PRIMARY_CODE_EDITOR:-antigravity-now}}}"
@@ -773,16 +792,16 @@ code-setting() {
 }
 alias code-snippets='cd /Users/abhijayrajvansh/Library/Application\ Support/Code/User/snippets'
 
-# vscode insiders settings
+# [macOS only] VS Code Insiders settings
 alias code-in='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
 alias code-in-setting='echo "launching: settings.json"; code-in /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/settings.json'
 alias code-in-snippets='echo "launching: settings.json"; code-in /Users/abhijayrajvansh/Library/Application\ Support/Code\ -\ Insiders/User/snippets'
 
-# portfolio related stuff
+# [macOS only] Portfolio directories
 alias linkedin="cd /Users/abhijayrajvansh/Linkedin"
 alias certificates='cd /Users/abhijayrajvansh/Linkedin/certificates'
 
-# quick aliases
+# [macOS only] Quick local-machine aliases
 alias apps='cd /Applications/'
 alias dev='developer'
 alias dev-notes='dev; cd dev-notes && oo .'
@@ -800,14 +819,14 @@ alias show-local-postgres-connection-string='echo "postgresql://postgres:postgre
 # n8n via docker
 alias start-n8n='/Users/abhijayrajvansh/rajvansh-env/scripts/n8n-docker.sh'
 
-# openclaw via node
+# [macOS only] OpenClaw launch-agent controls
 alias stop-openclaw='launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
 alias start-openclaw='launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
 
-# mobile dev react native
+# [macOS only] Mobile development and simulator helpers
 # List only iOS simulators (with version headers)
 print_all_onlineSimulators() {
   xcrun simctl list devices | awk '
@@ -849,7 +868,7 @@ alias start-android-emulator='~/Library/Android/sdk/emulator/emulator -avd Pixel
 alias start-ios-emulator='open -a Simulator && xcrun simctl boot "iPhone 16e"'
 
 
-# jaiz logistics (client)
+# [macOS only] Local credential-file shortcuts
 alias show-jaiz-logistics-creds='cat /Users/abhijayrajvansh/private-env/tms/jaiz-logistics-creds.txt'
 alias show-wheelseye-credentials='cat /Users/abhijayrajvansh/private-env/tms/wheelseye-credentials.txt'
 
@@ -887,11 +906,11 @@ alias utc='createTreeContext'
 alias add-github-copilot-config='gcl_here https://github.com/abhijayrajvansh/github-copilot-config && zsh init.sh && utc'
 
 
-# solana cli
+# [macOS only] Solana CLI path
 export PATH="/Users/abhijayrajvansh/.local/share/solana/install/active_release/bin:$PATH"
 
 
-# The next line updates PATH for the Google Cloud SDK.
+# [macOS only] Google Cloud SDK installed under the local Desktop
 if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
@@ -1014,7 +1033,7 @@ donna-proxy-stop() {
 # openrouter api key
 alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
 
-# Playwright config for Codex/MCP
+# [macOS only] Playwright cache and local SDK paths
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/Library/Caches/ms-playwright"
 export NODE_PATH="$(npm root -g)"
 
