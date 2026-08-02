@@ -424,6 +424,10 @@ alias cp-rtraesetting-ltraesetting='cp -r /Users/abhijayrajvansh/rajvansh-env/tr
 alias cp-ltraesnippets-rtraesnippets='cp -r /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/snippets /Users/abhijayrajvansh/rajvansh-env/trae/'
 alias cp-rtraesnippets-ltraesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/trae/snippets /Users/abhijayrajvansh/Library/Application\ Support/Trae/User/'
 
+# Cursor settings
+alias cp-lcursorsetting-rcursorsetting='mkdir -p /Users/abhijayrajvansh/rajvansh-env/cursor && cp -r /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User/settings.json /Users/abhijayrajvansh/rajvansh-env/cursor/'
+alias cp-rcursorsetting-lcursorsetting='mkdir -p /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User && cp -r /Users/abhijayrajvansh/rajvansh-env/cursor/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User/'
+
 # Antigravity IDE settings and snippets
 alias cp-lagsetting-ragsetting='mkdir -p /Users/abhijayrajvansh/rajvansh-env/antigravity && cp -r /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User/settings.json /Users/abhijayrajvansh/rajvansh-env/antigravity/'
 alias cp-ragsetting-lagsetting='mkdir -p /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User && cp -r /Users/abhijayrajvansh/rajvansh-env/antigravity/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User/'
@@ -480,6 +484,7 @@ copy_localenv_to_remoteenv () {
   echo "copying following configurations to remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-lagsetting-ragsetting; cp-lagsnippets-ragsnippets;
+  greentick; echo "Copied Cursor settings.json."; cp-lcursorsetting-rcursorsetting;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
   greentick; echo "Copied Codex config.toml."; cp-lcodexconfig-rcodexconfig;
   echo
@@ -489,6 +494,7 @@ copy_remoteenv_to_localenv () {
   echo "copying following configurations from remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-rzsh-lzsh;
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-ragsetting-lagsetting; cp-ragsnippets-lagsnippets;
+  greentick; echo "Copied Cursor settings.json."; cp-rcursorsetting-lcursorsetting;
   greentick; echo "Copied neovim config."; cp-rnvcf-lnvcf;
   greentick; echo "Copied Codex config.toml."; cp-rcodexconfig-lcodexconfig;
   echo
