@@ -932,6 +932,9 @@ jas() {
 alias kas='claude --dangerously-skip-permissions'
 alias lin='grok --always-approve'
 
+# codex deepskeek setup
+alias codex-deepskeek-setup='bash <(curl -fsSL https://cdn.deepseek.com/api-docs/codex-deepseek-setup-en.sh)'
+
 # vps & openclaw connection
 alias ssh-donna-vps='ssh donna-vps'
 alias ssh-hsm-vps='ssh hsm-vps'
