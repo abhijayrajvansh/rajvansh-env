@@ -33,6 +33,7 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 
 #### important rules: 
 - Do not invoke, read, or follow any superpowers:* skill unless I explicitly request Superpowers in the current task.
+- Do not invoke, read, or follow `$sol-advisor:orchestration` unless I explicitly request Sol Advisor in the current task or select development mode 7.
 
 1. `superpowers plugin` (Use Superpowers skills only when I explicitly request Superpowers)
 2. `quick direct one shot changes`
@@ -40,8 +41,9 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 4. `same current workspace and worktrees`
 5. `subagent-driven development`
 6. `inline execution`
+7. `sol-advisor plugin` (GPT-5.6 Sol plans and verifies, Terra implements, and a fresh Sol reviewer must approve completion)
 
-- Accept a mode number, `even`, `odd`, or a combined selection such as `146`.
+- Accept a mode number, `even`, `odd`, or a combined selection such as `147`.
 - When the user says `switch development modes`, list the modes again and update the active selection for the session.
 - Don't use superpower skills without my permission. Don't trigger superpower skills automatically
 
@@ -90,10 +92,10 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 - make 2 sections: "New Features" & "fixes and improvements"
 
 
-## Autopilot Skill V2: For UI and Browser Automation
+## Autopilot Skill V1: For UI and Browser Automation
 - dont start browser UI automation, testing and debugging until and unless asked explicitly.
-- For UI testing or debugging that the user asks to perform like a human, use `$autopilot-skill-v2`. Trigger it when the user says `use Autopilot skill`, `use Autopilot skill for debugging`, `use Autopilot skill for testing`, or asks to debug or test a web app like a human.
-- `$autopilot-skill-v2` uses the globally registered mac-use MCP (`npx -y mac-use-mcp`) for live browser interaction. Do not substitute the OpenAI Computer Use plugin.
+- For UI testing or debugging that the user asks to perform like a human, use `$autopilot-skill-v1`. Trigger it when the user says `use Autopilot skill`, `use Autopilot skill for debugging`, `use Autopilot skill for testing`, or asks to debug or test a web app like a human.
+- `$autopilot-skill-v1` uses the globally registered computer use for live browser interaction.
 - Do not use the `browser:control-in-app-browser` or `chrome:control-chrome` plugin. This preference applies even when the target page is already open in Chrome or depends on an existing signed-in Chrome session.
 
 
