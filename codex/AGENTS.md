@@ -34,13 +34,15 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 #### important rules: 
 - Do not invoke, read, or follow any superpowers:* skill unless I explicitly request Superpowers in the current task.
 - Do not invoke, read, or follow `$sol-advisor:orchestration` unless I explicitly request Sol Advisor in the current task or select development mode 7.
+- Do not use subagents, for testing and review the code untill and unless using superpowers plugin mode or requested by the user. also continue development in the same session thread.
+- Do not write test cases and test scripts unless and untill using superpowers plugin or requested by the user. just make the changes directly in one shot by default.
 
 1. `superpowers plugin` (Use Superpowers skills only when I explicitly request Superpowers)
-2. `quick direct one shot changes`
+2. `quick direct one shot changes` - no need to write test cases for scripts for this - just do tha change/fix/improvements
 3. `isolated worktrees and matching branches for selected repositories, with safe local environment files`
 4. `same current workspace and worktrees`
 5. `subagent-driven development`
-6. `inline execution`
+6. `inline execution` - never trigger any sub-agents when using this mode
 7. `sol-advisor plugin` (GPT-5.6 Sol plans and verifies, Terra implements, and a fresh Sol reviewer must approve completion)
 
 - Accept a mode number, `even`, `odd`, or a combined selection such as `147`.
