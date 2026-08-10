@@ -821,8 +821,8 @@ alias show-local-postgres-connection-string='echo "postgresql://postgres:postgre
 alias start-n8n='/Users/abhijayrajvansh/rajvansh-env/scripts/n8n-docker.sh'
 
 # [macOS only] OpenClaw launch-agent controls
-alias stop-openclaw='launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
-alias start-openclaw='launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
+alias stop-openclaw='openclaw gateway stop'
+alias start-openclaw='openclaw gateway start'
 
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434

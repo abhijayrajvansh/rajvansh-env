@@ -1,10 +1,13 @@
-model = "gpt-5.6-terra"
-model_reasoning_effort = "high"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
 service_tier = "default"
 
 personality = "pragmatic"
 
 notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+approval_policy = "on-request"
+approvals_reviewer = "guardian_subagent"
+sandbox_mode = "workspace-write"
 
 [projects."/Users/abhijayrajvansh"]
 trust_level = "trusted"
@@ -120,8 +123,20 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-02/realtime-voice-chat"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-07/wht"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-07/what-is-the-sum-of-usage"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/brackets/donna-rajvansh-brackets"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-10/realtime-voice-chat"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-08-05T16:23:21Z"
+last_updated = "2026-08-10T10:40:24Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -130,13 +145,13 @@ source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/plugins"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-08-03T04:57:35Z"
+last_updated = "2026-08-06T13:15:20Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
 [marketplaces.sol-advisor]
-last_updated = "2026-08-04T10:40:51Z"
-last_revision = "154fd7ac282088f58246e192347960ba0bfc945f"
+last_updated = "2026-08-08T08:47:48Z"
+last_revision = "676d200733ebd57caf1270ba94d892c95e9f8aee"
 source_type = "git"
 source = "https://github.com/DannyMac180/sol-advisor.git"
 ref = "main"
@@ -190,6 +205,9 @@ theme = "catppuccin-mocha"
 [features]
 js_repl = false
 
+
+
+
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
@@ -201,13 +219,13 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "091a81603ff202a16ed56557709bf42d97caf8f0dd2e07ae9e26d7c014d71035"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.730.61639"
+BROWSER_USE_CODEX_APP_VERSION = "26.803.41515"
 SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -237,12 +255,12 @@ args = ["-y", "mac-use-mcp"]
 [desktop]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
-appearanceTheme = "light"
+appearanceTheme = "dark"
 conversationDetailMode = "STEPS_COMMANDS"
 
 [shell_environment_policy.set]
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "091a81603ff202a16ed56557709bf42d97caf8f0dd2e07ae9e26d7c014d71035"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 
 # N8N_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjE1Y2ViNi00MDVlLTQzOWEtODg3OC1jZmI3YTI2NDYxZmQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZTJlMDIwNWEtY2Q3NS00NDIwLTgyYmMtODhlZmY5MjhiN2U5IiwiaWF0IjoxNzgzNTM3MzUxfQ.bR4d0Ewo9SvNeDqPb5k3airAeZZpFafK15RAhRSIS1g"

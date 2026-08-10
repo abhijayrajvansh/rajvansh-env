@@ -44,6 +44,7 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 5. `subagent-driven development`
 6. `inline execution` - never trigger any sub-agents when using this mode
 7. `sol-advisor plugin` (GPT-5.6 Sol plans and verifies, Terra implements, and a fresh Sol reviewer must approve completion)
+8. `multiple subagents mode` Kimi K3 as the orchestrator, DeepSeek Flash as the worker, and GPT 5.6 Luna as the visual assistant and reviewer.
 
 - Accept a mode number, `even`, `odd`, or a combined selection such as `147`.
 - When the user says `switch development modes`, list the modes again and update the active selection for the session.
@@ -54,6 +55,7 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 - Report the current task name in bold.
 - For every detected repository, report its name, path, current worktree, branch, and clean or modified state.
 - Include a three-column task table: serial number, task name, and status (`not started`, `in progress`, or `done`).
+- when user is say refresh this, then refresh the progress and updates about current progress and if paused/stuck/internet issue or waiting for a reply for a question/doubt then update that as well
 
 ### All worktrees status
 
