@@ -15,6 +15,9 @@
   "project_panel": {
     "dock": "left"
   },
+  "status_bar": {
+    "experimental.show": false
+  },
   "ui_font_weight": 400.0,
   "ui_font_family": "JetBrains Mono",
   "buffer_font_weight": 400.0,
@@ -24,6 +27,6 @@
   "theme": {
     "mode": "system",
     "light": "GitHub Light",
-    "dark": "One Dark",
+    "dark": "GitHub Dark Dimmed",
   },
 }
