@@ -12,6 +12,9 @@
     "font_size": 15.0
   },
   "mouse_wheel_zoom": false,
+  "project_panel": {
+    "dock": "left"
+  },
   "ui_font_weight": 400.0,
   "ui_font_family": "JetBrains Mono",
   "buffer_font_weight": 400.0,
