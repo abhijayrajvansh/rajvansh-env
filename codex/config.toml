@@ -150,8 +150,17 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/projects/hsm-workspace/influencer-db"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-11/realtime-voice-chat-3"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-11/realtime-voice-chat-4"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-11/realtime-voice-chat-5"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-08-11T12:52:48Z"
+last_updated = "2026-08-11T16:42:40Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -271,7 +280,7 @@ args = ["-y", "mac-use-mcp"]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
 appearanceTheme = "light"
-conversationDetailMode = "STEPS_PROSE"
+conversationDetailMode = "STEPS_COMMANDS"
 
 [shell_environment_policy.set]
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"

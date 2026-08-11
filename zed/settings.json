@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "markdown_preview_font_size": 14.0,
+  "agent_buffer_font_size": 14.0,
+  "icon_theme": "Catppuccin Mocha",
   "autosave": {
     "after_delay": {
       "milliseconds": 100
@@ -14,7 +17,7 @@
   },
   "agent_ui_font_size": 14.0,
   "terminal": {
-    "font_size": 15.0
+    "font_size": 14.0
   },
   "mouse_wheel_zoom": false,
   "project_panel": {
@@ -27,7 +30,7 @@
   "ui_font_family": "JetBrains Mono",
   "buffer_font_weight": 400.0,
   "buffer_font_family": "JetBrains Mono",
-  "ui_font_size": 14.0,
+  "ui_font_size": 12.0,
   "buffer_font_size": 14.0,
   "theme": {
     "mode": "system",
