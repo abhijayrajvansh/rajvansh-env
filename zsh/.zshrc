@@ -448,6 +448,10 @@ alias cp-rtraesnippets-ltraesnippets='cp -r /Users/abhijayrajvansh/rajvansh-env/
 alias cp-lcursorsetting-rcursorsetting='mkdir -p /Users/abhijayrajvansh/rajvansh-env/cursor && cp -r /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User/settings.json /Users/abhijayrajvansh/rajvansh-env/cursor/'
 alias cp-rcursorsetting-lcursorsetting='mkdir -p /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User && cp -r /Users/abhijayrajvansh/rajvansh-env/cursor/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Cursor/User/'
 
+# [macOS only] Zed settings
+alias cp-lzedsetting-rzedsetting='mkdir -p /Users/abhijayrajvansh/rajvansh-env/zed && cp -r /Users/abhijayrajvansh/.config/zed/settings.json /Users/abhijayrajvansh/rajvansh-env/zed/'
+alias cp-rzedsetting-lzedsetting='mkdir -p /Users/abhijayrajvansh/.config/zed && cp -r /Users/abhijayrajvansh/rajvansh-env/zed/settings.json /Users/abhijayrajvansh/.config/zed/'
+
 # [macOS only] Antigravity IDE settings and snippets
 alias cp-lagsetting-ragsetting='mkdir -p /Users/abhijayrajvansh/rajvansh-env/antigravity && cp -r /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User/settings.json /Users/abhijayrajvansh/rajvansh-env/antigravity/'
 alias cp-ragsetting-lagsetting='mkdir -p /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User && cp -r /Users/abhijayrajvansh/rajvansh-env/antigravity/settings.json /Users/abhijayrajvansh/Library/Application\ Support/Antigravity/User/'
@@ -507,6 +511,7 @@ copy_localenv_to_remoteenv () {
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-lagsetting-ragsetting; cp-lagsnippets-ragsnippets;
   greentick; echo "Copied Cursor settings.json."; cp-lcursorsetting-rcursorsetting;
+  greentick; echo "Copied Zed settings.json."; cp-lzedsetting-rzedsetting;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
   greentick; echo "Copied Codex config.toml & AGENTS.md."; cp-lcodexconfig-rcodexconfig; cp-lcodexagents-rcodexagents;
   echo
@@ -517,6 +522,7 @@ copy_remoteenv_to_localenv () {
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-rzsh-lzsh;
   greentick; echo "Copied Antigravity IDE settings.json & snippets."; cp-ragsetting-lagsetting; cp-ragsnippets-lagsnippets;
   greentick; echo "Copied Cursor settings.json."; cp-rcursorsetting-lcursorsetting;
+  greentick; echo "Copied Zed settings.json."; cp-rzedsetting-lzedsetting;
   greentick; echo "Copied neovim config."; cp-rnvcf-lnvcf;
   greentick; echo "Copied Codex config.toml & AGENTS.md."; cp-rcodexconfig-lcodexconfig; cp-rcodexagents-lcodexagents;
   echo
@@ -630,12 +636,13 @@ CODE_LAUNCHER_VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/ap
 CODE_LAUNCHER_VSCODE_INSIDERS="/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code"
 CODE_LAUNCHER_TRAE="/Applications/Trae.app/Contents/Resources/app/bin/trae"
 CODE_LAUNCHER_CURSOR="/Applications/Cursor.app/Contents/Resources/app/bin/cursor"
+CODE_LAUNCHER_ZED="/Applications/Zed.app/Contents/MacOS/cli"
 CODE_LAUNCHER_ANTIGRAVITY="agy-ide"
 
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
 else
-  : "${PRIMARY_CODE_EDITOR:=cursor}"
+  : "${PRIMARY_CODE_EDITOR:=zed}"
 fi
 
 typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
@@ -652,6 +659,9 @@ __code_cli_for() {
       ;;
     cursor)
       printf '%s' "$CODE_LAUNCHER_CURSOR"
+      ;;
+    zed)
+      printf '%s' "$CODE_LAUNCHER_ZED"
       ;;
     trae|marscode)
       printf '%s' "$CODE_LAUNCHER_TRAE"
@@ -684,6 +694,9 @@ __code_settings_path_for() {
     cursor)
       printf '%s' "$HOME/Library/Application Support/Cursor/User/settings.json"
       ;;
+    zed)
+      printf '%s' "$HOME/.config/zed/settings.json"
+      ;;
     trae|marscode)
       printf '%s' "$HOME/Library/Application Support/Trae/User/settings.json"
       ;;
@@ -704,7 +717,7 @@ __code_settings_path_for() {
 
 set-primary-code-editor() {
   if [[ $# -eq 0 ]]; then
-    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|cursor|trae|antigravity|antigravity-now>" >&2
+    echo "Usage: set-primary-code-editor <vscode|vscode-insiders|cursor|zed|trae|antigravity|antigravity-now>" >&2
     return 1
   fi
 
@@ -931,6 +944,7 @@ jas() {
 }
 alias kas='claude --dangerously-skip-permissions'
 alias lin='grok --always-approve'
+alias oc='opencode'
 
 # codex deepskeek setup
 alias codex-deepskeek-setup='bash <(curl -fsSL https://cdn.deepseek.com/api-docs/codex-deepseek-setup-en.sh)'
