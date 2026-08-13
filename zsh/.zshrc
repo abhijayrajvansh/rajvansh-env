@@ -1096,3 +1096,16 @@ autoload -Uz compinit && compinit -C
 
 # kimi-code
 export PATH="/Users/abhijayrajvansh/.kimi-code/bin:$PATH"
+
+# Send a notification to the ntfy.sh/rajvansh topic.
+ntfy() {
+  if (( $# == 0 )); then
+    echo 'Usage: ntfy <message>'
+    return 1
+  fi
+
+  curl --fail-with-body --silent --show-error \
+    --data-binary "$*" \
+    https://ntfy.sh/rajvansh
+  echo
+}
