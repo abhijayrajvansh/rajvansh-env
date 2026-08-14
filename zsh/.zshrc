@@ -18,6 +18,7 @@ alias greetMeSession="bash /Users/abhijayrajvansh/rajvansh-env/scripts/session-w
 alias greetme2='greetMeSession'
 alias reload='source ~/.zshrc'
 alias rr='reload'
+alias tt='tmux'
 alias imspeed-config='cd /Users/abhijayrajvansh/Desktop/imspeed && npm run config:ui'
 
 # color codes and ui variables
