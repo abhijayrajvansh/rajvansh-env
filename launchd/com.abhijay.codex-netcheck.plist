@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.abhijay.codex-netcheck</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/abhijayrajvansh/.local/bin/codex-netcheck</string>
+    <string>--heartbeat</string>
+    <string>10</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+
+  <key>StandardOutPath</key>
+  <string>/Users/abhijayrajvansh/.codex/codex-netcheck-service.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/abhijayrajvansh/.codex/codex-netcheck-service.error.log</string>
+</dict>
+</plist>
