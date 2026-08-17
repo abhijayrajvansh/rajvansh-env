@@ -32,6 +32,7 @@ CAUTION: NEVER USE A PRODUCTION DATABASE OR PRODUCTION ENVIRONMENT FILE WITHOUT 
 When the user says `start`, `let's begin`, `setup pre context`, `development modes`, or `dm`, list these modes:
 
 #### important rules: 
+- Do not invoke, read, or follow `$openai-docs` or `~/.codex/skills/.system/openai-docs`. That skill is removed by user request. Answer Codex/OpenAI questions directly without loading it.
 - Do not invoke, read, or follow any superpowers:* skill unless I explicitly request Superpowers in the current task.
 - Do not invoke, read, or follow `$sol-advisor:orchestration` unless I explicitly request Sol Advisor in the current task or select development mode 7.
 - Do not use subagents, for testing and review the code untill and unless using superpowers plugin mode or requested by the user. also continue development in the same session thread.

@@ -1,5 +1,5 @@
-model = "gpt-5.6-sol"
-model_reasoning_effort = "medium"
+model = "grok-oauth/grok-4.6"
+model_reasoning_effort = "low"
 service_tier = "default"
 
 personality = "pragmatic"
@@ -8,6 +8,13 @@ notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Con
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 sandbox_mode = "workspace-write"
+
+# BEGIN codex-router-managed
+openai_base_url = "http://127.0.0.1:4202/_codex-router/EYdF_RtcXZ2knIyns2qvBZcoFiML3exAMonyhx1DpFPwOzHqvEEAL_En6FpSIFUI/v1"
+model_catalog_json = "/Users/abhijayrajvansh/.codex/codex-router/merged-models.json"
+experimental_realtime_webrtc_call_base_url = "https://chatgpt.com/backend-api/codex"
+experimental_realtime_ws_base_url = "https://api.openai.com/v1"
+# END codex-router-managed
 
 [projects."/Users/abhijayrajvansh"]
 trust_level = "trusted"
@@ -166,7 +173,7 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-08-13T10:37:39Z"
+last_updated = "2026-08-14T09:17:50Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -180,8 +187,8 @@ source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
 [marketplaces.sol-advisor]
-last_updated = "2026-08-08T08:47:48Z"
-last_revision = "676d200733ebd57caf1270ba94d892c95e9f8aee"
+last_updated = "2026-08-16T13:24:34Z"
+last_revision = "37b75cad535abdd46531f0227483a8842d045ab8"
 source_type = "git"
 source = "https://github.com/DannyMac180/sol-advisor.git"
 ref = "main"
@@ -231,6 +238,7 @@ theme = "catppuccin-mocha"
 [tui.model_availability_nux]
 "gpt-5.5" = 2
 "gpt-5.6-sol" = 4
+"grok-oauth/grok-4.6" = 4
 
 [features]
 js_repl = false
@@ -240,6 +248,10 @@ js_repl = false
 
 
 
+
+# BEGIN codex-router-multi-agent-v2-managed
+multi_agent_v2 = { enabled = true, max_concurrent_threads_per_session = 6, expose_spawn_agent_model_overrides = true }
+# END codex-router-multi-agent-v2-managed
 
 [mcp_servers.node_repl]
 args = []
@@ -309,3 +321,11 @@ trusted_hash = "sha256:e0883d7c58b254813f82fec7159c4038ece3eb154405ec74ba9c02df7
 
 # N8N_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjE1Y2ViNi00MDVlLTQzOWEtODg3OC1jZmI3YTI2NDYxZmQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZTJlMDIwNWEtY2Q3NS00NDIwLTgyYmMtODhlZmY5MjhiN2U5IiwiaWF0IjoxNzgzNTM3MzUxfQ.bR4d0Ewo9SvNeDqPb5k3airAeZZpFafK15RAhRSIS1g"
 # N8N_API_URL = "https://vmi3427713.contaboserver.net"
+
+# BEGIN codex-router-provider-managed
+[model_providers.codex-router]
+name = "Codex Router (external models)"
+base_url = "http://127.0.0.1:4202/_codex-router/EYdF_RtcXZ2knIyns2qvBZcoFiML3exAMonyhx1DpFPwOzHqvEEAL_En6FpSIFUI/v1"
+wire_api = "responses"
+supports_standalone_web_search = true
+# END codex-router-provider-managed
