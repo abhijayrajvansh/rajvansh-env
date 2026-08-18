@@ -776,6 +776,7 @@ alias labs='cd /Users/abhijayrajvansh/Desktop/projects/hsm/hsm-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8'
 alias ep='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging'
 alias influencer-db='cd /Users/abhijayrajvansh/Desktop/projects/hsm-workspace/influencer-db'
+alias com='cd /Users/abhijayrajvansh/Desktop/com'
 
 # [macOS only] Quick project locations
 alias scripts='cd /Users/abhijayrajvansh/rajvansh-env/scripts'

@@ -1,5 +1,5 @@
-model = "grok-oauth/grok-4.6"
-model_reasoning_effort = "low"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
 service_tier = "default"
 
 personality = "pragmatic"
@@ -172,8 +172,14 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-12/realtime-voice-chat-2"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-18/hel"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/plugins/codex-runners"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-08-14T09:17:50Z"
+last_updated = "2026-08-18T19:17:52Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -182,7 +188,7 @@ source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/plugins"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-08-13T10:39:36Z"
+last_updated = "2026-08-17T19:00:18Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -192,6 +198,12 @@ last_revision = "37b75cad535abdd46531f0227483a8842d045ab8"
 source_type = "git"
 source = "https://github.com/DannyMac180/sol-advisor.git"
 ref = "main"
+
+[marketplaces.goalbuddy]
+last_updated = "2026-08-18T18:55:58Z"
+last_revision = "4b76d314e68020557281b58bb50ee363e939112e"
+source_type = "git"
+source = "https://github.com/tolibear/goalbuddy.git"
 
 [plugins."computer-use@openai-bundled"]
 enabled = true
@@ -329,3 +341,9 @@ base_url = "http://127.0.0.1:4202/_codex-router/EYdF_RtcXZ2knIyns2qvBZcoFiML3exA
 wire_api = "responses"
 supports_standalone_web_search = true
 # END codex-router-provider-managed
+
+[plugins."goalbuddy@goalbuddy"]
+enabled = true
+
+[plugins."codex-runners@personal"]
+enabled = true
