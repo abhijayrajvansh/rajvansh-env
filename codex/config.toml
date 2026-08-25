@@ -175,9 +175,6 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-18/hel"]
 trust_level = "trusted"
 
-[projects."/Users/abhijayrajvansh/plugins/codex-runners"]
-trust_level = "trusted"
-
 [marketplaces.openai-bundled]
 last_updated = "2026-08-18T19:17:52Z"
 source_type = "local"
@@ -343,7 +340,4 @@ supports_standalone_web_search = true
 # END codex-router-provider-managed
 
 [plugins."goalbuddy@goalbuddy"]
-enabled = true
-
-[plugins."codex-runners@personal"]
 enabled = true
