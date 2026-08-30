@@ -44,6 +44,27 @@ tm() {
   fi
 }
 
+# Attach to an existing session, or switch to it when already inside tmux.
+tgo() {
+  local session="$1"
+
+  if [[ -z "$session" ]]; then
+    echo "Usage: tgo <session>"
+    return 2
+  fi
+
+  if ! tmux has-session -t "=$session" 2>/dev/null; then
+    echo "Tmux session '$session' does not exist. Create it with: tn $session"
+    return 1
+  fi
+
+  if [[ -n "$TMUX" ]]; then
+    tmux switch-client -t "=$session"
+  else
+    tmux attach-session -t "=$session"
+  fi
+}
+
 tmux-help() {
   cat <<'EOF'
 Tmux commands
@@ -58,7 +79,19 @@ Tmux commands
   tw                         List windows
   tp                         List panes
   tm [session]               Open or create a session (default: main)
+  tgo <session>              Attach or switch to an existing session
+  work                       Open the existing work session
+  personal                   Open the existing personal session
   reload-tmux                Reload ~/.tmux.conf
+
+Two-key shortcuts inside tmux
+
+  Option+v                   Split left and right
+  Option+h                   Split top and bottom
+  Option+Arrow               Move between panes
+  Ctrl+Arrow                 Resize the active pane
+  Option+z                   Zoom or restore the active pane
+  Ctrl+d                     Close the active shell/pane
 
 Readable aliases
 
@@ -75,6 +108,8 @@ alias th='tmux-help'
 alias new-tmux-session=tn
 alias attach-tmux-session=t
 alias list-tmux-sessions=tl
+alias work='tgo work'
+alias personal='tgo personal'
 
 # color codes and ui variables
 RESET='\033[0m'
