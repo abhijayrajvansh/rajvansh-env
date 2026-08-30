@@ -20,6 +20,7 @@ alias reload='source ~/.zshrc'
 alias rr='reload'
 alias imspeed-config='cd /Users/abhijayrajvansh/Desktop/imspeed && npm run config:ui'
 
+
 # tmux related functions
 alias t='tmux attach -t'
 alias tl='tmux ls'
@@ -831,6 +832,7 @@ alias xlr8='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8'
 alias ep='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging'
 alias influencer-db='cd /Users/abhijayrajvansh/Desktop/projects/hsm-workspace/influencer-db'
 alias com='cd /Users/abhijayrajvansh/Desktop/com'
+alias companion='cd /Users/abhijayrajvansh/Desktop/archives/companion'
 
 # [macOS only] Quick project locations
 alias scripts='cd /Users/abhijayrajvansh/rajvansh-env/scripts'
