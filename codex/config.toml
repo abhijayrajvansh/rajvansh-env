@@ -1,5 +1,5 @@
 model = "gpt-5.6-sol"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
 service_tier = "default"
 
 personality = "pragmatic"
@@ -175,8 +175,28 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-18/hel"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/projects/hsm-workspace/n8n-workflows"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/hsm-workspace/n8n-workflows/linkedin-leads-n8n"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/personal/openclaw-kie-generate-telegram"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/archives/companion"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-23/chrome-tabs-the-user-has-the"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/mittal-builders-cms"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/archives/companion/shanu/openclaw-kie-generate-telegram"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-08-18T19:17:52Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -185,7 +205,6 @@ source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/plugins"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-08-17T19:00:18Z"
 source_type = "local"
 source = "/Users/abhijayrajvansh/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -235,9 +254,6 @@ enabled = true
 [plugins."sites@openai-bundled"]
 enabled = true
 
-[plugins."sol-advisor@sol-advisor"]
-enabled = true
-
 [tui]
 status_line = ["model-with-reasoning", "current-dir"]
 status_line_use_colors = true
@@ -258,8 +274,9 @@ js_repl = false
 
 
 
+
 # BEGIN codex-router-multi-agent-v2-managed
-multi_agent_v2 = { enabled = true, max_concurrent_threads_per_session = 6, expose_spawn_agent_model_overrides = true }
+multi_agent_v2 = { enabled = true, max_concurrent_threads_per_session = 6, expose_spawn_agent_model_overrides = true, usage_hint_enabled = true, root_agent_usage_hint_text = "When a child agent finishes (FINAL_ANSWER, task_complete, or an idle/errored wait snapshot), call interrupt_agent on that child so Codex can mark it done. Do not leave finished children in the working state." }
 # END codex-router-multi-agent-v2-managed
 
 [mcp_servers.node_repl]
@@ -273,13 +290,14 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "8e86beb821b9afc846211798e0113bd4b9e79312dfcd135eb447bdb154f64071"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_TINYSKY_ENABLED = "0"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.803.61601"
+BROWSER_USE_CODEX_APP_VERSION = "26.825.41651"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.825.41651/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -306,10 +324,14 @@ MCP_MODE = "stdio"
 command = "npx"
 args = ["-y", "mac-use-mcp"]
 
+[mcp_servers.cua_repl]
+command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
+enabled = false
+
 [desktop]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
-appearanceTheme = "light"
+appearanceTheme = "dark"
 conversationDetailMode = "STEPS_COMMANDS"
 
 [desktop.open-in-target-preferences]
@@ -317,19 +339,30 @@ global = "zed"
 
 [desktop.open-in-target-preferences.perPath]
 "/Users/abhijayrajvansh/Desktop/projects/hsm-workspace/influencer-db" = "zed"
+"/Users/abhijayrajvansh/Desktop/tms" = "zed"
 
 [shell_environment_policy.set]
-BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "8e86beb821b9afc846211798e0113bd4b9e79312dfcd135eb447bdb154f64071"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 
 [hooks.state]
 
 [hooks.state."/Users/abhijayrajvansh/.codex/hooks.json:stop:0:0"]
 trusted_hash = "sha256:e0883d7c58b254813f82fec7159c4038ece3eb154405ec74ba9c02df7a46f063"
 
+[hooks.state."/Users/abhijayrajvansh/Desktop/com/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:159b434d659bf2f0cf4937846134095c0745724d6aa192ca1e603a31f152e755"
+
+[hooks.state."/Users/abhijayrajvansh/Desktop/tms/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:53c317d43e19c29fcc1efb2fedc50f3a52e6f0d7ac5cc2263f8bf7413bbd3c7c"
+
 # N8N_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjE1Y2ViNi00MDVlLTQzOWEtODg3OC1jZmI3YTI2NDYxZmQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZTJlMDIwNWEtY2Q3NS00NDIwLTgyYmMtODhlZmY5MjhiN2U5IiwiaWF0IjoxNzgzNTM3MzUxfQ.bR4d0Ewo9SvNeDqPb5k3airAeZZpFafK15RAhRSIS1g"
 # N8N_API_URL = "https://vmi3427713.contaboserver.net"
+
+[notice]
+hide_rate_limit_model_nudge = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
 
 # BEGIN codex-router-provider-managed
 [model_providers.codex-router]
@@ -338,6 +371,3 @@ base_url = "http://127.0.0.1:4202/_codex-router/EYdF_RtcXZ2knIyns2qvBZcoFiML3exA
 wire_api = "responses"
 supports_standalone_web_search = true
 # END codex-router-provider-managed
-
-[plugins."goalbuddy@goalbuddy"]
-enabled = true

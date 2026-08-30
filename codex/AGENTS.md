@@ -18,6 +18,22 @@
 
 CAUTION: NEVER USE A PRODUCTION DATABASE OR PRODUCTION ENVIRONMENT FILE WITHOUT EXPLICIT USER PERMISSION.
 
+### Autonomous execution preference
+
+- Treat clear implementation requests as authorization to perform the normal, in-scope discovery, edits, local configuration, verification, commit, and push steps needed to complete them.
+- Do not stop for routine clarifications when the required information can be safely discovered from the active workspace or user-provided project context.
+- When a local development environment file is explicitly in scope, inspect and use its configuration as needed to complete the requested work; do not print, log, commit, transmit, or otherwise expose secret values.
+- Preserve platform, system, and safety requirements that cannot be overridden by repository instructions.
+
+### Database schema change verification
+
+- Treat every ORM schema change, especially a new Prisma model field, as incomplete until the application schema, generated client, migration state, and connected non-production database schema are verified together.
+- Type checking and mocked tests are not proof that the connected database contains a new column. Before completion, inspect migration status and run at least one read-only smoke query through the affected real API or service using the configured development database.
+- When backward compatibility is required, verify both migrated and pre-migration behavior. Prisma queries that implicitly select all model fields must not fail when an intentionally undeployed column is absent.
+- Never claim that a new persistent flag or setting works without a database column or another explicitly approved durable storage location. A `null`, `undefined`, or default-value fallback can protect reads, but cannot persist writes.
+- If the user declines or postpones the schema migration, either implement an explicitly approved alternative persistence design or clearly stop and request permission before claiming the feature is complete.
+- Do not apply schema changes to an unknown or production database. First establish that the configured database is non-production; production changes always require explicit user permission.
+
 ### Project discovery and overrides
 
 - Treat the active workspace as the project scope.
@@ -39,7 +55,7 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 - Do not write test cases and test scripts unless and untill using superpowers plugin or requested by the user. just make the changes directly in one shot by default.
 
 1. `superpowers plugin` (Use Superpowers skills only when I explicitly request Superpowers)
-2. `quick direct one shot changes` - no need to write test cases for scripts for this - just do tha change/fix/improvements
+2. `quick direct one shot changes` - no need to write test scripts for this or sub-agents review/development - just do tha change/fix/improvements
 3. `isolated worktrees and matching branches for selected repositories, with safe local environment files`
 4. `same current workspace and worktrees`
 5. `subagent-driven development`
@@ -90,19 +106,10 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 - Before switching, show the currently running applications and the target worktrees for confirmation.
 - Never start a service with production environment files or connect to a production database without explicit permission.
 
-
 ## List down all the new changes, features and fixes:
 #### "list down the changes" - user will ask something like this
 - compare "abhijay/dev" branch with "main" branch find out the changes and features and fixes that we have new in this "abhijay/dev" branch list them down in bullet points brrifly (easy non-technical language).
 - make 2 sections: "New Features" & "fixes and improvements"
-
-
-## Autopilot Skill V1: For UI and Browser Automation
-- dont start browser UI automation, testing and debugging until and unless asked explicitly.
-- For UI testing or debugging that the user asks to perform like a human, use `$autopilot-skill-v1`. Trigger it when the user says `use Autopilot skill`, `use Autopilot skill for debugging`, `use Autopilot skill for testing`, or asks to debug or test a web app like a human.
-- `$autopilot-skill-v1` uses the globally registered computer use for live browser interaction.
-- Do not use the `browser:control-in-app-browser` or `chrome:control-chrome` plugin. This preference applies even when the target page is already open in Chrome or depends on an existing signed-in Chrome session.
-
 
 ## Post-Completion Checklist
 After every agent task completion, perform these exact steps:
