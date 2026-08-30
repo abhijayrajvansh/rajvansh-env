@@ -21,10 +21,8 @@ alias rr='reload'
 alias imspeed-config='cd /Users/abhijayrajvansh/Desktop/imspeed && npm run config:ui'
 
 # tmux related functions
-alias tt='tmux'
 alias t='tmux attach -t'
 alias tl='tmux ls'
-alias tn='tmux new-session -s'
 alias ts='tmux switch-client -t'
 alias td='tmux detach-client'
 alias tr='tmux rename-session'
@@ -32,36 +30,20 @@ alias tw='tmux list-windows'
 alias tp='tmux list-panes'
 alias reload-tmux='tmux source-file ~/.tmux.conf'
 
-# Open a named session, creating it when needed. Defaults to "main".
-tm() {
-  local session="${1:-main}"
-
-  if [[ -n "$TMUX" ]]; then
-    tmux has-session -t "$session" 2>/dev/null || tmux new-session -d -s "$session"
-    tmux switch-client -t "$session"
-  else
-    tmux new-session -A -s "$session"
-  fi
-}
-
-# Attach to an existing session, or switch to it when already inside tmux.
-tgo() {
+# Open a named session, creating it when needed.
+tt() {
   local session="$1"
 
   if [[ -z "$session" ]]; then
-    echo "Usage: tgo <session>"
+    echo "Usage: tt <session>"
     return 2
   fi
 
-  if ! tmux has-session -t "=$session" 2>/dev/null; then
-    echo "Tmux session '$session' does not exist. Create it with: tn $session"
-    return 1
-  fi
-
   if [[ -n "$TMUX" ]]; then
+    tmux has-session -t "=$session" 2>/dev/null || tmux new-session -d -s "$session"
     tmux switch-client -t "=$session"
   else
-    tmux attach-session -t "=$session"
+    tmux new-session -A -s "$session"
   fi
 }
 
@@ -69,19 +51,14 @@ tmux-help() {
   cat <<'EOF'
 Tmux commands
 
-  tt                         Open tmux
+  tt <session>               Open or create a named session
   t <session>                Attach to a session
   tl                         List sessions
-  tn <session>               Create a new session
   ts <session>               Switch sessions from inside tmux
   td                         Detach the current client
   tr <new-name>              Rename the current session
   tw                         List windows
   tp                         List panes
-  tm [session]               Open or create a session (default: main)
-  tgo <session>              Attach or switch to an existing session
-  work                       Open the existing work session
-  personal                   Open the existing personal session
   reload-tmux                Reload ~/.tmux.conf
 
 Two-key shortcuts inside tmux
@@ -95,7 +72,6 @@ Two-key shortcuts inside tmux
 
 Readable aliases
 
-  new-tmux-session <name>    Same as tn
   attach-tmux-session <name> Same as t
   list-tmux-sessions         Same as tl
 
@@ -105,11 +81,8 @@ EOF
 alias th='tmux-help'
 
 # better alias
-alias new-tmux-session=tn
 alias attach-tmux-session=t
 alias list-tmux-sessions=tl
-alias work='tgo work'
-alias personal='tgo personal'
 
 # color codes and ui variables
 RESET='\033[0m'
