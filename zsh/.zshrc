@@ -61,15 +61,6 @@ Tmux commands
   tp                         List panes
   reload-tmux                Reload ~/.tmux.conf
 
-Two-key shortcuts inside tmux
-
-  Option+v                   Split left and right
-  Option+h                   Split top and bottom
-  Option+Arrow               Move between panes
-  Ctrl+Arrow                 Resize the active pane
-  Option+z                   Zoom or restore the active pane
-  Ctrl+d                     Close the active shell/pane
-
 Readable aliases
 
   attach-tmux-session <name> Same as t
