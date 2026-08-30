@@ -1010,6 +1010,7 @@ alias codex-deepskeek-setup='bash <(curl -fsSL https://cdn.deepseek.com/api-docs
 alias ssh-donna-vps='ssh donna-vps'
 alias ssh-hsm-vps='ssh hsm-vps'
 alias ssh-vahaana-aws-ec2='ssh vahaana-aws-ec2'
+alias vahaana-aws-ec2='ssh vahaana-aws-ec2'
 
 export DONNA_PROXY_PID_FILE="$HOME/.ssh/donna-proxy.pid"
 export DONNA_PROXY_PORT=1080
