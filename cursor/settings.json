@@ -24,4 +24,5 @@
         "*.sdb": "${capture}.${extname}-*",
         "*.s3db": "${capture}.${extname}-*"
     },
+    "workbench.statusBar.visible": false,
 }

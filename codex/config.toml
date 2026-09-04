@@ -196,6 +196,39 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/archives/companion/shanu/openclaw-kie-generate-telegram"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-31/realtime-voice-chat"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-31/realtime-voice-chat-2"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-01/open-safari-chrome-and-go-to"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-01/wr"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-01/fo"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-01/a"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-02/sen"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-02/ap"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-02/approved"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-03/use"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/gpu-as-a-service"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
@@ -296,8 +329,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunc
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.825.41651"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.825.41651/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.831.21537"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.831.21537/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -331,8 +364,8 @@ enabled = false
 [desktop]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
-appearanceTheme = "dark"
-conversationDetailMode = "STEPS_COMMANDS"
+appearanceTheme = "light"
+conversationDetailMode = "STEPS_PROSE"
 
 [desktop.open-in-target-preferences]
 global = "zed"
