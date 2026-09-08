@@ -825,7 +825,7 @@ alias projects='cd /Users/abhijayrajvansh/Desktop/projects'
 
 
 # [macOS only] Corporate project directories
-alias tms='desk; cd tms'
+alias tms='brackets; cd tms'
 alias unisource='cd /Users/abhijayrajvansh/Desktop/brackets/unisource-erp'
 alias labs='cd /Users/abhijayrajvansh/Desktop/projects/hsm/hsm-labs'
 alias xlr8='cd /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/xlr8'
