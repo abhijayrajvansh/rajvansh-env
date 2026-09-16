@@ -525,43 +525,6 @@ alias cp-rcodexconfig-lcodexconfig='mkdir -p ~/.codex && cp ~/rajvansh-env/codex
 alias cp-lcodexagents-rcodexagents='mkdir -p ~/rajvansh-env/codex && cp ~/.codex/AGENTS.md ~/rajvansh-env/codex/'
 alias cp-rcodexagents-lcodexagents='mkdir -p ~/.codex && cp ~/rajvansh-env/codex/AGENTS.md ~/.codex/'
 
-# OpenClaw config sync to private-env
-alias donna='cd /Users/abhijayrajvansh/.openclaw'
-alias cp-lopenclaw-ropenclaw='mkdir -p ~/private-env && rm -rf ~/private-env/openclaw && cp -R ~/.openclaw ~/private-env/openclaw'
-
-companion-update() {
-    repo_url="https://github.com/abhijayrajvansh/openclaw-companion-generator-nsfw.git"
-    temp_dir="temp_repo"
-
-    echo "Which companion do you want to update?"
-    read companion_name
-
-    if [ -z "$companion_name" ]; then
-        echo "Companion name is required."
-        return 1
-    fi
-
-    rm -rf "$temp_dir"
-
-    git clone --depth=1 "$repo_url" "$temp_dir" || return 1
-
-    companion_path="$temp_dir/$companion_name"
-
-    if [ ! -d "$companion_path" ]; then
-        echo "Companion '$companion_name' not found."
-        echo "Available companions:"
-        find "$temp_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;
-        rm -rf "$temp_dir"
-        return 1
-    fi
-
-    cp -R "$companion_path"/. ./
-
-    rm -rf "$temp_dir"
-
-    echo "Updated companion '$companion_name' files here."
-}
-
 copy_localenv_to_remoteenv () {
   echo "copying following configurations to remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
@@ -598,89 +561,6 @@ gz () {
   echo "> Successfully pulled and applied remote configurations"
 }
 
-# Backup ONLY OpenClaw workspace from donna branch to ~/Donna repo
-backup-donna () {
-  local donna_repo="/Users/abhijayrajvansh/Donna"
-  local source_workspace="/Users/abhijayrajvansh/.openclaw/workspace"
-  local target_workspace="$donna_repo/workspace"
-  local workspace_branch="donna"
-
-  if ! git -C "$source_workspace" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    echo "> workspace is not a git repo: $source_workspace"
-    return 1
-  fi
-
-  # Always force workspace to donna branch before taking backup
-  if ! git -C "$source_workspace" switch "$workspace_branch" >/dev/null 2>&1; then
-    if ! git -C "$source_workspace" checkout "$workspace_branch" >/dev/null 2>&1; then
-      echo "> failed to switch workspace to branch: $workspace_branch"
-      echo "> resolve local conflicts/uncommitted changes in $source_workspace and retry"
-      return 1
-    fi
-  fi
-
-  mkdir -p "$target_workspace"
-  rsync -a --delete \
-    --exclude '.DS_Store' \
-    --exclude '.git/' \
-    "$source_workspace/" "$target_workspace/"
-
-  cd "$donna_repo" || return 1
-
-  git add workspace
-  git status
-
-  if git diff --cached --quiet; then
-    echo "> no workspace changes to commit in Donna"
-    return 0
-  fi
-
-  local commit_msg="backup: sync workspace (branch: $workspace_branch)"
-  git commit -m "$commit_msg"
-  git push origin main
-  echo ""
-  echo "> backup: workspace backup from '$workspace_branch' completed!"
-}
-
-# Pull Donna repo and restore everything into local ~/.openclaw
-pull-donna () {
-  local donna_repo="/Users/abhijayrajvansh/Donna"
-  local target_openclaw="/Users/abhijayrajvansh/.openclaw"
-
-  cd "$donna_repo" || return 1
-  git pull origin main
-
-  mkdir -p "$target_openclaw"
-  rsync -a --delete \
-    --exclude '.DS_Store' \
-    --exclude '.git/' \
-    "$donna_repo/" "$target_openclaw/"
-
-  echo ""
-  echo "> donna 💅: restore successfully completed!"
-}
-
-# Backup single OpenClaw workspace (including .git) directly into ~/openclaw-workspaces and push to GitHub
-backup-openclaw-workspaces () {
-  local source_workspace="/Users/abhijayrajvansh/.openclaw/workspace"
-  local target_root="/Users/abhijayrajvansh/openclaw-workspaces"
-
-  if [[ ! -d "$source_workspace" ]]; then
-    echo "> source workspace not found: $source_workspace"
-    return 1
-  fi
-
-  mkdir -p "$target_root"
-
-  rsync -a --delete \
-    --exclude '.DS_Store' \
-    "$source_workspace/" "$target_root/"
-
-  echo ""
-  echo "> synced: $source_workspace -> $target_root"
-  echo "> backup: openclaw-workspaces backup completed!"
-}
-
 # neo vim
 alias vimrc='nv ~/.config/nvim/init.vim; echo launching: neovim config'
 alias nv='nvim'
@@ -698,7 +578,7 @@ CODE_LAUNCHER_ANTIGRAVITY="agy-ide"
 if [[ -n "${primary_code_editor:-}" ]]; then
   PRIMARY_CODE_EDITOR="$primary_code_editor"
 else
-  : "${PRIMARY_CODE_EDITOR:=zed}"
+  : "${PRIMARY_CODE_EDITOR:=cursor}"
 fi
 
 typeset -g primary_code_editor="$PRIMARY_CODE_EDITOR"
@@ -892,10 +772,6 @@ alias show-local-postgres-connection-string='echo "postgresql://postgres:postgre
 # n8n via docker
 alias start-n8n='/Users/abhijayrajvansh/rajvansh-env/scripts/n8n-docker.sh'
 
-# [macOS only] OpenClaw launch-agent controls
-alias stop-openclaw='openclaw gateway stop'
-alias start-openclaw='openclaw gateway start'
-
 # ollama local ai config
 export OLLAMA_HOST=0.0.0.0:11434
 
@@ -997,116 +873,20 @@ export SSH_ASKPASS="$GIT_ASKPASS"
 export GIT_TERMINAL_PROMPT=0
 # <<< GitHub AskPass <<<
 
-# Added by coding agent CLI: codex, claude, grok and aliases jasmine and donna alias
+# Added by coding agent CLI: codex, grok and aliases
 jas() {
   codex --dangerously-bypass-approvals-and-sandbox "$@"
 }
-alias kas='claude --dangerously-skip-permissions'
 alias lin='grok --always-approve'
 alias oc='opencode'
 
 # codex deepskeek setup
 alias codex-deepskeek-setup='bash <(curl -fsSL https://cdn.deepseek.com/api-docs/codex-deepseek-setup-en.sh)'
 
-# vps & openclaw connection
-alias ssh-donna-vps='ssh donna-vps'
+# VPS connections
 alias ssh-hsm-vps='ssh hsm-vps'
 alias ssh-vahaana-aws-ec2='ssh vahaana-aws-ec2'
 alias vahaana-aws-ec2='ssh vahaana-aws-ec2'
-
-export DONNA_PROXY_PID_FILE="$HOME/.ssh/donna-proxy.pid"
-export DONNA_PROXY_PORT=1080
-
-_donna_proxy_pid_is_live() {
-  local pid="$1"
-  [[ "$pid" == <-> ]] && kill -0 "$pid" 2>/dev/null
-}
-
-_donna_proxy_pid_matches() {
-  local pid="$1"
-  local command
-
-  command="$(ps -p "$pid" -o command= 2>/dev/null)"
-  [[ "$command" == *"ssh"* && "$command" == *"donna-vps"* && "$command" == *"-D"* ]]
-}
-
-donna-proxy-start() {
-  local pid
-
-  if [[ -f "$DONNA_PROXY_PID_FILE" ]]; then
-    pid="$(<"$DONNA_PROXY_PID_FILE")"
-
-    if _donna_proxy_pid_is_live "$pid"; then
-      echo "Donna proxy is already running with PID $pid."
-      echo "Run donna-proxy-stop before starting another proxy."
-      return 1
-    fi
-
-    echo "Removing stale Donna proxy PID file: $DONNA_PROXY_PID_FILE"
-    rm -f "$DONNA_PROXY_PID_FILE"
-  fi
-
-  if lsof -nP -iTCP:"$DONNA_PROXY_PORT" -sTCP:LISTEN >/dev/null 2>&1; then
-    echo "Port $DONNA_PROXY_PORT is already in use. Donna proxy was not started."
-    return 1
-  fi
-
-  ssh -D "127.0.0.1:$DONNA_PROXY_PORT" \
-    -N \
-    -C \
-    -o ExitOnForwardFailure=yes \
-    -o BatchMode=yes \
-    donna-vps &
-  pid=$!
-
-  sleep 1
-
-  if ! _donna_proxy_pid_is_live "$pid"; then
-    echo "Donna proxy failed to start."
-    return 1
-  fi
-
-  printf '%s\n' "$pid" > "$DONNA_PROXY_PID_FILE"
-  echo "Donna proxy started on 127.0.0.1:$DONNA_PROXY_PORT with PID $pid."
-}
-
-donna-proxy-stop() {
-  local pid
-  local attempt
-
-  if [[ ! -f "$DONNA_PROXY_PID_FILE" ]]; then
-    echo "Donna proxy is not running. No PID file found."
-    return 0
-  fi
-
-  pid="$(<"$DONNA_PROXY_PID_FILE")"
-
-  if ! _donna_proxy_pid_is_live "$pid"; then
-    echo "Donna proxy PID file was stale. Removing it."
-    rm -f "$DONNA_PROXY_PID_FILE"
-    return 0
-  fi
-
-  if ! _donna_proxy_pid_matches "$pid"; then
-    echo "PID $pid does not look like the Donna proxy. Refusing to kill it."
-    echo "Check $DONNA_PROXY_PID_FILE manually."
-    return 1
-  fi
-
-  kill "$pid"
-
-  for attempt in {1..20}; do
-    if ! _donna_proxy_pid_is_live "$pid"; then
-      rm -f "$DONNA_PROXY_PID_FILE"
-      echo "Donna proxy stopped."
-      return 0
-    fi
-    sleep 0.1
-  done
-
-  echo "Donna proxy did not stop after SIGTERM. PID file kept at $DONNA_PROXY_PID_FILE."
-  return 1
-}
 
 # openrouter api key
 alias show-openrouter-api-key='cat /Users/abhijayrajvansh/private-env/openrouter/openrouter-key-for-codex.sh'
@@ -1135,11 +915,6 @@ greetme2;
 if [[ -o interactive ]]; then
   autoload -Uz compinit
   (( $+functions[compdef] )) || compinit
-fi
-
-# OpenClaw Completion
-if [[ -f "$HOME/.openclaw/completions/openclaw.zsh" ]]; then
-  source "$HOME/.openclaw/completions/openclaw.zsh"
 fi
 
 # Added by Antigravity

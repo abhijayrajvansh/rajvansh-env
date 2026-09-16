@@ -106,6 +106,22 @@ When the user says `start`, `let's begin`, `setup pre context`, `development mod
 - Before switching, show the currently running applications and the target worktrees for confirmation.
 - Never start a service with production environment files or connect to a production database without explicit permission.
 
+### Euro Packaging server architecture canvas or `sav`
+
+When the user says `sav`, `launch server architecture`, `launch the server architecture canvas`, `open server LLA`, or a clear equivalent while working with the Euro Packaging workspace:
+
+- Use this visualization source file:
+  `/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/visualizations/server-low-level-architecture.html`
+- Launch it with the visualization renderer on the stable local URL `http://127.0.0.1:62422/`:
+  `python3 /Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/visualize/1.0.32/skills/visualize/scripts/render.py /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/visualizations/server-low-level-architecture.html --serve --port 62422`
+- Keep the local visualization server running until the user asks to stop it.
+- Open or reuse the Chrome tab for `http://127.0.0.1:62422/`, reload it after changes, and leave it open for the user.
+- If port `62422` is already serving this visualization, reuse it. Never kill an unrelated process occupying that port; use a free port and clearly report the replacement URL instead.
+- Preserve the canvas design: forced light-white theme, black-and-white interface controls, colorful component cards, numbered phase lanes, clean orthogonal arrows, animated primary flows, and faint supporting relationships.
+- Clicking any architecture component must open a modal containing its description, category, connected-flow use cases, and relevant source paths. The modal must close through its Close button, backdrop click, or Escape.
+- If the visualization source is missing or stale, inspect the current `server` code and regenerate or update the diagram before launching it.
+- This visualization is read-only and must never start the ERP application, use `prod.env`, connect to a production database, or modify AWS/EC2/ECS resources.
+
 ## List down all the new changes, features and fixes:
 #### "list down the changes" - user will ask something like this
 - compare "abhijay/dev" branch with "main" branch find out the changes and features and fixes that we have new in this "abhijay/dev" branch list them down in bullet points brrifly (easy non-technical language).

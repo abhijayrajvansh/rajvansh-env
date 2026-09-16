@@ -121,9 +121,6 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-07-30/realtime-voice-chat"]
 trust_level = "trusted"
 
-[projects."/Users/abhijayrajvansh/Desktop/archives/openclaw-docs/companion"]
-trust_level = "trusted"
-
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-02/help"]
 trust_level = "trusted"
 
@@ -181,9 +178,6 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/projects/hsm-workspace/n8n-workflows/linkedin-leads-n8n"]
 trust_level = "trusted"
 
-[projects."/Users/abhijayrajvansh/Desktop/projects/personal/openclaw-kie-generate-telegram"]
-trust_level = "trusted"
-
 [projects."/Users/abhijayrajvansh/Desktop/archives/companion"]
 trust_level = "trusted"
 
@@ -191,9 +185,6 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/abhijayrajvansh/Desktop/projects/mittal-builders-cms"]
-trust_level = "trusted"
-
-[projects."/Users/abhijayrajvansh/Desktop/archives/companion/shanu/openclaw-kie-generate-telegram"]
 trust_level = "trusted"
 
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-08-31/realtime-voice-chat"]
@@ -233,6 +224,36 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-07/help"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-09/npm-install-g-openai-codex"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/hsm-rentals"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/hsm-workspace/hsm-labs"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/brackets/tms"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-11/bo"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-12/i-w"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-12/i-w-2"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-13/put-x20"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-15/create-a-list-of-companies-from"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Documents/Codex/2026-09-16/dele"]
 trust_level = "trusted"
 
 [marketplaces.openai-bundled]
@@ -335,8 +356,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunc
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.901.51231"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.901.51231/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.908.70816"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.908.70816/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
