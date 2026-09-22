@@ -931,6 +931,10 @@ autoload -Uz compinit && compinit -C
 # kimi-code
 export PATH="/Users/abhijayrajvansh/.kimi-code/bin:$PATH"
 
+show-vahaana-credentials() {
+  cat -- "/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/ARCHIVES/vahaana-gmail.txt"
+}
+
 # Send a notification to the ntfy.sh/rajvansh topic.
 ntfy() {
   if (( $# == 0 )); then

@@ -25,5 +25,4 @@
         "*.s3db": "${capture}.${extname}-*"
     },
     "workbench.statusBar.visible": false,
-    "workbench.colorTheme": "Cursor Light",
 }
