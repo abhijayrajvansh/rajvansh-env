@@ -270,6 +270,9 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/brackets"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/brackets/las-vegas-logistics/client"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
