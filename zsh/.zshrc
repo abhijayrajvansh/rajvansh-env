@@ -719,6 +719,7 @@ alias scripts='cd /Users/abhijayrajvansh/rajvansh-env/scripts'
 alias trainings='cd /Users/abhijayrajvansh/Desktop/uptut/trainings'
 alias uptut='cd /Users/abhijayrajvansh/Desktop/uptut/'
 alias brackets='cd /Users/abhijayrajvansh/Desktop/brackets/'
+alias las-vegas-logistics='cd /Users/abhijayrajvansh/Desktop/brackets/las-vegas-logistics'
 alias hsm='cd /Users/abhijayrajvansh/Desktop/projects/hsm'
 
 

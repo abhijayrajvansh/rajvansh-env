@@ -25,6 +25,19 @@ CAUTION: NEVER USE A PRODUCTION DATABASE OR PRODUCTION ENVIRONMENT FILE WITHOUT 
 - When a local development environment file is explicitly in scope, inspect and use its configuration as needed to complete the requested work; do not print, log, commit, transmit, or otherwise expose secret values.
 - Preserve platform, system, and safety requirements that cannot be overridden by repository instructions.
 
+### Efficient tool use for small tasks
+
+For small, clearly scoped tasks, minimize unnecessary model/tool round trips:
+
+- Reuse established conversation and project context before rediscovering it; refresh facts when changes or uncertainty make them unreliable.
+- Batch independent searches and file reads into one tool round, and execute them concurrently when supported. Keep dependent operations, edits, and approvals sequential.
+- Prefer targeted searches and bounded output over broad scans or full-file dumps.
+- Once enough evidence is available, make the focused edit without speculative exploration or repeated planning.
+- Run required, relevant checks once; repeat only after changes, failures, or unresolved concerns. Preserve the post-completion checklist and database verification requirements.
+- Keep progress updates and final responses concise while reporting material findings, blockers, and verification results.
+- Continue related work in the same session and avoid unnecessary changes to model, reasoning settings, or tool configuration during a task.
+- Preserve all safety, permission, skill, and subagent rules. These efficiency preferences do not authorize skipping required checks or changing transport settings.
+
 ### Database schema change verification
 
 - Treat every ORM schema change, especially a new Prisma model field, as incomplete until the application schema, generated client, migration state, and connected non-production database schema are verified together.
