@@ -9,10 +9,13 @@
 - An explicit user instruction selecting a different agent type or model takes precedence over this routing policy.
 
 ## Communication Preferences
-- For quick explanatory questions, answer in under 100 words.
-- For quick questions, user can say quick, quick question or qq to hint you its a quick question query
-- Use bullet points only for these quick answers.
-- Keep the reply direct and conversational; avoid long background unless asked.
+- Keep user-facing replies brief, direct, and conversational.
+- Format the main response with a short headline, an underline beneath it, and concise bullet points. Use a Markdown Setext heading (headline followed by `---`) for the underline.
+- Lead with the result or decision and make any required user action obvious.
+- Keep reasoning, routine editing details, and tool-by-tool narration out of user-facing prose. Provide only necessary short progress updates, material blockers, and the final outcome; obey required platform updates.
+- Do the full work and verification in the background. Brevity must never reduce implementation quality, scope, or completeness.
+- For quick explanatory questions (including "quick", "quick question", or "qq"), stay under 100 words.
+- Give detailed explanations only when requested or when necessary to communicate a material limitation.
 
 ## Codex Development Process
 
@@ -150,3 +153,15 @@ After every agent task completion, perform these exact steps:
 
 
 These operations must be executed after every agent completion to keep the branch history synchronized with remote and to ensure the shared type-safe workflow remains intact.
+
+## Chrome profile for clipping work
+
+- Always use the Google Chrome profile named **Abhijay (Personal)** for clipping-related work, including YouTube Studio, campaign websites, uploads, scheduling, and channel management.
+- Verify the Chrome profile before browser actions; browser connection IDs can change and must not be treated as profile identifiers.
+- Select the requested YouTube channel within this profile. Blip is **@WatchBlip**, channel ID `UC6jSStq-RgnbgBuPWAT7RwQ`.
+
+## Adding campaigns
+
+- When the user asks to add a campaign, import the actual **Brief** and **Creator requirements** content into durable local campaign data, and expose each as its own tab alongside Clips and References & guidelines. Reference links alone do not complete campaign intake.
+- Preserve the source links, official assets/audio, platform restrictions, and stated approval requirements. Include Brief and Creator requirements in generated campaign AGENTS.md files.
+- Verify the saved content through the local workspace API and both visible tabs before reporting completion.

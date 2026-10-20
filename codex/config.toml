@@ -1,4 +1,4 @@
-model = "gpt-6-astra"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "medium"
 service_tier = "default"
 
@@ -8,6 +8,13 @@ notify = ["/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app/Con
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 sandbox_mode = "workspace-write"
+
+# BEGIN codex-router-managed
+openai_base_url = "http://127.0.0.1:4202/v1"
+model_catalog_json = "/Users/abhijayrajvansh/.codex/codex-router/merged-models.json"
+experimental_realtime_webrtc_call_base_url = "https://chatgpt.com/backend-api/codex"
+experimental_realtime_ws_base_url = "https://api.openai.com/v1"
+# END codex-router-managed
 
 [projects."/Users/abhijayrajvansh"]
 trust_level = "trusted"
@@ -273,6 +280,27 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/brackets/las-vegas-logistics/client"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/threejs-mario-game"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/invoice"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/api-anything"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/motion-control"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/projects/clipping"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/clipping-engine"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/maaya"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
@@ -339,18 +367,14 @@ screen_reader_detection_done = true
 "gpt-5.5" = 2
 "gpt-5.6-sol" = 4
 gpt-6-astra = 4
+"gpt-6.1-sol" = 4
 "grok-oauth/grok-4.6" = 4
 
 [features]
 js_repl = false
-
-
-
-
-
-
-
-
+# BEGIN codex-router-multi-agent-v2-managed
+multi_agent_v2 = { enabled = true, max_concurrent_threads_per_session = 6, expose_spawn_agent_model_overrides = true, usage_hint_enabled = true, root_agent_usage_hint_text = "When a child agent finishes (FINAL_ANSWER, task_complete, or an idle/errored wait snapshot), call interrupt_agent on that child so Codex can mark it done. Do not leave finished children in the working state." }
+# END codex-router-multi-agent-v2-managed
 
 [mcp_servers.node_repl]
 args = []
@@ -363,16 +387,16 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/abhijayrajvansh/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 CODEX_HOME = "/Users/abhijayrajvansh/.codex"
-BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-BROWSER_USE_TINYSKY_ENABLED = "0"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
-NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.917.71314"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.917.71314/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.1007.71326"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.1007.71326/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app"
-CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
 
 [mcp_servers.computer-use]
 command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
@@ -397,15 +421,54 @@ MCP_MODE = "stdio"
 command = "npx"
 args = ["-y", "mac-use-mcp"]
 
-[mcp_servers.cua_repl]
-command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
-enabled = false
+[mcp_servers.youtube-abhijay-rajvansh]
+command = "/Users/abhijayrajvansh/.local/share/youtube-mcp/venv/bin/yt-studio-mcp"
+
+[mcp_servers.youtube-abhijay-rajvansh.env]
+YT_MCP_CONFIG_DIR = "/Users/abhijayrajvansh/.config/yt-studio-mcp/channels/abhijay-rajvansh"
+
+[mcp_servers.youtube-alpha-futures-highlights]
+command = "/Users/abhijayrajvansh/.local/share/youtube-mcp/venv/bin/yt-studio-mcp"
+
+[mcp_servers.youtube-alpha-futures-highlights.env]
+YT_MCP_CONFIG_DIR = "/Users/abhijayrajvansh/.config/yt-studio-mcp/channels/alpha-futures-highlights"
+
+[mcp_servers.youtube-blip]
+command = "/Users/abhijayrajvansh/.local/share/youtube-mcp/venv/bin/yt-studio-mcp"
+
+[mcp_servers.youtube-blip.env]
+YT_MCP_CONFIG_DIR = "/Users/abhijayrajvansh/.config/yt-studio-mcp/channels/blip"
+
+[mcp_servers.youtube-zing-clips]
+command = "/Users/abhijayrajvansh/.local/share/youtube-mcp/venv/bin/yt-studio-mcp"
+
+[mcp_servers.youtube-zing-clips.env]
+YT_MCP_CONFIG_DIR = "/Users/abhijayrajvansh/.config/yt-studio-mcp/channels/zing-clips"
+
+[mcp_servers.youtube-flick-clips]
+command = "/Users/abhijayrajvansh/.local/share/youtube-mcp/venv/bin/yt-studio-mcp"
+
+[mcp_servers.youtube-flick-clips.env]
+YT_MCP_CONFIG_DIR = "/Users/abhijayrajvansh/.config/yt-studio-mcp/channels/flick-clips"
+
+[mcp_servers.youtube-jolt-viral-clips]
+command = "/Users/abhijayrajvansh/.local/share/youtube-mcp/venv/bin/yt-studio-mcp"
+
+[mcp_servers.youtube-jolt-viral-clips.env]
+YT_MCP_CONFIG_DIR = "/Users/abhijayrajvansh/.config/yt-studio-mcp/channels/jolt-viral-clips"
+
+[mcp_servers.youtube-flux-clips]
+command = "/Users/abhijayrajvansh/.local/share/youtube-mcp/venv/bin/yt-studio-mcp"
+
+[mcp_servers.youtube-flux-clips.env]
+YT_MCP_CONFIG_DIR = "/Users/abhijayrajvansh/.config/yt-studio-mcp/channels/flux-clips"
 
 [desktop]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
 appearanceTheme = "light"
 conversationDetailMode = "STEPS_COMMANDS"
+selected-avatar-id = "fireball"
 
 [desktop.open-in-target-preferences]
 global = "zed"
@@ -436,3 +499,18 @@ hide_rate_limit_model_nudge = true
 
 [plugins."codex-app-tools@openai-bundled"]
 enabled = true
+
+[plugins."code-review@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+# BEGIN codex-router-provider-managed
+[model_providers.codex-router]
+name = "Codex Router (external models)"
+base_url = "http://127.0.0.1:4202/v1"
+wire_api = "responses"
+supports_standalone_web_search = true
+requires_openai_auth = true
+# END codex-router-provider-managed
