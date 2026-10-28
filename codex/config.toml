@@ -1,5 +1,5 @@
 model = "gpt-6.1-sol"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "low"
 service_tier = "default"
 
 personality = "pragmatic"
@@ -304,6 +304,12 @@ trust_level = "trusted"
 [projects."/Users/abhijayrajvansh/Desktop/pureroutes-website"]
 trust_level = "trusted"
 
+[projects."/Users/abhijayrajvansh/Desktop/motion-control"]
+trust_level = "trusted"
+
+[projects."/Users/abhijayrajvansh/Desktop/openmotion"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/Users/abhijayrajvansh/.codex/.tmp/bundled-marketplaces/openai-bundled"
@@ -382,6 +388,7 @@ multi_agent_v2 = { enabled = true, max_concurrent_threads_per_session = 6, expos
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+env_vars = ["BROWSER_USE_ACCESS_EXECUTOR_ID", "BROWSER_USE_ACCESS_PIPE_PATH", "BROWSER_USE_ACCESS_VERIFYING_IDENTITY"]
 startup_timeout_sec = 120
 
 [mcp_servers.node_repl.env]
@@ -396,8 +403,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.1013.40934"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.1013.40934/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.1021.31345"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/browser/26.1021.31345/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/abhijayrajvansh/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
 
@@ -501,9 +508,6 @@ trusted_hash = "sha256:53c317d43e19c29fcc1efb2fedc50f3a52e6f0d7ac5cc2263f8bf7413
 hide_rate_limit_model_nudge = true
 
 [plugins."codex-app-tools@openai-bundled"]
-enabled = true
-
-[plugins."code-review@openai-bundled"]
 enabled = true
 
 [plugins."unified-computer-use@openai-bundled"]

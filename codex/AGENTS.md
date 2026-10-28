@@ -1,167 +1,48 @@
- # Global Instructions
+# Global instructions
 
-## Superpowers subagent routing
+## Communication
 
-- When following a Superpowers skill, use `agent_type = "luna_worker"` for fresh subagents handling bounded implementation, test fixes, exploration, mechanical work, or routine task reviews.
-- Do not pass a model or reasoning-effort override to `luna_worker`; use the model and effort configured in `~/.codex/agents/luna-worker.toml`.
-- Use a `default` agent explicitly configured with `model = "gpt-5.6-sol"` for architecture or design judgment, the final whole-branch review, and escalation when a Luna worker is blocked or the task requires broad cross-system reasoning.
-- Preserve any Superpowers requirement to resume an existing implementer during a fix loop; apply this routing policy whenever the workflow creates a fresh subagent.
-- An explicit user instruction selecting a different agent type or model takes precedence over this routing policy.
+- Keep replies brief, direct, and conversational. Lead with the result or decision; make required user action clear.
+- Use a short Setext headline (followed by `---`) and concise bullets for the main response. Keep quick answers under 100 words.
+- Give only necessary progress updates, blockers, and verification results. Brevity must not reduce work quality.
 
-## Communication Preferences
-- Keep user-facing replies brief, direct, and conversational.
-- Format the main response with a short headline, an underline beneath it, and concise bullet points. Use a Markdown Setext heading (headline followed by `---`) for the underline.
-- Lead with the result or decision and make any required user action obvious.
-- Keep reasoning, routine editing details, and tool-by-tool narration out of user-facing prose. Provide only necessary short progress updates, material blockers, and the final outcome; obey required platform updates.
-- Do the full work and verification in the background. Brevity must never reduce implementation quality, scope, or completeness.
-- For quick explanatory questions (including "quick", "quick question", or "qq"), stay under 100 words.
-- Give detailed explanations only when requested or when necessary to communicate a material limitation.
+## Default workflow
 
-## Codex Development Process
+- Work directly in the current chat and workspace. Do not use subagents or write new test files/scripts unless requested or using explicitly selected Superpowers.
+- Use Superpowers and Sol Advisor only when explicitly requested or selected. Do not load the `openai-docs` skill.
+- Clear implementation requests authorize in-scope discovery, edits, local configuration, existing checks, commits, and pushes. Discover available information before asking routine questions.
+- Detect actual repositories, applications, scripts, and ports; follow the nearest project `AGENTS.md`. Show affected scope before multi-repository, worktree, or runtime actions.
+- Reuse current context, batch independent reads, and make focused edits. Repeat checks only after changes, failures, or unresolved concerns.
 
-CAUTION: NEVER USE A PRODUCTION DATABASE OR PRODUCTION ENVIRONMENT FILE WITHOUT EXPLICIT USER PERMISSION.
+## Safety and verification
 
-### Autonomous execution preference
+- Never use production databases or production environment files without explicit permission. Establish that a database is non-production before changing it.
+- Use in-scope development configuration without exposing secrets in output, logs, commits, or external services.
+- Run relevant existing checks and the project's type check after changes. Fix relevant errors and report any verification blockers before claiming completion.
+- For schema changes, verify the application schema, generated client, migration state, and real development database together. Include a read-only smoke query through the affected API/service; mocked tests and type checks alone are insufficient.
+- Verify backward compatibility when required. Persistent settings need durable storage. If migrations are postponed, report the blocker or use an explicitly approved persistence alternative.
 
-- Treat clear implementation requests as authorization to perform the normal, in-scope discovery, edits, local configuration, verification, commit, and push steps needed to complete them.
-- Do not stop for routine clarifications when the required information can be safely discovered from the active workspace or user-provided project context.
-- When a local development environment file is explicitly in scope, inspect and use its configuration as needed to complete the requested work; do not print, log, commit, transmit, or otherwise expose secret values.
-- Preserve platform, system, and safety requirements that cannot be overridden by repository instructions.
+## Git completion
 
-### Efficient tool use for small tasks
+- After completed implementation work, stage only your changed files explicitly with `git add <file>`, create a short conventional commit, and run `git push origin <current-branch>`, unless instructed otherwise.
+- Report check or push failures accurately. Git operations apply only inside a repository.
 
-For small, clearly scoped tasks, minimize unnecessary model/tool round trips:
+## Change summaries
 
-- Reuse established conversation and project context before rediscovering it; refresh facts when changes or uncertainty make them unreliable.
-- Batch independent searches and file reads into one tool round, and execute them concurrently when supported. Keep dependent operations, edits, and approvals sequential.
-- Prefer targeted searches and bounded output over broad scans or full-file dumps.
-- Once enough evidence is available, make the focused edit without speculative exploration or repeated planning.
-- Run required, relevant checks once; repeat only after changes, failures, or unresolved concerns. Preserve the post-completion checklist and database verification requirements.
-- Keep progress updates and final responses concise while reporting material findings, blockers, and verification results.
-- Continue related work in the same session and avoid unnecessary changes to model, reasoning settings, or tool configuration during a task.
-- Preserve all safety, permission, skill, and subagent rules. These efficiency preferences do not authorize skipping required checks or changing transport settings.
+- “List down the changes”: compare the current working branch with `main` unless branches are specified. Summarize in plain language under “New Features” and “Fixes and improvements.”
 
-### Database schema change verification
+## Optional development modes
 
-- Treat every ORM schema change, especially a new Prisma model field, as incomplete until the application schema, generated client, migration state, and connected non-production database schema are verified together.
-- Type checking and mocked tests are not proof that the connected database contains a new column. Before completion, inspect migration status and run at least one read-only smoke query through the affected real API or service using the configured development database.
-- When backward compatibility is required, verify both migrated and pre-migration behavior. Prisma queries that implicitly select all model fields must not fail when an intentionally undeployed column is absent.
-- Never claim that a new persistent flag or setting works without a database column or another explicitly approved durable storage location. A `null`, `undefined`, or default-value fallback can protect reads, but cannot persist writes.
-- If the user declines or postpones the schema migration, either implement an explicitly approved alternative persistence design or clearly stop and request permission before claiming the feature is complete.
-- Do not apply schema changes to an unknown or production database. First establish that the configured database is non-production; production changes always require explicit user permission.
+On `dm`, “development modes,” or “switch development modes,” offer:
 
-### Project discovery and overrides
+1. Superpowers
+2. Direct changes (default)
+3. Isolated worktrees
+4. Current workspace
+5. Subagent-driven development
+6. Inline execution without subagents
+7. Sol Advisor
+8. Multiple subagents
 
-- Treat the active workspace as the project scope.
-- Detect whether it contains one Git repository, a monorepo, or multiple sibling or nested Git repositories.
-- Identify repositories and runnable applications by their actual names and paths; never assume names such as `client` or `server`.
-- Infer application roles, development commands, and likely ports from repository metadata and package scripts.
-- Apply the nearest project-level `AGENTS.md` as an override for repository scope, application roles, commands, ports, environment files, and worktree conventions.
-- Before multi-repository, worktree, or runtime actions, show the detected project structure and affected scope.
+Accept a number, a combined selection such as `147`, or `even`/`odd`. Use configured agents/models unless I specify otherwise.
 
-### Development modes or `dm`
-
-When the user says `start`, `let's begin`, `setup pre context`, `development modes`, or `dm`, list these modes:
-
-#### important rules: 
-- Do not invoke, read, or follow `$openai-docs` or `~/.codex/skills/.system/openai-docs`. That skill is removed by user request. Answer Codex/OpenAI questions directly without loading it.
-- Do not invoke, read, or follow any superpowers:* skill unless I explicitly request Superpowers in the current task.
-- Do not invoke, read, or follow `$sol-advisor:orchestration` unless I explicitly request Sol Advisor in the current task or select development mode 7.
-- Do not use subagents, for testing and review the code untill and unless using superpowers plugin mode or requested by the user. also continue development in the same session thread.
-- Do not write test cases and test scripts unless and untill using superpowers plugin or requested by the user. just make the changes directly in one shot by default.
-
-1. `superpowers plugin` (Use Superpowers skills only when I explicitly request Superpowers)
-2. `quick direct one shot changes` - no need to write test scripts for this or sub-agents review/development - just do tha change/fix/improvements
-3. `isolated worktrees and matching branches for selected repositories, with safe local environment files`
-4. `same current workspace and worktrees`
-5. `subagent-driven development`
-6. `inline execution` - never trigger any sub-agents when using this mode
-7. `sol-advisor plugin` (GPT-5.6 Sol plans and verifies, Terra implements, and a fresh Sol reviewer must approve completion)
-8. `multiple subagents mode` Kimi K3 as the orchestrator, DeepSeek Flash as the worker, and GPT 5.6 Luna as the visual assistant and reviewer.
-
-- Accept a mode number, `even`, `odd`, or a combined selection such as `147`.
-- When the user says `switch development modes`, list the modes again and update the active selection for the session.
-- Don't use superpower skills without my permission. Don't trigger superpower skills automatically
-
-### Worktree status, dev status, `ws`, or `ds`
-
-- Report the current task name in bold.
-- For every detected repository, report its name, path, current worktree, branch, and clean or modified state.
-- Include a three-column task table: serial number, task name, and status (`not started`, `in progress`, or `done`).
-- when user is say refresh this, then refresh the progress and updates about current progress and if paused/stuck/internet issue or waiting for a reply for a question/doubt then update that as well
-
-### All worktrees status
-
-- Scan linked worktrees in every detected repository.
-- Compare each worktree branch with that repository's current branch.
-- Report both unmerged commits and uncommitted changes using actual repository names.
-- End with a concise statement covering worktrees that are clean and fully merged.
-
-### Setup worktree or `nw`
-
-- Detect and show the repositories, current worktrees, and current branches.
-- Ask for the new shared branch/worktree name.
-- Default to all detected repositories while allowing the user to select a subset.
-- Before creation, show the source branches, target branches, worktree paths, and environment files that will be copied.
-- Create the same requested branch name from each selected repository's current branch.
-- Follow an existing repository worktree convention; otherwise use `<repository>/.worktrees/<branch-name>`.
-- Copy existing local-development environment files to their corresponding paths in each new worktree, including `.env`, `.env.local`, `.env.development`, and project-configured equivalents.
-- Never copy `.env.production`, `prod.env`, production credentials, or ambiguous production-like files. Ask before copying an ambiguous file.
-- Copy environment files without reading or exposing their secret values.
-- Never overwrite or delete an existing branch or worktree without explicit permission.
-- After setup, use the new worktrees as the isolated development workspace.
-
-### Development runtime status, server status, or `ss`
-
-- Detect runnable applications and active development processes from scripts, ports, process metadata, and project overrides.
-- Report each application by actual name, URL or port, HTTP status when applicable, repository, worktree, and branch.
-- Offer these actions after showing the affected applications:
-  1. `start` or `stop`
-  2. `restart`
-  3. `switch` to applications from another worktree
-- Before switching, show the currently running applications and the target worktrees for confirmation.
-- Never start a service with production environment files or connect to a production database without explicit permission.
-
-### Euro Packaging server architecture canvas or `sav`
-
-When the user says `sav`, `launch server architecture`, `launch the server architecture canvas`, `open server LLA`, or a clear equivalent while working with the Euro Packaging workspace:
-
-- Use this visualization source file:
-  `/Users/abhijayrajvansh/Desktop/brackets/euro-packaging/visualizations/server-low-level-architecture.html`
-- Launch it with the visualization renderer on the stable local URL `http://127.0.0.1:62422/`:
-  `python3 /Users/abhijayrajvansh/.codex/plugins/cache/openai-bundled/visualize/1.0.32/skills/visualize/scripts/render.py /Users/abhijayrajvansh/Desktop/brackets/euro-packaging/visualizations/server-low-level-architecture.html --serve --port 62422`
-- Keep the local visualization server running until the user asks to stop it.
-- Open or reuse the Chrome tab for `http://127.0.0.1:62422/`, reload it after changes, and leave it open for the user.
-- If port `62422` is already serving this visualization, reuse it. Never kill an unrelated process occupying that port; use a free port and clearly report the replacement URL instead.
-- Preserve the canvas design: forced light-white theme, black-and-white interface controls, colorful component cards, numbered phase lanes, clean orthogonal arrows, animated primary flows, and faint supporting relationships.
-- Clicking any architecture component must open a modal containing its description, category, connected-flow use cases, and relevant source paths. The modal must close through its Close button, backdrop click, or Escape.
-- If the visualization source is missing or stale, inspect the current `server` code and regenerate or update the diagram before launching it.
-- This visualization is read-only and must never start the ERP application, use `prod.env`, connect to a production database, or modify AWS/EC2/ECS resources.
-
-## List down all the new changes, features and fixes:
-#### "list down the changes" - user will ask something like this
-- compare "abhijay/dev" branch with "main" branch find out the changes and features and fixes that we have new in this "abhijay/dev" branch list them down in bullet points brrifly (easy non-technical language).
-- make 2 sections: "New Features" & "fixes and improvements"
-
-## Post-Completion Checklist
-After every agent task completion, perform these exact steps:
-
-1. **Type check** – run relevant tests like `npx tsc --noEmit` (for typescript projects) and fix any reported errors before proceeding.
-2. **Stage changes** – add each modified file explicitly with `git add <file>`. Do not use `git add -a`.
-3. **Commit** – create a commit message using the required format and length, e.g. `git commit -m "feat: describe 6-7 word change"` (replace the prefix with the correct type such as feat/fix/docs/style/refactor/perf/test).
-4. **Push** – push the new commit to the current working branch with `git push origin <CURRENT_BRANCH_NAME>`.
-
-
-These operations must be executed after every agent completion to keep the branch history synchronized with remote and to ensure the shared type-safe workflow remains intact.
-
-## Chrome profile for clipping work
-
-- Always use the Google Chrome profile named **Abhijay (Personal)** for clipping-related work, including YouTube Studio, campaign websites, uploads, scheduling, and channel management.
-- Verify the Chrome profile before browser actions; browser connection IDs can change and must not be treated as profile identifiers.
-- Select the requested YouTube channel within this profile. Blip is **@WatchBlip**, channel ID `UC6jSStq-RgnbgBuPWAT7RwQ`.
-
-## Adding campaigns
-
-- When the user asks to add a campaign, import the actual **Brief** and **Creator requirements** content into durable local campaign data, and expose each as its own tab alongside Clips and References & guidelines. Reference links alone do not complete campaign intake.
-- Preserve the source links, official assets/audio, platform restrictions, and stated approval requirements. Include Brief and Creator requirements in generated campaign AGENTS.md files.
-- Verify the saved content through the local workspace API and both visible tabs before reporting completion.

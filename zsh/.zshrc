@@ -948,3 +948,52 @@ ntfy() {
     https://ntfy.sh/rajvansh
   echo
 }
+
+# Download linked media into a folder inside the terminal's current directory.
+media-download() {
+  if (( $# != 1 )); then
+    print -u2 -- 'Usage: media-download "https://media-link"'
+    return 2
+  fi
+  local media_url="$1" media_host media_folder
+  local -a media_auth=()
+  # Optional: MEDIA_DOWNLOAD_BROWSER=chrome media-download "URL"
+  if [[ -n "${MEDIA_DOWNLOAD_BROWSER:-}" ]]; then
+    media_auth=(--cookies-from-browser "$MEDIA_DOWNLOAD_BROWSER")
+  fi
+  case "$media_url" in
+    https://*|http://*) ;;
+    *) print -u2 -- 'Please provide a full http:// or https:// media URL.'; return 2 ;;
+  esac
+  media_host="${${media_url#*://}%%/*}"
+  media_host="${(L)media_host}"
+  case "$media_host" in
+    youtube.com|www.youtube.com|m.youtube.com|youtu.be|www.youtu.be)
+      if ! (( $+commands[yt-dlp] )); then
+        print -u2 -- 'Missing yt-dlp. Install with: brew install yt-dlp'
+        return 127
+      fi
+      command yt-dlp --ignore-config "${media_auth[@]}" --no-playlist --no-overwrites \
+        --paths "$PWD" --output 'youtube_%(id)s/%(title).150B [%(id)s].%(ext)s' -- "$media_url"
+      ;;
+    instagram.com|www.instagram.com)
+      command node "$HOME/.local/share/media-download/instagram.cjs" "$media_url"
+      ;;
+    pinterest.com|www.pinterest.com|*.pinterest.com|pin.it|www.pin.it)
+      if ! (( $+commands[gallery-dl] )); then
+        print -u2 -- 'Missing gallery-dl. Install with: brew install gallery-dl'
+        return 127
+      fi
+      media_folder="$(command node -e 'const u=new URL(process.argv[1]); console.log("pinterest_"+require("node:crypto").createHash("sha256").update(u.hostname+u.pathname).digest("hex").slice(0,12))' "$media_url")" || return
+      command mkdir -p -- "$PWD/$media_folder" || return
+      command gallery-dl --ignore-config "${media_auth[@]}" --directory "$PWD/$media_folder" -- "$media_url"
+      ;;
+    *)
+      print -u2 -- 'Supported sites: Instagram, YouTube (including Shorts), and Pinterest.'
+      return 2
+      ;;
+  esac
+}
+
+# FaceFusion launch shortcuts
+source "/Users/abhijayrajvansh/Desktop/FaceFusion/terminal-aliases.zsh"
