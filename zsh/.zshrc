@@ -880,6 +880,7 @@ jas() {
 }
 alias lin='grok --always-approve'
 alias oc='opencode'
+alias ccd='claude --dangerously-skip-permissions'
 
 # codex deepskeek setup
 alias codex-deepskeek-setup='bash <(curl -fsSL https://cdn.deepseek.com/api-docs/codex-deepseek-setup-en.sh)'
@@ -997,3 +998,6 @@ media-download() {
 
 # FaceFusion launch shortcuts
 source "/Users/abhijayrajvansh/Desktop/FaceFusion/terminal-aliases.zsh"
+
+# FaceFusion output folder
+alias ffoutputs='cd /Users/abhijayrajvansh/Desktop/FaceFusion/outputs'
