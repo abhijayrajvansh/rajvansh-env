@@ -708,6 +708,7 @@ alias obs='cd /Users/abhijayrajvansh/Documents/obs'
 
 # [macOS only] Personal project directories
 alias projects='cd /Users/abhijayrajvansh/Desktop/projects'
+alias genjutsu='cd /Users/abhijayrajvansh/Desktop/genjutsu'
 
 
 # [macOS only] Corporate project directories
