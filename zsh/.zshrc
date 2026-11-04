@@ -525,6 +525,10 @@ alias cp-rcodexconfig-lcodexconfig='mkdir -p ~/.codex && cp ~/rajvansh-env/codex
 alias cp-lcodexagents-rcodexagents='mkdir -p ~/rajvansh-env/codex && cp ~/.codex/AGENTS.md ~/rajvansh-env/codex/'
 alias cp-rcodexagents-lcodexagents='mkdir -p ~/.codex && cp ~/rajvansh-env/codex/AGENTS.md ~/.codex/'
 
+# Claude Code config
+alias cp-lclaudeconfig-rclaudeconfig='mkdir -p ~/rajvansh-env/claude && cp ~/.claude/settings.json ~/.claude/CLAUDE.md ~/rajvansh-env/claude/'
+alias cp-rclaudeconfig-lclaudeconfig='mkdir -p ~/.claude && cp ~/rajvansh-env/claude/settings.json ~/rajvansh-env/claude/CLAUDE.md ~/.claude/'
+
 copy_localenv_to_remoteenv () {
   echo "copying following configurations to remote environment:\n";
   greentick; echo "Copied rajvansh-cli and zsh config."; cp-lzsh-rzsh;
@@ -533,6 +537,7 @@ copy_localenv_to_remoteenv () {
   greentick; echo "Copied Zed settings.json."; cp-lzedsetting-rzedsetting;
   greentick; echo "Copied neovim config."; cp-lnvcf-rnvcf;
   greentick; echo "Copied Codex config.toml & AGENTS.md."; cp-lcodexconfig-rcodexconfig; cp-lcodexagents-rcodexagents;
+  greentick; echo "Copied Claude Code settings.json & CLAUDE.md."; cp-lclaudeconfig-rclaudeconfig;
   echo
 }
 
@@ -544,6 +549,7 @@ copy_remoteenv_to_localenv () {
   greentick; echo "Copied Zed settings.json."; cp-rzedsetting-lzedsetting;
   greentick; echo "Copied neovim config."; cp-rnvcf-lnvcf;
   greentick; echo "Copied Codex config.toml & AGENTS.md."; cp-rcodexconfig-lcodexconfig; cp-rcodexagents-lcodexagents;
+  greentick; echo "Copied Claude Code settings.json & CLAUDE.md."; cp-rclaudeconfig-lclaudeconfig;
   echo
 }
 
