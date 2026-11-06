@@ -162,14 +162,20 @@ def field(label: str, value: str, size: int = 9) -> str:
     return dim(label.ljust(size)) + ' ' + value
 
 
-def ask_number(prompt: str, count: int) -> int | None:
+REFRESH = -1
+
+
+def ask_number(prompt: str, count: int, refresh: bool = False) -> int | None:
+    extra = ', r refreshes' if refresh else ''
     while True:
-        answer = input(f'{prompt} [1–{count}, Enter cancels]: ').strip()
+        answer = input(f'{prompt} [1–{count}{extra}, Enter cancels]: ').strip()
         if not answer:
             return None
+        if refresh and answer.lower() in ('r', 'refresh'):
+            return REFRESH
         if answer.isdigit() and 1 <= int(answer) <= count:
             return int(answer) - 1
-        print('Choose a listed number, or press Enter to cancel.')
+        print('Choose a listed number' + (', r to refresh' if refresh else '') + ', or press Enter to cancel.')
 
 
 def choose_image(opts: argparse.Namespace) -> str | None:
@@ -654,9 +660,19 @@ def main() -> None:
     show_offers(rows, opts.disk)
     if opts.list or not rows:
         return
-    choice = ask_number('Rent which offer?', len(rows))
-    if choice is None:
-        return
+    while True:
+        choice = ask_number('Rent which offer?', len(rows), refresh=True)
+        if choice is None:
+            return
+        if choice != REFRESH:
+            break
+        print(f'\nRefreshing {gpu} offers…', flush=True)
+        fresh_rows = search(opts, gpu)[:opts.top]
+        if not fresh_rows:
+            print(f'No {gpu} offers right now; keeping the previous list (press r to retry).')
+            continue
+        rows = fresh_rows
+        show_offers(rows, opts.disk)
     picked = rows[choice]
 
     # Refresh the exact offer; never substitute another one.
