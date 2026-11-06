@@ -647,7 +647,7 @@ def main() -> None:
                         help='Reopen the live monitor for a rental made by this script')
     parser.add_argument('--image', help='Docker image (skips the image menu)')
     parser.add_argument('--label', default='Qwen', help='Vast instance label (default: Qwen)')
-    parser.add_argument('--disk', type=int, default=100, help='Disk GB (default: 100)')
+    parser.add_argument('--disk', type=int, default=60, help='Disk GB (default: 60)')
     parser.add_argument('--min-vram', type=int, default=24, help='Minimum VRAM GB (default: 24)')
     parser.add_argument('--min-ram', type=int, default=32, help='Minimum system RAM GB (default: 32)')
     parser.add_argument('--gpus', type=int, default=1, help='GPU count (default: 1)')
