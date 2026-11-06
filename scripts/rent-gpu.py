@@ -247,7 +247,8 @@ def show_offers(rows: list[dict[str, Any]], disk: int) -> None:
                 f"{row['disk_space']:,.0f} GB free on host",
                 ' '.join(part for part in [
                     green(f"${row['storage_total_cost']:.4f}/hr") if finite(row.get('storage_total_cost')) else '',
-                    dim(f"(${row['storage_cost']:.2f}/GB/mo)") if finite(row.get('storage_cost')) else '',
+                    dim(f"(${row['storage_total_cost'] * 730:.2f}/mo)") if finite(row.get('storage_total_cost'))
+                    else dim(f"(${row['storage_cost'] * disk:.2f}/mo)") if finite(row.get('storage_cost')) else '',
                 ] if part),
             ] if part)),
             ('Disk', sep.join(part for part in [
