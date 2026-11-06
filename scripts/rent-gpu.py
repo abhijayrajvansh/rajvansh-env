@@ -526,9 +526,15 @@ def monitor(instance_id: int) -> None:
                       field('GPU', gpu),
                       field('RAM', f"{float(data.get('mem_usage') or 0):.1f} / "
                                    f"{float(data.get('mem_limit') or 0):.1f} GB")]
+            used, total = float(data.get('disk_usage') or 0), float(data.get('disk_space') or 0)
+            percent = used / total * 100 if total else 0
+            usage = f'{percent:.0f}% used'
+            lines.append(field('Disk', f'{used:.1f} / {total:.1f} GB  '
+                                       + (yellow(usage) if percent >= 85 else dim(usage))))
         else:
             lines += [field('Status', yellow('unavailable (Vast query failed or pending)')),
-                      field('GPU', dim('unavailable')), field('RAM', dim('unavailable'))]
+                      field('GPU', dim('unavailable')), field('RAM', dim('unavailable')),
+                      field('Disk', dim('unavailable'))]
         if kind == 'comfy':
             lines.append(field('ComfyUI', state_dot(comfy_status, comfy_status.startswith('ready'))))
         return lines
