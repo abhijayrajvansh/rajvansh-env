@@ -105,13 +105,14 @@ def eligible(row: Any, opts: argparse.Namespace) -> bool:
             and finite(row.get('compute_cap')) and row['compute_cap'] >= opts.min_compute * 100
             and row['gpu_ram'] >= opts.min_vram * 1000 and row['cpu_ram'] >= opts.min_ram * 1000 and row['disk_space'] >= opts.disk
             and row['reliability'] >= opts.reliability and row['inet_down'] >= opts.min_download
+            and finite(row.get('disk_bw')) and row['disk_bw'] >= opts.min_disk_speed
             and row['direct_port_count'] >= 1)
 
 
 def search(opts: argparse.Namespace, gpu: str | None = None, offer_id: int | None = None) -> list[dict[str, Any]]:
     query = (f'num_gpus={opts.gpus} rentable=true rented=false gpu_arch=nvidia cpu_arch=amd64 '
              f'gpu_ram>={opts.min_vram} cpu_ram>={opts.min_ram} disk_space>={opts.disk} cuda_vers>={opts.min_cuda} '
-             f'reliability>={opts.reliability} inet_down>={opts.min_download} '
+             f'reliability>={opts.reliability} inet_down>={opts.min_download} disk_bw>={opts.min_disk_speed} '
              'inet_down_cost>=0 inet_up_cost>=0 direct_port_count>=1 duration>=1')
     if gpu:
         query += ' gpu_name=' + gpu.replace(' ', '_')
@@ -209,7 +210,7 @@ def choose_gpu(opts: argparse.Namespace) -> tuple[str | None, list[dict[str, Any
     if not names:
         print('No offers match these filters. Nothing was rented.')
         return None, []
-    print(f'\nGPU models (≥{opts.min_vram} GB VRAM, ≥{opts.min_ram} GB RAM, {opts.disk} GB disk priced in, '
+    print(f'\nGPU models (≥{opts.min_vram} GB VRAM, ≥{opts.min_ram} GB RAM, {opts.disk} GB disk priced in, disk ≥{opts.min_disk_speed:,} MB/s, '
           'cheapest first):\n')
     for index, name in enumerate(names, 1):
         row = cheapest[name]
@@ -633,12 +634,14 @@ def main() -> None:
     parser.add_argument('--min-cuda', type=float, default=12.9, help='Minimum host CUDA; images need 12.9 (default: 12.9)')
     parser.add_argument('--min-compute', type=float, default=8.0,
                         help='Minimum CUDA compute capability; 8.0 = Ampere+ with bf16 (default: 8.0)')
+    parser.add_argument('--min-disk-speed', type=int, default=1000,
+                        help='Minimum disk read speed MB/s (default: 1000)')
     parser.add_argument('--min-download', type=int, default=500, help='Minimum download Mbps (default: 500)')
     parser.add_argument('--reliability', type=float, default=0.95, help='Minimum reliability 0–1 (default: 0.95)')
     parser.add_argument('--top', type=int, default=5, help='Offers shown for the chosen GPU (default: 5)')
     parser.add_argument('--wait', type=int, default=600, help='Seconds to wait for SSH (default: 600)')
     opts = parser.parse_args()
-    if opts.disk < 10 or opts.gpus < 1 or opts.min_vram < 0 or opts.min_ram < 0 or opts.top < 1:
+    if opts.disk < 10 or opts.gpus < 1 or opts.min_vram < 0 or opts.min_ram < 0 or opts.min_disk_speed < 0 or opts.top < 1:
         raise RuntimeError('Invalid filter values.')
     if not re.fullmatch(r'[A-Za-z0-9 _.-]{1,40}', opts.label):
         raise RuntimeError('Label may contain only letters, digits, spaces, _ . -')
