@@ -242,7 +242,18 @@ def show_offers(rows: list[dict[str, Any]], disk: int) -> None:
                               f"{row['gpu_ram'] / 1024:.1f} GB VRAM", f'CUDA {cuda}'])),
             ('Host', sep.join([f"{float(row.get('cpu_cores_effective') or 0):.0f} CPU cores",
                                f"{row['cpu_ram'] / 1024:.1f} GB RAM"])),
-            ('Disk', sep.join([f'{disk} GB', cyan(disk_speed(row))])),
+            ('Storage', sep.join(part for part in [
+                f'{bold(f"{disk} GB")} rented',
+                f"{row['disk_space']:,.0f} GB free on host",
+                ' '.join(part for part in [
+                    green(f"${row['storage_total_cost']:.4f}/hr") if finite(row.get('storage_total_cost')) else '',
+                    dim(f"(${row['storage_cost']:.2f}/GB/mo)") if finite(row.get('storage_cost')) else '',
+                ] if part),
+            ] if part)),
+            ('Disk', sep.join(part for part in [
+                cyan(disk_speed(row)),
+                dim(str(row.get('disk_name')).replace('_', ' ')) if row.get('disk_name') else '',
+            ] if part)),
             ('Net', sep.join([f"↓ {row['inet_down']:.0f} Mbps " + dim(f"(${row['inet_down_cost'] * 1000:.2f}/TB)"),
                               f"↑ {float(row.get('inet_up') or 0):.0f} Mbps "
                               + dim(f"(${row['inet_up_cost'] * 1000:.2f}/TB)")])),
@@ -250,7 +261,7 @@ def show_offers(rows: list[dict[str, Any]], disk: int) -> None:
         ]
         print(f' {cyan(bold(f"{index:>2}"))}  {header}')
         for n, (label, value) in enumerate(details):
-            print(f"     {dim('└' if n == len(details) - 1 else '├')} {field(label, value, 6)}")
+            print(f"     {dim('└' if n == len(details) - 1 else '├')} {field(label, value, 7)}")
         print()
 
 
