@@ -1008,3 +1008,4 @@ source "/Users/abhijayrajvansh/Desktop/FaceFusion/terminal-aliases.zsh"
 
 # FaceFusion output folder
 alias ffoutputs='cd /Users/abhijayrajvansh/Desktop/FaceFusion/outputs'
+alias rg='rent-gpu'
