@@ -232,17 +232,26 @@ def disk_speed(row: dict[str, Any]) -> str:
 def show_offers(rows: list[dict[str, Any]], disk: int) -> None:
     print()
     for index, row in enumerate(rows, 1):
-        verified = 'Verified ✅' if row.get('verification') == 'verified' else 'Unverified ❌'
+        verified = green('✓ Verified') if row.get('verification') == 'verified' else yellow('! Unverified')
         cuda = row.get('cuda_max_good', row.get('cuda_vers'))
-        price = green(f"${row['dph_total']:.4f}/hour")
-        print(f"{index}. {price} • {row.get('geolocation') or 'unknown'} • "
-              f"{verified} • offer {row['id']}")
-        print(f"   {row['num_gpus']}× {row['gpu_name']} {row['gpu_ram'] / 1024:.1f} GB VRAM • "
-              f"RAM {row['cpu_ram'] / 1024:.1f} GB • CPU {float(row.get('cpu_cores_effective') or 0):.1f} cores • "
-              f"disk {disk} GB @ {disk_speed(row)}")
-        print(f"   Down {row['inet_down']:.0f} Mbps (${row['inet_down_cost'] * 1000:.2f}/TB) • "
-              f"Up {float(row.get('inet_up') or 0):.0f} Mbps (${row['inet_up_cost'] * 1000:.2f}/TB) • "
-              f"reliability {row['reliability']:.1%} • CUDA {cuda}\n")
+        sep = dim(' · ')
+        header = sep.join([green(f"${row['dph_total']:.4f}/hr"), bold(row.get('geolocation') or 'unknown'),
+                           verified, f"{row['reliability']:.1%} reliable"])
+        details = [
+            ('GPU', sep.join([f"{row['num_gpus']}× {bold(row['gpu_name'])}",
+                              f"{row['gpu_ram'] / 1024:.1f} GB VRAM", f'CUDA {cuda}'])),
+            ('Host', sep.join([f"{float(row.get('cpu_cores_effective') or 0):.0f} CPU cores",
+                               f"{row['cpu_ram'] / 1024:.1f} GB RAM"])),
+            ('Disk', sep.join([f'{disk} GB', cyan(disk_speed(row))])),
+            ('Net', sep.join([f"↓ {row['inet_down']:.0f} Mbps " + dim(f"(${row['inet_down_cost'] * 1000:.2f}/TB)"),
+                              f"↑ {float(row.get('inet_up') or 0):.0f} Mbps "
+                              + dim(f"(${row['inet_up_cost'] * 1000:.2f}/TB)")])),
+            ('Offer', dim(str(row['id']))),
+        ]
+        print(f' {cyan(bold(f"{index:>2}"))}  {header}')
+        for n, (label, value) in enumerate(details):
+            print(f"     {dim('└' if n == len(details) - 1 else '├')} {field(label, value, 6)}")
+        print()
 
 
 def wait_for_ssh(instance_id: int, timeout: int) -> dict[str, Any] | None:
