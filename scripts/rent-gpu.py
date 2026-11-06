@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rent-only Vast.ai GPU launcher (e.g. for Qwen). Standalone: needs only python3 and the `vastai` CLI.
 
-Rents only after an explicit numbered choice and a final `yes`. Only the monitor's explicit
+Rents immediately after an explicit numbered offer choice (re-checked for price/availability). Only the monitor's explicit
 `kill` destroys a rental, and `comfy` recycles one to enable ComfyUI web access.
 """
 import argparse
@@ -674,11 +674,9 @@ def main() -> None:
               + ', '.join(f"{r.get('id')} ({r.get('label') or 'no label'}, {r.get('actual_status')})"
                           for r in existing))
 
-    print(f"\nRent offer {offer['id']}: {offer['gpu_name']} • ${offer['dph_total']:.4f}/hour • "
+    print(f"\nRenting offer {offer['id']}: {offer['gpu_name']} • ${offer['dph_total']:.4f}/hour • "
           f"{offer.get('geolocation') or 'unknown'}\n  image {image}\n  disk {opts.disk} GB • label {opts.label}")
-    if input("Type 'yes' to rent (billing starts): ").strip().lower() != 'yes':
-        print('Cancelled. Nothing was rented.')
-        return
+    print('Renting now (billing starts)...')
 
     result = vast('create', 'instance', str(offer['id']), '--image', image, '--disk', str(opts.disk),
                   *launch_args(image), '--cancel-unavail', '--label', opts.label)
