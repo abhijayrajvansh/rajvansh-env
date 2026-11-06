@@ -2,7 +2,7 @@
 """Rent-only Vast.ai GPU launcher (e.g. for Qwen). Standalone: needs only python3 and the `vastai` CLI.
 
 Rents immediately after an explicit numbered offer choice (re-checked for price/availability). Only the monitor's explicit
-`kill` destroys a rental, and `comfy` recycles one to enable ComfyUI web access.
+`kill` destroys a rental, `stop`/`start` pause/resume it, and `comfy` recycles one to enable ComfyUI web access.
 """
 import argparse
 import json
@@ -423,6 +423,36 @@ def enable_web(instance_id: int, image: str) -> None:
                    stdout=subprocess.DEVNULL, timeout=120)
 
 
+def is_stopped(info: dict[str, Any]) -> bool:
+    return info.get('intended_status') == 'stopped' or info.get('cur_state') == 'stopped'
+
+
+def set_power(instance_id: int, action: str) -> None:
+    """Explicit `stop`/`start`. Stopped keeps the disk (storage still bills); start needs the GPU to be free."""
+    result = subprocess.run(['vastai', action, 'instance', str(instance_id), '--raw'],
+                            capture_output=True, text=True, timeout=60)
+    output = (result.stdout + result.stderr).strip()
+    if result.returncode or '"error"' in output or 'failed' in output.lower():
+        raise RuntimeError(f'Vast refused `{action}`: {output or f"exit {result.returncode}"}')
+
+
+def track_pause(instance_id: int, state: dict[str, Any], stopped: bool) -> None:
+    """Record stopped periods locally (Vast exposes no stop time) so the cost estimate drops GPU billing."""
+    now = time.time()
+    if stopped and not finite(state.get('stopped_at')):
+        state['stopped_at'] = now
+    elif not stopped and finite(state.get('stopped_at')):
+        state['paused_seconds'] = float(state.get('paused_seconds') or 0) + now - state.pop('stopped_at')
+    else:
+        return
+    save_state(instance_id, state)
+
+
+def clock(seconds: float) -> str:
+    hours, rest = divmod(int(max(0.0, seconds)), 3600)
+    return f'{hours:02d}:{rest // 60:02d}:{rest % 60:02d}'
+
+
 def destroy(instance_id: int) -> None:
     """Destroy only this tracked rental after an explicit `kill`, then verify it is gone."""
     path = STATE / f'{instance_id}.json'
@@ -455,7 +485,7 @@ def destroy(instance_id: int) -> None:
 
 
 def monitor(instance_id: int) -> None:
-    """Live cost/time/GPU box with ComfyUI links. `kill` destroys; `comfy` enables web access."""
+    """Live cost/time/GPU box with ComfyUI links. `stop`/`start` pause/resume; `kill` destroys; `comfy` enables web."""
     state = json.loads((STATE / f'{instance_id}.json').read_text())
     image = state.get('image', '')
     kind = image_kind(image)
@@ -464,6 +494,7 @@ def monitor(instance_id: int) -> None:
     comfy = 'checking…'
     lock = threading.Lock()
     stop = threading.Event()
+    wake = threading.Event()
     first = threading.Event()
 
     def poll() -> None:
@@ -472,14 +503,22 @@ def monitor(instance_id: int) -> None:
         while not stop.is_set():
             try:
                 fresh = instance(instance_id)
-                found = tunnel_urls
-                if kind != 'custom' and host_port(fresh, 1111) and (
+                stopped = is_stopped(fresh)
+                with lock:
+                    track_pause(instance_id, state, stopped)
+                # Quick tunnels die with the container; a restart creates new URLs.
+                found = {} if stopped else tunnel_urls
+                if not stopped and kind != 'custom' and host_port(fresh, 1111) and (
                         not found or time.monotonic() - last_tunnels > 60):
                     found = tunnels(fresh) or found
                     last_tunnels = time.monotonic()
                 status = comfy
                 if kind == 'comfy':
-                    if not host_port(fresh, 8188):
+                    if stopped:
+                        status = 'stopped • type start + Enter to resume'
+                    elif fresh.get('actual_status') != 'running':
+                        status = 'instance starting…'
+                    elif not host_port(fresh, 8188):
                         status = 'web access off • type comfy + Enter to enable'
                     elif 8188 not in found:
                         status = 'starting • waiting for Cloudflare link…'
@@ -492,7 +531,12 @@ def monitor(instance_id: int) -> None:
                 with lock:
                     info = {}
             first.set()
-            stop.wait(10)
+            wake.wait(10)
+            wake.clear()
+
+    def stopped_now() -> bool:
+        with lock:
+            return bool(info) and is_stopped(info)
 
     def header() -> str:
         with lock:
@@ -500,6 +544,8 @@ def monitor(instance_id: int) -> None:
         links = web_links(data, image, found) if data else []
         if kind == 'custom':
             return ''
+        if data and is_stopped(data):
+            return section('Web links') + '\n  ' + dim('offline while the instance is stopped')
         if not links:
             return section('Web links') + '\n  ' + yellow('waiting for Vast\'s Cloudflare tunnels…')
         return section('Web links') + ' ' + dim('(Cloudflare, token included)') + '\n' + '\n'.join(links)
@@ -510,15 +556,35 @@ def monitor(instance_id: int) -> None:
     def rows() -> list[str]:
         with lock:
             data, comfy_status = dict(info), comfy
+            raw_stop = state.get('stopped_at')
+            paused = float(state.get('paused_seconds') or 0)
+        now = time.time()
+        stopped = bool(data) and is_stopped(data)
         starts = [t for t in (data.get('start_date'), state.get('created_at')) if finite(t)]
-        hourly = data.get('dph_total') if finite(data.get('dph_total')) else state.get('hourly_usd')
-        elapsed = max(0.0, time.time() - min(starts)) if starts else 0.0
-        hours, rest = divmod(int(elapsed), 3600)
-        cost = f'${elapsed / 3600 * hourly:.4f}' if finite(hourly) else '$unknown'
-        rate = f'${hourly:.4f}/h' if finite(hourly) else 'rate unknown'
-        lines = [field('Cost', green(cost) + dim('  est., network excluded')),
-                 field('Uptime', f'{hours:02d}:{rest // 60:02d}:{rest % 60:02d}')]
-        if data:
+        raw_rate = data.get('dph_total') if finite(data.get('dph_total')) else state.get('hourly_usd')
+        hourly = float(raw_rate) if finite(raw_rate) else None
+        storage = float(data['storage_total_cost']) if finite(data.get('storage_total_cost')) else 0.0
+        stopped_at = float(raw_stop) if finite(raw_stop) else None
+        elapsed = max(0.0, now - min(starts)) if starts else 0.0
+        if stopped_at is not None:
+            paused += now - stopped_at
+        cost = '$unknown'
+        if hourly is not None:  # dph_total = GPU + storage; while stopped only storage bills.
+            cost = f'${(elapsed * hourly - min(paused, elapsed) * (hourly - storage)) / 3600:.4f}'
+        if hourly is None:
+            rate = 'rate unknown'
+        elif stopped:
+            rate = f'${storage:.4f}/h storage only'
+        else:
+            rate = f'${hourly:.4f}/h'
+        uptime = clock(elapsed) + (dim(f' • stopped for {clock(now - stopped_at)}')
+                                   if stopped and stopped_at is not None else '')
+        lines = [field('Cost', green(cost) + dim('  est., network excluded')), field('Uptime', uptime)]
+        if stopped:
+            lines += [field('Status', state_dot('stopped', False) + dim(f" • {state.get('gpu')} • {rate}")),
+                      field('GPU', dim('off • type start + Enter to resume')),
+                      field('RAM', dim('off'))]
+        elif data:
             status = str(data.get('actual_status') or 'unknown')
             gpu = (f"{float(data.get('gpu_util') or 0):.0f}% util  {float(data.get('gpu_temp') or 0):.0f}°C  "
                    f"VRAM {float(data.get('vmem_usage') or 0):.1f} GB")
@@ -526,6 +592,7 @@ def monitor(instance_id: int) -> None:
                       field('GPU', gpu),
                       field('RAM', f"{float(data.get('mem_usage') or 0):.1f} / "
                                    f"{float(data.get('mem_limit') or 0):.1f} GB")]
+        if data:
             used, total = float(data.get('disk_usage') or 0), float(data.get('disk_space') or 0)
             percent = used / total * 100 if total else 0
             usage = f'{percent:.0f}% used'
@@ -562,14 +629,45 @@ def monitor(instance_id: int) -> None:
             result.append(dim('│') + ' ' + line + ' ' * (width - 2 - text_width(line)) + ' ' + dim('│'))
         return '\n'.join(result)
 
+    def screen() -> str:
+        # The prompt hint depends on stopped state, so a state change forces a full repaint.
+        return header() + ('\0stopped' if stopped_now() else '')
+
     def paint() -> tuple[str, int]:
-        top = header()
+        top, shown_now = header(), screen()
         display = box()
         print((top + '\n' if top else '') + '\n' + top_border + '\n' + display + '\n' + bottom_border)
-        print(bold('›') + ' Command: ', end='', flush=True)
-        return top, len(display.splitlines())
+        hint = dim(' (type start to resume)') if stopped_now() else ''
+        print(bold('›') + ' Command' + hint + ': ', end='', flush=True)
+        return shown_now, len(display.splitlines())
+
+    def power(action: str) -> None:
+        nonlocal tunnel_urls, comfy
+        stopped = stopped_now()
+        if action == 'stop' and stopped:
+            print('Already stopped. Type start to resume.')
+            return
+        if action == 'start' and info and not stopped:
+            print('Already running.')
+            return
+        print(('Stopping' if action == 'stop' else 'Starting') + f' instance {instance_id}…', flush=True)
+        try:
+            set_power(instance_id, action)
+        except (RuntimeError, OSError, subprocess.SubprocessError) as error:
+            print(yellow(str(error)))
+            return
+        with lock:
+            tunnel_urls = {}
+            comfy = 'stopping…' if action == 'stop' else 'instance starting…'
+        if action == 'stop':
+            print('Stop requested. GPU billing ends; disk storage keeps billing until you kill the rental.')
+        else:
+            print('Start requested. If someone else rented this GPU meanwhile, Vast waits until it frees up.')
+        wake.set()
 
     print(section('Commands'))
+    print('  ' + field('stop', 'stop the GPU; keeps files, storage still bills', 7))
+    print('  ' + field('start', 'resume a stopped instance', 7))
     print('  ' + field('kill', 'destroy this rental', 7))
     if kind == 'comfy':
         print('  ' + field('comfy', 'enable ComfyUI web access ' + yellow('(recreates the container, erasing its files)'), 7))
@@ -587,7 +685,11 @@ def monitor(instance_id: int) -> None:
                     stop.set()
                     destroy(instance_id)
                     return
-                if command == 'comfy' and kind == 'comfy':
+                if command in ('stop', 'start'):
+                    power(command)
+                elif command == 'comfy' and kind == 'comfy' and stopped_now():
+                    print('The instance is stopped. Type start first.')
+                elif command == 'comfy' and kind == 'comfy':
                     with lock:
                         exposed = bool(info) and bool(host_port(info, 8188))
                     if exposed:
@@ -599,11 +701,11 @@ def monitor(instance_id: int) -> None:
                             tunnel_urls, comfy = {}, 'recycling • starting ComfyUI…'
                         print('Recycle started. The ComfyUI link appears here in a few minutes.')
                 elif command:
-                    print('Type kill to destroy' + (', comfy to enable ComfyUI' if kind == 'comfy' else '')
+                    print('Type stop, start, kill' + (', comfy' if kind == 'comfy' else '')
                           + ', or Ctrl+C to close the display.')
                 shown, count = paint()
                 continue
-            if header() != shown:
+            if screen() != shown:
                 shown, count = paint()
                 continue
             display = box()
@@ -612,9 +714,11 @@ def monitor(instance_id: int) -> None:
             else:
                 shown, count = paint()
     except KeyboardInterrupt:
-        print(f'\n\nDisplay closed. Rental {instance_id} keeps running and billing. Reopen: rent-gpu -m')
+        what = 'stays stopped (storage still bills)' if stopped_now() else 'keeps running and billing'
+        print(f'\n\nDisplay closed. Rental {instance_id} {what}. Reopen: rent-gpu -m')
     finally:
         stop.set()
+        wake.set()
 
 
 def tracked_instance(requested: int) -> int:
