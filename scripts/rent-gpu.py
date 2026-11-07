@@ -61,6 +61,9 @@ IMAGES: list[tuple[str, str, str | None]] = [
      'vastai/base-image:stock-ubuntu24.04-py312-2026-10-23', None),
 ]
 SETUP_DIR = '/workspace/.rent-gpu-setup'
+# Hugging Face token for the model downloads (higher rate limits). Never stored in this repo: read from $HF_TOKEN,
+# ~/.config/rent-gpu/hf_token or the Hugging Face CLI's login, and copied to the GPU as a private file.
+HF_TOKEN_FILES = (ROOT / 'hf_token', Path.home() / '.cache' / 'huggingface' / 'token')
 # (public port, internal app port, portal name) for Vast's own images.
 PORTALS = {
     'comfy': [(1111, 11111, 'Instance Portal'), (8188, 18188, 'ComfyUI'), (8080, 18080, 'Jupyter')],
@@ -462,10 +465,28 @@ def tunnels(info: dict[str, Any]) -> dict[int, str]:
     return result
 
 
+def hf_token() -> str | None:
+    token = os.environ.get('HF_TOKEN', '').strip()
+    for path in HF_TOKEN_FILES:
+        if token:
+            break
+        try:
+            token = path.expanduser().read_text().strip()
+        except OSError:
+            pass
+    return token or None
+
+
 def start_setup(instance_id: int, info: dict[str, Any], preset: str, attempts: int = 12) -> bool:
-    """Upload the preset's installer and start it detached (it survives SSH disconnects; rerunning resumes)."""
+    """Upload the preset's installer and start it detached (it survives SSH disconnects; rerunning resumes).
+    The installer goes first on stdin, then the Hugging Face token (if any), which lands in a 600-mode file."""
     script = preset_script(preset).read_text()
-    command = (f'mkdir -p {SETUP_DIR} && cat > {SETUP_DIR}/setup.sh && '
+    token = hf_token()
+    if token:
+        script += f'\n#HF_TOKEN {token}\n'
+    command = (f'umask 077 && mkdir -p {SETUP_DIR} && cat > {SETUP_DIR}/upload && '
+               f'grep "^#HF_TOKEN " {SETUP_DIR}/upload | cut -d" " -f2 > {SETUP_DIR}/hf_token; '
+               f'grep -v "^#HF_TOKEN " {SETUP_DIR}/upload > {SETUP_DIR}/setup.sh && rm -f {SETUP_DIR}/upload && '
                f'{{ nohup setsid bash {SETUP_DIR}/setup.sh >> {SETUP_DIR}/setup.log 2>&1 < /dev/null & }} '
                '&& echo started')
     for attempt in range(attempts):

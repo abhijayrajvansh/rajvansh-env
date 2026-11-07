@@ -5,6 +5,7 @@
 #   2. Motion control  MiniMax H3 swap + Check mask: H3 nodes, SAM 3.1 and the H3 models         (docs/minimax-h3-comfyui)
 #   3. Fix colours     Image Detail Contrast + Orion4D tone mapper; no models                   (docs/h3-post-processing)
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
+# Each workflow downloads its models in parallel (PARALLEL_DOWNLOADS, default 3), largest first.
 # Resumable and safe to rerun: finished files are kept, partial downloads resume, every model is sha256-checked.
 #
 # rent-gpu uploads and starts this automatically. By hand, from your Mac:
@@ -12,7 +13,7 @@
 # Log:    /workspace/.rent-gpu-setup/setup.log (progress lines with % done and % left)
 # Status: /workspace/.rent-gpu-setup/status, one line:
 #         state|message|ready workflows|step %|step detail|workflow|workflow %|overall %
-# Env: COMFY_DIR, COMFY_PYTHON (defaults match vastai/comfy), HF_TOKEN for rate-limited downloads.
+# Env: COMFY_DIR, COMFY_PYTHON (defaults match vastai/comfy), HF_TOKEN for rate-limited downloads, PARALLEL_DOWNLOADS.
 set -Eeuo pipefail
 
 STATE_DIR=/workspace/.rent-gpu-setup
@@ -22,10 +23,13 @@ PY=${COMFY_PYTHON:-/venv/main/bin/python}
 COMFY_API=http://127.0.0.1:18188  # vastai/comfy's internal ComfyUI port (Caddy serves 8188)
 MIN_COMFY=0.44.0                  # Qwen-Image 2.1 nodes; H3 alone needs 0.41.2
 HF=https://huggingface.co
+# rent-gpu copies your token here (from $HF_TOKEN, ~/.config/rent-gpu/hf_token or `hf auth login` on your Mac).
+HF_TOKEN=${HF_TOKEN:-$(cat /workspace/.rent-gpu-setup/hf_token 2>/dev/null || true)}
 H3_REV=912b6e38b2092ec4d2e86d24183e0d59ea059d48
 Q21="$HF/Comfy-Org/Qwen-Image-2.1/resolve/aacf31a6d48e707f352ecba714cee0680da3479b"
 GB=1000000000
 IDLE_BEFORE_RESTART=60  # seconds the ComfyUI queue must stay empty before a restart
+PARALLEL_DOWNLOADS=${PARALLEL_DOWNLOADS:-3}  # models downloaded at once within a workflow
 NODE_UNIT=$GB  # progress weight of one custom-node pack (clone + Python packages), in downloaded-byte terms
 
 mkdir -p "$STATE_DIR"
@@ -112,7 +116,7 @@ READY=()
 WARNINGS=()
 TOTAL_UNITS=0 DONE_UNITS=0     # all workflows
 WF_TITLE='' WF_UNITS=0 WF_DONE=0 # current workflow
-CUR_UNITS=0                    # part of the current step already done (bytes of the file downloading now)
+CUR_UNITS=0                    # part of the current step already done (bytes of the files downloading now)
 LAST_LOG=0
 
 pct() { if [ "$2" -le 0 ]; then echo 100; else echo $(( $1 * 100 / $2 )); fi; }
@@ -247,77 +251,135 @@ ensure_types() {  # after new nodes: restart ComfyUI only if this workflow's nod
   fi
 }
 
-download() {  # download ENTRY INDEX COUNT
+# fetch ENTRY: downloads one model, checks its size and sha256 and moves it into place. Runs in the background,
+# several at once; prints the reason on failure. "$JOBS/<name>.verifying" marks the hashing phase.
+fetch() {
+  trap - ERR
+  set +e
   local folder url bytes sha
   IFS='|' read -r folder url bytes sha <<<"$1"
-  local name=${url##*/} dir="$COMFY/models/$folder"
-  local target="$dir/$name" label="model $2/$3 • $name ($(gb "$bytes") GB)"
-  mkdir -p "$dir"
-  if installed "$target" "$bytes"; then
-    printf '✓ %s already installed\n' "$name"
-    DONE_UNITS=$((DONE_UNITS + bytes)); WF_DONE=$((WF_DONE + bytes))
-    return
-  fi
-  status running "$label" 0 'starting'
+  local name=${url##*/}
+  local target="$COMFY/models/$folder/$name"
   if command -v aria2c >/dev/null; then
-    # 16 connections: one connection to Hugging Face often caps near 30 MB/s.
+    # 16 connections per file: one connection to Hugging Face often caps near 30 MB/s.
     aria2c -x16 -s16 -k16M -c --file-allocation=none --max-tries=10 --retry-wait=5 \
       --console-log-level=warn --summary-interval=0 --download-result=hide \
-      ${HF_TOKEN:+--header="Authorization: Bearer $HF_TOKEN"} -d "$dir" -o "$name.part" "$url" \
-      >> "$STATE_DIR/download.log" 2>&1 &
+      ${HF_TOKEN:+--header="Authorization: Bearer $HF_TOKEN"} -d "${target%/*}" -o "$name.part" "$url" \
+      >> "$STATE_DIR/download.log" 2>&1
   else
     curl -sSL --fail --retry 5 --retry-delay 5 -C - ${HF_TOKEN:+-H "Authorization: Bearer $HF_TOKEN"} \
-      -o "$target.part" "$url" >> "$STATE_DIR/download.log" 2>&1 &
+      -o "$target.part" "$url" >> "$STATE_DIR/download.log" 2>&1
+  fi || { echo "download failed: $name (see $STATE_DIR/download.log)"; return 1; }
+  [ "$(stat -c %s "$target.part")" = "$bytes" ] || { echo "size mismatch for $name"; return 1; }
+  touch "$JOBS/$name.verifying"
+  if [ "$(sha256sum "$target.part" | cut -d' ' -f1)" != "$sha" ]; then
+    rm -f "$target.part" "$target.part.aria2"
+    echo "checksum mismatch for $name (deleted)"
+    return 1
   fi
-  local pid=$! start=$SECONDS have first=-1 speed=0 detail
-  while kill -0 "$pid" 2>/dev/null; do
-    # Allocated blocks = bytes written so far (aria2 writes 16 parts into a sparse file).
-    have=$(( $(stat -c '%b*%B' "$target.part" 2>/dev/null || echo 0) ))
-    [ "$have" -lt "$bytes" ] || have=$((bytes - 1))
-    [ "$first" -ge 0 ] || first=$have
-    detail='starting'
-    if [ $((SECONDS - start)) -ge 5 ]; then
-      speed=$(( (have - first) / (SECONDS - start) ))
-      if [ "$speed" -gt 0 ]; then
-        detail="$((speed / 1000000)) MB/s, $(duration $(( (bytes - have) / speed ))) left"
-      fi
+  mv "$target.part" "$target" && rm -f "$target.part.aria2"
+}
+
+# download_models KEY: fetches the workflow's models PARALLEL_DOWNLOADS at a time, largest first, so one slow file
+# no longer holds up the rest. A file is hashed while the others keep downloading.
+download_models() {
+  local -n _models="${1}_MODELS"
+  local count=${#_models[@]}
+  [ "$count" -gt 0 ] || return 0
+  JOBS="$STATE_DIR/jobs"
+  rm -rf "$JOBS"; mkdir -p "$JOBS"
+  local entry folder url bytes sha name pid part b failed='' ready=0 total=0 finished=0 queued=0
+  local -a queue=()
+  local -A job_name=() job_bytes=() job_part=() job_first=()
+  while IFS= read -r entry; do
+    IFS='|' read -r folder url bytes sha <<<"$entry"
+    total=$((total + bytes))
+    if installed "$COMFY/models/$folder/${url##*/}" "$bytes"; then
+      printf '✓ %s already installed\n' "${url##*/}"
+      DONE_UNITS=$((DONE_UNITS + bytes)); WF_DONE=$((WF_DONE + bytes)); finished=$((finished + bytes))
+      ready=$((ready + 1))
+    else
+      queue+=("$entry"); queued=$((queued + bytes))
     fi
+  done < <(printf '%s\n' "${_models[@]}" | sort -t'|' -k3,3nr)
+
+  local start=$SECONDS fetched_done=0 fetched have left speed=0 detail downloading verifying
+  while [ ${#queue[@]} -gt 0 ] || [ ${#job_name[@]} -gt 0 ]; do
+    # Start downloads until PARALLEL_DOWNLOADS are running.
+    while [ -z "$failed" ] && [ ${#queue[@]} -gt 0 ] && [ ${#job_name[@]} -lt "$PARALLEL_DOWNLOADS" ]; do
+      entry=${queue[0]}; queue=("${queue[@]:1}")
+      IFS='|' read -r folder url bytes sha <<<"$entry"
+      name=${url##*/} part="$COMFY/models/$folder/${url##*/}.part"
+      mkdir -p "$COMFY/models/$folder"
+      fetch "$entry" > "$JOBS/$name.result" 2>&1 &
+      pid=$!
+      job_name[$pid]=$name job_bytes[$pid]=$bytes job_part[$pid]=$part
+      job_first[$pid]=$(( $(stat -c '%b*%B' "$part" 2>/dev/null || echo 0) ))  # resumed bytes, not this run's speed
+      printf '↓ %s (%s GB) started\n' "$name" "$(gb "$bytes")"
+    done
+
+    # Collect finished downloads.
+    for pid in "${!job_name[@]}"; do
+      if kill -0 "$pid" 2>/dev/null; then continue; fi
+      name=${job_name[$pid]} bytes=${job_bytes[$pid]}
+      if wait "$pid"; then
+        DONE_UNITS=$((DONE_UNITS + bytes)); WF_DONE=$((WF_DONE + bytes)); finished=$((finished + bytes))
+        ready=$((ready + 1))
+        printf '✓ %s verified\n' "$name"
+      elif [ -z "$failed" ]; then
+        failed=$(tail -n 1 "$JOBS/$name.result" 2>/dev/null || true)
+        failed=${failed:-download failed: $name}
+      fi
+      fetched_done=$((fetched_done + bytes - ${job_first[$pid]}))
+      unset "job_name[$pid]" "job_bytes[$pid]" "job_part[$pid]" "job_first[$pid]"
+    done
+
+    if [ -n "$failed" ]; then  # stop the others; aria2 keeps their .part files, so setup resumes them
+      for pid in "${!job_name[@]}"; do pkill -TERM -P "$pid" 2>/dev/null || true; done
+      wait 2>/dev/null || true
+      CUR_UNITS=0
+      status failed "$failed; type setup to resume"
+      exit 1
+    fi
+    [ ${#queue[@]} -gt 0 ] || [ ${#job_name[@]} -gt 0 ] || break
+
+    # Progress across every running download.
+    have=0 fetched=$fetched_done downloading=0 verifying=0
+    for pid in "${!job_name[@]}"; do
+      name=${job_name[$pid]}
+      b=$(( $(stat -c '%b*%B' "${job_part[$pid]}" 2>/dev/null || echo 0) ))  # sparse file: bytes written so far
+      [ "$b" -lt "${job_bytes[$pid]}" ] || b=${job_bytes[$pid]}
+      if [ -e "$JOBS/$name.verifying" ]; then verifying=$((verifying + 1)); else downloading=$((downloading + 1)); fi
+      have=$((have + b)) fetched=$((fetched + b - ${job_first[$pid]}))
+    done
+    [ "$have" -lt $((total - finished)) ] || have=$((total - finished - 1))
     CUR_UNITS=$have
-    status running "$label" "$(pct "$have" "$bytes")" "$detail" quiet
+    detail=''
+    if [ "$downloading" -gt 0 ] && [ $((SECONDS - start)) -ge 5 ]; then
+      speed=$(( fetched / (SECONDS - start) ))
+      left=$(( total - finished - have ))
+      if [ "$speed" -gt 0 ]; then detail="$((speed / 1000000)) MB/s, $(duration $((left / speed))) left"; fi
+    elif [ "$downloading" -eq 0 ]; then
+      detail='verifying sha256'
+    fi
+    [ -n "$detail" ] || detail='starting'
+    local what="$downloading downloading"
+    [ "$verifying" -eq 0 ] || what+=", $verifying verifying"
+    [ ${#queue[@]} -eq 0 ] || what+=", ${#queue[@]} queued"
+    status running "models $ready/$count ready • $what" "$(pct $((finished + have)) "$total")" "$detail" quiet
     sleep 3
   done
-  if ! wait "$pid"; then
-    CUR_UNITS=0
-    status failed "download failed: $name (see $STATE_DIR/download.log); type setup to resume"
-    exit 1
-  fi
-  CUR_UNITS=$bytes
-  if [ "$(stat -c %s "$target.part")" != "$bytes" ]; then
-    CUR_UNITS=0; status failed "size mismatch for $name; type setup to resume"; exit 1
-  fi
-  status running "$label" 100 'verifying sha256'
-  if [ "$(sha256sum "$target.part" | cut -d' ' -f1)" != "$sha" ]; then
-    rm -f "$target.part"
-    CUR_UNITS=0; status failed "checksum mismatch for $name (deleted); type setup to retry"; exit 1
-  fi
-  mv "$target.part" "$target"
-  rm -f "$target.part.aria2"
   CUR_UNITS=0
-  DONE_UNITS=$((DONE_UNITS + bytes)); WF_DONE=$((WF_DONE + bytes))
-  printf '✓ %s verified\n' "$name"
 }
 
 run_workflow() {  # run_workflow KEY INDEX
-  local key=$1 index=$2 ok=1 i=0 entry
-  local -n _nodes_ref="${key}_NODES" _models_ref="${key}_MODELS"
+  local key=$1 index=$2 ok=1
+  local -n _nodes_ref="${key}_NODES"
   WF_TITLE="${TITLE[$key]} ($index/${#WORKFLOWS[@]})" WF_UNITS=$(workflow_units "$key") WF_DONE=0
   status running "setting up ${TITLE[$key]}"
   if [ ${#_nodes_ref[@]} -gt 0 ]; then install_nodes "$key"; fi
   ensure_types "$key" || ok=0
-  for entry in "${_models_ref[@]}"; do
-    i=$((i + 1))
-    download "$entry" "$i" "${#_models_ref[@]}"
-  done
+  download_models "$key"
   if [ $ok = 1 ]; then
     READY+=("${TITLE[$key]}")
     status running "${TITLE[$key]} ready"
