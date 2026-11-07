@@ -25,6 +25,7 @@ HF=https://huggingface.co
 H3_REV=912b6e38b2092ec4d2e86d24183e0d59ea059d48
 Q21="$HF/Comfy-Org/Qwen-Image-2.1/resolve/aacf31a6d48e707f352ecba714cee0680da3479b"
 GB=1000000000
+IDLE_BEFORE_RESTART=60  # seconds the ComfyUI queue must stay empty before a restart
 NODE_UNIT=$GB  # progress weight of one custom-node pack (clone + Python packages), in downloaded-byte terms
 
 mkdir -p "$STATE_DIR"
@@ -171,11 +172,18 @@ queue_busy() {
   "$PY" -c 'import json, sys; q = json.loads(sys.argv[1]); sys.exit(0 if q.get("queue_running") or q.get("queue_pending") else 1)' "$queue"
 }
 restart_comfy() {
-  # Never kill a job someone started on a workflow that is already set up.
-  local waited=0
-  while queue_busy && [ $waited -lt 3600 ]; do
-    status running "waiting for ComfyUI's running job to finish before restarting ($(duration $waited))" '' '' quiet
-    sleep 10; waited=$((waited + 10))
+  # Never kill a job someone started on a workflow that is already set up. A restart also wipes ComfyUI's in-memory
+  # history, so wait until the queue has stayed empty for IDLE_BEFORE_RESTART seconds: the app polls /history and
+  # needs that time to collect a just-finished result (a restart 1 s after a job ended lost its result once).
+  local waited=0 idle=0
+  while [ $idle -lt "$IDLE_BEFORE_RESTART" ] && [ $waited -lt 3600 ]; do
+    if queue_busy; then
+      idle=0
+      status running "waiting for ComfyUI's running job to finish before restarting ($(duration $waited))" '' '' quiet
+    else
+      idle=$((idle + 5))
+    fi
+    sleep 5; waited=$((waited + 5))
   done
   status running 'restarting ComfyUI to load the new nodes'
   if ! command -v supervisorctl >/dev/null; then warn 'supervisorctl not found; restart ComfyUI yourself'; return; fi
