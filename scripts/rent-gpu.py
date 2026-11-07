@@ -43,11 +43,12 @@ PRESETS: dict[str, dict[str, Any]] = {
     'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=120, min_ram=64,
                      min_download=1000, setup_gb=70,
                      # Slow disks take many minutes to unpack the ~10 GB image before the container even boots.
-                     min_disk_speed=2500),
+                     min_disk_speed=2500,
+                     max_setup_cost=0.30),  # bandwidth + GPU time to download the models, in USD
 }
 PRESET_ALIASES = {'genjutsu-h3': 'genjutsu'}  # rentals saved before Qwen-Image 2.1 joined the preset
 DEFAULT_SETUP = 'genjutsu'
-DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_speed=1000)
+DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_speed=1000, max_setup_cost=None)
 # Hugging Face rarely serves one file faster than ~300 MB/s even over 16 connections; real throughput ≈ 80% of the line.
 HF_CAP_MBPS = 2400
 NET_EFFICIENCY = 0.8
@@ -148,6 +149,8 @@ def search(opts: argparse.Namespace, gpu: str | None = None, offer_id: int | Non
     if not isinstance(rows, list):
         raise RuntimeError('Unrecognized offer listing; nothing was rented.')
     rows = [r for r in rows if eligible(r, opts) and (not gpu or r['gpu_name'] == gpu)]
+    if getattr(opts, 'setup_gb', None) and opts.max_setup_cost is not None:
+        rows = [r for r in rows if sum(setup_cost(r, opts.setup_gb)[:2]) <= opts.max_setup_cost]
     return sorted(rows, key=lambda r: (r['dph_total'], r['inet_down_cost'], r['id']))
 
 
@@ -223,6 +226,7 @@ def apply_defaults(opts: argparse.Namespace, preset: str | None) -> None:
     for key, value in DEFAULTS.items():
         if getattr(opts, key) is None:
             setattr(opts, key, PRESETS[preset].get(key, value) if preset else value)
+    opts.setup_gb = PRESETS[preset].get('setup_gb') if preset else None
 
 
 def choose_image(opts: argparse.Namespace) -> tuple[str | None, str | None]:
@@ -264,7 +268,9 @@ def choose_gpu(opts: argparse.Namespace) -> tuple[str | None, list[dict[str, Any
         print('No offers match these filters. Nothing was rented.')
         return None, []
     print(f'\nGPU models (≥{opts.min_vram} GB VRAM, ≥{opts.min_ram} GB RAM, {opts.disk} GB disk priced in, '
-          f'disk ≥{opts.min_disk_speed:,} MB/s, ↓ ≥{opts.min_download:,} Mbps, cheapest first):\n')
+          f'disk ≥{opts.min_disk_speed:,} MB/s, ↓ ≥{opts.min_download:,} Mbps'
+          + (f', setup ≤ ${opts.max_setup_cost:.2f}' if getattr(opts, 'setup_gb', None) and opts.max_setup_cost is not None
+             else '') + ', cheapest first):\n')
     for index, name in enumerate(names, 1):
         row = cheapest[name]
         price = green(f"${row['dph_total']:.4f}/hour")
@@ -950,6 +956,7 @@ def validate(opts: argparse.Namespace) -> None:
     """Checks the values that are set; preset-dependent ones are filled in after the image choice."""
     if (opts.disk is not None and opts.disk < 10) or (opts.min_ram is not None and opts.min_ram < 0) \
             or (opts.min_download is not None and opts.min_download < 0) \
+            or (opts.max_setup_cost is not None and opts.max_setup_cost < 0) \
             or (opts.min_disk_speed is not None and opts.min_disk_speed < 0) \
             or opts.gpus < 1 or opts.min_vram < 0 or opts.top < 1:
         raise RuntimeError('Invalid filter values.')
@@ -973,6 +980,9 @@ def main() -> None:
     parser.add_argument('--min-cuda', type=float, default=12.9, help='Minimum host CUDA; images need 12.9 (default: 12.9)')
     parser.add_argument('--min-compute', type=float, default=8.0,
                         help='Minimum CUDA compute capability; 8.0 = Ampere+ with bf16 (default: 8.0)')
+    parser.add_argument('--max-setup-cost', type=float, metavar='USD',
+                        help='Hide offers whose model download (bandwidth + GPU time) is estimated above this '
+                             '(default: 0.30 for image 1)')
     parser.add_argument('--min-disk-speed', type=int,
                         help='Minimum disk read speed MB/s (default: 2500 for image 1, else 1000)')
     parser.add_argument('--min-download', type=int, help='Minimum download Mbps (default: 1000 for image 1, else 500)')
@@ -1000,7 +1010,7 @@ def main() -> None:
     gpu, rows = choose_gpu(opts)
     if not gpu:
         return
-    show_offers(rows, opts.disk, PRESETS[preset]['setup_gb'] if preset else None)
+    show_offers(rows, opts.disk, opts.setup_gb)
     if opts.list or not rows:
         return
     while True:
@@ -1015,7 +1025,7 @@ def main() -> None:
             print(f'No {gpu} offers right now; keeping the previous list (press r to retry).')
             continue
         rows = fresh_rows
-        show_offers(rows, opts.disk, PRESETS[preset]['setup_gb'] if preset else None)
+        show_offers(rows, opts.disk, opts.setup_gb)
     picked = rows[choice]
 
     # Refresh the exact offer; never substitute another one.
