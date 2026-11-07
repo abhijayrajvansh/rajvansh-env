@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""Rent-only Vast.ai GPU launcher (e.g. for Qwen). Standalone: needs only python3 and the `vastai` CLI.
+"""Rent-only Vast.ai GPU launcher (Genjutsu H3, Qwen, …). Needs python3, the `vastai` CLI and, for image 1,
+rent-gpu-genjutsu-h3.sh next to this script.
 
-Rents immediately after an explicit numbered offer choice (re-checked for price/availability). Only the monitor's explicit
-`kill` destroys a rental, `stop`/`start` pause/resume it, and `comfy` recycles one to enable ComfyUI web access.
+Rents immediately after an explicit numbered offer choice (re-checked for price/availability). Image 1 then installs
+Genjutsu's MiniMax H3 motion control and post-processing nodes and models in the background over SSH. Only the
+monitor's explicit `kill` destroys a rental, `stop`/`start` pause/resume it, `comfy` recycles one to enable ComfyUI web
+access, and `setup` (re)runs the Genjutsu H3 installer.
 """
 import argparse
 import json
@@ -30,11 +33,23 @@ SSH_KEY = ROOT / 'id_ed25519'
 BLOCKED_OFFER_IDS = {'50584158'}
 BLOCKED_HOST_IDS = {'155385'}  # RTX 5080/3090 container-start/SSH failures, 2026-10-29
 BLOCKED_MACHINE_IDS: set[str] = set()
-IMAGES = [
-    ('ComfyUI (stock, no models preinstalled)', 'vastai/comfy:v0.15.1-cuda-12.9-py312'),
+# H3 needs ComfyUI >= 0.41.2 and Qwen-Image 2.1 >= 0.44. CUDA 12.9 builds match --min-cuda's default.
+COMFY_IMAGE = 'vastai/comfy:v0.44.0-cuda-12.9-py312'
+# Setup presets: an installer started over SSH once the rental is up, plus rental defaults sized for it.
+PRESETS: dict[str, dict[str, Any]] = {
+    'genjutsu-h3': dict(script='rent-gpu-genjutsu-h3.sh', title='Genjutsu H3', label='Genjutsu H3',
+                        disk=120, min_ram=64),  # ~52 GB of models; int8 H3 streams weights from system RAM
+}
+DEFAULT_SETUP = 'genjutsu-h3'
+DEFAULTS = dict(label='Qwen', disk=60, min_ram=32)
+IMAGES: list[tuple[str, str, str | None]] = [
+    ('ComfyUI + Genjutsu H3 — motion control, Check mask, Fix faces, Fix colours\n'
+     '     installs nodes + ~52 GB of models automatically • 120 GB disk, ≥64 GB RAM', COMFY_IMAGE, 'genjutsu-h3'),
+    ('ComfyUI (stock, no models preinstalled)', COMFY_IMAGE, None),
     ('Ubuntu 24.04 + Python 3.12 (bare; install vLLM / Transformers yourself)',
-     'vastai/base-image:stock-ubuntu24.04-py312-2026-10-23'),
+     'vastai/base-image:stock-ubuntu24.04-py312-2026-10-23', None),
 ]
+SETUP_DIR = '/workspace/.rent-gpu-setup'
 # (public port, internal app port, portal name) for Vast's own images.
 PORTALS = {
     'comfy': [(1111, 11111, 'Instance Portal'), (8188, 18188, 'ComfyUI'), (8080, 18080, 'Jupyter')],
@@ -179,22 +194,43 @@ def ask_number(prompt: str, count: int, refresh: bool = False) -> int | None:
         print('Choose a listed number' + (', r to refresh' if refresh else '') + ', or press Enter to cancel.')
 
 
-def choose_image(opts: argparse.Namespace) -> str | None:
+def preset_script(name: str) -> Path:
+    path = Path(__file__).resolve().parent / PRESETS[name]['script']
+    if not path.is_file():
+        raise RuntimeError(f'Setup script missing: {path}. Nothing was rented.')
+    return path
+
+
+def apply_defaults(opts: argparse.Namespace, preset: str | None) -> None:
+    """Explicit flags win; otherwise the preset's sizing, then the general defaults."""
+    for key, value in DEFAULTS.items():
+        if getattr(opts, key) is None:
+            setattr(opts, key, PRESETS[preset].get(key, value) if preset else value)
+
+
+def choose_image(opts: argparse.Namespace) -> tuple[str | None, str | None]:
+    """Returns (image, setup preset)."""
+    if opts.setup:
+        preset_script(opts.setup)
+        return opts.image or COMFY_IMAGE, opts.setup
     if opts.image:
-        return opts.image
+        return opts.image, None
     print('\nContainer image:')
-    for index, (label, image) in enumerate(IMAGES, 1):
-        print(f'  {index}) {label}\n     {image}')
+    for index, (label, image, _) in enumerate(IMAGES, 1):
+        print(f'  {index}) {label}\n     {dim(image)}')
     print(f'  {len(IMAGES) + 1}) Custom Docker image')
     choice = ask_number('Choose image', len(IMAGES) + 1)
     if choice is None:
-        return None
+        return None, None
     if choice < len(IMAGES):
-        return IMAGES[choice][1]
+        _, image, preset = IMAGES[choice]
+        if preset:
+            preset_script(preset)
+        return image, preset
     image = input('Docker image (e.g. vllm/vllm-openai:latest): ').strip()
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._/:@-]*', image):
         raise RuntimeError('Invalid image name; nothing was rented.')
-    return image
+    return image, None
 
 
 def choose_gpu(opts: argparse.Namespace) -> tuple[str | None, list[dict[str, Any]]]:
@@ -308,7 +344,8 @@ def portal_env(image: str) -> dict[str, str]:
     env.update(OPEN_BUTTON_PORT='1111', OPEN_BUTTON_TOKEN='1', JUPYTER_DIR='/', DATA_DIRECTORY='/workspace/',
                PORTAL_CONFIG='|'.join(f'localhost:{port}:{internal}:/:{name}' for port, internal, name in portals))
     if image_kind(image) == 'comfy':
-        env['COMFYUI_ARGS'] = '--disable-auto-launch --port 18188 --enable-cors-header'
+        # PyTorch attention: the image's xformers build cannot run on Blackwell (RTX 5090); H3 needs this there.
+        env['COMFYUI_ARGS'] = '--disable-auto-launch --port 18188 --enable-cors-header --use-pytorch-cross-attention'
     return env
 
 
@@ -335,15 +372,16 @@ def host_port(info: dict[str, Any], port: int) -> str | None:
     return str(mapping[0].get('HostPort')) if mapping and isinstance(mapping[0], dict) else None
 
 
-def ssh_run(info: dict[str, Any], command: str) -> str | None:
-    """Run a read-only command over the first working direct/proxy SSH endpoint."""
+def ssh_run(info: dict[str, Any], command: str, stdin_text: str | None = None, timeout: int = 25) -> str | None:
+    """Run a command over the first working direct/proxy SSH endpoint, optionally feeding it stdin."""
+    feed: dict[str, Any] = {'stdin': subprocess.DEVNULL} if stdin_text is None else {'input': stdin_text}
     for host, port in ssh_candidates(info):
         try:
             result = subprocess.run(
                 ['ssh', '-i', str(SSH_KEY), '-o', 'IdentitiesOnly=yes', '-o', 'BatchMode=yes',
                  '-o', 'ConnectTimeout=6', '-o', 'StrictHostKeyChecking=accept-new', '-o', 'LogLevel=ERROR',
                  '-p', str(port), f'root@{host}', command],
-                capture_output=True, text=True, timeout=25, stdin=subprocess.DEVNULL)
+                capture_output=True, text=True, timeout=timeout, **feed)
         except (OSError, subprocess.TimeoutExpired):
             continue
         if result.returncode == 0:
@@ -368,6 +406,32 @@ def tunnels(info: dict[str, Any]) -> dict[int, str]:
         if target and re.fullmatch(r'https://[a-z0-9-]+\.trycloudflare\.com', url):
             result[int(target[1])] = url
     return result
+
+
+def start_setup(instance_id: int, info: dict[str, Any], preset: str, attempts: int = 12) -> bool:
+    """Upload the preset's installer and start it detached (it survives SSH disconnects; rerunning resumes)."""
+    script = preset_script(preset).read_text()
+    command = (f'mkdir -p {SETUP_DIR} && cat > {SETUP_DIR}/setup.sh && '
+               f'{{ nohup setsid bash {SETUP_DIR}/setup.sh >> {SETUP_DIR}/setup.log 2>&1 < /dev/null & }} '
+               '&& echo started')
+    for attempt in range(attempts):
+        if (ssh_run(info, command, stdin_text=script, timeout=40) or '').strip() == 'started':
+            return True
+        if attempt + 1 < attempts:  # sshd often accepts connections a little after Vast reports "running"
+            time.sleep(10)
+            try:
+                info = instance(instance_id)
+            except (RuntimeError, ValueError, OSError, subprocess.SubprocessError):
+                pass
+    return False
+
+
+def setup_status(info: dict[str, Any]) -> str | None:
+    """'state|message' from the installer; 'missing|' if it never ran; None if SSH failed."""
+    output = ssh_run(info, f'cat {SETUP_DIR}/status 2>/dev/null || true')
+    if output is None:
+        return None
+    return output.strip().splitlines()[-1] if output.strip() else 'missing|'
 
 
 def http_status(url: str) -> int | None:
@@ -397,7 +461,7 @@ def section(title: str) -> str:
     return '\n' + bold(title)
 
 
-def print_access(instance_id: int, info: dict[str, Any], image: str) -> None:
+def print_access(instance_id: int, info: dict[str, Any], image: str, preset: str | None = None) -> None:
     key = f'-i "{SSH_KEY}" ' if SSH_KEY.exists() else ''
     title = f' GPU instance {instance_id} '
     print('\n' + dim('━━') + bold(title) + dim('━' * max(4, 62 - len(title))))
@@ -406,8 +470,13 @@ def print_access(instance_id: int, info: dict[str, Any], image: str) -> None:
     print('  ' + field('Reopen', f'rent-gpu -m {instance_id}'))
     # Direct host-IP links are omitted: many networks (including this Mac's) cannot reach them.
     print(section('SSH'))
-    for host_name, port in ssh_candidates(info):
+    candidates = ssh_candidates(info)
+    for host_name, port in candidates:
         print('  ' + dim('›') + f' ssh {key}-p {port} root@{host_name}')
+    if preset and candidates:
+        host_name, port = candidates[0]
+        print(section(f"{PRESETS[preset]['title']} setup log"))
+        print('  ' + dim('›') + f' ssh {key}-p {port} root@{host_name} tail -f {SETUP_DIR}/setup.log')
 
 
 def enable_web(instance_id: int, image: str) -> None:
@@ -492,13 +561,15 @@ def monitor(instance_id: int) -> None:
     info: dict[str, Any] = {}
     tunnel_urls: dict[int, str] = {}
     comfy = 'checking…'
+    setup_line = 'running|checking…' if state.get('setup') else ''
+    setup_checked = 0.0
     lock = threading.Lock()
     stop = threading.Event()
     wake = threading.Event()
     first = threading.Event()
 
     def poll() -> None:
-        nonlocal info, tunnel_urls, comfy
+        nonlocal info, tunnel_urls, comfy, setup_line, setup_checked
         last_tunnels = 0.0
         while not stop.is_set():
             try:
@@ -526,7 +597,16 @@ def monitor(instance_id: int) -> None:
                         code = http_status(f"{found[8188]}/?token={fresh.get('jupyter_token')}")
                         status = 'ready • open the link above' if code == 200 else f'starting (HTTP {code or "no reply"})'
                 with lock:
+                    preset, line, checked = state.get('setup'), setup_line, setup_checked
+                finished = line.startswith(('done|', 'warn|', 'failed|'))
+                if (preset and not stopped and fresh.get('actual_status') == 'running'
+                        and time.monotonic() - checked > (120 if finished else 15)):
+                    line = setup_status(fresh) or line
+                    checked = time.monotonic()
+                with lock:
                     info, tunnel_urls, comfy = fresh, found, status
+                    if checked > setup_checked:  # a `setup` command meanwhile wins over this older read
+                        setup_line, setup_checked = line, checked
             except (RuntimeError, ValueError, OSError, subprocess.SubprocessError):
                 with lock:
                     info = {}
@@ -553,9 +633,19 @@ def monitor(instance_id: int) -> None:
     def state_dot(text: str, ok: bool) -> str:
         return (green('●') if ok else yellow('●')) + ' ' + text
 
+    def setup_text(line: str) -> tuple[str, bool]:
+        phase, _, message = line.partition('|')
+        if phase == 'missing':
+            return 'not installed • type setup + Enter', False
+        if phase == 'failed':
+            return f'failed: {message} • type setup to retry', False
+        if phase == 'warn':
+            return message + ' • see the setup log', False
+        return message or phase, phase == 'done'
+
     def rows() -> list[str]:
         with lock:
-            data, comfy_status = dict(info), comfy
+            data, comfy_status, setup_now = dict(info), comfy, setup_line
             raw_stop = state.get('stopped_at')
             paused = float(state.get('paused_seconds') or 0)
         now = time.time()
@@ -604,6 +694,9 @@ def monitor(instance_id: int) -> None:
                       field('Disk', dim('unavailable'))]
         if kind == 'comfy':
             lines.append(field('ComfyUI', state_dot(comfy_status, comfy_status.startswith('ready'))))
+        if setup_now:
+            text, ok = setup_text(setup_now)
+            lines.append(field('Setup', state_dot(text, ok)))
         return lines
 
     worker = threading.Thread(target=poll, daemon=True)
@@ -641,6 +734,35 @@ def monitor(instance_id: int) -> None:
         print(bold('›') + ' Command' + hint + ': ', end='', flush=True)
         return shown_now, len(display.splitlines())
 
+    def run_setup() -> None:
+        nonlocal setup_line, setup_checked
+        if stopped_now():
+            print('The instance is stopped. Type start first.')
+            return
+        with lock:
+            data = dict(info)
+            preset = state.get('setup') or DEFAULT_SETUP
+        if not data or data.get('actual_status') != 'running':
+            print('The instance is not running yet. Try again in a minute.')
+            return
+        title = PRESETS[preset]['title']
+        print(f'Starting {title} setup in the background (resumes; already-verified files are kept)…', flush=True)
+        try:
+            started = start_setup(instance_id, data, preset, attempts=2)
+        except (RuntimeError, OSError, subprocess.SubprocessError) as error:
+            print(yellow(str(error)))
+            return
+        if not started:
+            print(yellow('Could not reach the instance over SSH. Try again shortly.'))
+            return
+        with lock:
+            if state.get('setup') != preset:
+                state['setup'] = preset
+                save_state(instance_id, state)
+            setup_line, setup_checked = 'running|starting…', time.monotonic()
+        print(f'{title} setup started. Progress shows in the Setup row.')
+        wake.set()
+
     def power(action: str) -> None:
         nonlocal tunnel_urls, comfy
         stopped = stopped_now()
@@ -671,6 +793,8 @@ def monitor(instance_id: int) -> None:
     print('  ' + field('kill', 'destroy this rental', 7))
     if kind == 'comfy':
         print('  ' + field('comfy', 'enable ComfyUI web access ' + yellow('(recreates the container, erasing its files)'), 7))
+        print('  ' + field('setup', f"install or resume {PRESETS[state.get('setup') or DEFAULT_SETUP]['title']} "
+                                    'nodes and models', 7))
     print('  ' + field('Ctrl+C', 'close this display; the rental keeps running', 7))
     shown, count = paint()
     try:
@@ -687,6 +811,8 @@ def monitor(instance_id: int) -> None:
                     return
                 if command in ('stop', 'start'):
                     power(command)
+                elif command == 'setup' and kind == 'comfy':
+                    run_setup()
                 elif command == 'comfy' and kind == 'comfy' and stopped_now():
                     print('The instance is stopped. Type start first.')
                 elif command == 'comfy' and kind == 'comfy':
@@ -699,9 +825,10 @@ def monitor(instance_id: int) -> None:
                         enable_web(instance_id, image)
                         with lock:
                             tunnel_urls, comfy = {}, 'recycling • starting ComfyUI…'
-                        print('Recycle started. The ComfyUI link appears here in a few minutes.')
+                        print('Recycle started. The ComfyUI link appears here in a few minutes.'
+                              + (' Then type setup to reinstall the nodes and models.' if state.get('setup') else ''))
                 elif command:
-                    print('Type stop, start, kill' + (', comfy' if kind == 'comfy' else '')
+                    print('Type stop, start, kill' + (', comfy, setup' if kind == 'comfy' else '')
                           + ', or Ctrl+C to close the display.')
                 shown, count = paint()
                 continue
@@ -750,16 +877,27 @@ def tracked_instance(requested: int) -> int:
     return tracked[choice]['instance_id']
 
 
+def validate(opts: argparse.Namespace) -> None:
+    """Checks the values that are set; preset-dependent ones are filled in after the image choice."""
+    if (opts.disk is not None and opts.disk < 10) or (opts.min_ram is not None and opts.min_ram < 0) \
+            or opts.gpus < 1 or opts.min_vram < 0 or opts.min_disk_speed < 0 or opts.top < 1:
+        raise RuntimeError('Invalid filter values.')
+    if opts.label is not None and not re.fullmatch(r'[A-Za-z0-9 _.-]{1,40}', opts.label):
+        raise RuntimeError('Label may contain only letters, digits, spaces, _ . -')
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--list', action='store_true', help='Read-only: list GPU models and offers, never rent')
     parser.add_argument('-m', '--monitor', nargs='?', type=int, const=0, metavar='ID',
                         help='Reopen the live monitor for a rental made by this script')
     parser.add_argument('--image', help='Docker image (skips the image menu)')
-    parser.add_argument('--label', default='Qwen', help='Vast instance label (default: Qwen)')
-    parser.add_argument('--disk', type=int, default=60, help='Disk GB (default: 60)')
+    parser.add_argument('--setup', choices=sorted(PRESETS),
+                        help=f'Skip the image menu and install a setup preset (image defaults to {COMFY_IMAGE})')
+    parser.add_argument('--label', help='Vast instance label (default: Genjutsu H3 for image 1, else Qwen)')
+    parser.add_argument('--disk', type=int, help='Disk GB (default: 120 for image 1, else 60)')
     parser.add_argument('--min-vram', type=int, default=24, help='Minimum VRAM GB (default: 24)')
-    parser.add_argument('--min-ram', type=int, default=32, help='Minimum system RAM GB (default: 32)')
+    parser.add_argument('--min-ram', type=int, help='Minimum system RAM GB (default: 64 for image 1, else 32)')
     parser.add_argument('--gpus', type=int, default=1, help='GPU count (default: 1)')
     parser.add_argument('--min-cuda', type=float, default=12.9, help='Minimum host CUDA; images need 12.9 (default: 12.9)')
     parser.add_argument('--min-compute', type=float, default=8.0,
@@ -771,22 +909,22 @@ def main() -> None:
     parser.add_argument('--top', type=int, default=5, help='Offers shown for the chosen GPU (default: 5)')
     parser.add_argument('--wait', type=int, default=600, help='Seconds to wait for SSH (default: 600)')
     opts = parser.parse_args()
-    if opts.disk < 10 or opts.gpus < 1 or opts.min_vram < 0 or opts.min_ram < 0 or opts.min_disk_speed < 0 or opts.top < 1:
-        raise RuntimeError('Invalid filter values.')
-    if not re.fullmatch(r'[A-Za-z0-9 _.-]{1,40}', opts.label):
-        raise RuntimeError('Label may contain only letters, digits, spaces, _ . -')
+    if opts.setup and opts.image and image_kind(opts.image) != 'comfy':
+        raise RuntimeError('--setup needs a vastai/comfy image.')
+    validate(opts)
 
     if opts.monitor is not None:
         instance_id = tracked_instance(opts.monitor)
         state = json.loads((STATE / f'{instance_id}.json').read_text())
-        print_access(instance_id, instance(instance_id), state.get('image', ''))
+        print_access(instance_id, instance(instance_id), state.get('image', ''), state.get('setup'))
         monitor(instance_id)
         return
 
     print('\nRent Vast.ai GPU (rent only)')
-    image = None if opts.list else choose_image(opts)
+    image, preset = (None, None) if opts.list else choose_image(opts)
     if not opts.list and image is None:
         return
+    apply_defaults(opts, preset)
     gpu, rows = choose_gpu(opts)
     if not gpu:
         return
@@ -824,7 +962,8 @@ def main() -> None:
                           for r in existing))
 
     print(f"\nRenting offer {offer['id']}: {offer['gpu_name']} • ${offer['dph_total']:.4f}/hour • "
-          f"{offer.get('geolocation') or 'unknown'}\n  image {image}\n  disk {opts.disk} GB • label {opts.label}")
+          f"{offer.get('geolocation') or 'unknown'}\n  image {image}\n  disk {opts.disk} GB • label {opts.label}"
+          + (f"\n  setup {PRESETS[preset]['title']} (starts once SSH is up)" if preset else ''))
     print('Renting now (billing starts)...')
 
     result = vast('create', 'instance', str(offer['id']), '--image', image, '--disk', str(opts.disk),
@@ -836,7 +975,8 @@ def main() -> None:
     instance_id = int(contract)
     path = save_state(instance_id, dict(instance_id=instance_id, offer_id=offer['id'], gpu=offer['gpu_name'],
                                         image=image, disk_gb=opts.disk, label=opts.label,
-                                        hourly_usd=offer['dph_total'], created_at=time.time()))
+                                        hourly_usd=offer['dph_total'], created_at=time.time(),
+                                        **({'setup': preset} if preset else {})))
     print(f'\nRented instance {instance_id}. Saved to {path}.')
     print(f'Waiting up to {opts.wait // 60} min for the container and SSH (Ctrl+C stops waiting; rental is kept)…')
     try:
@@ -845,11 +985,17 @@ def main() -> None:
         info = None
         print()
     if info:
-        print_access(instance_id, info, image)
+        if preset:
+            title = PRESETS[preset]['title']
+            print(f'\nStarting {title} setup in the background (nodes first, then ~52 GB of models)…', flush=True)
+            if not start_setup(instance_id, info, preset):
+                print(yellow(f'Could not start {title} setup over SSH. Type setup in the monitor to retry.'))
+        print_access(instance_id, info, image, preset)
         monitor(instance_id)
     else:
         print(f'\nInstance {instance_id} is not ready yet and is still billable. Check https://cloud.vast.ai/instances/'
-              f'\nWatch it with: rent-gpu -m {instance_id} • destroy: vastai destroy instance {instance_id}')
+              f'\nWatch it with: rent-gpu -m {instance_id}'
+              + (' (then type setup)' if preset else '') + f' • destroy: vastai destroy instance {instance_id}')
 
 
 if __name__ == '__main__':
