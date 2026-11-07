@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-# Genjutsu H3 setup for Vast's ComfyUI image (rent-gpu image option 1).
-# Installs what docs/minimax-h3-comfyui and docs/h3-post-processing need: MiniMax H3 motion control,
-# Check mask, Fix faces and Fix colours. Resumable and safe to rerun; every model is sha256-checked.
+# Genjutsu setup for Vast's ComfyUI image (rent-gpu image option 1).
+# Installs what docs/minimax-h3-comfyui, docs/h3-post-processing and docs/qwen-image-edit need: MiniMax H3 motion
+# control, Check mask, Fix faces, Fix colours and Edit Image (Qwen-Image 2.1 with both LoRAs).
+# Resumable and safe to rerun; every model is sha256-checked. Models download in the order that makes each tab
+# usable soonest; the status line lists the tabs that are ready so far.
 #
 # rent-gpu uploads and starts this automatically. By hand, from your Mac:
-#   ssh -p PORT root@HOST 'bash -s' < rent-gpu-genjutsu-h3.sh
-# Progress: /workspace/.rent-gpu-setup/setup.log; one-line status: /workspace/.rent-gpu-setup/status
+#   ssh -p PORT root@HOST 'bash -s' < rent-gpu-genjutsu.sh
+# Progress: /workspace/.rent-gpu-setup/setup.log
+# Status:   /workspace/.rent-gpu-setup/status, one line: state|message|ready tabs
 # Env: COMFY_DIR, COMFY_PYTHON (defaults match vastai/comfy), HF_TOKEN for rate-limited downloads.
 set -Eeuo pipefail
 
@@ -20,10 +23,12 @@ H3_REV=912b6e38b2092ec4d2e86d24183e0d59ea059d48
 
 mkdir -p "$STATE_DIR"
 exec 9>"$STATE_DIR/lock"
-flock -n 9 || { echo 'Genjutsu H3 setup is already running on this instance.'; exit 0; }
+flock -n 9 || { echo 'Genjutsu setup is already running on this instance.'; exit 0; }
 
+READY=()
+ready_list() { local IFS=,; printf '%s' "${READY[*]:-}" | sed 's/,/, /g'; }
 status() {
-  printf '%s|%s\n' "$1" "$2" > "$STATUS.tmp" && mv "$STATUS.tmp" "$STATUS"
+  printf '%s|%s|%s\n' "$1" "$2" "$(ready_list)" > "$STATUS.tmp" && mv "$STATUS.tmp" "$STATUS"
   printf '\n==> %s\n' "$2"
 }
 WARNINGS=()
@@ -47,21 +52,29 @@ NODES=(
 # insightface (FaceRefine) needs an ONNX runtime it does not declare.
 EXTRA_PIP=(onnxruntime-gpu)
 
-# models/<folder> | URL (pinned revision) | bytes | sha256. Filenames are Genjutsu's defaults (lib/h3-swap.ts).
+# models/<folder> | URL (pinned revision) | bytes | sha256 | tab ready once this file is in.
+# Filenames are Genjutsu's defaults (lib/h3-swap.ts, lib/server/qwen-edit-workflow.ts). Order = soonest usable tab:
+# Check mask (1.7 GB) → Edit Image Turbo (+17 GB) → Motion control (+40 GB) → Fix faces → Edit Image Balanced, LoRAs.
+Q21="$HF/Comfy-Org/Qwen-Image-2.1/resolve/aacf31a6d48e707f352ecba714cee0680da3479b"
 MODELS=(
-  "diffusion_models|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors|20970379616|9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779"
-  "loras|$HF/Kijai/MiniMax-H3-experimental/resolve/f5c3b1d5a63e008a691fca1b6096fd57a5307536/loras/minimax_h3_DMAD_4step_full_lora_avg_rank_39_bf16.safetensors|366647000|ddfdd94f4c9a0f32bf3649bb8e98ca20db572e4db6bcd9cca546a5b33ea32d11"
-  "text_encoders|$HF/Abiray/MiniMax-H3-GGUF/resolve/9fc3454d3ebe1be1bade862cd4a5011f325a22cb/text_encoders/qwen3vl_32b_minimax_h3_int4_convrot.safetensors|14952506709|21fd2e2f06bc4fc422c6aa20893fe189edbbd9ab3068215f96e7a6cf2f6cb5bb"
-  "text_encoders|$HF/Comfy-Org/Qwen-Image-2.1/resolve/aacf31a6d48e707f352ecba714cee0680da3479b/text_encoders/qwen3vl_8b_int8_convrot.safetensors|9350798360|8bfd0f6e12abf2d2d697ecc888e5e90b0d6741d6708f05799f53afa560452e8f"
-  "vae|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/vae/minimax_h3_video_vae_int8_convrot.safetensors|2811065184|52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e"
-  "vae|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/vae/minimax_h3_audio_vae_fp32.safetensors|605254808|8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48"
-  "checkpoints|$HF/Comfy-Org/sam3.1/resolve/7bb8374780a725b4353ed31f3a9395c9742b5621/checkpoints/sam3.1_multiplex_fp16.safetensors|1745546848|9ba99c92703c2e8b4f47de2d34a539bb8e18923049e238b780d70dbe6368eb03"
-  "ultralytics/bbox|$HF/Bingsu/adetailer/resolve/53cc19de382014514d9d4038601d261a7faa9b7b/face_yolov8m.pt|52026019|717923c19b3f4bbf5250b728f1fa6b2cb72a33aed1d236ea9caf0e21ad943e5f"
-  "ultralytics/segm|$HF/Bingsu/adetailer/resolve/53cc19de382014514d9d4038601d261a7faa9b7b/person_yolov8m-seg.pt|54827683|c8ab26f517173b1fe8342d336a09f443eb61cb08dcbfc78d53fff4c2547ae81e"
-  "sams|$HF/ybelkada/segment-anything/resolve/7790786db131bcdc639f24a915d9f2c331d843ee/checkpoints/sam_vit_b_01ec64.pth|375042383|ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912"
+  "checkpoints|$HF/Comfy-Org/sam3.1/resolve/7bb8374780a725b4353ed31f3a9395c9742b5621/checkpoints/sam3.1_multiplex_fp16.safetensors|1745546848|9ba99c92703c2e8b4f47de2d34a539bb8e18923049e238b780d70dbe6368eb03|Check mask"
+  "text_encoders|$Q21/text_encoders/qwen3vl_8b_int8_convrot.safetensors|9350798360|8bfd0f6e12abf2d2d697ecc888e5e90b0d6741d6708f05799f53afa560452e8f|"
+  "diffusion_models|$Q21/diffusion_models/qwen_image_2.1_turbo_int8_convrot.safetensors|7256787829|8144a0182964aa8403ad6dbc011db837304167d235161b9aabaa8532e967314c|"
+  "vae|$Q21/vae/qwen_image_2.1_vae_bf16.safetensors|675509688|bb21f7473051e1ac368515dd3f2e15cd44d7a11748ee8823e1ddca3e4876b7c9|Edit Image Turbo"
+  "diffusion_models|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors|20970379616|9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779|"
+  "loras|$HF/Kijai/MiniMax-H3-experimental/resolve/f5c3b1d5a63e008a691fca1b6096fd57a5307536/loras/minimax_h3_DMAD_4step_full_lora_avg_rank_39_bf16.safetensors|366647000|ddfdd94f4c9a0f32bf3649bb8e98ca20db572e4db6bcd9cca546a5b33ea32d11|"
+  "text_encoders|$HF/Abiray/MiniMax-H3-GGUF/resolve/9fc3454d3ebe1be1bade862cd4a5011f325a22cb/text_encoders/qwen3vl_32b_minimax_h3_int4_convrot.safetensors|14952506709|21fd2e2f06bc4fc422c6aa20893fe189edbbd9ab3068215f96e7a6cf2f6cb5bb|"
+  "vae|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/vae/minimax_h3_video_vae_int8_convrot.safetensors|2811065184|52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e|"
+  "vae|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/vae/minimax_h3_audio_vae_fp32.safetensors|605254808|8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48|Motion control"
+  "ultralytics/bbox|$HF/Bingsu/adetailer/resolve/53cc19de382014514d9d4038601d261a7faa9b7b/face_yolov8m.pt|52026019|717923c19b3f4bbf5250b728f1fa6b2cb72a33aed1d236ea9caf0e21ad943e5f|"
+  "ultralytics/segm|$HF/Bingsu/adetailer/resolve/53cc19de382014514d9d4038601d261a7faa9b7b/person_yolov8m-seg.pt|54827683|c8ab26f517173b1fe8342d336a09f443eb61cb08dcbfc78d53fff4c2547ae81e|"
+  "sams|$HF/ybelkada/segment-anything/resolve/7790786db131bcdc639f24a915d9f2c331d843ee/checkpoints/sam_vit_b_01ec64.pth|375042383|ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912|Fix faces"
+  "diffusion_models|$Q21/diffusion_models/qwen_image_2.1_int8_convrot.safetensors|7256783064|cb74113cb03faecd79611b01fd7fd642f0aa60d6f0b95086abee214d75eaa57d|Edit Image Balanced/Best"
+  "loras|$HF/ausboss/Qwen-Image-2.1-Consistency-LoRA/resolve/58897a02f4f60f88376eab5676738dd45e5ed1a2/qwen-image-2.1-consistency.safetensors|159436496|4f44ada1be2189cc23b3d010f9603543403f48454e2f76842a3d30109b20bd63|"
+  "loras|$HF/Alissonerdx/BFS-Best-Face-Swap/resolve/2209ae537ac5e883d6ec7db5b7bd6dccf1a0eba7/bfs_head_v1.1_qwen_2.1.safetensors|260096144|d1d748d5601077f3b6d05766f6823510e901970d916afa404a97e85dc92fa88e|Edit Image LoRAs"
 )
 
-# Node types used by simple/mask/face/color.api.json plus the ones Genjutsu adds while editing graphs.
+# Node types used by simple/mask/face/color.api.json and the Qwen edit graph, plus ones Genjutsu adds while editing.
 REQUIRED_TYPES="AudioAdjustVolume BasicGuider BasicScheduler CLIPLoader CLIPTextEncode CheckpointLoaderSimple
 ComfyMathExpression GrowMaskWithBlur H3ClipShots H3FaceChunks H3FaceJoin H3FaceMaskSAM H3FaceStitch H3FaceTrackCrop
 H3FillShots H3GreyMannequins H3OneClickSwapPlan H3PeopleMask H3SoundtrackOrSilence H3SourceSlice ImageAndMaskPreview
@@ -72,7 +85,8 @@ MiniMaxH3ContexMaskGridPreview MiniMaxH3ContexMaskedTarget MiniMaxH3FantasticVid
 MiniMaxH3GenerationProfile MiniMaxH3LoopTrim MiniMaxH3ReferenceToVideo MiniMaxH3SigmaShift MiniMaxH3SourceTimeline
 ModelAttentionBackend Orion4D_FXMax_DCTLToneMapper PreviewAny PreviewImage PrimitiveBoolean RandomNoise
 SAM3_TrackToMask SAM3_VideoTrack SAMLoader SamplerCustomAdvanced StringConcatenate TextGenerate TrimAudioDuration
-UNETLoader VAEDecode VAEDecodeAudio VAELoader VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"
+UNETLoader VAEDecode VAEDecodeAudio VAELoader VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine
+QwenImage21Cache TextEncodeQwenImage21 EmptyLatentImage KSampler ManualSigmas CFGGuider SaveImage"
 OPTIONAL_TYPES="SpectrumApplyMiniMaxH3"
 
 status running 'waiting for ComfyUI files'
@@ -93,7 +107,7 @@ printf 'ComfyUI %s at %s\n' "$version" "$COMFY"
 
 need=0
 for entry in "${MODELS[@]}"; do
-  IFS='|' read -r folder url bytes _ <<<"$entry"
+  IFS='|' read -r folder url bytes _ _ <<<"$entry"
   target="$COMFY/models/$folder/${url##*/}"
   [ -f "$target" ] && [ "$(stat -c %s "$target")" = "$bytes" ] || need=$((need + bytes))
 done
@@ -162,12 +176,13 @@ if command -v supervisorctl >/dev/null; then
 else
   warn 'supervisorctl not found; restart ComfyUI yourself to load the custom nodes'
 fi
+READY+=("Fix colours")  # no model files
 
 auth=()
 [ -n "${HF_TOKEN:-}" ] && auth=(-H "Authorization: Bearer $HF_TOKEN")
 count=0
 for entry in "${MODELS[@]}"; do
-  IFS='|' read -r folder url bytes sha <<<"$entry"
+  IFS='|' read -r folder url bytes sha unlocks <<<"$entry"
   count=$((count + 1))
   name="${url##*/}"
   dir="$COMFY/models/$folder"
@@ -175,6 +190,7 @@ for entry in "${MODELS[@]}"; do
   mkdir -p "$dir"
   if [ -f "$target" ] && [ "$(stat -c %s "$target")" = "$bytes" ]; then
     printf '✓ %s already installed\n' "$name"
+    if [ -n "$unlocks" ]; then READY+=("$unlocks"); fi
     continue
   fi
   status running "models $count/${#MODELS[@]} • $name ($(awk "BEGIN {printf \"%.1f\", $bytes / 1e9}") GB)"
@@ -195,6 +211,7 @@ for entry in "${MODELS[@]}"; do
   fi
   mv "$target.part" "$target"
   echo ok
+  if [ -n "$unlocks" ]; then READY+=("$unlocks"); status running "$unlocks ready"; fi
 done
 
 status running 'checking ComfyUI loaded every node'
@@ -224,9 +241,9 @@ fi
 
 trap - ERR
 if [ ${#WARNINGS[@]} -eq 0 ]; then
-  status done "Genjutsu H3 ready • ${#NODES[@]} node packs, ${#MODELS[@]} models verified"
+  status done "all tabs ready • ${#NODES[@]} node packs, ${#MODELS[@]} models verified"
 else
   status warn "installed with ${#WARNINGS[@]} warning(s): ${WARNINGS[0]}"
   printf '\nWarnings:\n'; printf '  - %s\n' "${WARNINGS[@]}"
 fi
-printf '\nIn Genjutsu → Motion Control → MiniMax H3, paste the ComfyUI link and press Check.\n'
+printf '\nIn Genjutsu (Motion Control → MiniMax H3, Post-processing, Edit Image), paste the ComfyUI link and press Check.\n'

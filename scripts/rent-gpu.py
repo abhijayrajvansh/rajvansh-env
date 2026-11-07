@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Rent-only Vast.ai GPU launcher (Genjutsu H3, Qwen, …). Needs python3, the `vastai` CLI and, for image 1,
-rent-gpu-genjutsu-h3.sh next to this script.
+"""Rent-only Vast.ai GPU launcher (Genjutsu, Qwen, …). Needs python3, the `vastai` CLI and, for image 1,
+rent-gpu-genjutsu.sh next to this script.
 
 Rents immediately after an explicit numbered offer choice (re-checked for price/availability). Image 1 then installs
-Genjutsu's MiniMax H3 motion control and post-processing nodes and models in the background over SSH. Only the
+Genjutsu's nodes and models (MiniMax H3 motion control, post-processing, Qwen-Image 2.1 Edit Image) in the
+background over SSH. Only the
 monitor's explicit `kill` destroys a rental, `stop`/`start` pause/resume it, `comfy` recycles one to enable ComfyUI web
-access, and `setup` (re)runs the Genjutsu H3 installer.
+access, and `setup` (re)runs the Genjutsu installer.
 """
 import argparse
 import json
@@ -37,14 +38,16 @@ BLOCKED_MACHINE_IDS: set[str] = set()
 COMFY_IMAGE = 'vastai/comfy:v0.44.0-cuda-12.9-py312'
 # Setup presets: an installer started over SSH once the rental is up, plus rental defaults sized for it.
 PRESETS: dict[str, dict[str, Any]] = {
-    'genjutsu-h3': dict(script='rent-gpu-genjutsu-h3.sh', title='Genjutsu H3', label='Genjutsu H3',
-                        disk=120, min_ram=64),  # ~52 GB of models; int8 H3 streams weights from system RAM
+    # ~67 GB of models (H3 ~51 GB + Qwen-Image 2.1 ~16 GB); int8 H3 streams weights from system RAM.
+    'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=120, min_ram=64),
 }
-DEFAULT_SETUP = 'genjutsu-h3'
+PRESET_ALIASES = {'genjutsu-h3': 'genjutsu'}  # rentals saved before Qwen-Image 2.1 joined the preset
+DEFAULT_SETUP = 'genjutsu'
 DEFAULTS = dict(label='Qwen', disk=60, min_ram=32)
 IMAGES: list[tuple[str, str, str | None]] = [
-    ('ComfyUI + Genjutsu H3 — motion control, Check mask, Fix faces, Fix colours\n'
-     '     installs nodes + ~52 GB of models automatically • 120 GB disk, ≥64 GB RAM', COMFY_IMAGE, 'genjutsu-h3'),
+    ('ComfyUI + Genjutsu — H3 motion control, Check mask, Fix faces, Fix colours,\n'
+     '     Edit Image (Qwen-Image 2.1 + consistency/BFS LoRAs)\n'
+     '     installs nodes + ~67 GB of models automatically • 120 GB disk, ≥64 GB RAM', COMFY_IMAGE, 'genjutsu'),
     ('ComfyUI (stock, no models preinstalled)', COMFY_IMAGE, None),
     ('Ubuntu 24.04 + Python 3.12 (bare; install vLLM / Transformers yourself)',
      'vastai/base-image:stock-ubuntu24.04-py312-2026-10-23', None),
@@ -192,6 +195,13 @@ def ask_number(prompt: str, count: int, refresh: bool = False) -> int | None:
         if answer.isdigit() and 1 <= int(answer) <= count:
             return int(answer) - 1
         print('Choose a listed number' + (', r to refresh' if refresh else '') + ', or press Enter to cancel.')
+
+
+def load_state(instance_id: int) -> dict[str, Any]:
+    state = json.loads((STATE / f'{instance_id}.json').read_text())
+    if state.get('setup') in PRESET_ALIASES:
+        state['setup'] = PRESET_ALIASES[state['setup']]
+    return state
 
 
 def preset_script(name: str) -> Path:
@@ -555,7 +565,7 @@ def destroy(instance_id: int) -> None:
 
 def monitor(instance_id: int) -> None:
     """Live cost/time/GPU box with ComfyUI links. `stop`/`start` pause/resume; `kill` destroys; `comfy` enables web."""
-    state = json.loads((STATE / f'{instance_id}.json').read_text())
+    state = load_state(instance_id)
     image = state.get('image', '')
     kind = image_kind(image)
     info: dict[str, Any] = {}
@@ -634,7 +644,8 @@ def monitor(instance_id: int) -> None:
         return (green('●') if ok else yellow('●')) + ' ' + text
 
     def setup_text(line: str) -> tuple[str, bool]:
-        phase, _, message = line.partition('|')
+        phase, _, rest = line.partition('|')
+        message = rest.partition('|')[0]
         if phase == 'missing':
             return 'not installed • type setup + Enter', False
         if phase == 'failed':
@@ -697,6 +708,9 @@ def monitor(instance_id: int) -> None:
         if setup_now:
             text, ok = setup_text(setup_now)
             lines.append(field('Setup', state_dot(text, ok)))
+            ready = setup_now.split('|', 2)[2] if setup_now.count('|') >= 2 else ''
+            if ready and not ok:
+                lines.append(field('Ready', green(ready)))
         return lines
 
     worker = threading.Thread(target=poll, daemon=True)
@@ -892,9 +906,9 @@ def main() -> None:
     parser.add_argument('-m', '--monitor', nargs='?', type=int, const=0, metavar='ID',
                         help='Reopen the live monitor for a rental made by this script')
     parser.add_argument('--image', help='Docker image (skips the image menu)')
-    parser.add_argument('--setup', choices=sorted(PRESETS),
+    parser.add_argument('--setup', choices=sorted({*PRESETS, *PRESET_ALIASES}),
                         help=f'Skip the image menu and install a setup preset (image defaults to {COMFY_IMAGE})')
-    parser.add_argument('--label', help='Vast instance label (default: Genjutsu H3 for image 1, else Qwen)')
+    parser.add_argument('--label', help='Vast instance label (default: Genjutsu for image 1, else Qwen)')
     parser.add_argument('--disk', type=int, help='Disk GB (default: 120 for image 1, else 60)')
     parser.add_argument('--min-vram', type=int, default=24, help='Minimum VRAM GB (default: 24)')
     parser.add_argument('--min-ram', type=int, help='Minimum system RAM GB (default: 64 for image 1, else 32)')
@@ -909,13 +923,14 @@ def main() -> None:
     parser.add_argument('--top', type=int, default=5, help='Offers shown for the chosen GPU (default: 5)')
     parser.add_argument('--wait', type=int, default=600, help='Seconds to wait for SSH (default: 600)')
     opts = parser.parse_args()
+    opts.setup = PRESET_ALIASES.get(opts.setup, opts.setup)
     if opts.setup and opts.image and image_kind(opts.image) != 'comfy':
         raise RuntimeError('--setup needs a vastai/comfy image.')
     validate(opts)
 
     if opts.monitor is not None:
         instance_id = tracked_instance(opts.monitor)
-        state = json.loads((STATE / f'{instance_id}.json').read_text())
+        state = load_state(instance_id)
         print_access(instance_id, instance(instance_id), state.get('image', ''), state.get('setup'))
         monitor(instance_id)
         return
@@ -987,7 +1002,7 @@ def main() -> None:
     if info:
         if preset:
             title = PRESETS[preset]['title']
-            print(f'\nStarting {title} setup in the background (nodes first, then ~52 GB of models)…', flush=True)
+            print(f'\nStarting {title} setup in the background (nodes first, then ~67 GB of models)…', flush=True)
             if not start_setup(instance_id, info, preset):
                 print(yellow(f'Could not start {title} setup over SSH. Type setup in the monitor to retry.'))
         print_access(instance_id, info, image, preset)
