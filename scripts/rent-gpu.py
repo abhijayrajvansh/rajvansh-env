@@ -643,6 +643,12 @@ def monitor(instance_id: int) -> None:
     def state_dot(text: str, ok: bool) -> str:
         return (green('●') if ok else yellow('●')) + ' ' + text
 
+    def progress(percent: str, extra: str = '') -> str:
+        """'42' → '████░░░░░░ 42% done · 58% left'."""
+        done = max(0, min(100, int(percent)))
+        bar = green('█' * (done // 10)) + dim('░' * (10 - done // 10))
+        return f'{bar} {done}% done · {100 - done}% left' + (dim(f' · {extra}') if extra else '')
+
     def setup_text(line: str) -> tuple[str, bool]:
         phase, _, rest = line.partition('|')
         message = rest.partition('|')[0]
@@ -706,9 +712,20 @@ def monitor(instance_id: int) -> None:
         if kind == 'comfy':
             lines.append(field('ComfyUI', state_dot(comfy_status, comfy_status.startswith('ready'))))
         if setup_now:
+            # state|message|ready|step %|step detail|workflow|workflow %|overall % (older installers: first 2-3)
+            parts = (setup_now.split('|') + [''] * 8)[:8]
+            _, _, ready, step, detail, workflow, workflow_pct, overall_pct = parts
             text, ok = setup_text(setup_now)
             lines.append(field('Setup', state_dot(text, ok)))
-            ready = setup_now.split('|', 2)[2] if setup_now.count('|') >= 2 else ''
+            if not ok and parts[0] == 'running':
+                if step.isdigit():
+                    lines.append(field('Step', progress(step, detail)))
+                elif detail:
+                    lines.append(field('Step', dim(detail)))
+                if workflow and workflow_pct.isdigit():
+                    lines.append(field('Workflow', progress(workflow_pct, workflow)))
+                if overall_pct.isdigit():
+                    lines.append(field('Overall', progress(overall_pct)))
             if ready and not ok:
                 lines.append(field('Ready', green(ready)))
         return lines
