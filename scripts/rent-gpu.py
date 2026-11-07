@@ -39,11 +39,16 @@ COMFY_IMAGE = 'vastai/comfy:v0.44.0-cuda-12.9-py312'
 # Setup presets: an installer started over SSH once the rental is up, plus rental defaults sized for it.
 PRESETS: dict[str, dict[str, Any]] = {
     # ~67 GB of models (H3 ~51 GB + Qwen-Image 2.1 ~16 GB); int8 H3 streams weights from system RAM.
-    'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=120, min_ram=64),
+    # setup_gb: models + node packages fetched on the rental, for the per-offer setup cost estimate.
+    'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=120, min_ram=64,
+                     min_download=1000, setup_gb=70),
 }
 PRESET_ALIASES = {'genjutsu-h3': 'genjutsu'}  # rentals saved before Qwen-Image 2.1 joined the preset
 DEFAULT_SETUP = 'genjutsu'
-DEFAULTS = dict(label='Qwen', disk=60, min_ram=32)
+DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500)
+# Hugging Face rarely serves one file faster than ~300 MB/s even over 16 connections; real throughput ≈ 80% of the line.
+HF_CAP_MBPS = 2400
+NET_EFFICIENCY = 0.8
 IMAGES: list[tuple[str, str, str | None]] = [
     ('ComfyUI + Genjutsu — H3 motion control, Check mask, Fix faces, Fix colours,\n'
      '     Edit Image (Qwen-Image 2.1 + consistency/BFS LoRAs)\n'
@@ -256,8 +261,8 @@ def choose_gpu(opts: argparse.Namespace) -> tuple[str | None, list[dict[str, Any
     if not names:
         print('No offers match these filters. Nothing was rented.')
         return None, []
-    print(f'\nGPU models (≥{opts.min_vram} GB VRAM, ≥{opts.min_ram} GB RAM, {opts.disk} GB disk priced in, disk ≥{opts.min_disk_speed:,} MB/s, '
-          'cheapest first):\n')
+    print(f'\nGPU models (≥{opts.min_vram} GB VRAM, ≥{opts.min_ram} GB RAM, {opts.disk} GB disk priced in, '
+          f'disk ≥{opts.min_disk_speed:,} MB/s, ↓ ≥{opts.min_download:,} Mbps, cheapest first):\n')
     for index, name in enumerate(names, 1):
         row = cheapest[name]
         price = green(f"${row['dph_total']:.4f}/hour")
@@ -275,7 +280,17 @@ def disk_speed(row: dict[str, Any]) -> str:
     return f'{speed:,.0f} MB/s' if finite(speed) and speed > 0 else 'unknown speed'
 
 
-def show_offers(rows: list[dict[str, Any]], disk: int) -> None:
+def setup_cost(row: dict[str, Any], gigabytes: float) -> tuple[float, float, float]:
+    """(bandwidth $, GPU-time $, minutes) to download a setup's models on this offer."""
+    mbps = min(row['inet_down'], HF_CAP_MBPS) * NET_EFFICIENCY
+    seconds = gigabytes * 8000 / mbps if mbps > 0 else math.inf
+    return row['inet_down_cost'] * gigabytes, row['dph_total'] * seconds / 3600, seconds / 60
+
+
+def show_offers(rows: list[dict[str, Any]], disk: int, setup_gb: float | None = None) -> None:
+    if setup_gb:
+        print(dim(f'\nSetup = downloading ~{setup_gb:.0f} GB of models: bandwidth + GPU time while it downloads '
+                  f'(estimate; Hugging Face caps near {HF_CAP_MBPS // 8} MB/s).'))
     print()
     for index, row in enumerate(rows, 1):
         verified = green('✓ Verified') if row.get('verification') == 'verified' else yellow('! Unverified')
@@ -305,6 +320,13 @@ def show_offers(rows: list[dict[str, Any]], disk: int) -> None:
                               + dim(f"(${row['inet_up_cost'] * 1000:.2f}/TB)")])),
             ('Offer', dim(str(row['id']))),
         ]
+        if setup_gb:
+            bandwidth, gpu_time, minutes = setup_cost(row, setup_gb)
+            details.insert(-1, ('Setup', sep.join([
+                bold(green(f'≈ ${bandwidth + gpu_time:.2f}')),
+                f'${bandwidth:.2f} download' + dim(f" (${row['inet_down_cost'] * 1000:.2f}/TB)"),
+                f'${gpu_time:.2f} GPU' + dim(f' (~{minutes:.0f} min)'),
+            ])))
         print(f' {cyan(bold(f"{index:>2}"))}  {header}')
         for n, (label, value) in enumerate(details):
             print(f"     {dim('└' if n == len(details) - 1 else '├')} {field(label, value, 7)}")
@@ -312,8 +334,10 @@ def show_offers(rows: list[dict[str, Any]], disk: int) -> None:
 
 
 def wait_for_ssh(instance_id: int, timeout: int) -> dict[str, Any] | None:
-    deadline = time.monotonic() + timeout
+    started = time.monotonic()
+    deadline = started + timeout
     last = ''
+    live = sys.stdout.isatty()
     while time.monotonic() < deadline:
         try:
             data = vast('show', 'instance', str(instance_id))
@@ -322,11 +346,20 @@ def wait_for_ssh(instance_id: int, timeout: int) -> dict[str, Any] | None:
             data = {}
         status = ' '.join(str(data.get('status_msg') or data.get('actual_status') or 'starting').split())[:120]
         if status != last:
-            print(f'  {time.strftime("%H:%M:%S")} {status}', flush=True)
+            print(('\n' if live and last else '') + f'  {time.strftime("%H:%M:%S")} {status}',
+                  end='' if live else '\n', flush=True)
             last = status
+        elif live:  # same status: keep a ticking timer so a slow image download does not look frozen
+            hint = ' (first boot downloads the ~10 GB image)' if status == 'starting' else ''
+            print(f'\r  {time.strftime("%H:%M:%S")} {status} ' + dim(f'• {clock(time.monotonic() - started)}{hint}'),
+                  end='', flush=True)
         if data.get('actual_status') == 'running' and ssh_candidates(data):
+            if live:
+                print()
             return data
         time.sleep(5)
+    if live:
+        print()
     return None
 
 
@@ -911,6 +944,7 @@ def tracked_instance(requested: int) -> int:
 def validate(opts: argparse.Namespace) -> None:
     """Checks the values that are set; preset-dependent ones are filled in after the image choice."""
     if (opts.disk is not None and opts.disk < 10) or (opts.min_ram is not None and opts.min_ram < 0) \
+            or (opts.min_download is not None and opts.min_download < 0) \
             or opts.gpus < 1 or opts.min_vram < 0 or opts.min_disk_speed < 0 or opts.top < 1:
         raise RuntimeError('Invalid filter values.')
     if opts.label is not None and not re.fullmatch(r'[A-Za-z0-9 _.-]{1,40}', opts.label):
@@ -935,7 +969,7 @@ def main() -> None:
                         help='Minimum CUDA compute capability; 8.0 = Ampere+ with bf16 (default: 8.0)')
     parser.add_argument('--min-disk-speed', type=int, default=1000,
                         help='Minimum disk read speed MB/s (default: 1000)')
-    parser.add_argument('--min-download', type=int, default=500, help='Minimum download Mbps (default: 500)')
+    parser.add_argument('--min-download', type=int, help='Minimum download Mbps (default: 1000 for image 1, else 500)')
     parser.add_argument('--reliability', type=float, default=0.95, help='Minimum reliability 0–1 (default: 0.95)')
     parser.add_argument('--top', type=int, default=5, help='Offers shown for the chosen GPU (default: 5)')
     parser.add_argument('--wait', type=int, default=600, help='Seconds to wait for SSH (default: 600)')
@@ -960,7 +994,7 @@ def main() -> None:
     gpu, rows = choose_gpu(opts)
     if not gpu:
         return
-    show_offers(rows, opts.disk)
+    show_offers(rows, opts.disk, PRESETS[preset]['setup_gb'] if preset else None)
     if opts.list or not rows:
         return
     while True:
@@ -975,7 +1009,7 @@ def main() -> None:
             print(f'No {gpu} offers right now; keeping the previous list (press r to retry).')
             continue
         rows = fresh_rows
-        show_offers(rows, opts.disk)
+        show_offers(rows, opts.disk, PRESETS[preset]['setup_gb'] if preset else None)
     picked = rows[choice]
 
     # Refresh the exact offer; never substitute another one.
