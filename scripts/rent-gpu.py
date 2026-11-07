@@ -41,11 +41,13 @@ PRESETS: dict[str, dict[str, Any]] = {
     # ~67 GB of models (H3 ~51 GB + Qwen-Image 2.1 ~16 GB); int8 H3 streams weights from system RAM.
     # setup_gb: models + node packages fetched on the rental, for the per-offer setup cost estimate.
     'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=120, min_ram=64,
-                     min_download=1000, setup_gb=70),
+                     min_download=1000, setup_gb=70,
+                     # Slow disks take many minutes to unpack the ~10 GB image before the container even boots.
+                     min_disk_speed=2500),
 }
 PRESET_ALIASES = {'genjutsu-h3': 'genjutsu'}  # rentals saved before Qwen-Image 2.1 joined the preset
 DEFAULT_SETUP = 'genjutsu'
-DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500)
+DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_speed=1000)
 # Hugging Face rarely serves one file faster than ~300 MB/s even over 16 connections; real throughput ≈ 80% of the line.
 HF_CAP_MBPS = 2400
 NET_EFFICIENCY = 0.8
@@ -293,7 +295,10 @@ def show_offers(rows: list[dict[str, Any]], disk: int, setup_gb: float | None = 
                   f'(estimate; Hugging Face caps near {HF_CAP_MBPS // 8} MB/s).'))
     print()
     for index, row in enumerate(rows, 1):
-        verified = green('✓ Verified') if row.get('verification') == 'verified' else yellow('! Unverified')
+        verified = {'verified': green('✓ Verified'),
+                    # Vast revoked this host's verification (failed checks); riskier than never verified.
+                    'deverified': paint_text('✗ Deverified', '1;31')}.get(str(row.get('verification')),
+                                                                         yellow('! Unverified'))
         cuda = row.get('cuda_max_good', row.get('cuda_vers'))
         sep = dim(' · ')
         header = sep.join([green(f"${row['dph_total']:.4f}/hr"), bold(row.get('geolocation') or 'unknown'),
@@ -945,7 +950,8 @@ def validate(opts: argparse.Namespace) -> None:
     """Checks the values that are set; preset-dependent ones are filled in after the image choice."""
     if (opts.disk is not None and opts.disk < 10) or (opts.min_ram is not None and opts.min_ram < 0) \
             or (opts.min_download is not None and opts.min_download < 0) \
-            or opts.gpus < 1 or opts.min_vram < 0 or opts.min_disk_speed < 0 or opts.top < 1:
+            or (opts.min_disk_speed is not None and opts.min_disk_speed < 0) \
+            or opts.gpus < 1 or opts.min_vram < 0 or opts.top < 1:
         raise RuntimeError('Invalid filter values.')
     if opts.label is not None and not re.fullmatch(r'[A-Za-z0-9 _.-]{1,40}', opts.label):
         raise RuntimeError('Label may contain only letters, digits, spaces, _ . -')
@@ -967,8 +973,8 @@ def main() -> None:
     parser.add_argument('--min-cuda', type=float, default=12.9, help='Minimum host CUDA; images need 12.9 (default: 12.9)')
     parser.add_argument('--min-compute', type=float, default=8.0,
                         help='Minimum CUDA compute capability; 8.0 = Ampere+ with bf16 (default: 8.0)')
-    parser.add_argument('--min-disk-speed', type=int, default=1000,
-                        help='Minimum disk read speed MB/s (default: 1000)')
+    parser.add_argument('--min-disk-speed', type=int,
+                        help='Minimum disk read speed MB/s (default: 2500 for image 1, else 1000)')
     parser.add_argument('--min-download', type=int, help='Minimum download Mbps (default: 1000 for image 1, else 500)')
     parser.add_argument('--reliability', type=float, default=0.95, help='Minimum reliability 0–1 (default: 0.95)')
     parser.add_argument('--top', type=int, default=5, help='Offers shown for the chosen GPU (default: 5)')
