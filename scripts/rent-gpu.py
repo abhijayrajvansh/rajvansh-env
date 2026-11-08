@@ -983,7 +983,7 @@ def monitor(instance_id: int) -> None:
         display = box()
         print((top + '\n' if top else '') + '\n' + top_border + '\n' + display + '\n' + bottom_border)
         hint = dim(' (type start to resume)') if stopped_now() else ''
-        print(bold('›') + ' Command' + hint + ': ', end='', flush=True)
+        print(bold('›') + ' Command' + (hint or dim(' (help lists all)')) + ': ', end='', flush=True)
         return shown_now, len(display.splitlines())
 
     def run_setup(choice: str = '', picked: list[str] | None = None) -> None:
@@ -1090,17 +1090,34 @@ def monitor(instance_id: int) -> None:
             print('Start requested. If someone else rented this GPU meanwhile, Vast waits until it frees up.')
         wake.set()
 
-    print(section('Commands'))
-    print('  ' + field('stop', 'stop the GPU; keeps files, storage still bills', 7))
-    print('  ' + field('start', 'resume a stopped instance', 7))
-    print('  ' + field('kill', 'destroy this rental', 7))
-    if kind == 'comfy':
-        print('  ' + field('comfy', 'enable ComfyUI web access ' + yellow('(recreates the container, erasing its files)'), 7))
-        print('  ' + field('setup', f"install or resume {PRESETS[state.get('setup') or DEFAULT_SETUP]['title']} "
-                                    f"({workflow_titles(state.get('workflows'))})", 7))
-        print('  ' + field('add', 'set up more workflows; queued if a setup is running', 7))
-        print('  ' + field('', dim('setup motion face, setup all, …: set the exact workflows (edit motion color face smooth)'), 7))
-    print('  ' + field('Ctrl+C', 'close this display; the rental keeps running', 7))
+    def print_commands() -> None:
+        """Every command the prompt takes, grouped. Also shown by `help` or `?`."""
+        groups: list[tuple[str, list[tuple[str, str]]]] = [('Rental', [
+            ('stop', 'stop the GPU; keeps files, storage still bills'),
+            ('start', 'resume a stopped instance'),
+            ('kill', 'destroy this rental ' + yellow('(cannot be undone)')),
+        ])]
+        if kind == 'comfy':
+            preset = PRESETS[state.get('setup') or DEFAULT_SETUP]['title']
+            groups.append(('ComfyUI + Genjutsu', [
+                ('comfy', 'enable web access ' + yellow('(recreates the container, erases its files)')),
+                ('setup', f"install or resume {preset} ({workflow_titles(state.get('workflows'))})"),
+                ('setup KEYS', 'set the exact workflows: ' + dim('setup motion face · setup all')),
+                ('add', 'pick more workflows from a list; queued if a setup is running'),
+                ('add KEYS', 'add those directly: ' + dim('add 1 5 · add edit smooth')),
+            ]))
+        groups.append(('Display', [('help', 'show this list ' + dim('(also ?)')),
+                                   ('Ctrl+C', 'close this display; the rental keeps running')]))
+        print(section('Commands'))
+        for title, commands in groups:
+            print('  ' + bold(title))
+            for n, (name, text) in enumerate(commands):
+                print(f"  {dim('└─' if n == len(commands) - 1 else '├─')} {cyan(name.ljust(11))} {text}")
+        if kind == 'comfy':
+            keys = ' · '.join(f'{key} {dim(str(index))}' for index, key in enumerate(GENJUTSU_WORKFLOWS, 1))
+            print('  ' + bold('Workflow keys') + dim('  name or number, in install order') + f'\n     {keys}')
+
+    print_commands()
     shown, count = paint()
     try:
         while True:
@@ -1110,11 +1127,13 @@ def monitor(instance_id: int) -> None:
                 if not command:
                     break
                 command = command.strip()
-                if command == 'kill':
+                if command in ('help', '?', 'commands'):
+                    print_commands()
+                elif command == 'kill':
                     stop.set()
                     destroy(instance_id)
                     return
-                if command in ('stop', 'start'):
+                elif command in ('stop', 'start'):
                     power(command)
                 elif command.split()[:1] == ['setup'] and kind == 'comfy':
                     run_setup(command[len('setup'):].strip())
@@ -1135,8 +1154,7 @@ def monitor(instance_id: int) -> None:
                         print('Recycle started. The ComfyUI link appears here in a few minutes.'
                               + (' Then type setup to reinstall the nodes and models.' if state.get('setup') else ''))
                 elif command:
-                    print('Type stop, start, kill' + (', comfy, add, setup [workflows]' if kind == 'comfy' else '')
-                          + ', or Ctrl+C to close the display.')
+                    print(f'Unknown command: {command}. Type help to list them.')
                 shown, count = paint()
                 continue
             if screen() != shown:
