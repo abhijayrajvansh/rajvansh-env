@@ -7,7 +7,9 @@
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
 #   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.9 checkpoint                   (docs/h3-post-processing)
 # Pick workflows by passing their keys (comma or space separated; default all): edit motion color face smooth.
-# They install in the order given. Fix faces runs H3, so Motion control goes in just before it. A model or node pack two workflows share is set up once.
+# They install in the order given. Fix faces runs H3, so Motion control goes in just before it.
+# Run again while a setup is running and the new keys are queued: when the running setup ends, it restarts with its
+# own workflows plus the queued ones (finished files are only re-checked, so just the new workflows download). A model or node pack two workflows share is set up once.
 # Each workflow downloads its models in parallel (PARALLEL_DOWNLOADS, default 3), largest first.
 # Resumable and safe to rerun: finished files are kept, partial downloads resume, every model is sha256-checked.
 #
@@ -38,7 +40,16 @@ NODE_UNIT=$GB  # progress weight of one custom-node pack (clone + Python package
 
 mkdir -p "$STATE_DIR"
 exec 9>"$STATE_DIR/lock"
-flock -n 9 || { echo 'Genjutsu setup is already running on this instance.'; exit 0; }
+QUEUE="$STATE_DIR/queue"  # workflows asked for while a setup was running; that setup picks them up when it ends
+if ! flock -n 9; then
+  if [ $# -gt 0 ]; then
+    printf '%s\n' "$*" >> "$QUEUE"
+    echo "Genjutsu setup is running; queued after it: $*"
+  else
+    echo 'Genjutsu setup is already running on this instance.'
+  fi
+  exit 0
+fi
 
 # ---------------------------------------------------------------------------------------------------------------
 # Workflows, in install order. Per workflow: <key>_NODES (dir|git URL[|requirements file, default requirements.txt]),
@@ -539,6 +550,15 @@ missing_optional=$(missing_types SpectrumApplyMiniMaxH3 2>/dev/null || true)
 [ -z "$missing_optional" ] || printf 'Note: optional Spectrum acceleration is unavailable.\n'
 
 trap - ERR
+# Workflows queued while this ran: start over with these workflows plus the queued ones. Before the final status, so the
+# monitor never sees "done" in between.
+if [ -s "$QUEUE" ] && [ -f "$0" ]; then
+  queued=$(tr '\n' ' ' < "$QUEUE"); rm -f "$QUEUE"
+  printf '\nQueued workflows: %s\n' "$queued"
+  status running "starting queued workflows: $queued"
+  # shellcheck disable=SC2086  # the queued keys are words
+  exec bash "$0" "${WORKFLOWS[@]}" $queued
+fi
 if [ ${#WARNINGS[@]} -eq 0 ]; then
   if [ "${WORKFLOWS[*]}" = "${ALL_WORKFLOWS[*]}" ]; then status done "all ${#WORKFLOWS[@]} workflows ready"
   else status done "$(ready_list) ready"; fi
@@ -547,3 +567,4 @@ else
   printf '\nWarnings:\n'; printf '  - %s\n' "${WARNINGS[@]}"
 fi
 printf '\nIn Genjutsu (Edit Image, Motion Control → MiniMax H3, Post-processing incl. Smooth motion), paste the ComfyUI link and press Check.\n'
+if [ -s "$QUEUE" ]; then printf '\nQueued workflows (%s) need another run: this setup came from stdin.\n' "$(tr '\n' ' ' < "$QUEUE")"; fi

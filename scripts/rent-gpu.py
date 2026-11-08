@@ -598,7 +598,9 @@ def start_setup(instance_id: int, info: dict[str, Any], preset: str, attempts: i
         script += f'\n#HF_TOKEN {token}\n'
     command = (f'umask 077 && mkdir -p {SETUP_DIR} && cat > {SETUP_DIR}/upload && '
                f'grep "^#HF_TOKEN " {SETUP_DIR}/upload | cut -d" " -f2 > {SETUP_DIR}/hf_token; '
-               f'grep -v "^#HF_TOKEN " {SETUP_DIR}/upload > {SETUP_DIR}/setup.sh && rm -f {SETUP_DIR}/upload && '
+               # A new file moved into place: a setup still running keeps reading its own copy of the old one.
+               f'grep -v "^#HF_TOKEN " {SETUP_DIR}/upload > {SETUP_DIR}/setup.sh.new && '
+               f'mv -f {SETUP_DIR}/setup.sh.new {SETUP_DIR}/setup.sh && rm -f {SETUP_DIR}/upload && '
                f'{{ nohup setsid bash {SETUP_DIR}/setup.sh {args} >> {SETUP_DIR}/setup.log 2>&1 < /dev/null & }} '
                '&& echo started')
     for attempt in range(attempts):
@@ -984,25 +986,34 @@ def monitor(instance_id: int) -> None:
         print(bold('›') + ' Command' + hint + ': ', end='', flush=True)
         return shown_now, len(display.splitlines())
 
-    def run_setup(choice: str = '') -> None:
+    def run_setup(choice: str = '', picked: list[str] | None = None) -> None:
         nonlocal setup_line, setup_checked
         if stopped_now():
             print('The instance is stopped. Type start first.')
             return
         try:
-            workflows = parse_workflows(choice) if choice else state.get('workflows')
+            workflows = picked or (parse_workflows(choice) if choice else state.get('workflows'))
         except ValueError as error:
             print(error)
             return
         with lock:
             data = dict(info)
             preset = state.get('setup') or DEFAULT_SETUP
+            busy = setup_line.startswith('running|')
+            queue_aware = len(setup_line.split('|')) >= 10  # installers that write model bytes also read the queue
         if not data or data.get('actual_status') != 'running':
             print('The instance is not running yet. Try again in a minute.')
             return
         title = PRESETS[preset]['title']
-        print(f'Starting {title} setup for {workflow_titles(workflows)} in the background '
-              '(resumes; already-verified files are kept)…', flush=True)
+        if busy and not queue_aware:
+            print(yellow('The running setup is from an older installer that cannot take a queue. '
+                         'Type this again when the Setup row says ready.'))
+            return
+        if busy:
+            print(f'Queueing {workflow_titles(workflows)}: they start when the running setup finishes…', flush=True)
+        else:
+            print(f'Starting {title} setup for {workflow_titles(workflows)} in the background '
+                  '(resumes; already-verified files are kept)…', flush=True)
         try:
             started = start_setup(instance_id, data, preset, attempts=2, workflows=workflows)
         except (RuntimeError, OSError, subprocess.SubprocessError) as error:
@@ -1019,9 +1030,41 @@ def monitor(instance_id: int) -> None:
                 else:
                     state.pop('workflows', None)
                 save_state(instance_id, state)
-            setup_line, setup_checked = 'running|starting…', time.monotonic()
-        print(f'{title} setup started. Progress shows in the Setup row.')
+            if not busy:
+                setup_line, setup_checked = 'running|starting…' + '|' * 8, time.monotonic()  # this installer queues
+        print('Queued. The Setup row moves on to them after the current workflows.' if busy
+              else f'{title} setup started. Progress shows in the Setup row.')
         wake.set()
+
+    def add_workflows(choice: str) -> None:
+        """`add`: pick more Genjutsu workflows for this rental; they install after the ones already set up."""
+        with lock:
+            current = list(state.get('workflows') or GENJUTSU_WORKFLOWS)
+            ready = set((setup_line.split('|') + ['', '', ''])[2].split(', '))
+        if len(current) == len(GENJUTSU_WORKFLOWS):
+            print('Every Genjutsu workflow is already part of this setup. Type setup to rerun it.')
+            return
+        if not choice:
+            print(section('Add workflows') + dim('  installed after the ones already set up') + '\n')
+            width = max(len(name) for name, _, _ in GENJUTSU_WORKFLOWS.values())
+            for index, (key, (name, about, gb)) in enumerate(GENJUTSU_WORKFLOWS.items(), 1):
+                mark = (green('✓ ready') if name in ready else dim('• in setup')) if key in current else ''
+                size = f'~{gb:g} GB' if gb >= 1 else '< 1 GB'
+                print(f' {cyan(bold(f"{index:>2}"))}  {bold(name.ljust(width))}  {about.ljust(44)} '
+                      f'{dim(size.rjust(8))}  {mark}')
+            choice = input('\nAdd which, in install order? [numbers such as 1 5, Enter cancels]: ').strip()
+            if not choice:
+                print('Nothing added.')
+                return
+        try:
+            extra = [key for key in parse_workflows(choice) if key not in current]
+        except ValueError as error:
+            print(error)
+            return
+        if not extra:
+            print('Those are already part of this setup.')
+            return
+        run_setup(picked=current + extra)
 
     def power(action: str) -> None:
         nonlocal tunnel_urls, comfy
@@ -1055,7 +1098,8 @@ def monitor(instance_id: int) -> None:
         print('  ' + field('comfy', 'enable ComfyUI web access ' + yellow('(recreates the container, erasing its files)'), 7))
         print('  ' + field('setup', f"install or resume {PRESETS[state.get('setup') or DEFAULT_SETUP]['title']} "
                                     f"({workflow_titles(state.get('workflows'))})", 7))
-        print('  ' + field('', dim('setup motion face, setup all, …: pick workflows (edit motion color face smooth)'), 7))
+        print('  ' + field('add', 'set up more workflows; queued if a setup is running', 7))
+        print('  ' + field('', dim('setup motion face, setup all, …: set the exact workflows (edit motion color face smooth)'), 7))
     print('  ' + field('Ctrl+C', 'close this display; the rental keeps running', 7))
     shown, count = paint()
     try:
@@ -1074,6 +1118,8 @@ def monitor(instance_id: int) -> None:
                     power(command)
                 elif command.split()[:1] == ['setup'] and kind == 'comfy':
                     run_setup(command[len('setup'):].strip())
+                elif command.split()[:1] == ['add'] and kind == 'comfy':
+                    add_workflows(command[len('add'):].strip())
                 elif command == 'comfy' and kind == 'comfy' and stopped_now():
                     print('The instance is stopped. Type start first.')
                 elif command == 'comfy' and kind == 'comfy':
@@ -1089,7 +1135,7 @@ def monitor(instance_id: int) -> None:
                         print('Recycle started. The ComfyUI link appears here in a few minutes.'
                               + (' Then type setup to reinstall the nodes and models.' if state.get('setup') else ''))
                 elif command:
-                    print('Type stop, start, kill' + (', comfy, setup [workflows]' if kind == 'comfy' else '')
+                    print('Type stop, start, kill' + (', comfy, add, setup [workflows]' if kind == 'comfy' else '')
                           + ', or Ctrl+C to close the display.')
                 shown, count = paint()
                 continue
