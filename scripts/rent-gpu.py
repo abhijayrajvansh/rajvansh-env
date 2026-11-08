@@ -50,12 +50,12 @@ PRESET_ALIASES = {'genjutsu-h3': 'genjutsu'}  # rentals saved before Qwen-Image 
 DEFAULT_SETUP = 'genjutsu'
 # Genjutsu workflows rent-gpu-genjutsu.sh can set up, in its install order: key -> (menu title, GB of models it adds).
 # Qwen3-VL 8B (QWEN3VL_GB) is shared by Edit Image and Motion control and downloads once.
-GENJUTSU_WORKFLOWS: dict[str, tuple[str, float]] = {
-    'edit': ('Edit Image (Qwen-Image 2.1 + consistency/BFS LoRAs)', 15.6),
-    'motion': ('Motion control (MiniMax H3 swap + Check mask)', 41.5),
-    'color': ('Fix colours', 0.0),
-    'face': ('Fix faces (also sets up Motion control)', 0.5),
-    'smooth': ('Smooth motion (RIFE)', 0.0),
+GENJUTSU_WORKFLOWS: dict[str, tuple[str, str, float]] = {  # key -> (name, what it is, GB of models it adds)
+    'edit': ('Edit Image', 'Qwen-Image 2.1 + consistency/BFS LoRAs', 15.6),
+    'motion': ('Motion control', 'MiniMax H3 swap + Check mask', 41.5),
+    'color': ('Fix colours', 'detail contrast + tone mapper', 0.0),
+    'face': ('Fix faces', 'H3 face refine; also sets up Motion control', 0.5),
+    'smooth': ('Smooth motion', 'RIFE in-between frames', 0.0),
 }
 QWEN3VL_GB = 9.4
 WORKFLOW_REQUIRES = {'face': 'motion'}  # Fix faces samples with H3
@@ -65,12 +65,14 @@ DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_sp
 # Hugging Face rarely serves one file faster than ~300 MB/s even over 16 connections; real throughput ≈ 80% of the line.
 HF_CAP_MBPS = 2400
 NET_EFFICIENCY = 0.8
-IMAGES: list[tuple[str, str, str | None]] = [
-    ('ComfyUI + Genjutsu — H3 motion control, Check mask, Fix faces, Fix colours, Smooth motion,\n'
-     '     Edit Image (Qwen-Image 2.1 + consistency/BFS LoRAs)\n'
-     '     pick the workflows next • all of them: ~67 GB of models, 120 GB disk, ≥64 GB RAM', COMFY_IMAGE, 'genjutsu'),
-    ('ComfyUI (stock, no models preinstalled)', COMFY_IMAGE, None),
-    ('Ubuntu 24.04 + Python 3.12 (bare; install vLLM / Transformers yourself)',
+# Image menu: (title, [(row label, row text)], Docker image, setup preset).
+IMAGES: list[tuple[str, list[tuple[str, str]], str, str | None]] = [
+    ('ComfyUI + Genjutsu', [
+        ('Workflows', 'Motion control · Check mask · Fix faces · Fix colours · Smooth motion · Edit Image'),
+        ('Setup', 'you pick the workflows next · all of them: ~67 GB of models, 120 GB disk, ≥64 GB RAM'),
+    ], COMFY_IMAGE, 'genjutsu'),
+    ('ComfyUI', [('Setup', 'stock, no models preinstalled')], COMFY_IMAGE, None),
+    ('Ubuntu 24.04 + Python 3.12', [('Setup', 'bare; install vLLM or Transformers yourself')],
      'vastai/base-image:stock-ubuntu24.04-py312-2026-10-23', None),
 ]
 SETUP_DIR = '/workspace/.rent-gpu-setup'
@@ -255,13 +257,13 @@ def workflow_titles(workflows: list[str] | None) -> str:
     keys = workflows or list(GENJUTSU_WORKFLOWS)
     if len(keys) == len(GENJUTSU_WORKFLOWS):
         return 'all workflows'
-    return ', '.join(GENJUTSU_WORKFLOWS[key][0].split(' (')[0] for key in keys)
+    return ', '.join(GENJUTSU_WORKFLOWS[key][0] for key in keys)
 
 
 def workflow_models_gb(workflows: list[str] | None) -> float:
     keys = workflows or list(GENJUTSU_WORKFLOWS)
     shared = QWEN3VL_GB if {'edit', 'motion'} & set(keys) else 0
-    return sum(GENJUTSU_WORKFLOWS[key][1] for key in keys) + shared
+    return sum(GENJUTSU_WORKFLOWS[key][2] for key in keys) + shared
 
 
 def workflow_sizing(workflows: list[str]) -> dict[str, Any]:
@@ -273,10 +275,12 @@ def workflow_sizing(workflows: list[str]) -> dict[str, Any]:
 
 
 def ask_workflows() -> list[str]:
-    print('\nGenjutsu workflows (only the ones you pick are installed):')
-    for index, (title, gb) in enumerate(GENJUTSU_WORKFLOWS.values(), 1):
-        print(f'  {index}) {title}' + (dim(f'  ~{gb:g} GB') if gb >= 1 else ''))
-    print(dim(f'  Edit Image and Motion control share Qwen3-VL 8B (~{QWEN3VL_GB:g} GB), downloaded once.'))
+    print(section('Genjutsu workflows') + dim('  only the ones you pick are installed') + '\n')
+    width = max(len(name) for name, _, _ in GENJUTSU_WORKFLOWS.values())
+    for index, (name, about, gb) in enumerate(GENJUTSU_WORKFLOWS.values(), 1):
+        size = f'~{gb:g} GB' if gb >= 1 else '< 1 GB'
+        print(f' {cyan(bold(f"{index:>2}"))}  {bold(name.ljust(width))}  {about.ljust(44)} {dim(size.rjust(8))}')
+    print(dim(f'\n     Edit Image and Motion control share Qwen3-VL 8B (~{QWEN3VL_GB:g} GB); it downloads once.\n'))
     while True:
         answer = input('Set up which? [numbers such as 2 4, Enter for all]: ')
         try:
@@ -284,7 +288,8 @@ def ask_workflows() -> list[str]:
         except ValueError as error:
             print(error)
             continue
-        print(f'  → {workflow_titles(workflows)} • ~{workflow_models_gb(workflows):.0f} GB of models')
+        print(f"  {green('→')} {bold(workflow_titles(workflows))}{dim(' · ')}"
+              f"~{workflow_models_gb(workflows):.0f} GB of models")
         return workflows
 
 
@@ -311,15 +316,19 @@ def choose_image(opts: argparse.Namespace) -> tuple[str | None, str | None]:
         return opts.image or COMFY_IMAGE, opts.setup
     if opts.image:
         return opts.image, None
-    print('\nContainer image:')
-    for index, (label, image, _) in enumerate(IMAGES, 1):
-        print(f'  {index}) {label}\n     {dim(image)}')
-    print(f'  {len(IMAGES) + 1}) Custom Docker image')
-    choice = ask_number('Choose image', len(IMAGES) + 1)
+    print(section('Container image') + '\n')
+    menu = [*((title, [*rows, ('Image', dim(image))]) for title, rows, image, _ in IMAGES),
+            ('Custom Docker image', [('Image', dim('you type the name next'))])]
+    for index, (title, rows) in enumerate(menu, 1):
+        print(f' {cyan(bold(f"{index:>2}"))}  {bold(title)}')
+        for n, (label, value) in enumerate(rows):
+            print(f"     {dim('└' if n == len(rows) - 1 else '├')} {field(label, value, 10)}")
+        print()
+    choice = ask_number('Choose image', len(menu))
     if choice is None:
         return None, None
     if choice < len(IMAGES):
-        _, image, preset = IMAGES[choice]
+        _, _, image, preset = IMAGES[choice]
         if preset:
             preset_script(preset)
         if preset == 'genjutsu' and opts.workflows is None:
@@ -1122,7 +1131,7 @@ def main() -> None:
         monitor(instance_id)
         return
 
-    print('\nRent Vast.ai GPU (rent only)')
+    print('\n' + bold('Rent a Vast.ai GPU') + dim('  ·  rent only'))
     image, preset = (None, opts.setup) if opts.list else choose_image(opts)
     if not opts.list and image is None:
         return
