@@ -65,14 +65,15 @@ DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_sp
 # Hugging Face rarely serves one file faster than ~300 MB/s even over 16 connections; real throughput ≈ 80% of the line.
 HF_CAP_MBPS = 2400
 NET_EFFICIENCY = 0.8
-# Image menu: (title, [(row label, row text)], Docker image, setup preset).
-IMAGES: list[tuple[str, list[tuple[str, str]], str, str | None]] = [
+# Image menu: (title, [(branch, its items)], Docker image, setup preset). Each item prints on its own line.
+IMAGES: list[tuple[str, list[tuple[str, list[str]]], str, str | None]] = [
     ('ComfyUI + Genjutsu', [
-        ('Workflows', 'Motion control · Check mask · Fix faces · Fix colours · Smooth motion · Edit Image'),
-        ('Setup', 'you pick the workflows next · all of them: ~67 GB of models, 120 GB disk, ≥64 GB RAM'),
+        ('Workflows', ['Motion control', 'Check mask', 'Fix faces', 'Fix colours', 'Smooth motion',
+                       'Edit Image (Qwen-Image 2.1)']),
+        ('Setup', ['you pick the workflows next', 'all of them: ~67 GB of models', '120 GB disk · ≥64 GB RAM']),
     ], COMFY_IMAGE, 'genjutsu'),
-    ('ComfyUI', [('Setup', 'stock, no models preinstalled')], COMFY_IMAGE, None),
-    ('Ubuntu 24.04 + Python 3.12', [('Setup', 'bare; install vLLM or Transformers yourself')],
+    ('ComfyUI', [('Setup', ['stock, no models preinstalled'])], COMFY_IMAGE, None),
+    ('Ubuntu 24.04 + Python 3.12', [('Setup', ['bare, nothing preinstalled', 'install vLLM or Transformers yourself'])],
      'vastai/base-image:stock-ubuntu24.04-py312-2026-10-23', None),
 ]
 SETUP_DIR = '/workspace/.rent-gpu-setup'
@@ -309,6 +310,19 @@ def apply_defaults(opts: argparse.Namespace, preset: str | None) -> None:
     opts.setup_gb = sized.get('setup_gb', PRESETS[preset].get('setup_gb')) if preset else None
 
 
+def print_tree(rows: list[tuple[str, list[str]]], indent: str = '     ') -> None:
+    """Two-level tree: a branch per row, one leaf per item. A single item sits on the branch line instead."""
+    for n, (label, items) in enumerate(rows):
+        last = n == len(rows) - 1
+        joint, rail = ('└─', '   ') if last else ('├─', '│  ')
+        if len(items) == 1:
+            print(f'{indent}{dim(joint)} {dim(label.ljust(10))}{items[0]}')
+            continue
+        print(f'{indent}{dim(joint)} {dim(label)}')
+        for i, item in enumerate(items):
+            print(f"{indent}{dim(rail)}{dim('└─' if i == len(items) - 1 else '├─')} {item}")
+
+
 def choose_image(opts: argparse.Namespace) -> tuple[str | None, str | None]:
     """Returns (image, setup preset)."""
     if opts.setup:
@@ -317,12 +331,11 @@ def choose_image(opts: argparse.Namespace) -> tuple[str | None, str | None]:
     if opts.image:
         return opts.image, None
     print(section('Container image') + '\n')
-    menu = [*((title, [*rows, ('Image', dim(image))]) for title, rows, image, _ in IMAGES),
-            ('Custom Docker image', [('Image', dim('you type the name next'))])]
+    menu = [*((title, [*rows, ('Image', [dim(image)])]) for title, rows, image, _ in IMAGES),
+            ('Custom Docker image', [('Image', [dim('you type the name next')])])]
     for index, (title, rows) in enumerate(menu, 1):
         print(f' {cyan(bold(f"{index:>2}"))}  {bold(title)}')
-        for n, (label, value) in enumerate(rows):
-            print(f"     {dim('└' if n == len(rows) - 1 else '├')} {field(label, value, 10)}")
+        print_tree(rows)
         print()
     choice = ask_number('Choose image', len(menu))
     if choice is None:
