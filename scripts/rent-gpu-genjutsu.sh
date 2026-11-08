@@ -7,7 +7,7 @@
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
 #   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.9 checkpoint                   (docs/h3-post-processing)
 # Pick workflows by passing their keys (comma or space separated; default all): edit motion color face smooth.
-# Fix faces runs H3, so it also sets up Motion control. A model or node pack two workflows share is set up once.
+# They install in the order given. Fix faces runs H3, so Motion control goes in just before it. A model or node pack two workflows share is set up once.
 # Each workflow downloads its models in parallel (PARALLEL_DOWNLOADS, default 3), largest first.
 # Resumable and safe to rerun: finished files are kept, partial downloads resume, every model is sha256-checked.
 #
@@ -139,13 +139,20 @@ declare -A REQUIRES=([face]=motion)
 declare -A ALIAS=([edit]=edit [image]=edit [qwen]=edit [motion]=motion [h3]=motion [swap]=motion [color]=color
   [colour]=color [colours]=color [colors]=color [face]=face [faces]=face [smooth]=smooth [rife]=smooth)
 declare -A WANT=()
+ORDER=()
+want() {  # want KEY: queue KEY after its dependency, once
+  if [ -n "${WANT[$1]:-}" ]; then return 0; fi
+  if [ -n "${REQUIRES[$1]:-}" ]; then want "${REQUIRES[$1]}"; fi
+  WANT[$1]=1
+  ORDER+=("$1")
+}
 for arg in "$@"; do
   for word in ${arg//,/ }; do
     word=${word,,}
     if [ "$word" = all ]; then
-      for key in "${ALL_WORKFLOWS[@]}"; do WANT[$key]=1; done
+      for key in "${ALL_WORKFLOWS[@]}"; do want "$key"; done
     elif [ -n "${ALIAS[$word]:-}" ]; then
-      WANT[${ALIAS[$word]}]=1
+      want "${ALIAS[$word]}"
     else
       printf 'Unknown workflow: %s. Use any of: %s, or all.\n' "$word" "${ALL_WORKFLOWS[*]}" >&2
       printf 'failed|unknown workflow %s||||||\n' "$word" > "$STATUS"
@@ -153,13 +160,11 @@ for arg in "$@"; do
     fi
   done
 done
-if [ ${#WANT[@]} -eq 0 ]; then for key in "${ALL_WORKFLOWS[@]}"; do WANT[$key]=1; done; fi
-for key in "${!WANT[@]}"; do if [ -n "${REQUIRES[$key]:-}" ]; then WANT[${REQUIRES[$key]}]=1; fi; done
-WORKFLOWS=()
-for key in "${ALL_WORKFLOWS[@]}"; do if [ -n "${WANT[$key]:-}" ]; then WORKFLOWS+=("$key"); fi; done
+if [ ${#ORDER[@]} -eq 0 ]; then for key in "${ALL_WORKFLOWS[@]}"; do want "$key"; done; fi
+WORKFLOWS=("${ORDER[@]}")
 printf 'Workflows: %s\n' "$(for key in "${WORKFLOWS[@]}"; do printf '%s, ' "${TITLE[$key]}"; done | sed 's/, $//')"
 
-# A node pack or model listed by several selected workflows belongs to the first one only, so it is installed once
+# A node pack or model listed by several selected workflows belongs to the first one in the queue, so it is installed once
 # and counted once in the progress bars.
 declare -A OWNED=()
 for key in "${WORKFLOWS[@]}"; do
@@ -531,7 +536,7 @@ missing_optional=$(missing_types SpectrumApplyMiniMaxH3 2>/dev/null || true)
 
 trap - ERR
 if [ ${#WARNINGS[@]} -eq 0 ]; then
-  if [ ${#WORKFLOWS[@]} -eq ${#ALL_WORKFLOWS[@]} ]; then status done "all ${#WORKFLOWS[@]} workflows ready"
+  if [ "${WORKFLOWS[*]}" = "${ALL_WORKFLOWS[*]}" ]; then status done "all ${#WORKFLOWS[@]} workflows ready"
   else status done "$(ready_list) ready"; fi
 else
   status warn "installed with ${#WARNINGS[@]} warning(s): ${WARNINGS[0]}"

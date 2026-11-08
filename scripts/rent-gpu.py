@@ -234,31 +234,41 @@ def load_state(instance_id: int) -> dict[str, Any]:
 
 
 def parse_workflows(text: str) -> list[str]:
-    """'motion,face' / 'motion face' / 'all' / menu numbers -> workflow keys in install order, plus what they need."""
+    """'2 1' / 'motion,edit' / 'all' -> workflow keys in the order typed, which is the install order. A workflow's
+    dependency goes in just before it (Fix faces after Motion control); 'all' adds the rest in the default order."""
     keys = list(GENJUTSU_WORKFLOWS)
-    wanted: set[str] = set()
+    order: list[str] = []
+
+    def add(key: str) -> None:
+        if key in order:
+            return
+        if key in WORKFLOW_REQUIRES:
+            add(WORKFLOW_REQUIRES[key])
+        order.append(key)
+
     for word in re.split(r'[\s,]+', text.strip().lower()):
         if not word:
             continue
         if word == 'all':
-            wanted.update(keys)
+            for key in keys:
+                add(key)
         elif word.isdigit() and 1 <= int(word) <= len(keys):
-            wanted.add(keys[int(word) - 1])
+            add(keys[int(word) - 1])
         elif WORKFLOW_ALIASES.get(word, word) in GENJUTSU_WORKFLOWS:
-            wanted.add(WORKFLOW_ALIASES.get(word, word))
+            add(WORKFLOW_ALIASES.get(word, word))
         else:
             raise ValueError(f'Unknown workflow: {word}. Use {", ".join(keys)} or all.')
-    if not wanted:
-        wanted.update(keys)
-    wanted.update(WORKFLOW_REQUIRES[key] for key in list(wanted) if key in WORKFLOW_REQUIRES)
-    return [key for key in keys if key in wanted]
+    if not order:
+        for key in keys:
+            add(key)
+    return order
 
 
 def workflow_titles(workflows: list[str] | None) -> str:
     keys = workflows or list(GENJUTSU_WORKFLOWS)
-    if len(keys) == len(GENJUTSU_WORKFLOWS):
+    if keys == list(GENJUTSU_WORKFLOWS):
         return 'all workflows'
-    return ', '.join(GENJUTSU_WORKFLOWS[key][0] for key in keys)
+    return ' → '.join(GENJUTSU_WORKFLOWS[key][0] for key in keys)
 
 
 def workflow_models_gb(workflows: list[str] | None) -> float:
@@ -281,9 +291,10 @@ def ask_workflows() -> list[str]:
     for index, (name, about, gb) in enumerate(GENJUTSU_WORKFLOWS.values(), 1):
         size = f'~{gb:g} GB' if gb >= 1 else '< 1 GB'
         print(f' {cyan(bold(f"{index:>2}"))}  {bold(name.ljust(width))}  {about.ljust(44)} {dim(size.rjust(8))}')
-    print(dim(f'\n     Edit Image and Motion control share Qwen3-VL 8B (~{QWEN3VL_GB:g} GB); it downloads once.\n'))
+    print(dim(f'\n     Edit Image and Motion control share Qwen3-VL 8B (~{QWEN3VL_GB:g} GB); it downloads once.'))
+    print(dim('     They install in the order you type them: 2 1 readies Motion control before Edit Image.\n'))
     while True:
-        answer = input('Set up which? [numbers such as 2 4, Enter for all]: ')
+        answer = input('Set up which, in install order? [numbers such as 2 1, Enter for all]: ')
         try:
             workflows = parse_workflows(answer)
         except ValueError as error:
@@ -1104,8 +1115,8 @@ def main() -> None:
     parser.add_argument('--setup', choices=sorted({*PRESETS, *PRESET_ALIASES}),
                         help=f'Skip the image menu and install a setup preset (image defaults to {COMFY_IMAGE})')
     parser.add_argument('--workflows', metavar='LIST',
-                        help='Genjutsu workflows to set up, e.g. motion,face (edit motion color face smooth, or all; '
-                             'Fix faces adds Motion control). Implies --setup genjutsu')
+                        help='Genjutsu workflows to set up, in install order, e.g. motion,edit (edit motion color '
+                             'face smooth, or all; Fix faces adds Motion control). Implies --setup genjutsu')
     parser.add_argument('--label', help='Vast instance label (default: Genjutsu for image 1, else Qwen)')
     parser.add_argument('--disk', type=int, help='Disk GB (default: 120 for image 1, else 60)')
     parser.add_argument('--min-vram', type=int, default=24, help='Minimum VRAM GB (default: 24)')
