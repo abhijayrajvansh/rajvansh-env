@@ -872,6 +872,21 @@ def monitor(instance_id: int) -> None:
             return message + ' • see the setup log', False
         return message or phase, phase == 'done'
 
+    def workflow_states(line: str) -> list[tuple[str, str, str]]:
+        """(name, 'ready' | 'now' | 'waiting', workflow %) for this rental's Genjutsu workflows, in install order."""
+        if (state.get('setup') or '') != 'genjutsu':
+            return []
+        parts = (line.split('|') + [''] * 10)[:10]
+        ready = set(filter(None, parts[2].split(', ')))
+        current, current_pct = parts[5].split(' (')[0], parts[6]
+        done = parts[0] == 'done'
+        result = []
+        for key in state.get('workflows') or GENJUTSU_WORKFLOWS:
+            name = GENJUTSU_WORKFLOWS[key][0]
+            phase = 'ready' if done or name in ready else 'now' if name == current else 'waiting'
+            result.append((name, phase, current_pct if phase == 'now' else ''))
+        return result
+
     def rows() -> list[str]:
         with lock:
             data, comfy_status, setup_now, rate_now = dict(info), comfy, setup_line, net_rate
@@ -943,10 +958,18 @@ def monitor(instance_id: int) -> None:
                     done_gb, total_gb = int(model_done) / 1e9, int(model_total) / 1e9
                     lines.append(field('Models', progress(str(int(int(model_done) * 100 / int(model_total))),
                                                           f'{done_gb:.1f} / {total_gb:.1f} GB')))
-                if rate_now is not None:
+                if rate_now is not None and rate_now >= 100e3:
                     speed = (f'{rate_now / 1e6:.1f} MB/s' if rate_now >= 1e6 else f'{rate_now / 1e3:.0f} KB/s')
                     lines.append(field('Speed', cyan(bold(f'↓ {speed}')) + dim(f'  {rate_now * 8 / 1e9:.2f} Gbps live')))
-            if ready and not ok:
+                elif rate_now is not None:  # under 100 KB/s: nothing is downloading (waiting, checking or installing)
+                    lines.append(field('Speed', dim('↓ idle · nothing downloading this moment')))
+            queue = workflow_states(setup_now) if not ok else []
+            for n, (name, phase, percent) in enumerate(queue):
+                text = (green('✓ ') + name + dim('  ready') if phase == 'ready'
+                        else yellow('▸ ') + bold(name) + dim(f'  setting up{f" · {percent}%" if percent else ""}')
+                        if phase == 'now' else dim(f'○ {name}  waiting'))
+                lines.append(field('Workflows' if n == 0 else '', text))
+            if ready and not ok and not queue:
                 lines.append(field('Ready', green(ready)))
         return lines
 
@@ -1040,7 +1063,7 @@ def monitor(instance_id: int) -> None:
         """`add`: pick more Genjutsu workflows for this rental; they install after the ones already set up."""
         with lock:
             current = list(state.get('workflows') or GENJUTSU_WORKFLOWS)
-            ready = set((setup_line.split('|') + ['', '', ''])[2].split(', '))
+            phases = {name: phase for name, phase, _ in workflow_states(setup_line)}
         if len(current) == len(GENJUTSU_WORKFLOWS):
             print('Every Genjutsu workflow is already part of this setup. Type setup to rerun it.')
             return
@@ -1048,7 +1071,9 @@ def monitor(instance_id: int) -> None:
             print(section('Add workflows') + dim('  installed after the ones already set up') + '\n')
             width = max(len(name) for name, _, _ in GENJUTSU_WORKFLOWS.values())
             for index, (key, (name, about, gb)) in enumerate(GENJUTSU_WORKFLOWS.items(), 1):
-                mark = (green('✓ ready') if name in ready else dim('• in setup')) if key in current else ''
+                phase = phases.get(name, '') if key in current else ''
+                mark = (green('✓ ready') if phase == 'ready' else yellow('▸ setting up') if phase == 'now'
+                        else dim('○ waiting') if phase else '')
                 size = f'~{gb:g} GB' if gb >= 1 else '< 1 GB'
                 print(f' {cyan(bold(f"{index:>2}"))}  {bold(name.ljust(width))}  {about.ljust(44)} '
                       f'{dim(size.rjust(8))}  {mark}')
