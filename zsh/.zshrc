@@ -1004,8 +1004,9 @@ media-download() {
 }
 
 # FaceFusion launch shortcuts
-source "/Users/abhijayrajvansh/Desktop/FaceFusion/terminal-aliases.zsh"
+source "/Users/abhijayrajvansh/Desktop/projects/FaceFusion/terminal-aliases.zsh"
 
 # FaceFusion output folder
-alias ffoutputs='cd /Users/abhijayrajvansh/Desktop/FaceFusion/outputs'
+alias ffoutputs='cd /Users/abhijayrajvansh/Desktop/projects/FaceFusion/outputs'
 alias rg='rent-gpu'
+alias rgm='rent-gpu -m'

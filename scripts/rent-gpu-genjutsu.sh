@@ -6,11 +6,14 @@
 #   3. Fix colours     Image Detail Contrast + Orion4D tone mapper; no models                   (docs/h3-post-processing)
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
 #   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.9 checkpoint                   (docs/h3-post-processing)
+# Pick workflows by passing their keys (comma or space separated; default all): edit motion color face smooth.
+# Fix faces runs H3, so it also sets up Motion control. A model or node pack two workflows share is set up once.
 # Each workflow downloads its models in parallel (PARALLEL_DOWNLOADS, default 3), largest first.
 # Resumable and safe to rerun: finished files are kept, partial downloads resume, every model is sha256-checked.
 #
 # rent-gpu uploads and starts this automatically. By hand, from your Mac:
-#   ssh -p PORT root@HOST 'bash -s' < rent-gpu-genjutsu.sh
+#   ssh -p PORT root@HOST 'bash -s' < rent-gpu-genjutsu.sh                 (all workflows)
+#   ssh -p PORT root@HOST 'bash -s -- motion face' < rent-gpu-genjutsu.sh  (only these)
 # Log:    /workspace/.rent-gpu-setup/setup.log (progress lines with % done and % left)
 # Status: /workspace/.rent-gpu-setup/status, one line:
 #         state|message|ready workflows|step %|step detail|workflow|workflow %|overall %
@@ -69,8 +72,9 @@ motion_NODES=(
   "ComfyUI-Spectrum-MiniMax-H3|https://github.com/xmarre/ComfyUI-Spectrum-MiniMax-H3"  # optional Acceleration → Spectrum
 )
 motion_PIP=()
-# Qwen3-VL 8B (the H3 describer) came with Edit Image.
+# Qwen3-VL 8B is the H3 describer and Edit Image's text encoder; whichever of the two runs first downloads it.
 motion_MODELS=(
+  "text_encoders|$Q21/text_encoders/qwen3vl_8b_int8_convrot.safetensors|9350798360|8bfd0f6e12abf2d2d697ecc888e5e90b0d6741d6708f05799f53afa560452e8f"
   "checkpoints|$HF/Comfy-Org/sam3.1/resolve/7bb8374780a725b4353ed31f3a9395c9742b5621/checkpoints/sam3.1_multiplex_fp16.safetensors|1745546848|9ba99c92703c2e8b4f47de2d34a539bb8e18923049e238b780d70dbe6368eb03"
   "diffusion_models|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors|20970379616|9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779"
   "loras|$HF/Kijai/MiniMax-H3-experimental/resolve/f5c3b1d5a63e008a691fca1b6096fd57a5307536/loras/minimax_h3_DMAD_4step_full_lora_avg_rank_39_bf16.safetensors|366647000|ddfdd94f4c9a0f32bf3649bb8e98ca20db572e4db6bcd9cca546a5b33ea32d11"
@@ -91,6 +95,7 @@ SamplerCustomAdvanced StringConcatenate TextGenerate TrimAudioDuration UNETLoade
 VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"
 
 color_NODES=(
+  "ComfyUI-VideoHelperSuite|https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"  # load and save the video
   "comfyui-image-detail-contrast|https://github.com/D3voz/comfyui-image-detail-contrast"
   "Orion4D_FXMax|https://github.com/orion4d/Orion4D_FXMax"
 )
@@ -116,6 +121,7 @@ SamplerCustomAdvanced TextGenerate UNETLoader VAEDecode VAELoader VHS_LoadVideo 
 
 # The node imports every VFI model at load (kornia, scipy, opencv); cupy is only for GMFSS and friends, not RIFE.
 smooth_NODES=(
+  "ComfyUI-VideoHelperSuite|https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"  # load and save the video
   "ComfyUI-Frame-Interpolation|https://github.com/Fannovel16/ComfyUI-Frame-Interpolation|requirements-no-cupy.txt"
 )
 smooth_PIP=()
@@ -125,6 +131,54 @@ smooth_MODELS=(
   "custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife|https://github.com/Fannovel16/ComfyUI-Frame-Interpolation/releases/download/models/rife49.pth|21345274|e55fd00f3cc184e3c65961f4bb827a9da022e78eed36b055242c0ac30000d533"
 )
 smooth_TYPES="RIFE_VFI VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"
+
+# ---------------------------------------------------------------------------------------------------------------
+# Which workflows to set up. Fix faces samples with H3, so it needs Motion control's nodes and models.
+ALL_WORKFLOWS=("${WORKFLOWS[@]}")
+declare -A REQUIRES=([face]=motion)
+declare -A ALIAS=([edit]=edit [image]=edit [qwen]=edit [motion]=motion [h3]=motion [swap]=motion [color]=color
+  [colour]=color [colours]=color [colors]=color [face]=face [faces]=face [smooth]=smooth [rife]=smooth)
+declare -A WANT=()
+for arg in "$@"; do
+  for word in ${arg//,/ }; do
+    word=${word,,}
+    if [ "$word" = all ]; then
+      for key in "${ALL_WORKFLOWS[@]}"; do WANT[$key]=1; done
+    elif [ -n "${ALIAS[$word]:-}" ]; then
+      WANT[${ALIAS[$word]}]=1
+    else
+      printf 'Unknown workflow: %s. Use any of: %s, or all.\n' "$word" "${ALL_WORKFLOWS[*]}" >&2
+      printf 'failed|unknown workflow %s||||||\n' "$word" > "$STATUS"
+      exit 2
+    fi
+  done
+done
+if [ ${#WANT[@]} -eq 0 ]; then for key in "${ALL_WORKFLOWS[@]}"; do WANT[$key]=1; done; fi
+for key in "${!WANT[@]}"; do if [ -n "${REQUIRES[$key]:-}" ]; then WANT[${REQUIRES[$key]}]=1; fi; done
+WORKFLOWS=()
+for key in "${ALL_WORKFLOWS[@]}"; do if [ -n "${WANT[$key]:-}" ]; then WORKFLOWS+=("$key"); fi; done
+printf 'Workflows: %s\n' "$(for key in "${WORKFLOWS[@]}"; do printf '%s, ' "${TITLE[$key]}"; done | sed 's/, $//')"
+
+# A node pack or model listed by several selected workflows belongs to the first one only, so it is installed once
+# and counted once in the progress bars.
+declare -A OWNED=()
+for key in "${WORKFLOWS[@]}"; do
+  declare -n _own_nodes="${key}_NODES" _own_models="${key}_MODELS"
+  kept=()
+  for entry in "${_own_nodes[@]}"; do
+    id="node:${entry%%|*}"
+    if [ -z "${OWNED[$id]:-}" ]; then OWNED[$id]=1; kept+=("$entry"); fi
+  done
+  _own_nodes=("${kept[@]}")
+  kept=()
+  for entry in "${_own_models[@]}"; do
+    IFS='|' read -r folder url _ <<<"$entry"
+    id="model:$folder/${url##*/}"
+    if [ -z "${OWNED[$id]:-}" ]; then OWNED[$id]=1; kept+=("$entry"); fi
+  done
+  _own_models=("${kept[@]}")
+  unset -n _own_nodes _own_models
+done
 
 # ---------------------------------------------------------------------------------------------------------------
 # Progress. Units are bytes for downloads and NODE_UNIT per custom-node pack.
@@ -477,7 +531,8 @@ missing_optional=$(missing_types SpectrumApplyMiniMaxH3 2>/dev/null || true)
 
 trap - ERR
 if [ ${#WARNINGS[@]} -eq 0 ]; then
-  status done "all ${#WORKFLOWS[@]} workflows ready"
+  if [ ${#WORKFLOWS[@]} -eq ${#ALL_WORKFLOWS[@]} ]; then status done "all ${#WORKFLOWS[@]} workflows ready"
+  else status done "$(ready_list) ready"; fi
 else
   status warn "installed with ${#WARNINGS[@]} warning(s): ${WARNINGS[0]}"
   printf '\nWarnings:\n'; printf '  - %s\n' "${WARNINGS[@]}"
