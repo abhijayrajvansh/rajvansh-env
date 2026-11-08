@@ -960,7 +960,11 @@ def monitor(instance_id: int) -> None:
                                                           f'{done_gb:.1f} / {total_gb:.1f} GB')))
                 if rate_now is not None and rate_now >= 100e3:
                     speed = (f'{rate_now / 1e6:.1f} MB/s' if rate_now >= 1e6 else f'{rate_now / 1e3:.0f} KB/s')
-                    lines.append(field('Speed', cyan(bold(f'↓ {speed}')) + dim(f'  {rate_now * 8 / 1e9:.2f} Gbps live')))
+                    # Vast's measured line speed (inet_down, Mbps) is the ceiling; at ~100% the host is the limit.
+                    line_mbps = float(data['inet_down']) if finite(data.get('inet_down')) else 0
+                    share = (f' · {min(100, rate_now * 8 / 1e6 / line_mbps * 100):.0f}% of {line_mbps / 1000:.1f} Gbps line'
+                             if line_mbps > 0 else '')
+                    lines.append(field('Speed', cyan(bold(f'↓ {speed}')) + dim(f'  {rate_now * 8 / 1e9:.2f} Gbps{share}')))
                 elif rate_now is not None:  # under 100 KB/s: nothing is downloading (waiting, checking or installing)
                     lines.append(field('Speed', dim('↓ idle · nothing downloading this moment')))
             queue = workflow_states(setup_now) if not ok else []
