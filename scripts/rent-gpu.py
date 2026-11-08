@@ -48,6 +48,19 @@ PRESETS: dict[str, dict[str, Any]] = {
 }
 PRESET_ALIASES = {'genjutsu-h3': 'genjutsu'}  # rentals saved before Qwen-Image 2.1 joined the preset
 DEFAULT_SETUP = 'genjutsu'
+# Genjutsu workflows rent-gpu-genjutsu.sh can set up, in its install order: key -> (menu title, GB of models it adds).
+# Qwen3-VL 8B (QWEN3VL_GB) is shared by Edit Image and Motion control and downloads once.
+GENJUTSU_WORKFLOWS: dict[str, tuple[str, float]] = {
+    'edit': ('Edit Image (Qwen-Image 2.1 + consistency/BFS LoRAs)', 15.6),
+    'motion': ('Motion control (MiniMax H3 swap + Check mask)', 41.5),
+    'color': ('Fix colours', 0.0),
+    'face': ('Fix faces (also sets up Motion control)', 0.5),
+    'smooth': ('Smooth motion (RIFE)', 0.0),
+}
+QWEN3VL_GB = 9.4
+WORKFLOW_REQUIRES = {'face': 'motion'}  # Fix faces samples with H3
+WORKFLOW_ALIASES = {'image': 'edit', 'qwen': 'edit', 'h3': 'motion', 'swap': 'motion', 'colour': 'color',
+                    'colours': 'color', 'colors': 'color', 'faces': 'face', 'rife': 'smooth'}
 DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_speed=1000, max_setup_cost=None)
 # Hugging Face rarely serves one file faster than ~300 MB/s even over 16 connections; real throughput ≈ 80% of the line.
 HF_CAP_MBPS = 2400
@@ -55,7 +68,7 @@ NET_EFFICIENCY = 0.8
 IMAGES: list[tuple[str, str, str | None]] = [
     ('ComfyUI + Genjutsu — H3 motion control, Check mask, Fix faces, Fix colours, Smooth motion,\n'
      '     Edit Image (Qwen-Image 2.1 + consistency/BFS LoRAs)\n'
-     '     installs nodes + ~67 GB of models automatically • 120 GB disk, ≥64 GB RAM', COMFY_IMAGE, 'genjutsu'),
+     '     pick the workflows next • all of them: ~67 GB of models, 120 GB disk, ≥64 GB RAM', COMFY_IMAGE, 'genjutsu'),
     ('ComfyUI (stock, no models preinstalled)', COMFY_IMAGE, None),
     ('Ubuntu 24.04 + Python 3.12 (bare; install vLLM / Transformers yourself)',
      'vastai/base-image:stock-ubuntu24.04-py312-2026-10-23', None),
@@ -217,6 +230,64 @@ def load_state(instance_id: int) -> dict[str, Any]:
     return state
 
 
+def parse_workflows(text: str) -> list[str]:
+    """'motion,face' / 'motion face' / 'all' / menu numbers -> workflow keys in install order, plus what they need."""
+    keys = list(GENJUTSU_WORKFLOWS)
+    wanted: set[str] = set()
+    for word in re.split(r'[\s,]+', text.strip().lower()):
+        if not word:
+            continue
+        if word == 'all':
+            wanted.update(keys)
+        elif word.isdigit() and 1 <= int(word) <= len(keys):
+            wanted.add(keys[int(word) - 1])
+        elif WORKFLOW_ALIASES.get(word, word) in GENJUTSU_WORKFLOWS:
+            wanted.add(WORKFLOW_ALIASES.get(word, word))
+        else:
+            raise ValueError(f'Unknown workflow: {word}. Use {", ".join(keys)} or all.')
+    if not wanted:
+        wanted.update(keys)
+    wanted.update(WORKFLOW_REQUIRES[key] for key in list(wanted) if key in WORKFLOW_REQUIRES)
+    return [key for key in keys if key in wanted]
+
+
+def workflow_titles(workflows: list[str] | None) -> str:
+    keys = workflows or list(GENJUTSU_WORKFLOWS)
+    if len(keys) == len(GENJUTSU_WORKFLOWS):
+        return 'all workflows'
+    return ', '.join(GENJUTSU_WORKFLOWS[key][0].split(' (')[0] for key in keys)
+
+
+def workflow_models_gb(workflows: list[str] | None) -> float:
+    keys = workflows or list(GENJUTSU_WORKFLOWS)
+    shared = QWEN3VL_GB if {'edit', 'motion'} & set(keys) else 0
+    return sum(GENJUTSU_WORKFLOWS[key][1] for key in keys) + shared
+
+
+def workflow_sizing(workflows: list[str]) -> dict[str, Any]:
+    """Rental defaults for a Genjutsu subset: disk for the models plus ~45 GB (image, node packages, outputs).
+    H3 streams its int8 weights from system RAM, so Motion control (and Fix faces) keep the 64 GB RAM floor."""
+    models = workflow_models_gb(workflows)
+    return dict(disk=max(60, math.ceil((models + 45) / 10) * 10), min_ram=64 if 'motion' in workflows else 32,
+                setup_gb=round(models + 3))
+
+
+def ask_workflows() -> list[str]:
+    print('\nGenjutsu workflows (only the ones you pick are installed):')
+    for index, (title, gb) in enumerate(GENJUTSU_WORKFLOWS.values(), 1):
+        print(f'  {index}) {title}' + (dim(f'  ~{gb:g} GB') if gb >= 1 else ''))
+    print(dim(f'  Edit Image and Motion control share Qwen3-VL 8B (~{QWEN3VL_GB:g} GB), downloaded once.'))
+    while True:
+        answer = input('Set up which? [numbers such as 2 4, Enter for all]: ')
+        try:
+            workflows = parse_workflows(answer)
+        except ValueError as error:
+            print(error)
+            continue
+        print(f'  → {workflow_titles(workflows)} • ~{workflow_models_gb(workflows):.0f} GB of models')
+        return workflows
+
+
 def preset_script(name: str) -> Path:
     path = Path(__file__).resolve().parent / PRESETS[name]['script']
     if not path.is_file():
@@ -225,11 +296,12 @@ def preset_script(name: str) -> Path:
 
 
 def apply_defaults(opts: argparse.Namespace, preset: str | None) -> None:
-    """Explicit flags win; otherwise the preset's sizing, then the general defaults."""
+    """Explicit flags win; otherwise the sizing for the chosen Genjutsu workflows, the preset's, then the defaults."""
+    sized = workflow_sizing(opts.workflows) if preset == 'genjutsu' and opts.workflows else {}
     for key, value in DEFAULTS.items():
         if getattr(opts, key) is None:
-            setattr(opts, key, PRESETS[preset].get(key, value) if preset else value)
-    opts.setup_gb = PRESETS[preset].get('setup_gb') if preset else None
+            setattr(opts, key, sized.get(key, PRESETS[preset].get(key, value)) if preset else value)
+    opts.setup_gb = sized.get('setup_gb', PRESETS[preset].get('setup_gb')) if preset else None
 
 
 def choose_image(opts: argparse.Namespace) -> tuple[str | None, str | None]:
@@ -250,6 +322,8 @@ def choose_image(opts: argparse.Namespace) -> tuple[str | None, str | None]:
         _, image, preset = IMAGES[choice]
         if preset:
             preset_script(preset)
+        if preset == 'genjutsu' and opts.workflows is None:
+            opts.workflows = ask_workflows()
         return image, preset
     image = input('Docker image (e.g. vllm/vllm-openai:latest): ').strip()
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._/:@-]*', image):
@@ -477,17 +551,20 @@ def hf_token() -> str | None:
     return token or None
 
 
-def start_setup(instance_id: int, info: dict[str, Any], preset: str, attempts: int = 12) -> bool:
+def start_setup(instance_id: int, info: dict[str, Any], preset: str, attempts: int = 12,
+                workflows: list[str] | None = None) -> bool:
     """Upload the preset's installer and start it detached (it survives SSH disconnects; rerunning resumes).
-    The installer goes first on stdin, then the Hugging Face token (if any), which lands in a 600-mode file."""
+    The installer goes first on stdin, then the Hugging Face token (if any), which lands in a 600-mode file.
+    `workflows` (Genjutsu keys; None = all) become the installer's arguments."""
     script = preset_script(preset).read_text()
+    args = ' '.join(key for key in (workflows or []) if key in GENJUTSU_WORKFLOWS)
     token = hf_token()
     if token:
         script += f'\n#HF_TOKEN {token}\n'
     command = (f'umask 077 && mkdir -p {SETUP_DIR} && cat > {SETUP_DIR}/upload && '
                f'grep "^#HF_TOKEN " {SETUP_DIR}/upload | cut -d" " -f2 > {SETUP_DIR}/hf_token; '
                f'grep -v "^#HF_TOKEN " {SETUP_DIR}/upload > {SETUP_DIR}/setup.sh && rm -f {SETUP_DIR}/upload && '
-               f'{{ nohup setsid bash {SETUP_DIR}/setup.sh >> {SETUP_DIR}/setup.log 2>&1 < /dev/null & }} '
+               f'{{ nohup setsid bash {SETUP_DIR}/setup.sh {args} >> {SETUP_DIR}/setup.log 2>&1 < /dev/null & }} '
                '&& echo started')
     for attempt in range(attempts):
         if (ssh_run(info, command, stdin_text=script, timeout=40) or '').strip() == 'started':
@@ -830,10 +907,15 @@ def monitor(instance_id: int) -> None:
         print(bold('›') + ' Command' + hint + ': ', end='', flush=True)
         return shown_now, len(display.splitlines())
 
-    def run_setup() -> None:
+    def run_setup(choice: str = '') -> None:
         nonlocal setup_line, setup_checked
         if stopped_now():
             print('The instance is stopped. Type start first.')
+            return
+        try:
+            workflows = parse_workflows(choice) if choice else state.get('workflows')
+        except ValueError as error:
+            print(error)
             return
         with lock:
             data = dict(info)
@@ -842,9 +924,10 @@ def monitor(instance_id: int) -> None:
             print('The instance is not running yet. Try again in a minute.')
             return
         title = PRESETS[preset]['title']
-        print(f'Starting {title} setup in the background (resumes; already-verified files are kept)…', flush=True)
+        print(f'Starting {title} setup for {workflow_titles(workflows)} in the background '
+              '(resumes; already-verified files are kept)…', flush=True)
         try:
-            started = start_setup(instance_id, data, preset, attempts=2)
+            started = start_setup(instance_id, data, preset, attempts=2, workflows=workflows)
         except (RuntimeError, OSError, subprocess.SubprocessError) as error:
             print(yellow(str(error)))
             return
@@ -852,8 +935,12 @@ def monitor(instance_id: int) -> None:
             print(yellow('Could not reach the instance over SSH. Try again shortly.'))
             return
         with lock:
-            if state.get('setup') != preset:
+            if state.get('setup') != preset or state.get('workflows') != workflows:
                 state['setup'] = preset
+                if workflows:
+                    state['workflows'] = workflows
+                else:
+                    state.pop('workflows', None)
                 save_state(instance_id, state)
             setup_line, setup_checked = 'running|starting…', time.monotonic()
         print(f'{title} setup started. Progress shows in the Setup row.')
@@ -890,7 +977,8 @@ def monitor(instance_id: int) -> None:
     if kind == 'comfy':
         print('  ' + field('comfy', 'enable ComfyUI web access ' + yellow('(recreates the container, erasing its files)'), 7))
         print('  ' + field('setup', f"install or resume {PRESETS[state.get('setup') or DEFAULT_SETUP]['title']} "
-                                    'nodes and models', 7))
+                                    f"({workflow_titles(state.get('workflows'))})", 7))
+        print('  ' + field('', dim('setup motion face, setup all, …: pick workflows (edit motion color face smooth)'), 7))
     print('  ' + field('Ctrl+C', 'close this display; the rental keeps running', 7))
     shown, count = paint()
     try:
@@ -907,8 +995,8 @@ def monitor(instance_id: int) -> None:
                     return
                 if command in ('stop', 'start'):
                     power(command)
-                elif command == 'setup' and kind == 'comfy':
-                    run_setup()
+                elif command.split()[:1] == ['setup'] and kind == 'comfy':
+                    run_setup(command[len('setup'):].strip())
                 elif command == 'comfy' and kind == 'comfy' and stopped_now():
                     print('The instance is stopped. Type start first.')
                 elif command == 'comfy' and kind == 'comfy':
@@ -924,7 +1012,7 @@ def monitor(instance_id: int) -> None:
                         print('Recycle started. The ComfyUI link appears here in a few minutes.'
                               + (' Then type setup to reinstall the nodes and models.' if state.get('setup') else ''))
                 elif command:
-                    print('Type stop, start, kill' + (', comfy, setup' if kind == 'comfy' else '')
+                    print('Type stop, start, kill' + (', comfy, setup [workflows]' if kind == 'comfy' else '')
                           + ', or Ctrl+C to close the display.')
                 shown, count = paint()
                 continue
@@ -993,6 +1081,9 @@ def main() -> None:
     parser.add_argument('--image', help='Docker image (skips the image menu)')
     parser.add_argument('--setup', choices=sorted({*PRESETS, *PRESET_ALIASES}),
                         help=f'Skip the image menu and install a setup preset (image defaults to {COMFY_IMAGE})')
+    parser.add_argument('--workflows', metavar='LIST',
+                        help='Genjutsu workflows to set up, e.g. motion,face (edit motion color face smooth, or all; '
+                             'Fix faces adds Motion control). Implies --setup genjutsu')
     parser.add_argument('--label', help='Vast instance label (default: Genjutsu for image 1, else Qwen)')
     parser.add_argument('--disk', type=int, help='Disk GB (default: 120 for image 1, else 60)')
     parser.add_argument('--min-vram', type=int, default=24, help='Minimum VRAM GB (default: 24)')
@@ -1012,6 +1103,14 @@ def main() -> None:
     parser.add_argument('--wait', type=int, default=600, help='Seconds to wait for SSH (default: 600)')
     opts = parser.parse_args()
     opts.setup = PRESET_ALIASES.get(opts.setup, opts.setup)
+    if opts.workflows is not None:
+        if opts.setup not in (None, 'genjutsu'):
+            raise RuntimeError('--workflows is for the Genjutsu setup.')
+        try:
+            opts.workflows = parse_workflows(opts.workflows)
+        except ValueError as error:
+            raise RuntimeError(str(error)) from error
+        opts.setup = 'genjutsu'
     if opts.setup and opts.image and image_kind(opts.image) != 'comfy':
         raise RuntimeError('--setup needs a vastai/comfy image.')
     validate(opts)
@@ -1024,7 +1123,7 @@ def main() -> None:
         return
 
     print('\nRent Vast.ai GPU (rent only)')
-    image, preset = (None, None) if opts.list else choose_image(opts)
+    image, preset = (None, opts.setup) if opts.list else choose_image(opts)
     if not opts.list and image is None:
         return
     apply_defaults(opts, preset)
@@ -1066,7 +1165,9 @@ def main() -> None:
 
     print(f"\nRenting offer {offer['id']}: {offer['gpu_name']} • ${offer['dph_total']:.4f}/hour • "
           f"{offer.get('geolocation') or 'unknown'}\n  image {image}\n  disk {opts.disk} GB • label {opts.label}"
-          + (f"\n  setup {PRESETS[preset]['title']} (starts once SSH is up)" if preset else ''))
+          + (f"\n  setup {PRESETS[preset]['title']}"
+             + (f": {workflow_titles(opts.workflows)}" if preset == 'genjutsu' else '')
+             + ' (starts once SSH is up)' if preset else ''))
     print('Renting now (billing starts)...')
 
     result = vast('create', 'instance', str(offer['id']), '--image', image, '--disk', str(opts.disk),
@@ -1079,7 +1180,8 @@ def main() -> None:
     path = save_state(instance_id, dict(instance_id=instance_id, offer_id=offer['id'], gpu=offer['gpu_name'],
                                         image=image, disk_gb=opts.disk, label=opts.label,
                                         hourly_usd=offer['dph_total'], created_at=time.time(),
-                                        **({'setup': preset} if preset else {})))
+                                        **({'setup': preset} if preset else {}),
+                                        **({'workflows': opts.workflows} if preset == 'genjutsu' and opts.workflows else {})))
     print(f'\nRented instance {instance_id}. Saved to {path}.')
     print(f'Waiting up to {opts.wait // 60} min for the container and SSH (Ctrl+C stops waiting; rental is kept)…')
     try:
@@ -1090,8 +1192,9 @@ def main() -> None:
     if info:
         if preset:
             title = PRESETS[preset]['title']
-            print(f'\nStarting {title} setup in the background (nodes first, then ~67 GB of models)…', flush=True)
-            if not start_setup(instance_id, info, preset):
+            print(f'\nStarting {title} setup for {workflow_titles(opts.workflows)} in the background '
+                  f'(nodes first, then ~{workflow_models_gb(opts.workflows):.0f} GB of models)…', flush=True)
+            if not start_setup(instance_id, info, preset, workflows=opts.workflows):
                 print(yellow(f'Could not start {title} setup over SSH. Type setup in the monitor to retry.'))
         print_access(instance_id, info, image, preset)
         monitor(instance_id)
