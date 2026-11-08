@@ -5,7 +5,7 @@
 #   2. Motion control  MiniMax H3 swap + Check mask: H3 nodes, SAM 3.1 and the H3 models         (docs/minimax-h3-comfyui)
 #   3. Fix colours     Image Detail Contrast + Orion4D tone mapper; no models                   (docs/h3-post-processing)
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
-#   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.26 checkpoint                  (docs/h3-post-processing)
+#   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.9 checkpoint                   (docs/h3-post-processing)
 # Each workflow downloads its models in parallel (PARALLEL_DOWNLOADS, default 3), largest first.
 # Resumable and safe to rerun: finished files are kept, partial downloads resume, every model is sha256-checked.
 #
@@ -119,9 +119,10 @@ smooth_NODES=(
   "ComfyUI-Frame-Interpolation|https://github.com/Fannovel16/ComfyUI-Frame-Interpolation|requirements-no-cupy.txt"
 )
 smooth_PIP=()
-# Genjutsu picks rife426, then rife49. The node would fetch it from GitHub on the first job; this saves that wait.
+# Genjutsu uses rife49 (rife426's release is a training checkpoint the node cannot load). The node would fetch it
+# from GitHub on the first job; this saves that wait.
 smooth_MODELS=(
-  "custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife|https://github.com/Fannovel16/ComfyUI-Frame-Interpolation/releases/download/models/rife426.pth|24620531|606421fe2148a9fdeca14e58d94dc339e87b87e0ebcc5dec84a50d6f488cfe7b"
+  "custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife|https://github.com/Fannovel16/ComfyUI-Frame-Interpolation/releases/download/models/rife49.pth|21345274|e55fd00f3cc184e3c65961f4bb827a9da022e78eed36b055242c0ac30000d533"
 )
 smooth_TYPES="RIFE_VFI VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"
 
