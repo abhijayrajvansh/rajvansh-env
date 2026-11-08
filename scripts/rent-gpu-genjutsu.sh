@@ -267,16 +267,24 @@ restart_comfy() {
   # Never kill a job someone started on a workflow that is already set up. A restart also wipes ComfyUI's in-memory
   # history, so wait until the queue has stayed empty for IDLE_BEFORE_RESTART seconds: the app polls /history and
   # needs that time to collect a just-finished result (a restart 1 s after a job ended lost its result once).
+  # `restart` in the rent-gpu monitor drops $STATE_DIR/restart-now to skip the wait (it cancels the running job).
   local waited=0 idle=0
   while [ $idle -lt "$IDLE_BEFORE_RESTART" ] && [ $waited -lt 3600 ]; do
+    if [ -e "$STATE_DIR/restart-now" ]; then
+      rm -f "$STATE_DIR/restart-now"
+      printf 'Restart requested from the monitor; not waiting for the ComfyUI queue.\n'
+      break
+    fi
     if queue_busy; then
       idle=0
-      status running "waiting for ComfyUI's running job to finish before restarting ($(duration $waited))" '' '' quiet
+      status running "waiting for ComfyUI's job to finish, then restarting ($(duration $waited)) • restart skips" '' '' quiet
     else
       idle=$((idle + 5))
+      status running "ComfyUI idle; restarting in $((IDLE_BEFORE_RESTART - idle + 5))s to load the new nodes" '' '' quiet
     fi
     sleep 5; waited=$((waited + 5))
   done
+  rm -f "$STATE_DIR/restart-now"
   status running 'restarting ComfyUI to load the new nodes'
   if ! command -v supervisorctl >/dev/null; then warn 'supervisorctl not found; restart ComfyUI yourself'; return; fi
   supervisorctl restart comfyui >/dev/null || warn 'could not restart ComfyUI'
@@ -470,8 +478,9 @@ run_workflow() {  # run_workflow KEY INDEX
   WF_TITLE="${TITLE[$key]} ($index/${#WORKFLOWS[@]})" WF_UNITS=$(workflow_units "$key") WF_DONE=0
   status running "setting up ${TITLE[$key]}"
   if [ ${#_nodes_ref[@]} -gt 0 ]; then install_nodes "$key"; fi
-  ensure_types "$key" || ok=0
+  # Models first: they need no ComfyUI restart, so a busy queue only delays loading the new nodes, not the downloads.
   download_models "$key"
+  ensure_types "$key" || ok=0
   if [ $ok = 1 ]; then
     READY+=("${TITLE[$key]}")
     status running "${TITLE[$key]} ready"

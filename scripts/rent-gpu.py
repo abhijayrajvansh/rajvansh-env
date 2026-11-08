@@ -1059,6 +1059,23 @@ def monitor(instance_id: int) -> None:
               else f'{title} setup started. Progress shows in the Setup row.')
         wake.set()
 
+    def restart_now() -> None:
+        """`restart`: let a setup that waits for ComfyUI's queue restart it right away (cancels the running job)."""
+        with lock:
+            data, line = dict(info), setup_line
+        if 'restart' not in line.partition('|')[2].partition('|')[0]:
+            print('Setup is not waiting to restart ComfyUI right now.')
+            return
+        answer = input(yellow('This cancels the job ComfyUI is running now. Type yes to restart: ')).strip().lower()
+        if answer != 'yes':
+            print('Not restarted.')
+            return
+        if ssh_run(data, f'touch {SETUP_DIR}/restart-now && echo ok', timeout=15) is None:
+            print(yellow('Could not reach the instance over SSH. Try again shortly.'))
+            return
+        print('Restart requested. Setup restarts ComfyUI within 5 s and carries on.')
+        wake.set()
+
     def add_workflows(choice: str) -> None:
         """`add`: pick more Genjutsu workflows for this rental; they install after the ones already set up."""
         with lock:
@@ -1130,6 +1147,7 @@ def monitor(instance_id: int) -> None:
                 ('setup KEYS', 'set the exact workflows: ' + dim('setup motion face · setup all')),
                 ('add', 'pick more workflows from a list; queued if a setup is running'),
                 ('add KEYS', 'add those directly: ' + dim('add 1 5 · add edit smooth')),
+                ('restart', 'stop waiting for the ComfyUI queue ' + yellow('(cancels the running job)')),
             ]))
         groups.append(('Display', [('help', 'show this list ' + dim('(also ?)')),
                                    ('Ctrl+C', 'close this display; the rental keeps running')]))
@@ -1162,6 +1180,8 @@ def monitor(instance_id: int) -> None:
                     power(command)
                 elif command.split()[:1] == ['setup'] and kind == 'comfy':
                     run_setup(command[len('setup'):].strip())
+                elif command == 'restart' and kind == 'comfy':
+                    restart_now()
                 elif command.split()[:1] == ['add'] and kind == 'comfy':
                     add_workflows(command[len('add'):].strip())
                 elif command == 'comfy' and kind == 'comfy' and stopped_now():
