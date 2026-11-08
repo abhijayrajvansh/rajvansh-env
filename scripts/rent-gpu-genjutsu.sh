@@ -16,7 +16,7 @@
 #   ssh -p PORT root@HOST 'bash -s -- motion face' < rent-gpu-genjutsu.sh  (only these)
 # Log:    /workspace/.rent-gpu-setup/setup.log (progress lines with % done and % left)
 # Status: /workspace/.rent-gpu-setup/status, one line:
-#         state|message|ready workflows|step %|step detail|workflow|workflow %|overall %
+#         state|message|ready workflows|step %|step detail|workflow|workflow %|overall %|model bytes done|model bytes
 # Env: COMFY_DIR, COMFY_PYTHON (defaults match vastai/comfy), HF_TOKEN for rate-limited downloads, PARALLEL_DOWNLOADS.
 set -Eeuo pipefail
 
@@ -155,7 +155,7 @@ for arg in "$@"; do
       want "${ALIAS[$word]}"
     else
       printf 'Unknown workflow: %s. Use any of: %s, or all.\n' "$word" "${ALL_WORKFLOWS[*]}" >&2
-      printf 'failed|unknown workflow %s||||||\n' "$word" > "$STATUS"
+      printf 'failed|unknown workflow %s||||||||\n' "$word" > "$STATUS"
       exit 2
     fi
   done
@@ -190,6 +190,7 @@ done
 READY=()
 WARNINGS=()
 TOTAL_UNITS=0 DONE_UNITS=0     # all workflows
+MODEL_BYTES=0 MODEL_DONE=0     # model files only (the monitor's Download row), finished ones in MODEL_DONE
 WF_TITLE='' WF_UNITS=0 WF_DONE=0 # current workflow
 CUR_UNITS=0                    # part of the current step already done (bytes of the files downloading now)
 LAST_LOG=0
@@ -208,8 +209,8 @@ status() {
   [ -n "$WF_TITLE" ] && wf_pct=$(pct $((WF_DONE + CUR_UNITS)) "$WF_UNITS")
   all_pct=$(pct $((DONE_UNITS + CUR_UNITS)) "$TOTAL_UNITS")
   [ "$state" = done ] && all_pct=100
-  printf '%s|%s|%s|%s|%s|%s|%s|%s\n' "$state" "$message" "$(ready_list)" "$step" "$detail" "$WF_TITLE" "$wf_pct" \
-    "$all_pct" > "$STATUS.tmp" && mv "$STATUS.tmp" "$STATUS"
+  printf '%s|%s|%s|%s|%s|%s|%s|%s|%s|%s\n' "$state" "$message" "$(ready_list)" "$step" "$detail" "$WF_TITLE" \
+    "$wf_pct" "$all_pct" "$((MODEL_DONE + CUR_UNITS))" "$MODEL_BYTES" > "$STATUS.tmp" && mv "$STATUS.tmp" "$STATUS"
   if [ -n "$quiet" ] && [ $((SECONDS - LAST_LOG)) -lt 15 ]; then return; fi
   LAST_LOG=$SECONDS
   local line="[$(date +%H:%M:%S)] $message"
@@ -375,6 +376,7 @@ download_models() {
     if installed "$(model_dir "$folder")/${url##*/}" "$bytes"; then
       printf '✓ %s already installed\n' "${url##*/}"
       DONE_UNITS=$((DONE_UNITS + bytes)); WF_DONE=$((WF_DONE + bytes)); finished=$((finished + bytes))
+      MODEL_DONE=$((MODEL_DONE + bytes))
       ready=$((ready + 1))
     else
       queue+=("$entry"); queued=$((queued + bytes))
@@ -402,6 +404,7 @@ download_models() {
       name=${job_name[$pid]} bytes=${job_bytes[$pid]}
       if wait "$pid"; then
         DONE_UNITS=$((DONE_UNITS + bytes)); WF_DONE=$((WF_DONE + bytes)); finished=$((finished + bytes))
+        MODEL_DONE=$((MODEL_DONE + bytes))
         ready=$((ready + 1))
         printf '✓ %s verified\n' "$name"
       elif [ -z "$failed" ]; then
@@ -491,6 +494,7 @@ for key in "${WORKFLOWS[@]}"; do
   declare -n _check="${key}_MODELS"
   for entry in "${_check[@]}"; do
     IFS='|' read -r folder url bytes _ <<<"$entry"
+    MODEL_BYTES=$((MODEL_BYTES + bytes))
     installed "$(model_dir "$folder")/${url##*/}" "$bytes" || need=$((need + bytes))
   done
   unset -n _check

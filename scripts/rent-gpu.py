@@ -542,7 +542,9 @@ def ssh_run(info: dict[str, Any], command: str, stdin_text: str | None = None, t
     for host, port in ssh_candidates(info):
         try:
             result = subprocess.run(
+                # One shared connection per host (ControlMaster) keeps the monitor's 3 s setup poll cheap.
                 ['ssh', '-i', str(SSH_KEY), '-o', 'IdentitiesOnly=yes', '-o', 'BatchMode=yes',
+                 '-o', 'ControlMaster=auto', '-o', f'ControlPath={ROOT}/cm-%C', '-o', 'ControlPersist=60',
                  '-o', 'ConnectTimeout=6', '-o', 'StrictHostKeyChecking=accept-new', '-o', 'LogLevel=ERROR',
                  '-p', str(port), f'root@{host}', command],
                 capture_output=True, text=True, timeout=timeout, **feed)
@@ -748,6 +750,7 @@ def monitor(instance_id: int) -> None:
     comfy = 'checking…'
     setup_line = 'running|checking…' if state.get('setup') else ''
     setup_checked = 0.0
+    net_rate: float | None = None  # rental's live download rate in bytes/s while setup runs
     lock = threading.Lock()
     stop = threading.Event()
     wake = threading.Event()
@@ -799,6 +802,38 @@ def monitor(instance_id: int) -> None:
             wake.wait(10)
             wake.clear()
 
+    def live_setup() -> None:
+        """While setup runs: every 3 s, read its status and the container's received-bytes counter over one SSH call,
+        so the Models and Speed rows move live."""
+        nonlocal setup_line, setup_checked, net_rate
+        last: tuple[int, float] | None = None
+        while not stop.is_set():
+            with lock:
+                data, line, preset = dict(info), setup_line, state.get('setup')
+            running = (preset and data and data.get('actual_status') == 'running' and not is_stopped(data)
+                       and line.startswith('running|'))
+            if not running:
+                last = None
+                with lock:
+                    net_rate = None
+                stop.wait(3)
+                continue
+            output = ssh_run(data, f'tail -n 1 {SETUP_DIR}/status 2>/dev/null; echo @@net; cat /proc/net/dev', timeout=10)
+            if output and '@@net' in output:
+                status_text, _, net = output.partition('@@net')
+                received = sum(int(row.split(':', 1)[1].split()[0]) for row in net.splitlines()
+                               if ':' in row and row.split(':', 1)[0].strip() not in ('lo', '')
+                               and row.split(':', 1)[1].split())
+                now = time.monotonic()
+                rate = (received - last[0]) / (now - last[1]) if last and now > last[1] and received >= last[0] else None
+                last = (received, now)
+                with lock:
+                    if status_text.strip():
+                        setup_line, setup_checked = status_text.strip().splitlines()[-1], now
+                    if rate is not None:
+                        net_rate = rate
+            stop.wait(3)
+
     def stopped_now() -> bool:
         with lock:
             return bool(info) and is_stopped(info)
@@ -837,7 +872,7 @@ def monitor(instance_id: int) -> None:
 
     def rows() -> list[str]:
         with lock:
-            data, comfy_status, setup_now = dict(info), comfy, setup_line
+            data, comfy_status, setup_now, rate_now = dict(info), comfy, setup_line, net_rate
             raw_stop = state.get('stopped_at')
             paused = float(state.get('paused_seconds') or 0)
         now = time.time()
@@ -887,9 +922,10 @@ def monitor(instance_id: int) -> None:
         if kind == 'comfy':
             lines.append(field('ComfyUI', state_dot(comfy_status, comfy_status.startswith('ready'))))
         if setup_now:
-            # state|message|ready|step %|step detail|workflow|workflow %|overall % (older installers: first 2-3)
-            parts = (setup_now.split('|') + [''] * 8)[:8]
-            _, _, ready, step, detail, workflow, workflow_pct, overall_pct = parts
+            # state|message|ready|step %|step detail|workflow|workflow %|overall %|model bytes done|model bytes
+            # (older installers send fewer fields)
+            parts = (setup_now.split('|') + [''] * 10)[:10]
+            _, _, ready, step, detail, workflow, workflow_pct, overall_pct, model_done, model_total = parts
             text, ok = setup_text(setup_now)
             lines.append(field('Setup', state_dot(text, ok)))
             if not ok and parts[0] == 'running':
@@ -901,12 +937,20 @@ def monitor(instance_id: int) -> None:
                     lines.append(field('Workflow', progress(workflow_pct, workflow)))
                 if overall_pct.isdigit():
                     lines.append(field('Overall', progress(overall_pct)))
+                if model_done.isdigit() and model_total.isdigit() and int(model_total) > 0:
+                    done_gb, total_gb = int(model_done) / 1e9, int(model_total) / 1e9
+                    lines.append(field('Models', progress(str(int(int(model_done) * 100 / int(model_total))),
+                                                          f'{done_gb:.1f} / {total_gb:.1f} GB')))
+                if rate_now is not None:
+                    speed = (f'{rate_now / 1e6:.1f} MB/s' if rate_now >= 1e6 else f'{rate_now / 1e3:.0f} KB/s')
+                    lines.append(field('Speed', cyan(bold(f'↓ {speed}')) + dim(f'  {rate_now * 8 / 1e9:.2f} Gbps live')))
             if ready and not ok:
                 lines.append(field('Ready', green(ready)))
         return lines
 
     worker = threading.Thread(target=poll, daemon=True)
     worker.start()
+    threading.Thread(target=live_setup, daemon=True).start()
     first.wait(45)
     if not sys.stdout.isatty() or not sys.stdin.isatty():
         print('\n' + header() + '\n' + '\n'.join(rows()))
