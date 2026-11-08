@@ -53,7 +53,7 @@ DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_sp
 HF_CAP_MBPS = 2400
 NET_EFFICIENCY = 0.8
 IMAGES: list[tuple[str, str, str | None]] = [
-    ('ComfyUI + Genjutsu — H3 motion control, Check mask, Fix faces, Fix colours,\n'
+    ('ComfyUI + Genjutsu — H3 motion control, Check mask, Fix faces, Fix colours, Smooth motion,\n'
      '     Edit Image (Qwen-Image 2.1 + consistency/BFS LoRAs)\n'
      '     installs nodes + ~67 GB of models automatically • 120 GB disk, ≥64 GB RAM', COMFY_IMAGE, 'genjutsu'),
     ('ComfyUI (stock, no models preinstalled)', COMFY_IMAGE, None),

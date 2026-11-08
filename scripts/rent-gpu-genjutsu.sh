@@ -5,6 +5,7 @@
 #   2. Motion control  MiniMax H3 swap + Check mask: H3 nodes, SAM 3.1 and the H3 models         (docs/minimax-h3-comfyui)
 #   3. Fix colours     Image Detail Contrast + Orion4D tone mapper; no models                   (docs/h3-post-processing)
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
+#   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.26 checkpoint                  (docs/h3-post-processing)
 # Each workflow downloads its models in parallel (PARALLEL_DOWNLOADS, default 3), largest first.
 # Resumable and safe to rerun: finished files are kept, partial downloads resume, every model is sha256-checked.
 #
@@ -37,11 +38,14 @@ exec 9>"$STATE_DIR/lock"
 flock -n 9 || { echo 'Genjutsu setup is already running on this instance.'; exit 0; }
 
 # ---------------------------------------------------------------------------------------------------------------
-# Workflows, in install order. Per workflow: <key>_NODES (dir|git URL), <key>_PIP (extra packages),
-# <key>_MODELS (models/<folder>|URL at a pinned revision|bytes|sha256), <key>_TYPES (node types it must load).
-# Filenames are Genjutsu's defaults (lib/h3-swap.ts, lib/server/qwen-edit-workflow.ts).
-WORKFLOWS=(edit motion color face)
-declare -A TITLE=([edit]='Edit Image' [motion]='Motion control' [color]='Fix colours' [face]='Fix faces')
+# Workflows, in install order. Per workflow: <key>_NODES (dir|git URL[|requirements file, default requirements.txt]),
+# <key>_PIP (extra packages), <key>_MODELS (folder|URL at a pinned revision|bytes|sha256; the folder is under
+# ComfyUI/models, or under ComfyUI when it starts with custom_nodes/), <key>_TYPES (node types it must load; write a
+# space inside a type name as _, e.g. RIFE_VFI for "RIFE VFI").
+# Filenames are Genjutsu's defaults (lib/h3-swap.ts, lib/server/qwen-edit-workflow.ts, lib/server/h3-workflow.ts).
+WORKFLOWS=(edit motion color face smooth)
+declare -A TITLE=([edit]='Edit Image' [motion]='Motion control' [color]='Fix colours' [face]='Fix faces'
+  [smooth]='Smooth motion')
 
 edit_NODES=()
 edit_PIP=()
@@ -110,6 +114,17 @@ ImageBlur ImageScaleToMaxDimension KSamplerSelect LoadImage LoraLoaderModelOnly 
 MiniMaxH3FantasticVideoEditLatent MiniMaxH3ReferenceToVideo ModelAttentionBackend RandomNoise SAMLoader
 SamplerCustomAdvanced TextGenerate UNETLoader VAEDecode VAELoader VHS_LoadVideo VHS_VideoCombine"
 
+# The node imports every VFI model at load (kornia, scipy, opencv); cupy is only for GMFSS and friends, not RIFE.
+smooth_NODES=(
+  "ComfyUI-Frame-Interpolation|https://github.com/Fannovel16/ComfyUI-Frame-Interpolation|requirements-no-cupy.txt"
+)
+smooth_PIP=()
+# Genjutsu picks rife426, then rife49. The node would fetch it from GitHub on the first job; this saves that wait.
+smooth_MODELS=(
+  "custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife|https://github.com/Fannovel16/ComfyUI-Frame-Interpolation/releases/download/models/rife426.pth|24620531|606421fe2148a9fdeca14e58d94dc339e87b87e0ebcc5dec84a50d6f488cfe7b"
+)
+smooth_TYPES="RIFE_VFI VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"
+
 # ---------------------------------------------------------------------------------------------------------------
 # Progress. Units are bytes for downloads and NODE_UNIT per custom-node pack.
 READY=()
@@ -154,6 +169,7 @@ workflow_units() {
   echo "$units"
 }
 installed() { [ -f "$1" ] && [ "$(stat -c %s "$1")" = "$2" ]; }
+model_dir() { case $1 in custom_nodes/*) printf '%s\n' "$COMFY/$1" ;; *) printf '%s\n' "$COMFY/models/$1" ;; esac; }
 
 # ---------------------------------------------------------------------------------------------------------------
 # ComfyUI helpers
@@ -161,7 +177,7 @@ missing_types() {  # prints the node types from $1 that ComfyUI does not list; f
   curl -sf --max-time 60 "$COMFY_API/object_info" -o "$STATE_DIR/object_info.json" || return 1
   "$PY" - "$STATE_DIR/object_info.json" "$1" <<'PYTHON'
 import json, sys
-info = json.load(open(sys.argv[1]))
+info = {name.replace(' ', '_') for name in json.load(open(sys.argv[1]))}
 print(' '.join(t for t in sys.argv[2].split() if t not in info))
 PYTHON
 }
@@ -208,9 +224,9 @@ pip_install() {
 
 install_nodes() {
   local -n _nodes="${1}_NODES" _pip="${1}_PIP"
-  local count=${#_nodes[@]} i=0 entry dir url path requirements
+  local count=${#_nodes[@]} i=0 entry dir url path requirements reqfile
   for entry in "${_nodes[@]}"; do
-    IFS='|' read -r dir url <<<"$entry"
+    IFS='|' read -r dir url reqfile <<<"$entry"
     i=$((i + 1))
     status running "custom nodes $i/$count • $dir" "$(pct $((i - 1)) "$count")"
     path="$COMFY/custom_nodes/$dir"
@@ -222,7 +238,7 @@ install_nodes() {
       git clone -q --depth 1 --recursive "$url" "$path"
     fi
     if [ -d "$path/.git" ]; then printf '  %s @ %s\n' "$dir" "$(git -C "$path" rev-parse --short HEAD)"; fi
-    requirements="$path/requirements.txt"
+    requirements="$path/${reqfile:-requirements.txt}"
     if [ -f "$requirements" ]; then
       status running "Python packages $i/$count • $dir" "$(pct $((i - 1)) "$count")" 'pip install'
       pip_install -r "$requirements" || warn "$dir: some Python requirements failed to install"
@@ -259,15 +275,17 @@ fetch() {
   local folder url bytes sha
   IFS='|' read -r folder url bytes sha <<<"$1"
   local name=${url##*/}
-  local target="$COMFY/models/$folder/$name"
+  local target token=''
+  target="$(model_dir "$folder")/$name"
+  case $url in "$HF"/*) token=$HF_TOKEN ;; esac  # the Hugging Face token goes to Hugging Face only
   if command -v aria2c >/dev/null; then
     # 16 connections per file: one connection to Hugging Face often caps near 30 MB/s.
     aria2c -x16 -s16 -k16M -c --file-allocation=none --max-tries=10 --retry-wait=5 \
       --console-log-level=warn --summary-interval=0 --download-result=hide \
-      ${HF_TOKEN:+--header="Authorization: Bearer $HF_TOKEN"} -d "${target%/*}" -o "$name.part" "$url" \
+      ${token:+--header="Authorization: Bearer $token"} -d "${target%/*}" -o "$name.part" "$url" \
       >> "$STATE_DIR/download.log" 2>&1
   else
-    curl -sSL --fail --retry 5 --retry-delay 5 -C - ${HF_TOKEN:+-H "Authorization: Bearer $HF_TOKEN"} \
+    curl -sSL --fail --retry 5 --retry-delay 5 -C - ${token:+-H "Authorization: Bearer $token"} \
       -o "$target.part" "$url" >> "$STATE_DIR/download.log" 2>&1
   fi || { echo "download failed: $name (see $STATE_DIR/download.log)"; return 1; }
   [ "$(stat -c %s "$target.part")" = "$bytes" ] || { echo "size mismatch for $name"; return 1; }
@@ -294,7 +312,7 @@ download_models() {
   while IFS= read -r entry; do
     IFS='|' read -r folder url bytes sha <<<"$entry"
     total=$((total + bytes))
-    if installed "$COMFY/models/$folder/${url##*/}" "$bytes"; then
+    if installed "$(model_dir "$folder")/${url##*/}" "$bytes"; then
       printf '✓ %s already installed\n' "${url##*/}"
       DONE_UNITS=$((DONE_UNITS + bytes)); WF_DONE=$((WF_DONE + bytes)); finished=$((finished + bytes))
       ready=$((ready + 1))
@@ -309,8 +327,8 @@ download_models() {
     while [ -z "$failed" ] && [ ${#queue[@]} -gt 0 ] && [ ${#job_name[@]} -lt "$PARALLEL_DOWNLOADS" ]; do
       entry=${queue[0]}; queue=("${queue[@]:1}")
       IFS='|' read -r folder url bytes sha <<<"$entry"
-      name=${url##*/} part="$COMFY/models/$folder/${url##*/}.part"
-      mkdir -p "$COMFY/models/$folder"
+      name=${url##*/} part="$(model_dir "$folder")/${url##*/}.part"
+      mkdir -p "$(model_dir "$folder")"
       fetch "$entry" > "$JOBS/$name.result" 2>&1 &
       pid=$!
       job_name[$pid]=$name job_bytes[$pid]=$bytes job_part[$pid]=$part
@@ -413,7 +431,7 @@ for key in "${WORKFLOWS[@]}"; do
   declare -n _check="${key}_MODELS"
   for entry in "${_check[@]}"; do
     IFS='|' read -r folder url bytes _ <<<"$entry"
-    installed "$COMFY/models/$folder/${url##*/}" "$bytes" || need=$((need + bytes))
+    installed "$(model_dir "$folder")/${url##*/}" "$bytes" || need=$((need + bytes))
   done
   unset -n _check
 done
@@ -463,4 +481,4 @@ else
   status warn "installed with ${#WARNINGS[@]} warning(s): ${WARNINGS[0]}"
   printf '\nWarnings:\n'; printf '  - %s\n' "${WARNINGS[@]}"
 fi
-printf '\nIn Genjutsu (Edit Image, Motion Control → MiniMax H3, Post-processing), paste the ComfyUI link and press Check.\n'
+printf '\nIn Genjutsu (Edit Image, Motion Control → MiniMax H3, Post-processing incl. Smooth motion), paste the ComfyUI link and press Check.\n'
