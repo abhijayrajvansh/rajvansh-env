@@ -173,7 +173,8 @@ def search(opts: argparse.Namespace, gpu: str | None = None, offer_id: int | Non
     return sorted(rows, key=lambda r: (r['dph_total'], r['inet_down_cost'], r['id']))
 
 
-ANSI = re.compile(r'\033\[[0-9;]*m')
+# Colour codes and OSC 8 hyperlinks (both zero-width on screen).
+ANSI = re.compile(r'\033\[[0-9;]*m|\033\]8;;[^\033]*\033\\')
 
 
 def paint_text(text: str, code: str) -> str:
@@ -190,6 +191,11 @@ def bold(text: str) -> str:
 
 def dim(text: str) -> str:
     return paint_text(text, '2')
+
+
+def hyperlink(url: str, text: str) -> str:
+    """OSC 8: the text opens url on ⌘-click in iTerm2 and most modern terminals; plain text elsewhere."""
+    return f'\033]8;;{url}\033\\{text}\033]8;;\033\\' if sys.stdout.isatty() and 'NO_COLOR' not in os.environ else text
 
 
 def cyan(text: str) -> str:
@@ -637,13 +643,30 @@ def http_status(url: str) -> int | None:
         return None
 
 
-def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str]) -> list[str]:
+def web_urls(info: dict[str, Any], image: str, tunnel_urls: dict[int, str]) -> list[tuple[str, str]]:
+    """(name, full link with token) for each web portal whose tunnel is up, in display order."""
     token = info.get('jupyter_token')
+    return [(name, f'{tunnel_urls[port]}/?token={token}') for port, _, name in PORTALS.get(image_kind(image), [])
+            if port in tunnel_urls and token]
+
+
+def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str]) -> list[str]:
+    """One line per link: its number, ⌘-click "open", the copy command and the host (also clickable). The token is
+    in the link, not printed."""
     lines = []
-    for port, _, name in PORTALS.get(image_kind(image), []):
-        if port in tunnel_urls and token:
-            lines.append('  ' + field(name, cyan(f'{tunnel_urls[port]}/?token={token}'), 16))
+    for number, (name, url) in enumerate(web_urls(info, image, tunnel_urls), 1):
+        host = url.split('//', 1)[-1].split('/', 1)[0]
+        lines.append(f'  {dim(str(number))} ' + field(name, hyperlink(url, cyan('↗ open')) + dim(f' · copy: c{number} · ')
+                                                       + hyperlink(url, dim(host)), 16))
     return lines
+
+
+def copy_text(text: str) -> bool:
+    try:
+        subprocess.run(['pbcopy'], input=text.encode(), check=True, timeout=5)
+        return True
+    except (OSError, subprocess.SubprocessError):
+        return False
 
 
 def section(title: str) -> str:
@@ -850,7 +873,8 @@ def monitor(instance_id: int) -> None:
             return section('Web links') + '\n  ' + dim('offline while the instance is stopped')
         if not links:
             return section('Web links') + '\n  ' + yellow('waiting for Vast\'s Cloudflare tunnels…')
-        return section('Web links') + ' ' + dim('(Cloudflare, token included)') + '\n' + '\n'.join(links)
+        return (section('Web links') + ' ' + dim('(Cloudflare, token included · ⌘-click open · type o1 to open, c1 to copy)')
+                + '\n' + '\n'.join(links))
 
     def state_dot(text: str, ok: bool) -> str:
         return (green('●') if ok else yellow('●')) + ' ' + text
@@ -1153,6 +1177,11 @@ def monitor(instance_id: int) -> None:
                 ('add KEYS', 'add those directly: ' + dim('add 1 5 · add edit smooth')),
                 ('restart', 'stop waiting for the ComfyUI queue ' + yellow('(cancels the running job)')),
             ]))
+        if kind != 'custom':
+            groups.append(('Web links', [
+                ('o, oN', 'open a link in the browser: ' + dim('o = ComfyUI (or the first) · o1 · o2')),
+                ('c, cN', 'copy a link with its token: ' + dim('c = ComfyUI (or the first) · c1 · c2')),
+            ]))
         groups.append(('Display', [('help', 'show this list ' + dim('(also ?)')),
                                    ('Ctrl+C', 'close this display; the rental keeps running')]))
         print(section('Commands'))
@@ -1174,8 +1203,30 @@ def monitor(instance_id: int) -> None:
                 if not command:
                     break
                 command = command.strip()
+                link = re.fullmatch(r'(o|open|c|copy)\s*(\d*)', command)
                 if command in ('help', '?', 'commands'):
                     print_commands()
+                elif link and kind != 'custom':
+                    with lock:
+                        urls = web_urls(dict(info), image, dict(tunnel_urls)) if info else []
+                    number = int(link.group(2)) if link.group(2) else next(
+                        (n for n, (name, _) in enumerate(urls, 1) if name == 'ComfyUI'), 1)
+                    if not urls:
+                        print('No web links yet: the Cloudflare tunnels are not up.')
+                    elif not 1 <= number <= len(urls):
+                        print(f'There are {len(urls)} links: use 1–{len(urls)}.')
+                    else:
+                        name, url = urls[number - 1]
+                        if link.group(1).startswith('o'):
+                            try:
+                                opened = webbrowser.open(url)
+                            except (OSError, webbrowser.Error):
+                                opened = False
+                            print(f'Opened {name} in the browser.' if opened else f'Could not open a browser. {name}: {url}')
+                        elif copy_text(url):
+                            print(f'Copied the {name} link (token included).')
+                        else:
+                            print(f'Could not copy. {name}: {url}')
                 elif command == 'kill':
                     stop.set()
                     destroy(instance_id)
