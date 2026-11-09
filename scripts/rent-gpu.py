@@ -655,18 +655,16 @@ def web_urls(info: dict[str, Any], image: str, tunnel_urls: dict[int, str]) -> l
 
 def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str], helper: str = '',
               copy_app: bool = False) -> list[str]:
-    """One line per link: its number, ⌘-click "open" and "copy", and the host. With the monitor's local helper
+    """One line per link: its number and ⌘-click "open" and "copy". With the monitor's local helper
     (helper = its base URL) both go through it: open redirects to the link, copy puts it on the clipboard. Without it,
     open is the link itself and copy is the typed command. The token is in the link, not printed."""
     lines = []
     for number, (name, url) in enumerate(web_urls(info, image, tunnel_urls), 1):
-        host = url.split('//', 1)[-1].split('/', 1)[0]
         opener = f'{helper}/open/{number}' if helper else url
         # rentgpu:// goes to the copy applet (no browser); without it, the http link opens a "Copied" tab.
         copy_link = (helper.replace('http://', 'rentgpu://', 1) if copy_app else helper) + f'/copy/{number}'
         copier = hyperlink(copy_link, cyan('⧉ copy')) if helper else dim(f'copy: c{number}')
-        lines.append(f'  {dim(str(number))} ' + field(name, hyperlink(opener, cyan('↗ open')) + dim(' · ') + copier
-                                                       + dim(' · ') + hyperlink(opener, dim(host)), 16))
+        lines.append(f'  {dim(str(number))} ' + field(name, hyperlink(opener, cyan('↗ open')) + dim(' · ') + copier, 16))
     return lines
 
 
