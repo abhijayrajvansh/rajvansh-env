@@ -6,7 +6,7 @@
 #   3. Fix colours     Image Detail Contrast + Orion4D tone mapper; no models                   (docs/h3-post-processing)
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
 #   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.9 checkpoint                   (docs/h3-post-processing)
-#   6. Video upscaler  SeedVR2 3B + 7B int8 and its VAE (ComfyUI's built-in nodes) + VideoHelperSuite (docs/image-upscale-workflow)
+#   6. Video upscaler  SeedVR2 3B + 7B int8 and its VAE (built-in nodes), FlashVSR+ Turbo int8 (FlashVSR+ T8), VideoHelperSuite (docs/image-upscale-workflow)
 # Pick workflows by passing their keys (comma or space separated; default all): edit motion color face smooth upscale.
 # They install in the order given. Fix faces runs H3, so Motion control goes in just before it.
 # Run again while a setup is running and the new keys are queued: when the running setup ends, it restarts with its
@@ -144,19 +144,27 @@ smooth_MODELS=(
 )
 smooth_TYPES="RIFE_VFI VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"
 
-# upscale.api.json: SeedVR2's nodes are built into ComfyUI (0.44+); the Video Upscaler picks 3B (default) or 7B.
+# upscale.api.json: SeedVR2's nodes are built into ComfyUI (0.44+); the Video Upscaler picks 3B (default), 7B or
+# FlashVSR+ Turbo. FlashVSR+ T8 runs Turbo with the preconverted INT8 DiT (needs comfy-kitchen >= 0.2.35, in the image)
+# and the Tiny decoder; its loader finds them in models/flashvsr_plus (the pack's own pinned, checksummed mirror).
 SEEDVR2="$HF/Comfy-Org/SeedVR2/resolve/df48879708206a403d2a61acd55578c2e80fd233"
+FLASHVSR="$HF/t8star/Flashvsr-Plus-Comfy/resolve/56c806f1357d90c8a0b4b054e21bcefe3cb9ac1d"
 upscale_NODES=(
   "ComfyUI-VideoHelperSuite|https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"  # load and save the video
+  "Comfyui-Flashvsr-Plus-T8|https://github.com/T8mars/Comfyui-Flashvsr-Plus-T8"
 )
 upscale_PIP=()
 upscale_MODELS=(
   "diffusion_models|$SEEDVR2/diffusion_models/seedvr2_3b_int8_convrot.safetensors|3458259704|c3dec8bcc5916843a8a858572970597462e1f2dc598d6dfd818f6cd40f53a157"
   "vae|$SEEDVR2/vae/seedvr2_ema_vae_fp16.safetensors|501324814|20678548f420d98d26f11442d3528f8b8c94e57ee046ef93dbb7633da8612ca1"
   "diffusion_models|$SEEDVR2/diffusion_models/seedvr2_7b_int8_convrot.safetensors|8334897976|5aa0d25fc9d35e449b659d0c9a5dcb22e2a4fa04032101b95a39da42b32c1be6"
+  "flashvsr_plus/turbo|$FLASHVSR/turbo/dit_int8_convrot.safetensors|1448886272|14150f06a5661e6da479f7583766c55e310e16cf3ce538ba56dc70188f03d773"
+  "flashvsr_plus/turbo|$FLASHVSR/turbo/lq_proj_in.safetensors|1151384272|e77b378ae12342eefbb58f924256f362a151b93ce73dd32808fcdaca9c051496"
+  "flashvsr_plus|$FLASHVSR/TCDecoder.ckpt|189018333|e224bdcf2f52745cbf4d393ff5374c2ba09e90285d5d19062d2bf63b915b6161"
 )
 upscale_TYPES="ImageScaleBy KSampler SeedVR2Conditioning SeedVR2PostProcessing SeedVR2Preprocess SeedVR2TemporalChunk
-SeedVR2TemporalMerge UNETLoader VAEDecodeTiled VAEEncodeTiled VAELoader VHS_LoadVideo VHS_VideoCombine"
+SeedVR2TemporalMerge UNETLoader VAEDecodeTiled VAEEncodeTiled VAELoader VHS_LoadVideo VHS_VideoCombine ImageBlend ImageAddNoise
+FlashVSRPlusModelLoader FlashVSRPlusUpscaleFrames"
 
 # ---------------------------------------------------------------------------------------------------------------
 # Which workflows to set up. Fix faces samples with H3, so it needs Motion control's nodes and models.

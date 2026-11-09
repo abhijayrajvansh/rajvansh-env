@@ -41,10 +41,10 @@ BLOCKED_MACHINE_IDS: set[str] = set()
 COMFY_IMAGE = 'vastai/comfy:v0.44.0-cuda-12.9-py312'
 # Setup presets: an installer started over SSH once the rental is up, plus rental defaults sized for it.
 PRESETS: dict[str, dict[str, Any]] = {
-    # ~79 GB of models (H3 ~51 GB + Qwen-Image 2.1 ~16 GB + SeedVR2 ~12 GB); int8 H3 streams weights from system RAM.
+    # ~82 GB of models (H3 ~51 GB + Qwen-Image 2.1 ~16 GB + upscalers ~15 GB); int8 H3 streams weights from system RAM.
     # setup_gb: models + node packages fetched on the rental, for the per-offer setup cost estimate.
     'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=130, min_ram=64,
-                     min_download=1000, setup_gb=82,
+                     min_download=1000, setup_gb=85,
                      # Slow disks take many minutes to unpack the ~10 GB image before the container even boots.
                      min_disk_speed=2500,
                      max_setup_cost=0.30),  # bandwidth + GPU time to download the models, in USD
@@ -59,7 +59,7 @@ GENJUTSU_WORKFLOWS: dict[str, tuple[str, str, float]] = {  # key -> (name, what 
     'color': ('Fix colours', 'detail contrast + tone mapper', 0.0),
     'face': ('Fix faces', 'H3 face refine; also sets up Motion control', 0.5),
     'smooth': ('Smooth motion', 'RIFE in-between frames', 0.0),
-    'upscale': ('Video upscaler', 'SeedVR2 3B + 7B int8', 12.3),
+    'upscale': ('Video upscaler', 'SeedVR2 3B + 7B int8, FlashVSR+ Turbo', 15.1),
 }
 QWEN3VL_GB = 9.4
 WORKFLOW_REQUIRES = {'face': 'motion'}  # Fix faces samples with H3
@@ -74,8 +74,8 @@ NET_EFFICIENCY = 0.8
 IMAGES: list[tuple[str, list[tuple[str, list[str]]], str, str | None]] = [
     ('ComfyUI + Genjutsu', [
         ('Workflows', ['Motion control', 'Check mask', 'Fix faces', 'Fix colours', 'Smooth motion',
-                       'Video upscaler (SeedVR2)', 'Edit Image (Qwen-Image 2.1)']),
-        ('Setup', ['you pick the workflows next', 'all of them: ~79 GB of models', '130 GB disk · ≥64 GB RAM']),
+                       'Video upscaler (SeedVR2, FlashVSR+)', 'Edit Image (Qwen-Image 2.1)']),
+        ('Setup', ['you pick the workflows next', 'all of them: ~82 GB of models', '130 GB disk · ≥64 GB RAM']),
     ], COMFY_IMAGE, 'genjutsu'),
     ('ComfyUI', [('Setup', ['stock, no models preinstalled'])], COMFY_IMAGE, None),
     ('Ubuntu 24.04 + Python 3.12', [('Setup', ['bare, nothing preinstalled', 'install vLLM or Transformers yourself'])],
