@@ -773,18 +773,13 @@ def section(title: str) -> str:
 
 
 def print_access(instance_id: int, info: dict[str, Any], image: str, preset: str | None = None) -> None:
-    key = f'-i "{SSH_KEY}" ' if SSH_KEY.exists() else ''
     title = f' GPU instance {instance_id} '
     print('\n' + dim('━━') + bold(title) + dim('━' * max(4, 62 - len(title))))
     print('  ' + field('Image', image))
     print('  ' + field('Console', cyan('https://cloud.vast.ai/instances/')))
     print('  ' + field('Reopen', f'rent-gpu -m {instance_id}'))
-    # The SSH commands are not printed (the monitor connects by itself); the setup log line below still uses them.
-    candidates = ssh_candidates(info)
-    if preset and candidates:
-        host_name, port = candidates[0]
-        print(section(f"{PRESETS[preset]['title']} setup log"))
-        print('  ' + dim('›') + f' ssh {key}-p {port} root@{host_name} tail -f {SETUP_DIR}/setup.log')
+    # SSH commands and the setup-log command are not printed: the monitor connects by itself and shows setup progress.
+    del info, preset
 
 
 def enable_web(instance_id: int, image: str) -> None:
