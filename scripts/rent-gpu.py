@@ -9,11 +9,14 @@ monitor's explicit `kill` destroys a rental, `stop`/`start` pause/resume it, `co
 access, and `setup` (re)runs the Genjutsu installer.
 """
 import argparse
+import html
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import math
 import os
 from pathlib import Path
 import re
+import secrets
 import select
 import ssl
 import subprocess
@@ -650,15 +653,62 @@ def web_urls(info: dict[str, Any], image: str, tunnel_urls: dict[int, str]) -> l
             if port in tunnel_urls and token]
 
 
-def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str]) -> list[str]:
-    """One line per link: its number, ⌘-click "open", the copy command and the host (also clickable). The token is
-    in the link, not printed."""
+def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str], helper: str = '') -> list[str]:
+    """One line per link: its number, ⌘-click "open" and "copy", and the host. With the monitor's local helper
+    (helper = its base URL) both go through it: open redirects to the link, copy puts it on the clipboard. Without it,
+    open is the link itself and copy is the typed command. The token is in the link, not printed."""
     lines = []
     for number, (name, url) in enumerate(web_urls(info, image, tunnel_urls), 1):
         host = url.split('//', 1)[-1].split('/', 1)[0]
-        lines.append(f'  {dim(str(number))} ' + field(name, hyperlink(url, cyan('↗ open')) + dim(f' · copy: c{number} · ')
-                                                       + hyperlink(url, dim(host)), 16))
+        opener = f'{helper}/open/{number}' if helper else url
+        copier = hyperlink(f'{helper}/copy/{number}', cyan('⧉ copy')) if helper else dim(f'copy: c{number}')
+        lines.append(f'  {dim(str(number))} ' + field(name, hyperlink(opener, cyan('↗ open')) + dim(' · ') + copier
+                                                       + dim(' · ') + hyperlink(opener, dim(host)), 16))
     return lines
+
+
+def link_helper(urls: Any) -> tuple[ThreadingHTTPServer | None, str]:
+    """A local HTTP helper for ⌘-click: /KEY/open/N redirects to link N, /KEY/copy/N copies it and shows "Copied".
+    urls() returns the current [(name, url)]. KEY is random per run, so other local pages cannot use it."""
+    key = secrets.token_urlsafe(12)
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self) -> None:
+            parts = self.path.split('?', 1)[0].strip('/').split('/')
+            links = urls()
+            if len(parts) != 3 or parts[0] != key or parts[1] not in ('open', 'copy') or not parts[2].isdigit() \
+                    or not 1 <= int(parts[2]) <= len(links):
+                self.send_error(404)
+                return
+            name, url = links[int(parts[2]) - 1]
+            if parts[1] == 'open':
+                self.send_response(302)
+                self.send_header('Location', url)
+                self.send_header('Cache-Control', 'no-store')
+                self.end_headers()
+                return
+            copied = copy_text(url)
+            text = f'Copied the {name} link.' if copied else f'Could not copy the {name} link.'
+            body = ('<!doctype html><meta charset="utf-8"><title>rent-gpu</title>'
+                    '<body style="margin:0;display:grid;place-items:center;height:100vh;background:#18181b;'
+                    'color:#e4e4e7;font:15px -apple-system,sans-serif"><p>' + html.escape(text)
+                    + ' You can close this tab.</p><script>setTimeout(() => window.close(), 700)</script>').encode()
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Cache-Control', 'no-store')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, *args: Any) -> None:
+            pass
+
+    try:
+        server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+    except OSError:
+        return None, ''
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return server, f'http://127.0.0.1:{server.server_address[1]}/{key}'
 
 
 def copy_text(text: str) -> bool:
@@ -781,6 +831,12 @@ def monitor(instance_id: int) -> None:
     wake = threading.Event()
     first = threading.Event()
 
+    def current_urls() -> list[tuple[str, str]]:
+        with lock:
+            return web_urls(dict(info), image, dict(tunnel_urls)) if info else []
+
+    helper_server, helper = link_helper(current_urls) if kind != 'custom' else (None, '')
+
     def poll() -> None:
         nonlocal info, tunnel_urls, comfy, setup_line, setup_checked
         last_tunnels = 0.0
@@ -866,14 +922,14 @@ def monitor(instance_id: int) -> None:
     def header() -> str:
         with lock:
             data, found = dict(info), dict(tunnel_urls)
-        links = web_links(data, image, found) if data else []
+        links = web_links(data, image, found, helper) if data else []
         if kind == 'custom':
             return ''
         if data and is_stopped(data):
             return section('Web links') + '\n  ' + dim('offline while the instance is stopped')
         if not links:
             return section('Web links') + '\n  ' + yellow('waiting for Vast\'s Cloudflare tunnels…')
-        return (section('Web links') + ' ' + dim('(Cloudflare, token included · ⌘-click open · type o1 to open, c1 to copy)')
+        return (section('Web links') + ' ' + dim('(Cloudflare, token included · ⌘-click open or copy · or type o1, c1)')
                 + '\n' + '\n'.join(links))
 
     def state_dot(text: str, ok: bool) -> str:
@@ -1271,6 +1327,8 @@ def monitor(instance_id: int) -> None:
     finally:
         stop.set()
         wake.set()
+        if helper_server:
+            helper_server.shutdown()
 
 
 def tracked_instance(requested: int) -> int:
