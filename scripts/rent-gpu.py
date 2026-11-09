@@ -653,7 +653,8 @@ def web_urls(info: dict[str, Any], image: str, tunnel_urls: dict[int, str]) -> l
             if port in tunnel_urls and token]
 
 
-def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str], helper: str = '') -> list[str]:
+def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str], helper: str = '',
+              copy_app: bool = False) -> list[str]:
     """One line per link: its number, ⌘-click "open" and "copy", and the host. With the monitor's local helper
     (helper = its base URL) both go through it: open redirects to the link, copy puts it on the clipboard. Without it,
     open is the link itself and copy is the typed command. The token is in the link, not printed."""
@@ -661,10 +662,60 @@ def web_links(info: dict[str, Any], image: str, tunnel_urls: dict[int, str], hel
     for number, (name, url) in enumerate(web_urls(info, image, tunnel_urls), 1):
         host = url.split('//', 1)[-1].split('/', 1)[0]
         opener = f'{helper}/open/{number}' if helper else url
-        copier = hyperlink(f'{helper}/copy/{number}', cyan('⧉ copy')) if helper else dim(f'copy: c{number}')
+        # rentgpu:// goes to the copy applet (no browser); without it, the http link opens a "Copied" tab.
+        copy_link = (helper.replace('http://', 'rentgpu://', 1) if copy_app else helper) + f'/copy/{number}'
+        copier = hyperlink(copy_link, cyan('⧉ copy')) if helper else dim(f'copy: c{number}')
         lines.append(f'  {dim(str(number))} ' + field(name, hyperlink(opener, cyan('↗ open')) + dim(' · ') + copier
                                                        + dim(' · ') + hyperlink(opener, dim(host)), 16))
     return lines
+
+
+COPY_APP_SOURCE = """on open location theURL
+	set target to "http" & (text 8 thru -1 of theURL)
+	try
+		do shell script "/usr/bin/curl -fsS --max-time 5 " & quoted form of target & " >/dev/null"
+		display notification "Link copied to the clipboard" with title "rent-gpu"
+	on error
+		display notification "Could not copy: is the rent-gpu monitor still open?" with title "rent-gpu"
+	end try
+end open location
+"""
+COPY_APP_VERSION = '1'
+
+
+def copy_handler() -> bool:
+    """macOS: a hidden applet that owns the rentgpu:// scheme, so ⌘-clicking "copy" copies without a browser. A
+    rentgpu://127.0.0.1:PORT/KEY/copy/N link makes it call the monitor's helper at http://… (which copies) and show
+    a notification. Built once with osacompile into ~/.config/rent-gpu and registered with Launch Services."""
+    if sys.platform != 'darwin':
+        return False
+    app = Path.home() / '.config' / 'rent-gpu' / 'RentGpuLinks.app'
+    marker = app / 'Contents' / 'Resources' / 'rent-gpu-version'
+    try:
+        if marker.exists() and marker.read_text().strip() == COPY_APP_VERSION:
+            return True
+        app.parent.mkdir(parents=True, exist_ok=True)
+        source = app.parent / 'RentGpuLinks.applescript'
+        source.write_text(COPY_APP_SOURCE)
+        subprocess.run(['rm', '-rf', str(app)], check=True, timeout=10)
+        subprocess.run(['osacompile', '-o', str(app), str(source)], check=True, capture_output=True, timeout=30)
+        plist = str(app / 'Contents' / 'Info.plist')
+        buddy = '/usr/libexec/PlistBuddy'
+        subprocess.run([buddy, '-c', 'Delete :CFBundleIdentifier', plist], capture_output=True, timeout=10)
+        subprocess.run([buddy, '-c', 'Add :CFBundleIdentifier string com.rajvansh.rent-gpu-links',
+                        '-c', 'Add :CFBundleURLTypes array', '-c', 'Add :CFBundleURLTypes:0 dict',
+                        '-c', 'Add :CFBundleURLTypes:0:CFBundleURLName string rent-gpu links',
+                        '-c', 'Add :CFBundleURLTypes:0:CFBundleURLSchemes array',
+                        '-c', 'Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string rentgpu',
+                        '-c', 'Add :LSUIElement bool true', plist], check=True, capture_output=True, timeout=10)
+        # Editing Info.plist breaks osacompile's signature; Apple silicon will not launch it unsigned.
+        subprocess.run(['codesign', '--force', '--deep', '-s', '-', str(app)], check=True, capture_output=True, timeout=30)
+        subprocess.run(['/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/'
+                        'lsregister', '-f', str(app)], check=True, capture_output=True, timeout=30)
+        marker.write_text(COPY_APP_VERSION)
+        return True
+    except (OSError, subprocess.SubprocessError):
+        return False
 
 
 def link_helper(urls: Any) -> tuple[ThreadingHTTPServer | None, str]:
@@ -836,6 +887,7 @@ def monitor(instance_id: int) -> None:
             return web_urls(dict(info), image, dict(tunnel_urls)) if info else []
 
     helper_server, helper = link_helper(current_urls) if kind != 'custom' else (None, '')
+    copy_app = bool(helper) and copy_handler()
 
     def poll() -> None:
         nonlocal info, tunnel_urls, comfy, setup_line, setup_checked
@@ -922,7 +974,7 @@ def monitor(instance_id: int) -> None:
     def header() -> str:
         with lock:
             data, found = dict(info), dict(tunnel_urls)
-        links = web_links(data, image, found, helper) if data else []
+        links = web_links(data, image, found, helper, copy_app) if data else []
         if kind == 'custom':
             return ''
         if data and is_stopped(data):
