@@ -779,11 +779,8 @@ def print_access(instance_id: int, info: dict[str, Any], image: str, preset: str
     print('  ' + field('Image', image))
     print('  ' + field('Console', cyan('https://cloud.vast.ai/instances/')))
     print('  ' + field('Reopen', f'rent-gpu -m {instance_id}'))
-    # Direct host-IP links are omitted: many networks (including this Mac's) cannot reach them.
-    print(section('SSH'))
+    # The SSH commands are not printed (the monitor connects by itself); the setup log line below still uses them.
     candidates = ssh_candidates(info)
-    for host_name, port in candidates:
-        print('  ' + dim('›') + f' ssh {key}-p {port} root@{host_name}')
     if preset and candidates:
         host_name, port = candidates[0]
         print(section(f"{PRESETS[preset]['title']} setup log"))
