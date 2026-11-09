@@ -1295,7 +1295,7 @@ def monitor(instance_id: int) -> None:
             keys = ' · '.join(f'{key} {dim(str(index))}' for index, key in enumerate(GENJUTSU_WORKFLOWS, 1))
             print('  ' + bold('Workflow keys') + dim('  name or number, in install order') + f'\n     {keys}')
 
-    print_commands()
+    # The command list is shown only on `help` (the prompt says so).
     shown, count = paint()
     try:
         while True:
