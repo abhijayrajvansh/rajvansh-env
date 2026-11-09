@@ -979,8 +979,7 @@ def monitor(instance_id: int) -> None:
             return section('Web links') + '\n  ' + dim('offline while the instance is stopped')
         if not links:
             return section('Web links') + '\n  ' + yellow('waiting for Vast\'s Cloudflare tunnels…')
-        return (section('Web links') + ' ' + dim('(Cloudflare, token included · ⌘-click open or copy · or type o1, c1)')
-                + '\n' + '\n'.join(links))
+        return section('Web links') + '\n' + '\n'.join(links)
 
     def state_dot(text: str, ok: bool) -> str:
         return (green('●') if ok else yellow('●')) + ' ' + text
