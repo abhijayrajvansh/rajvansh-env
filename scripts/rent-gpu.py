@@ -41,10 +41,10 @@ BLOCKED_MACHINE_IDS: set[str] = set()
 COMFY_IMAGE = 'vastai/comfy:v0.44.0-cuda-12.9-py312'
 # Setup presets: an installer started over SSH once the rental is up, plus rental defaults sized for it.
 PRESETS: dict[str, dict[str, Any]] = {
-    # ~67 GB of models (H3 ~51 GB + Qwen-Image 2.1 ~16 GB); int8 H3 streams weights from system RAM.
+    # ~79 GB of models (H3 ~51 GB + Qwen-Image 2.1 ~16 GB + SeedVR2 ~12 GB); int8 H3 streams weights from system RAM.
     # setup_gb: models + node packages fetched on the rental, for the per-offer setup cost estimate.
-    'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=120, min_ram=64,
-                     min_download=1000, setup_gb=70,
+    'genjutsu': dict(script='rent-gpu-genjutsu.sh', title='Genjutsu', label='Genjutsu', disk=130, min_ram=64,
+                     min_download=1000, setup_gb=82,
                      # Slow disks take many minutes to unpack the ~10 GB image before the container even boots.
                      min_disk_speed=2500,
                      max_setup_cost=0.30),  # bandwidth + GPU time to download the models, in USD
@@ -59,11 +59,13 @@ GENJUTSU_WORKFLOWS: dict[str, tuple[str, str, float]] = {  # key -> (name, what 
     'color': ('Fix colours', 'detail contrast + tone mapper', 0.0),
     'face': ('Fix faces', 'H3 face refine; also sets up Motion control', 0.5),
     'smooth': ('Smooth motion', 'RIFE in-between frames', 0.0),
+    'upscale': ('Video upscaler', 'SeedVR2 3B + 7B int8', 12.3),
 }
 QWEN3VL_GB = 9.4
 WORKFLOW_REQUIRES = {'face': 'motion'}  # Fix faces samples with H3
 WORKFLOW_ALIASES = {'image': 'edit', 'qwen': 'edit', 'h3': 'motion', 'swap': 'motion', 'colour': 'color',
-                    'colours': 'color', 'colors': 'color', 'faces': 'face', 'rife': 'smooth'}
+                    'colours': 'color', 'colors': 'color', 'faces': 'face', 'rife': 'smooth',
+                    'upscaler': 'upscale', 'seedvr2': 'upscale'}
 DEFAULTS = dict(label='Qwen', disk=60, min_ram=32, min_download=500, min_disk_speed=1000, max_setup_cost=None)
 # Hugging Face rarely serves one file faster than ~300 MB/s even over 16 connections; real throughput ≈ 80% of the line.
 HF_CAP_MBPS = 2400
@@ -72,8 +74,8 @@ NET_EFFICIENCY = 0.8
 IMAGES: list[tuple[str, list[tuple[str, list[str]]], str, str | None]] = [
     ('ComfyUI + Genjutsu', [
         ('Workflows', ['Motion control', 'Check mask', 'Fix faces', 'Fix colours', 'Smooth motion',
-                       'Edit Image (Qwen-Image 2.1)']),
-        ('Setup', ['you pick the workflows next', 'all of them: ~67 GB of models', '120 GB disk · ≥64 GB RAM']),
+                       'Video upscaler (SeedVR2)', 'Edit Image (Qwen-Image 2.1)']),
+        ('Setup', ['you pick the workflows next', 'all of them: ~79 GB of models', '130 GB disk · ≥64 GB RAM']),
     ], COMFY_IMAGE, 'genjutsu'),
     ('ComfyUI', [('Setup', ['stock, no models preinstalled'])], COMFY_IMAGE, None),
     ('Ubuntu 24.04 + Python 3.12', [('Setup', ['bare, nothing preinstalled', 'install vLLM or Transformers yourself'])],
@@ -1423,7 +1425,7 @@ def main() -> None:
                         help=f'Skip the image menu and install a setup preset (image defaults to {COMFY_IMAGE})')
     parser.add_argument('--workflows', metavar='LIST',
                         help='Genjutsu workflows to set up, in install order, e.g. motion,edit (edit motion color '
-                             'face smooth, or all; Fix faces adds Motion control). Implies --setup genjutsu')
+                             'face smooth upscale, or all; Fix faces adds Motion control). Implies --setup genjutsu')
     parser.add_argument('--label', help='Vast instance label (default: Genjutsu for image 1, else Qwen)')
     parser.add_argument('--disk', type=int, help='Disk GB (default: 120 for image 1, else 60)')
     parser.add_argument('--min-vram', type=int, default=24, help='Minimum VRAM GB (default: 24)')

@@ -6,7 +6,8 @@
 #   3. Fix colours     Image Detail Contrast + Orion4D tone mapper; no models                   (docs/h3-post-processing)
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
 #   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.9 checkpoint                   (docs/h3-post-processing)
-# Pick workflows by passing their keys (comma or space separated; default all): edit motion color face smooth.
+#   6. Video upscaler  SeedVR2 3B + 7B int8 and its VAE (ComfyUI's built-in nodes) + VideoHelperSuite (docs/image-upscale-workflow)
+# Pick workflows by passing their keys (comma or space separated; default all): edit motion color face smooth upscale.
 # They install in the order given. Fix faces runs H3, so Motion control goes in just before it.
 # Run again while a setup is running and the new keys are queued: when the running setup ends, it restarts with its
 # own workflows plus the queued ones (finished files are only re-checked, so just the new workflows download). A model or node pack two workflows share is set up once.
@@ -57,9 +58,9 @@ fi
 # ComfyUI/models, or under ComfyUI when it starts with custom_nodes/), <key>_TYPES (node types it must load; write a
 # space inside a type name as _, e.g. RIFE_VFI for "RIFE VFI").
 # Filenames are Genjutsu's defaults (lib/h3-swap.ts, lib/server/qwen-edit-workflow.ts, lib/server/h3-workflow.ts).
-WORKFLOWS=(edit motion color face smooth)
+WORKFLOWS=(edit motion color face smooth upscale)
 declare -A TITLE=([edit]='Edit Image' [motion]='Motion control' [color]='Fix colours' [face]='Fix faces'
-  [smooth]='Smooth motion')
+  [smooth]='Smooth motion' [upscale]='Video upscaler')
 
 edit_NODES=()
 edit_PIP=()
@@ -143,12 +144,27 @@ smooth_MODELS=(
 )
 smooth_TYPES="RIFE_VFI VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"
 
+# upscale.api.json: SeedVR2's nodes are built into ComfyUI (0.44+); the Video Upscaler picks 3B (default) or 7B.
+SEEDVR2="$HF/Comfy-Org/SeedVR2/resolve/df48879708206a403d2a61acd55578c2e80fd233"
+upscale_NODES=(
+  "ComfyUI-VideoHelperSuite|https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"  # load and save the video
+)
+upscale_PIP=()
+upscale_MODELS=(
+  "diffusion_models|$SEEDVR2/diffusion_models/seedvr2_3b_int8_convrot.safetensors|3458259704|c3dec8bcc5916843a8a858572970597462e1f2dc598d6dfd818f6cd40f53a157"
+  "vae|$SEEDVR2/vae/seedvr2_ema_vae_fp16.safetensors|501324814|20678548f420d98d26f11442d3528f8b8c94e57ee046ef93dbb7633da8612ca1"
+  "diffusion_models|$SEEDVR2/diffusion_models/seedvr2_7b_int8_convrot.safetensors|8334897976|5aa0d25fc9d35e449b659d0c9a5dcb22e2a4fa04032101b95a39da42b32c1be6"
+)
+upscale_TYPES="ImageScaleBy KSampler SeedVR2Conditioning SeedVR2PostProcessing SeedVR2Preprocess SeedVR2TemporalChunk
+SeedVR2TemporalMerge UNETLoader VAEDecodeTiled VAEEncodeTiled VAELoader VHS_LoadVideo VHS_VideoCombine"
+
 # ---------------------------------------------------------------------------------------------------------------
 # Which workflows to set up. Fix faces samples with H3, so it needs Motion control's nodes and models.
 ALL_WORKFLOWS=("${WORKFLOWS[@]}")
 declare -A REQUIRES=([face]=motion)
 declare -A ALIAS=([edit]=edit [image]=edit [qwen]=edit [motion]=motion [h3]=motion [swap]=motion [color]=color
-  [colour]=color [colours]=color [colors]=color [face]=face [faces]=face [smooth]=smooth [rife]=smooth)
+  [colour]=color [colours]=color [colors]=color [face]=face [faces]=face [smooth]=smooth [rife]=smooth
+  [upscale]=upscale [upscaler]=upscale [seedvr2]=upscale)
 declare -A WANT=()
 ORDER=()
 want() {  # want KEY: queue KEY after its dependency, once
@@ -575,5 +591,5 @@ else
   status warn "installed with ${#WARNINGS[@]} warning(s): ${WARNINGS[0]}"
   printf '\nWarnings:\n'; printf '  - %s\n' "${WARNINGS[@]}"
 fi
-printf '\nIn Genjutsu (Edit Image, Motion Control → MiniMax H3, Post-processing incl. Smooth motion), paste the ComfyUI link and press Check.\n'
+printf '\nIn Genjutsu (Edit Image, Motion Control → MiniMax H3, Post-processing incl. Smooth motion, Video Upscaler), paste the ComfyUI link and press Check.\n'
 if [ -s "$QUEUE" ]; then printf '\nQueued workflows (%s) need another run: this setup came from stdin.\n' "$(tr '\n' ' ' < "$QUEUE")"; fi
