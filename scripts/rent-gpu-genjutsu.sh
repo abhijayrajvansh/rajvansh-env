@@ -2,7 +2,7 @@
 # Genjutsu setup for Vast's ComfyUI image (rent-gpu image option 1).
 # Sets up one workflow at a time and finishes it (nodes, Python packages, models, node check) before the next:
 #   1. Edit Image      Qwen-Image 2.1 Turbo + base, VAE, Qwen3-VL 8B, consistency and BFS LoRAs   (docs/qwen-image-edit)
-#   2. Motion control  MiniMax H3 swap + Check mask: H3 nodes, SAM 3.1 and the H3 models         (docs/minimax-h3-comfyui)
+#   2. Motion control  MiniMax H3 swap, OpenMotion + Check mask: H3 nodes, SAM 3.1, the H3 models and the Motion Transfer LoRA (docs/minimax-h3-comfyui)
 #   3. Fix colours     Image Detail Contrast + Orion4D tone mapper; no models                   (docs/h3-post-processing)
 #   4. Fix faces       H3-FaceRefine + Impact Pack/Subpack, YOLO detectors, SAM ViT-B            (docs/h3-post-processing)
 #   5. Smooth motion   Frame-Interpolation (RIFE VFI) + the RIFE 4.9 checkpoint                   (docs/h3-post-processing)
@@ -90,18 +90,22 @@ motion_MODELS=(
   "checkpoints|$HF/Comfy-Org/sam3.1/resolve/7bb8374780a725b4353ed31f3a9395c9742b5621/checkpoints/sam3.1_multiplex_fp16.safetensors|1745546848|9ba99c92703c2e8b4f47de2d34a539bb8e18923049e238b780d70dbe6368eb03"
   "diffusion_models|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors|20970379616|9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779"
   "loras|$HF/Kijai/MiniMax-H3-experimental/resolve/f5c3b1d5a63e008a691fca1b6096fd57a5307536/loras/minimax_h3_DMAD_4step_full_lora_avg_rank_39_bf16.safetensors|366647000|ddfdd94f4c9a0f32bf3649bb8e98ca20db572e4db6bcd9cca546a5b33ea32d11"
+  # MiniMax H3 · OpenMotion (incoming hands and objects). BFS Motion Transfer Community License 1.0: local/internal
+  # media creation allowed, hosted model services prohibited.
+  "loras|$HF/Alissonerdx/Minimax-H3-ComfyUI/resolve/64244a4fdf226c8d37b8470d1893b6ba9ab54de1/loras/minimax_h3_motion_transfer_v1.0_ref2va.safetensors|184840504|7512973749c3658e0fa2b398b5810dfc8666a32aba6262cf689d407e297076da"
   "text_encoders|$HF/Abiray/MiniMax-H3-GGUF/resolve/9fc3454d3ebe1be1bade862cd4a5011f325a22cb/text_encoders/qwen3vl_32b_minimax_h3_int4_convrot.safetensors|14952506709|21fd2e2f06bc4fc422c6aa20893fe189edbbd9ab3068215f96e7a6cf2f6cb5bb"
   "vae|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/vae/minimax_h3_video_vae_int8_convrot.safetensors|2811065184|52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e"
   "vae|$HF/Comfy-Org/MiniMax-H3/resolve/$H3_REV/vae/minimax_h3_audio_vae_fp32.safetensors|605254808|8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48"
 )
-# simple.api.json + mask.api.json, plus the nodes Genjutsu adds while editing those graphs.
+# simple.api.json + mask.api.json, plus the nodes Genjutsu adds while editing those graphs (H3PictureSwapPlan,
+# MiniMaxH3AddGuide and GetImageSize for MiniMax H3 · OpenMotion; AddGuide is built into ComfyUI 0.34+).
 motion_TYPES="AudioAdjustVolume BasicGuider BasicScheduler CLIPLoader CLIPTextEncode CheckpointLoaderSimple
-ComfyMathExpression GrowMaskWithBlur H3ClipShots H3FillShots H3GreyMannequins H3OneClickSwapPlan H3PeopleMask
+ComfyMathExpression GetImageSize GrowMaskWithBlur H3ClipShots H3FillShots H3GreyMannequins H3OneClickSwapPlan H3PeopleMask H3PictureSwapPlan
 H3SoundtrackOrSilence H3SourceSlice ImageAndMaskPreview ImageFromBatch ImageScale ImageScaleToMaxDimension ImageStitch
 KSamplerSelect LoadImage LoraLoaderModelOnly MaskComposite MiniMaxH3ChainAssemble MiniMaxH3ChainContext
 MiniMaxH3ChainCurrent MiniMaxH3ChainLoopEnd MiniMaxH3ChainLoopStart MiniMaxH3ChainPlanModern MiniMaxH3ChainReview
 MiniMaxH3ChainSegmentSave MiniMaxH3ContexMaskGridPreview MiniMaxH3ContexMaskedTarget MiniMaxH3FantasticVideoEditLatent
-MiniMaxH3GenerationProfile MiniMaxH3LoopTrim MiniMaxH3ReferenceToVideo MiniMaxH3SigmaShift MiniMaxH3SourceTimeline
+MiniMaxH3AddGuide MiniMaxH3GenerationProfile MiniMaxH3LoopTrim MiniMaxH3ReferenceToVideo MiniMaxH3SigmaShift MiniMaxH3SourceTimeline
 ModelAttentionBackend PreviewAny PreviewImage PrimitiveBoolean RandomNoise SAM3_TrackToMask SAM3_VideoTrack
 SamplerCustomAdvanced StringConcatenate TextGenerate TrimAudioDuration UNETLoader VAEDecode VAEDecodeAudio VAELoader
 VHS_LoadVideo VHS_SelectEveryNthImage VHS_VideoCombine"

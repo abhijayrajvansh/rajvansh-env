@@ -55,7 +55,7 @@ DEFAULT_SETUP = 'genjutsu'
 # Qwen3-VL 8B (QWEN3VL_GB) is shared by Edit Image and Motion control and downloads once.
 GENJUTSU_WORKFLOWS: dict[str, tuple[str, str, float]] = {  # key -> (name, what it is, GB of models it adds)
     'edit': ('Edit Image', 'Qwen-Image 2.1 + consistency/BFS LoRAs', 15.6),
-    'motion': ('Motion control', 'MiniMax H3 swap + Check mask', 41.5),
+    'motion': ('Motion control', 'MiniMax H3 swap, OpenMotion + Check mask', 41.6),
     'color': ('Fix colours', 'detail contrast + tone mapper', 0.0),
     'face': ('Fix faces', 'H3 face refine; also sets up Motion control', 0.5),
     'smooth': ('Smooth motion', 'RIFE in-between frames', 0.0),
