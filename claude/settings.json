@@ -10,5 +10,17 @@
     }
   },
   "skipDangerousModePermissionPrompt": true,
-  "theme": "auto"
+  "theme": "auto",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '%s\\n' '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"Before you write your reply, load the soundshuman (humanize) skill with the Skill tool and run the reply through it in embedded mode, as the global instructions require. Do this on every turn, even for short answers.\"}}'"
+          }
+        ]
+      }
+    ]
+  }
 }

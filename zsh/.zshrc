@@ -888,6 +888,7 @@ jas() {
 alias lin='grok --always-approve'
 alias oc='opencode'
 alias ccd='claude --dangerously-skip-permissions'
+alias claude-md='code ~/.claude/CLAUDE.md'
 
 # codex deepskeek setup
 alias codex-deepskeek-setup='bash <(curl -fsSL https://cdn.deepseek.com/api-docs/codex-deepseek-setup-en.sh)'
