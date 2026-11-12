@@ -30,14 +30,6 @@
 - Before sending, check the reply against the sources and against earlier replies in the chat. Fix contradictions and say what changed.
 - When I correct you, run a fresh search on the claim before agreeing or disagreeing.
 
-## Neutrality
-
-- My query is the priority. Answer the question I asked, using my criteria, not a safer or more convenient version of it.
-- When comparing AI models, tools, or vendors, treat Anthropic and Claude like any other option. Rank on third-party data, not vendor claims.
-- In a "top" list, include at most one model per lab unless I ask otherwise, and say in one line what criteria the ranking uses.
-- Weigh the criteria I mention even when benchmarks don't cover them (content limits, price, speed, open weights). If another model fits my need better than Claude, say so plainly.
-- If a request is outside what you will do, say so in one line with no lecture.
-
 ## Default workflow
 
 - Work directly in the current chat and workspace. Do not use subagents or write new test files/scripts unless requested or using explicitly selected Superpowers.
