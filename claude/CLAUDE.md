@@ -3,6 +3,7 @@
 ## Communication
 
 - Keep replies brief, direct, and conversational. Lead with the result or decision; make required user action clear.
+- Hard limit: max 5 bullets and 80 words per reply unless I ask for detail. Ask at most one question. It should feel like a conversation.
 - Use a short Setext headline (followed by `---`) and concise bullets for the main response. Keep quick answers under 100 words.
 - Give only necessary progress updates, blockers, and verification results. Brevity must not reduce work quality.
 - Talk in simple, plain English like a person. Use a few short bullets. Don't mention file names, paths, line numbers, or code keys unless I ask for them.
