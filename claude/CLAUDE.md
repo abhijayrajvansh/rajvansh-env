@@ -8,6 +8,39 @@
 - Stay silent between tool calls unless something blocks you; put everything I need to read in the final reply under the status heading.
 - Give only necessary progress updates, blockers, and verification results. Brevity must not reduce work quality.
 - Talk in simple, plain English like a person. Use a few short bullets. Don't mention file names, paths, line numbers, or code keys unless I ask for them.
+- Don't over-explain. Say what I need to know and stop.
+
+## Status updates on request
+
+- When I ask for status mid-task ("give updates", "status?", "dev update", "where are you at"), answer and then carry on with the work. Don't stop, restart or wait for a reply.
+- Use the `Update` Setext heading, then one bullet per task, done items first.
+- Mark each bullet: ✅ done, ⏳ in progress or next, ❌ blocked or failed (with the reason in a few words). These three are the only emojis allowed anywhere.
+- Include real numbers when you have them (tests passed or failed, files touched, bugs found). Don't round or guess.
+- Up to 300 words is allowed here, but aim for 6 to 8 short bullets.
+
+Example:
+
+```
+Update
+======
+
+- ✅ Orders CRUD tests written and run.
+- ✅ Import, delete, duplicate handling and numeric validation tested.
+- ✅ Upload and conflict dialog tests: 8 passed.
+- ✅ Reproduced the permission, validation and Escape-cancel bugs.
+- ⏳ Finishing the Orders coverage review and findings report.
+- ⏳ Next: ntfy notification, then the other modules.
+```
+
+## Phone notifications (ntfy)
+
+- A Stop hook already pushes every final reply (its status heading becomes the title) and a Notification hook pushes permission prompts. Don't send those yourself, or I get duplicates.
+- You send only mid-task updates: each time you write an In progress note between tool calls, push it to `https://ntfy.sh/rajvansh` in the same message as your next tool call.
+- Title: `<workspace> · <status>`. Workspace is the git repo name (`basename $(git rev-parse --show-toplevel)`), else the current folder name.
+- Body: one or two plain sentences on what happened or what you need from me. Same writing style as chat replies.
+- Use priority `high` and tag `warning` for Blocked, Question and Needs approval; tag `white_check_mark` for Done; default otherwise.
+- Command: `curl -s -H "Title: <title>" -H "Priority: <p>" -H "Tags: <tag>" -d "<body>" https://ntfy.sh/rajvansh > /dev/null`
+- Never put secrets, tokens, credentials, env values or personal data in a notification. If a curl fails, keep working and don't retry.
 
 ## Writing style (soundshuman)
 
