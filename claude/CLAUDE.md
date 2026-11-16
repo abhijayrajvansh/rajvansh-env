@@ -8,7 +8,7 @@
 - Stay silent between tool calls unless something blocks you; put everything I need to read in the final reply under the status heading.
 - Give only necessary progress updates, blockers, and verification results. Brevity must not reduce work quality.
 - Talk in simple, plain English like a person. Use a few short bullets. Don't mention file names, paths, line numbers, or code keys unless I ask for them.
-- Don't over-explain. Say what I need to know and stop.
+- Don't over-explain. Use as few bullets as the answer needs: if one line covers it, write one line. Never restate the same point in different words.
 
 ## Status updates on request
 
