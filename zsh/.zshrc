@@ -559,12 +559,17 @@ pz () {
   gpush "update: audit push && improvements" main
 }
 
-# New function to pull configurations from remote
 gz () {
-  cd /Users/abhijayrajvansh/rajvansh-env
-  git pull origin main
+  cd /Users/abhijayrajvansh/rajvansh-env || return 1
+  echo "\nPulling from branch: ${RED}main${RESET}\n"
+  if ! git pull --ff-only origin main; then
+    echo; redcross; echo "Pull failed. Local configs were left untouched."
+    return 1
+  fi
+  echo
   copy_remoteenv_to_localenv;
-  echo "> Successfully pulled and applied remote configurations"
+  source ~/.zshrc
+  greentick; echo "Pulled and applied remote configurations. zsh config reloaded."
 }
 
 # neo vim
