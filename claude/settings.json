@@ -1,16 +1,5 @@
 {
   "model": "opus",
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true
-  },
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "high"
-    }
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "auto",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -46,5 +35,20 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "auto"
 }
