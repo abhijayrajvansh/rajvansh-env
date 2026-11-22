@@ -890,7 +890,7 @@ export GIT_TERMINAL_PROMPT=0
 jas() {
   codex --dangerously-bypass-approvals-and-sandbox "$@"
 }
-alias lin='grok --always-approve'
+alias g='grok --always-approve'
 alias oc='opencode'
 alias ccd='claude --dangerously-skip-permissions'
 alias claude-md='code ~/.claude/CLAUDE.md'
