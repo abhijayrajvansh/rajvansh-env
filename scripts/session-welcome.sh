@@ -53,8 +53,6 @@ border="$(printf '%*s' "$((max_width + 2))" '' | tr ' ' '-')"
 printf '\n'
 printf '→ WELCOME BACK, MR. RAJVANSH.\n'
 printf '\n'
-printf '→ injecting scripts\n'
-printf '→ jasmine link established\n'
 printf '+%s+\n' "$border"
 printf '| %-*s |\n' "$max_width" "$title"
 printf '+%s+\n' "$border"
