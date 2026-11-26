@@ -886,6 +886,9 @@ if [[ -x "$HOME/private-env/git-askpass-github.sh" ]]; then
   export GIT_ASKPASS="$HOME/private-env/git-askpass-github.sh"
   export SSH_ASKPASS="$GIT_ASKPASS"
   export GIT_TERMINAL_PROMPT=0
+elif [[ "$GIT_ASKPASS" == "$HOME/private-env/git-askpass-github.sh" ]]; then
+  # Helper is gone but stale vars were inherited: clear them so git can prompt
+  unset GIT_ASKPASS SSH_ASKPASS GIT_TERMINAL_PROMPT
 fi
 # <<< GitHub AskPass <<<
 
