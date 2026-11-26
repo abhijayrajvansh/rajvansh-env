@@ -1010,8 +1010,8 @@ media-download() {
   esac
 }
 
-# FaceFusion launch shortcuts
-source "/Users/abhijayrajvansh/Desktop/projects/FaceFusion/terminal-aliases.zsh"
+# FaceFusion launch shortcuts (only on machines that have FaceFusion)
+[[ -r "$HOME/Desktop/projects/FaceFusion/terminal-aliases.zsh" ]] && source "$HOME/Desktop/projects/FaceFusion/terminal-aliases.zsh"
 
 # FaceFusion output folder
 alias ffoutputs='cd /Users/abhijayrajvansh/Desktop/projects/FaceFusion/outputs'
