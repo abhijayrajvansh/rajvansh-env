@@ -881,9 +881,12 @@ if [ -f '/Users/abhijayrajvansh/Desktop/google-cloud-sdk/completion.zsh.inc' ]; 
 # github askpass for non-interactive authentication in git
 
 # >>> GitHub AskPass >>>
-export GIT_ASKPASS="$HOME/private-env/git-askpass-github.sh"
-export SSH_ASKPASS="$GIT_ASKPASS"
-export GIT_TERMINAL_PROMPT=0
+# Only on machines that have the private-env helper script
+if [[ -x "$HOME/private-env/git-askpass-github.sh" ]]; then
+  export GIT_ASKPASS="$HOME/private-env/git-askpass-github.sh"
+  export SSH_ASKPASS="$GIT_ASKPASS"
+  export GIT_TERMINAL_PROMPT=0
+fi
 # <<< GitHub AskPass <<<
 
 # Added by coding agent CLI: codex, grok and aliases
